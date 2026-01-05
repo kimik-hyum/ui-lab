@@ -10,11 +10,10 @@ interface TraditionalListProps {
 }
 
 export function TraditionalList({ items, actionTrigger, onAddComplete, onRenderComplete }: TraditionalListProps) {
-  // 1. Manual State Mirroring
+  // Manual State Mirroring
   const [localItems, setLocalItems] = useState(items);
   const [error, setError] = useState<string | null>(null);
 
-  // 2. Sync Props to State
   useEffect(() => {
     setLocalItems(items);
   }, [items]);
@@ -31,10 +30,8 @@ export function TraditionalList({ items, actionTrigger, onAddComplete, onRenderC
         createdAt: Date.now(),
       };
 
-      // 3. Manual Backup
       const previousItems = [...localItems];
 
-      // 4. Manual Optimistic Update
       setLocalItems(prev => [...prev, newItem]);
       onRenderComplete(performance.now()); 
 
@@ -43,10 +40,12 @@ export function TraditionalList({ items, actionTrigger, onAddComplete, onRenderC
         onAddComplete(newItem);
 
       } catch (err) {
-        // 5. Manual Rollback
         console.error("Failed!", err);
         setError("Failed to save. Rolling back...");
         setLocalItems(previousItems); 
+        
+        // Auto-dismiss error after 1s
+        setTimeout(() => setError(null), 1000);
       }
     };
 

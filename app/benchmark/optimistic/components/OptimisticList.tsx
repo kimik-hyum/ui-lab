@@ -13,7 +13,6 @@ export function OptimisticList({ items, actionTrigger, onAddComplete, onRenderCo
   const [, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   
-  // 1. Optimistic State
   const [optimisticItems, addOptimisticItem] = useOptimistic(
     items,
     (state: Todo[], newItem: Todo) => [...state, newItem]
@@ -31,29 +30,28 @@ export function OptimisticList({ items, actionTrigger, onAddComplete, onRenderCo
     startTransition(async () => {
       setError(null); 
       try {
-        // 2. Trigger Optimistic Update
         addOptimisticItem(newItem);
         
         await delayWithError(2000, actionTrigger.shouldFail); 
         onAddComplete(newItem);
       } catch {
-        // 3. Automatic Rollback
         console.log("Async action failed. React will auto-revert the optimistic state.");
         setError("Failed to save. Rolling back...");
+        
+        // Auto-dismiss error after 1s
+        setTimeout(() => setError(null), 1000);
       }
     });
   }, [actionTrigger, addOptimisticItem, onAddComplete]); 
 
 
-  // Measure render time
-  // useLayoutEffect usually fires after DOM mutations but before paint. 
-  // For 'Perceived' performance, this is the closest we get to "Action Handled".
+  const lastRenderedId = React.useRef(0);
+
   useLayoutEffect(() => {
-    if (actionTrigger.id > 0) {
-        // If the last item in optimistic list matches our current trigger index approx
-        // logic: Check if we have more optimistic items than base items, implying an update happened
+    if (actionTrigger.id > 0 && actionTrigger.id !== lastRenderedId.current) {
         if (optimisticItems.length > items.length) {
              onRenderComplete(performance.now());
+             lastRenderedId.current = actionTrigger.id;
         }
     }
   }, [optimisticItems, items, actionTrigger, onRenderComplete]);
