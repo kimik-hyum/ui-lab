@@ -1,0 +1,31 @@
+version: '3'
+
+services:
+  app-1:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nextjs-app-1
+    environment:
+      - SERVER_ID=Server-1
+    restart: always
+
+  app-2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nextjs-app-2
+    environment:
+      - SERVER_ID=Server-2
+    restart: always
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx-lb
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - app-1
+      - app-2

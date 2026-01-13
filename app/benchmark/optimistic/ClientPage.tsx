@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useMemo, useCallback } from 'react';
+import { useState, useCallback } from 'react';
 import { TraditionalList } from './components/TraditionalList';
 import { OptimisticList } from './components/OptimisticList';
 import { Todo } from './types';
@@ -67,10 +67,8 @@ const COMPARISON_TOPICS: ComparisonTopic[] = [
     }
 ];
 
-export function ClientPage({ traditionalCode, optimisticCode }: PageProps) {
+export function ClientPage({ traditionalCode, optimisticCode }: { traditionalCode: string, optimisticCode: string }) {
   // Calculate all interactive lines for indicators
-  const allLeftLines = useMemo(() => COMPARISON_TOPICS.flatMap(t => t.leftLines), []);
-  const allRightLines = useMemo(() => COMPARISON_TOPICS.flatMap(t => t.rightLines), []);
 
   const [itemsA, setItemsA] = useState<Todo[]>([]);
   const [itemsB, setItemsB] = useState<Todo[]>([]);

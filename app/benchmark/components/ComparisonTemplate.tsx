@@ -62,7 +62,7 @@ function CodeBlock({
     color: 'red' | 'blue',
     highlightedLines?: number[],
     interactiveLines?: number[],
-    onLineHover?: (line: number | null) => void
+    onLineHover?: (line: number | null, y?: number) => void
 }) {
     const isRed = color === 'red';
 
@@ -102,7 +102,7 @@ function CodeBlock({
                                  transition: 'all 0.2s',
                                  opacity: (highlightedLines.length > 0 && !isHighlighted) ? 0.3 : 1, // Dim others when focusing
                              },
-                             onMouseEnter: () => isInteractive && onLineHover?.(lineNumber),
+                             onMouseEnter: (e) => isInteractive && onLineHover?.(lineNumber, e.clientY),
                              onMouseLeave: () => onLineHover?.(null),
                          };
                     }}
@@ -114,28 +114,28 @@ function CodeBlock({
     );
 }
 
-function InsightPanel({ topic }: { topic: ComparisonTopic | null }) {
-    if (!topic) return (
-        <div className="flex-shrink-0 h-48 flex items-center justify-center text-gray-500 text-sm border-t border-gray-800 bg-gray-950">
-            <div className="flex flex-col items-center gap-3 animate-pulse">
-                <span className="text-2xl">👆</span> 
-                <p>코드 라인 위에 마우스를 올려 두 방식의 차이점을 확인하세요</p>
-            </div>
-        </div>
-    );
+function InsightPanel({ topic, top }: { topic: ComparisonTopic | null, top: number | null }) {
+    if (!topic || top === null) return null;
 
     return (
-        <div className="flex-shrink-0 min-h-[12rem] px-8 py-8 bg-black border-t border-blue-500/30 flex flex-col justify-center animate-in slide-in-from-bottom-4 duration-300 relative overflow-hidden">
+        <div 
+            className="fixed left-1/2 -translate-x-1/2 w-full max-w-2xl px-6 py-5 bg-black/90 backdrop-blur-md border border-blue-500/30 rounded-2xl shadow-2xl z-50 animate-in fade-in zoom-in-95 duration-200"
+            style={{ top: `${top + 40}px` }}
+        >
             {/* Active Indicator Gradient */}
-            <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 animate-gradient-x" />
-            <div className="absolute inset-0 bg-blue-900/5 pointer-events-none" />
-
-            <div className="max-w-5xl mx-auto w-full relative z-10">
-                <h3 className="text-blue-200 font-bold text-lg mb-3 flex items-center gap-3">
-                    <span className="text-2xl">💡</span> {topic.title}
-                </h3>
-                <div className="text-base text-gray-300 leading-relaxed pl-10 border-l-2 border-blue-500/30">
-                    {topic.description}
+            <div className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-blue-500 via-purple-500 to-blue-500 animate-gradient-x rounded-t-2xl" />
+            
+            <div className="flex items-start gap-4">
+                <div className="flex-shrink-0 mt-1 p-2 bg-blue-900/30 rounded-lg border border-blue-800/50">
+                    <span className="text-xl">💡</span>
+                </div>
+                <div>
+                     <h3 className="text-blue-200 font-bold text-base mb-2">
+                        {topic.title}
+                    </h3>
+                    <div className="text-sm text-gray-300 leading-relaxed">
+                        {topic.description}
+                    </div>
                 </div>
             </div>
         </div>
@@ -164,6 +164,7 @@ export function ComparisonTemplate({
 
   // Synced Highlighting State
   const [activeTopicId, setActiveTopicId] = useState<string | null>(null);
+  const [hoverY, setHoverY] = useState<number | null>(null);
 
   const activeTopic = useMemo(() => 
     topics.find(t => t.id === activeTopicId) || null, 
@@ -173,12 +174,15 @@ export function ComparisonTemplate({
   const allLeftLines = useMemo(() => topics.flatMap(t => t.leftLines), [topics]);
   const allRightLines = useMemo(() => topics.flatMap(t => t.rightLines), [topics]);
 
-  const handleLineHover = (side: 'left' | 'right', line: number | null) => {
+  const handleLineHover = (side: 'left' | 'right', line: number | null, y?: number) => {
       if (line === null) {
           setActiveTopicId(null);
+          setHoverY(null);
           return;
       }
       
+      if (y) setHoverY(y);
+
       const topic = topics.find(t => {
           const lines = side === 'left' ? t.leftLines : t.rightLines;
           return lines.includes(line);
@@ -226,7 +230,7 @@ export function ComparisonTemplate({
         {/* Main Content */}
         <div className="flex flex-1 overflow-hidden">
              {/* Left Side */}
-            <section className="flex-1 border-r border-gray-800 flex flex-col relative group">
+            <section className="w-1/2 min-w-0 border-r border-gray-800 flex flex-col relative group">
                 <div className="p-4 border-b border-gray-800 bg-gray-950/30 flex justify-between items-center shrink-0">
                     <div className="flex items-center gap-2">
                         <h2 className="text-xl font-bold text-gray-400 group-hover:text-gray-200 transition-colors">
@@ -249,7 +253,7 @@ export function ComparisonTemplate({
                             color="red" 
                             highlightedLines={activeTopic ? activeTopic.leftLines : []}
                             interactiveLines={allLeftLines}
-                            onLineHover={(line) => handleLineHover('left', line)}
+                            onLineHover={(line, y) => handleLineHover('left', line, y)}
                         />
                     ) : (
                         leftComponent
@@ -258,7 +262,7 @@ export function ComparisonTemplate({
             </section>
 
              {/* Right Side */}
-             <section className="flex-1 flex flex-col relative group">
+             <section className="w-1/2 min-w-0 flex flex-col relative group">
                 <div className="p-4 border-b border-gray-800 bg-gray-950/30 flex justify-between items-center shrink-0">
                     <div className="flex items-center gap-2">
                         <h2 className="text-xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">
@@ -281,7 +285,7 @@ export function ComparisonTemplate({
                             color="blue" 
                             highlightedLines={activeTopic ? activeTopic.rightLines : []}
                             interactiveLines={allRightLines}
-                            onLineHover={(line) => handleLineHover('right', line)}
+                            onLineHover={(line, y) => handleLineHover('right', line, y)}
                         />
                     ) : (
                         rightComponent
@@ -292,7 +296,7 @@ export function ComparisonTemplate({
 
         {/* Insight Panel (Visible if any code is shown) */}
         {(showLeftCode || showRightCode) && (
-            <InsightPanel topic={activeTopic} />
+            <InsightPanel topic={activeTopic} top={hoverY} />
         )}
       </div>
     </div>
