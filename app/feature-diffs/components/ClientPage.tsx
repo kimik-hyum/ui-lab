@@ -1,10 +1,10 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { TraditionalList } from './components/TraditionalList';
-import { OptimisticList } from './components/OptimisticList';
-import { Todo } from './types';
-import { ComparisonTemplate, ComparisonTopic } from '../components/ComparisonTemplate';
+import { TraditionalList } from '../react/optimistic/components/TraditionalList';
+import { OptimisticList } from '../react/optimistic/components/OptimisticList';
+import { Todo } from '../react/optimistic/types';
+import { ComparisonTemplate, ComparisonTopic } from './ComparisonTemplate';
 
 // ----------------------------------------------------------------------
 // 1. Comparison Topics (The "Story")

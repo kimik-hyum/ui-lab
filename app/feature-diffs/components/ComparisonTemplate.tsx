@@ -159,8 +159,7 @@ export function ComparisonTemplate({
     headerActions,
     metrics
 }: ComparisonTemplateProps) {
-  const [showLeftCode, setShowLeftCode] = useState(false);
-  const [showRightCode, setShowRightCode] = useState(false);
+  const [showCode, setShowCode] = useState(false);
 
   // Synced Highlighting State
   const [activeTopicId, setActiveTopicId] = useState<string | null>(null);
@@ -221,6 +220,13 @@ export function ComparisonTemplate({
                     </div>
                     </div>
                 )}
+
+                <button 
+                    onClick={() => setShowCode((prev) => !prev)}
+                    className="text-xs px-3 py-1.5 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 transition-colors border border-gray-700"
+                >
+                    {showCode ? '👁️ View UI' : '📝 View Code'}
+                </button>
                 
                 {/* Custom Actions */}
                 {headerActions}
@@ -231,21 +237,15 @@ export function ComparisonTemplate({
         <div className="flex flex-1 overflow-hidden">
              {/* Left Side */}
             <section className="w-1/2 min-w-0 border-r border-gray-800 flex flex-col relative group">
-                <div className="p-4 border-b border-gray-800 bg-gray-950/30 flex justify-between items-center shrink-0">
+                <div className="p-4 border-b border-gray-800 bg-gray-950/30 flex items-center shrink-0">
                     <div className="flex items-center gap-2">
                         <h2 className="text-xl font-bold text-gray-400 group-hover:text-gray-200 transition-colors">
                             A. {leftTitle}
                         </h2>
                     </div>
-                    <button 
-                        onClick={() => setShowLeftCode(p => !p)}
-                        className="text-xs px-3 py-1.5 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 transition-colors border border-gray-700"
-                    >
-                        {showLeftCode ? '👁️ View UI' : '📝 View Code'}
-                    </button>
                 </div>
                 <div className="flex-1 p-6 overflow-y-auto bg-gradient-to-b from-gray-900 to-black relative">
-                    {showLeftCode ? (
+                    {showCode ? (
                          <CodeBlock 
                             code={leftCode} 
                             title="Traditional" 
@@ -263,21 +263,15 @@ export function ComparisonTemplate({
 
              {/* Right Side */}
              <section className="w-1/2 min-w-0 flex flex-col relative group">
-                <div className="p-4 border-b border-gray-800 bg-gray-950/30 flex justify-between items-center shrink-0">
+                <div className="p-4 border-b border-gray-800 bg-gray-950/30 flex items-center shrink-0">
                     <div className="flex items-center gap-2">
                         <h2 className="text-xl font-bold text-blue-400 group-hover:text-blue-300 transition-colors">
                             B. {rightTitle}
                         </h2>
                     </div>
-                    <button 
-                        onClick={() => setShowRightCode(p => !p)}
-                        className="text-xs px-3 py-1.5 rounded-full bg-blue-900/30 hover:bg-blue-900/50 text-blue-300 transition-colors border border-blue-800"
-                    >
-                        {showRightCode ? '👁️ View UI' : '📝 View Code'}
-                    </button>
                 </div>
                 <div className="flex-1 p-6 overflow-y-auto bg-gradient-to-b from-gray-900 to-blue-950/10 relative">
-                     {showRightCode ? (
+                     {showCode ? (
                          <CodeBlock 
                             code={rightCode} 
                             title="Optimized" 
@@ -295,7 +289,7 @@ export function ComparisonTemplate({
         </div>
 
         {/* Insight Panel (Visible if any code is shown) */}
-        {(showLeftCode || showRightCode) && (
+        {showCode && (
             <InsightPanel topic={activeTopic} top={hoverY} />
         )}
       </div>

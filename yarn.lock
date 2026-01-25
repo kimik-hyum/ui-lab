@@ -4443,6 +4443,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "ui-lab@workspace:."
   dependencies:
+    "@next/swc-linux-x64-gnu": "npm:16.1.1"
     "@tailwindcss/postcss": "npm:^4"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
@@ -4456,6 +4457,9 @@ __metadata:
     react-syntax-highlighter: "npm:^16.1.0"
     tailwindcss: "npm:^4"
     typescript: "npm:^5"
+  dependenciesMeta:
+    "@next/swc-linux-x64-gnu":
+      optional: true
   languageName: unknown
   linkType: soft
 

@@ -1,0 +1,3 @@
+#!/bin/bash
+# 부팅 시 ECS 에이전트가 이 클러스터에 조인하도록 설정합니다.
+echo ECS_CLUSTER=your-cluster-name >> /etc/ecs/ecs.config

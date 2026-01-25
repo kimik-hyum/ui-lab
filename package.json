@@ -2,6 +2,7 @@
   "name": "ui-lab",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "yarn@4.6.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -24,5 +25,8 @@
     "eslint-config-next": "16.1.1",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "optionalDependencies": {
+    "@next/swc-linux-x64-gnu": "16.1.1"
   }
 }
