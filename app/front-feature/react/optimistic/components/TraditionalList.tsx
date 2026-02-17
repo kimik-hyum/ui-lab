@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Todo } from '../types';
 import { delayWithError } from '../utils';
 
@@ -6,34 +6,43 @@ interface TraditionalListProps {
   items: Todo[];
   actionTrigger: { id: number; shouldFail: boolean };
   onAddComplete: (newItem: Todo) => void;
-  onRenderComplete: (timestamp: number) => void;
 }
 
-export function TraditionalList({ items, actionTrigger, onAddComplete, onRenderComplete }: TraditionalListProps) {
+export function TraditionalList({ items, actionTrigger, onAddComplete }: TraditionalListProps) {
+  // [cmp:state-mirroring:start]
   // Manual State Mirroring
   const [localItems, setLocalItems] = useState(items);
   const [error, setError] = useState<string | null>(null);
+  const processedActionIdRef = useRef(0);
+  const dismissTimerRef = useRef<number | null>(null);
 
   useEffect(() => {
     setLocalItems(items);
   }, [items]);
+  // [cmp:state-mirroring:end]
 
   useEffect(() => {
-    if (actionTrigger.id === 0) return;
+    // [cmp:manual-trigger-guard:start]
+    if (actionTrigger.id === 0 || processedActionIdRef.current === actionTrigger.id) return;
+    processedActionIdRef.current = actionTrigger.id;
+    // [cmp:manual-trigger-guard:end]
 
     const addItemWithManualRollback = async () => {
       setError(null);
       
+      // [cmp:manual-write-path:start]
       const newItem: Todo = {
         id: crypto.randomUUID(),
         text: `New Item #${actionTrigger.id}`,
         createdAt: Date.now(),
       };
 
-      const previousItems = [...localItems];
+      let previousItems: Todo[] = [];
 
-      setLocalItems(prev => [...prev, newItem]);
-      onRenderComplete(performance.now()); 
+      setLocalItems((prev) => {
+        previousItems = prev;
+        return [...prev, newItem];
+      });
 
       try {
         await delayWithError(2000, actionTrigger.shouldFail);
@@ -42,15 +51,29 @@ export function TraditionalList({ items, actionTrigger, onAddComplete, onRenderC
       } catch (err) {
         console.error("Failed!", err);
         setError("Failed to save. Rolling back...");
-        setLocalItems(previousItems); 
+        // [cmp:manual-rollback-point:start]
+        setLocalItems(previousItems);
+        // [cmp:manual-rollback-point:end]
         
         // Auto-dismiss error after 1s
-        setTimeout(() => setError(null), 1000);
+        if (dismissTimerRef.current) {
+          clearTimeout(dismissTimerRef.current);
+        }
+        dismissTimerRef.current = window.setTimeout(() => setError(null), 1000);
       }
+      // [cmp:manual-write-path:end]
     };
 
     addItemWithManualRollback();
-  }, [actionTrigger]); 
+  }, [actionTrigger, onAddComplete]);
+
+  useEffect(() => {
+    return () => {
+      if (dismissTimerRef.current) {
+        clearTimeout(dismissTimerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <ul className="space-y-2 relative">

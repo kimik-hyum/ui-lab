@@ -1,4 +1,4 @@
-import React, { useOptimistic, useEffect, useLayoutEffect, useTransition, useState } from 'react';
+import React, { useOptimistic, useEffect, useTransition, useState, useRef } from 'react';
 import { Todo } from '../types';
 import { delayWithError } from '../utils';
 
@@ -6,17 +6,19 @@ interface OptimisticListProps {
   items: Todo[];
   actionTrigger: { id: number; shouldFail: boolean };
   onAddComplete: (newItem: Todo) => void;
-  onRenderComplete: (timestamp: number) => void;
 }
 
-export function OptimisticList({ items, actionTrigger, onAddComplete, onRenderComplete }: OptimisticListProps) {
+export function OptimisticList({ items, actionTrigger, onAddComplete }: OptimisticListProps) {
   const [, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
+  const dismissTimerRef = useRef<number | null>(null);
   
+  // [cmp:optimistic-source:start]
   const [optimisticItems, addOptimisticItem] = useOptimistic(
     items,
     (state: Todo[], newItem: Todo) => [...state, newItem]
   );
+  // [cmp:optimistic-source:end]
 
   useEffect(() => {
     if (actionTrigger.id === 0) return;
@@ -27,11 +29,12 @@ export function OptimisticList({ items, actionTrigger, onAddComplete, onRenderCo
       createdAt: Date.now(),
     };
 
+    // [cmp:optimistic-concurrency:start]
+    // [cmp:optimistic-write-path:start]
+    addOptimisticItem(newItem);
     startTransition(async () => {
-      setError(null); 
+      setError(null);
       try {
-        addOptimisticItem(newItem);
-        
         await delayWithError(2000, actionTrigger.shouldFail); 
         onAddComplete(newItem);
       } catch {
@@ -39,22 +42,23 @@ export function OptimisticList({ items, actionTrigger, onAddComplete, onRenderCo
         setError("Failed to save. Rolling back...");
         
         // Auto-dismiss error after 1s
-        setTimeout(() => setError(null), 1000);
+        if (dismissTimerRef.current) {
+          clearTimeout(dismissTimerRef.current);
+        }
+        dismissTimerRef.current = window.setTimeout(() => setError(null), 1000);
       }
     });
+    // [cmp:optimistic-write-path:end]
+    // [cmp:optimistic-concurrency:end]
   }, [actionTrigger, addOptimisticItem, onAddComplete]); 
 
-
-  const lastRenderedId = React.useRef(0);
-
-  useLayoutEffect(() => {
-    if (actionTrigger.id > 0 && actionTrigger.id !== lastRenderedId.current) {
-        if (optimisticItems.length > items.length) {
-             onRenderComplete(performance.now());
-             lastRenderedId.current = actionTrigger.id;
-        }
-    }
-  }, [optimisticItems, items, actionTrigger, onRenderComplete]);
+  useEffect(() => {
+    return () => {
+      if (dismissTimerRef.current) {
+        clearTimeout(dismissTimerRef.current);
+      }
+    };
+  }, []);
 
   return (
     <ul className="space-y-2 relative">

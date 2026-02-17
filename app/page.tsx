@@ -17,7 +17,7 @@ export default function Home() {
         </div>
 
         <h1 className="text-8xl font-bold tracking-tighter text-transparent bg-clip-text bg-gradient-to-b from-white to-zinc-600 mb-6">
-          Void UI
+          UI-LAB
         </h1>
         
         <p className="max-w-2xl text-xl text-zinc-500 font-light mb-12">

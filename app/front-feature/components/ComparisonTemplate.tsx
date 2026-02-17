@@ -30,12 +30,8 @@ interface ComparisonTemplateProps {
     leftComponent: React.ReactNode;
     rightComponent: React.ReactNode;
     
-    // Header Actions / Metrics (Optional for flexibility)
+    // Header Actions (Optional for flexibility)
     headerActions?: React.ReactNode;
-    metrics?: {
-        leftLatency: number | null;
-        rightLatency: number | null;
-    };
 }
 
 export function ComparisonTemplate({
@@ -48,8 +44,7 @@ export function ComparisonTemplate({
     topics,
     leftComponent,
     rightComponent,
-    headerActions,
-    metrics
+    headerActions
 }: ComparisonTemplateProps) {
   const [showCode, setShowCode] = useState(false);
 
@@ -68,14 +63,34 @@ export function ComparisonTemplate({
   const allLeftLines = useMemo(() => topics.flatMap(t => t.leftLines), [topics]);
   const allRightLines = useMemo(() => topics.flatMap(t => t.rightLines), [topics]);
 
-  const scrollToLine = (side: 'left' | 'right', lineNumber: number) => {
+  const getLineElement = (side: 'left' | 'right', lineNumber: number) => {
       const container = side === 'left' ? leftScrollRef.current : rightScrollRef.current;
-      if (!container) return;
+      if (!container) return null;
 
       const target = container.querySelector(`[data-line="${lineNumber}"]`);
-      if (target instanceof HTMLElement) {
-          target.scrollIntoView({ block: 'center', inline: 'nearest' });
-      }
+      return target instanceof HTMLElement ? target : null;
+  };
+
+  const isLineVisibleInContainer = (side: 'left' | 'right', lineNumber: number) => {
+      const container = side === 'left' ? leftScrollRef.current : rightScrollRef.current;
+      const target = getLineElement(side, lineNumber);
+      if (!container || !target) return false;
+
+      const containerRect = container.getBoundingClientRect();
+      const targetRect = target.getBoundingClientRect();
+      const padding = 8;
+
+      return (
+          targetRect.bottom > containerRect.top + padding &&
+          targetRect.top < containerRect.bottom - padding
+      );
+  };
+
+  const scrollToLine = (side: 'left' | 'right', lineNumber: number) => {
+      const target = getLineElement(side, lineNumber);
+      if (!target) return;
+
+      target.scrollIntoView({ block: 'center', inline: 'nearest' });
   };
 
   const syncScrollToMatch = (side: 'left' | 'right', lineNumber: number, topic: ComparisonTopic) => {
@@ -94,6 +109,11 @@ export function ComparisonTemplate({
           lastSyncRef.current.line === lineNumber &&
           lastSyncRef.current.target === targetLine
       ) {
+          return;
+      }
+
+      if (isLineVisibleInContainer(targetSide, targetLine)) {
+          lastSyncRef.current = { side, line: lineNumber, target: targetLine };
           return;
       }
 
@@ -133,24 +153,6 @@ export function ComparisonTemplate({
            </div>
            
            <div className="flex items-center gap-4">
-                {/* Metrics Display */}
-                {metrics && (
-                    <div className="flex gap-4 text-xs font-mono">
-                    <div className="px-3 py-1.5 rounded bg-gray-900 border border-gray-800">
-                        <span>L: </span>
-                        <span className={metrics.leftLatency ? 'text-green-400' : 'text-gray-600'}>
-                            {metrics.leftLatency ? `${metrics.leftLatency.toFixed(2)}ms` : '--'}
-                        </span>
-                    </div>
-                    <div className="px-3 py-1.5 rounded bg-gray-900 border border-gray-800">
-                        <span>R: </span>
-                        <span className={metrics.rightLatency ? 'text-green-400' : 'text-gray-600'}>
-                            {metrics.rightLatency ? `${metrics.rightLatency.toFixed(2)}ms` : '--'}
-                        </span>
-                    </div>
-                    </div>
-                )}
-
                 <button 
                     onClick={() => setShowCode((prev) => !prev)}
                     className="text-xs px-3 py-1.5 rounded-full bg-gray-800 hover:bg-gray-700 text-gray-300 transition-colors border border-gray-700"
