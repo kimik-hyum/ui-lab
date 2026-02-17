@@ -1,0 +1,4 @@
+interface:
+  display_name: "Front Feature Comparison"
+  short_description: "Build feature comparison pages and demos"
+  default_prompt: "Create a new front-feature comparison page with code comparison, runnable examples, and anchor-based topic mapping."

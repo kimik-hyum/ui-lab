@@ -100,7 +100,13 @@ export function ComparisonTemplate({
       const targetLines = side === 'left' ? topic.rightLines : topic.leftLines;
       const targetSide = side === 'left' ? 'right' : 'left';
       const sourceIndex = sourceLines.indexOf(lineNumber);
-      const targetLine = targetLines[sourceIndex] ?? targetLines[0];
+      const normalizedIndex = sourceLines.length > 1 && sourceIndex >= 0
+          ? sourceIndex / (sourceLines.length - 1)
+          : 0;
+      const targetIndex = targetLines.length > 1
+          ? Math.round(normalizedIndex * (targetLines.length - 1))
+          : 0;
+      const targetLine = targetLines[targetIndex] ?? targetLines[0];
 
       if (!targetLine) return;
       if (

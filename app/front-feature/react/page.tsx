@@ -1,50 +1,70 @@
-import Link from "next/link";
+import { FeatureCatalog, FeatureCatalogSection } from "../components/FeatureCatalog";
 
-const EXPERIMENTS = [
-
+const REACT_VERSION_SECTIONS: FeatureCatalogSection[] = [
   {
-    id: "optimistic",
-    title: "Optimistic Updates",
-    description: "Experience the perceived performance difference with optimistic UI updates.",
-    badge: "useOptimistic"
-  }
+    id: "react-19",
+    title: "React 19+",
+    subtitle: "새로운 훅/폼 액션 기반 패턴",
+    features: [
+      {
+        id: "optimistic",
+        title: "Optimistic Updates",
+        description: "useOptimistic 기반으로 pending 상태와 롤백 처리 복잡도를 비교합니다.",
+        badge: "useOptimistic",
+        since: "since React 19",
+        status: "available",
+        href: "/front-feature/react/optimistic",
+      },
+      {
+        id: "actions",
+        title: "Form Actions",
+        description: "action + useFormStatus 기반 제출 흐름 비교를 추가할 예정입니다.",
+        badge: "useFormStatus",
+        since: "since React 19",
+        status: "planned",
+      },
+      {
+        id: "activity",
+        title: "Activity Hidden Mode",
+        description: "display: none 방식과 Activity hidden 모드의 백그라운드 업데이트 차이를 비교합니다.",
+        badge: "<Activity>",
+        since: "since React 19.2",
+        status: "available",
+        href: "/front-feature/react/activity",
+      },
+    ],
+  },
+  {
+    id: "react-18",
+    title: "React 18",
+    subtitle: "동시성/렌더링 전략 중심",
+    features: [
+      {
+        id: "transition",
+        title: "Transition Patterns",
+        description: "urgent vs non-urgent 업데이트 분리를 비교하는 시나리오를 준비 중입니다.",
+        badge: "useTransition",
+        since: "since React 18",
+        status: "planned",
+      },
+      {
+        id: "deferred-value",
+        title: "Deferred Rendering",
+        description: "입력 응답성과 무거운 렌더 분리를 다루는 예제를 추가할 예정입니다.",
+        badge: "useDeferredValue",
+        since: "since React 18",
+        status: "planned",
+      },
+    ],
+  },
 ];
 
-export default function ReactDiffsPage() {
+export default function ReactFeaturesPage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-24 bg-black text-white">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm">
-        <h1 className="text-4xl font-bold mb-2 tracking-tighter">React Diffs</h1>
-        <p className="text-zinc-500 mb-12">
-          Compare classical patterns with modern React features.
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {EXPERIMENTS.map((exp) => (
-            <Link 
-              key={exp.id} 
-              href={`/front-feature/react/${exp.id}`}
-              className="group relative block p-6 bg-zinc-900 border border-zinc-800 rounded-xl hover:bg-zinc-800/50 transition-all hover:border-zinc-700"
-            >
-               <div className="flex justify-between items-start mb-4">
-                 <span className="px-2 py-1 text-xs rounded bg-blue-900/30 text-blue-400 border border-blue-900">
-                    {exp.badge}
-                 </span>
-                 <span className="text-zinc-600 group-hover:text-white transition-colors">
-                    ↗
-                 </span>
-               </div>
-               
-               <h2 className="text-xl font-bold mb-2 text-zinc-100 group-hover:text-white">
-                 {exp.title}
-               </h2>
-               <p className="text-zinc-400 group-hover:text-zinc-300">
-                 {exp.description}
-               </p>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </main>
+    <FeatureCatalog
+      title="React Feature Catalog"
+      description="버전별로 기능을 정리하고, 현재 사용 가능한 비교 시나리오와 예정 항목을 분리해 관리합니다."
+      sections={REACT_VERSION_SECTIONS}
+    />
   );
 }

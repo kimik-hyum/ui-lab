@@ -23,3 +23,19 @@
 - react-syntax-highlighter
   - 필요한 스타일만 import 해서 번들 크기를 최소화합니다.
 
+## 기능 비교(Feature Comparison) 작업 규칙
+- 새로운 React/Next 기능 비교를 추가할 때는 `ComparisonTemplate` 기반으로 구현합니다.
+- 비교 페이지는 아래 구조를 기본으로 사용합니다.
+  - 서버 페이지에서 좌/우 데모 코드 문자열을 읽어 전달
+  - 클라이언트 비교 페이지에서 `topics`, `headerActions`, `leftComponent`, `rightComponent`를 조합
+  - 좌/우 데모 컴포넌트는 분리 파일로 관리
+- 코드 하이라이트 라인은 숫자 하드코딩보다 앵커 기반 매핑을 우선 사용합니다.
+  - 코드 내 마커: `[cmp:<key>:start]` / `[cmp:<key>:end]`
+  - 앵커 파싱 실패 시 fallback 라인을 유지해 UI 깨짐을 방지합니다.
+- 설명 토픽은 최소 3개 이상 작성하고, 각 토픽은 “차이점 + 실질적 영향(유지보수/성능/복잡도)”을 포함합니다.
+- 카탈로그(`FeatureCatalog`) 항목은 `since`, `status(available|planned)`, `href`를 함께 관리합니다.
+
+## 완료 기준
+- `yarn lint` 통과
+- `yarn build` 통과
+- 코드 비교 화면에서 hover 토픽/라인 매칭이 자연스럽게 동작
