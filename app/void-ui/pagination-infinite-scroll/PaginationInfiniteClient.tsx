@@ -147,6 +147,12 @@ export function PaginationInfiniteClient({
             <p className="text-[11px] uppercase tracking-[0.2em] text-cyan-300">Void UI / Hybrid Navigation</p>
             <div className="flex items-center gap-2">
               <Link
+                href="/void-ui/pagination-infinite-scroll/adapter-live"
+                className="rounded-full border border-zinc-700 px-3 py-1 text-[11px] text-zinc-300 transition-colors hover:border-cyan-400 hover:text-cyan-200"
+              >
+                Virtuoso 실행 데모
+              </Link>
+              <Link
                 href="/void-ui/pagination-infinite-scroll/adapter-view"
                 className="rounded-full border border-zinc-700 px-3 py-1 text-[11px] text-zinc-300 transition-colors hover:border-cyan-400 hover:text-cyan-200"
               >

@@ -12,6 +12,14 @@ export type FetchPageResult<T> = {
 
 type LoadMode = "append" | "replace";
 
+export interface HybridViewportAdapter {
+  setPageRef?: (page: number, node: HTMLElement | null) => void;
+  setSentinelRef?: (node: HTMLElement | null) => void;
+  watchCurrentPage?: (onChange: (page: number) => void) => () => void;
+  watchLoadMore?: (onNeedMore: () => void) => () => void;
+  scrollToPage?: (page: number, behavior?: ScrollBehavior) => boolean;
+}
+
 export interface UseHybridInfiniteOptions<T> {
   initialPage: InfinitePage<T>;
   initialTotal: number;
@@ -26,6 +34,7 @@ export interface UseHybridInfiniteOptions<T> {
   loadMoreRootMargin?: string;
   loadMoreThreshold?: number | number[];
   preserveExistingParams?: boolean;
+  adapter?: HybridViewportAdapter;
 }
 
 const PAGE_OBSERVER_THRESHOLD = [0, 0.15, 0.3, 0.45, 0.6, 0.75, 1];
@@ -51,6 +60,7 @@ export function useHybridInfinite<T>({
   loadMoreRootMargin = "0px 0px 320px 0px",
   loadMoreThreshold = 0,
   preserveExistingParams = true,
+  adapter,
 }: UseHybridInfiniteOptions<T>) {
   const [pages, setPages] = useState<InfinitePage<T>[]>([initialPage]);
   const [total, setTotal] = useState(initialTotal);
@@ -154,6 +164,9 @@ export function useHybridInfinite<T>({
 
   const scrollToPage = useCallback(
     (page: number, behavior: ScrollBehavior = "smooth") => {
+      const handledByAdapter = adapter?.scrollToPage?.(page, behavior) ?? false;
+      if (handledByAdapter) return true;
+
       const target = pageRefsRef.current.get(page);
       if (!target) return false;
 
@@ -163,24 +176,34 @@ export function useHybridInfinite<T>({
       });
       return true;
     },
-    [],
+    [adapter],
   );
 
   const setPageRef = useCallback((page: number, node: HTMLElement | null) => {
+    adapter?.setPageRef?.(page, node);
+
     if (node) {
       pageRefsRef.current.set(page, node);
       return;
     }
     pageRefsRef.current.delete(page);
     visibilityRatioRef.current.delete(page);
-  }, []);
+  }, [adapter]);
 
   const setSentinelRef = useCallback((node: HTMLElement | null) => {
+    adapter?.setSentinelRef?.(node);
     sentinelRef.current = node;
-  }, []);
+  }, [adapter]);
 
   // [cmp:page-observer:start]
   useEffect(() => {
+    if (adapter?.watchCurrentPage) {
+      return adapter.watchCurrentPage((page) => {
+        if (!Number.isInteger(page) || page < 1) return;
+        setCurrentPage(page);
+      });
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -209,11 +232,17 @@ export function useHybridInfinite<T>({
 
     pageRefsRef.current.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
-  }, [pageObserverRootMargin, pageObserverThreshold, pages]);
+  }, [adapter, pageObserverRootMargin, pageObserverThreshold, pages]);
   // [cmp:page-observer:end]
 
   // [cmp:load-more-observer:start]
   useEffect(() => {
+    if (adapter?.watchLoadMore) {
+      return adapter.watchLoadMore(() => {
+        void loadNext();
+      });
+    }
+
     const node = sentinelRef.current;
     if (!node || !canLoadMore) return;
 
@@ -231,7 +260,7 @@ export function useHybridInfinite<T>({
 
     observer.observe(node);
     return () => observer.disconnect();
-  }, [canLoadMore, loadMoreRootMargin, loadMoreThreshold, loadNext]);
+  }, [adapter, canLoadMore, loadMoreRootMargin, loadMoreThreshold, loadNext]);
   // [cmp:load-more-observer:end]
 
   // [cmp:url-restore:start]

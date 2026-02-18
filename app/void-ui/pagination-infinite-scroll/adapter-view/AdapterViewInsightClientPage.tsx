@@ -102,6 +102,12 @@ export function AdapterViewInsightClientPage({ code }: { code: string }) {
       headerActions={
         <div className="flex items-center gap-2">
           <Link
+            href="/void-ui/pagination-infinite-scroll/adapter-live"
+            className="rounded-full border border-cyan-700 px-3 py-1.5 text-xs text-cyan-200 hover:border-cyan-500 hover:text-white"
+          >
+            Virtuoso 실행 보기
+          </Link>
+          <Link
             href="/void-ui/pagination-infinite-scroll"
             className="rounded-full border border-gray-700 px-3 py-1.5 text-xs text-gray-300 hover:border-gray-500 hover:text-white"
           >
