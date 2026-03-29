@@ -1,0 +1,82 @@
+---
+description: useHybridInfinite 훅 사용법 및 가상화 어댑터 작성 가이드
+globs: **/*
+---
+
+# useHybridInfinite 가이드라인 (void-ui)
+
+이 문서는 `useHybridInfinite` 커스텀 훅을 프로젝트에 통합하거나 가상화 라이브러리(Virtualization)와 연동할 때 AI 및 개발자가 참고해야 할 가이드라인 및 프롬프트 룰셋입니다.
+
+## 1. 개요 및 목적
+`useHybridInfinite`는 **페이지네이션(Pagination)**과 **무한 스크롤(Infinite Scroll)**을 결합한 하이브리드 데이터 패칭 훅입니다.
+기본적으로 DOM의 `IntersectionObserver`를 사용하여 스크롤 위치에 따른 현재 페이지 계산 및 다음 페이지 로딩 로직을 수행합니다.
+
+## 2. HybridViewportAdapter 인터페이스
+기본 `IntersectionObserver` 대신, `@tanstack/react-virtual`과 같은 가상화 라이브러리를 사용할 경우 `adapter` 속성을 통해 DOM 관찰 로직을 대체(Override)해야 합니다.
+
+```typescript
+export interface HybridViewportAdapter {
+  // 특정 페이지의 DOM 컨테이너 ref를 등록 (가상화에서는 불필요할 수 있음)
+  setPageRef?: (page: number, node: HTMLElement | null) => void;
+  // 무한 스크롤의 끝점(Sentinel) ref를 등록 
+  setSentinelRef?: (node: HTMLElement | null) => void;
+  // 현재 화면에 보이는 페이지 번호를 추적하여 onChange로 전달 (반환값: 정리 함수)
+  watchCurrentPage?: (onChange: (page: number) => void) => () => void;
+  // 스크롤이 끝에 도달했을 때 다음 페이지 로드를 트리거 (반환값: 정리 함수)
+  watchLoadMore?: (onNeedMore: () => void) => () => void;
+  // 특정 페이지로 스크롤 이동 (가상화 라이브러리의 scrollToIndex 등으로 대체)
+  scrollToPage?: (page: number, behavior?: ScrollBehavior) => boolean;
+}
+```
+
+## 3. 어댑터 작성 가이드 (예시: @tanstack/react-virtual)
+
+가상화 (Virtual List) 환경에서는 화면 밖의 DOM 엘리먼트가 렌더링되지 않기 때문에 훅 내부의 기본 `IntersectionObserver`가 의도대로 동작하지 않습니다. 따라서 `watchCurrentPage`, `watchLoadMore`, `scrollToPage`를 가상화 인스턴스에 맞게 구현하여 어댑터로 주입해야 합니다.
+
+### AI 구현 지침 (프롬프트 규칙)
+만약 사용자가 `@tanstack/react-virtual`이나 `react-window`를 연결해 달라고 요청하면 아래 패턴을 따르세요:
+
+1. **페이지 계산 로직 매핑 (`watchCurrentPage`)**
+   Virtualizer가 제공하는 '화면에 보이는 아이템의 인덱스 범위'를 기반으로 현재 가장 많이 보이는 페이지 번호를 계산하여 `onChange(page)`를 호출해야 합니다.
+   
+2. **리스트 끝 도달 감지 (`watchLoadMore`)**
+   렌더링된 가상 아이템 목록 중 마지막 인덱스가 포함되어 있는지 감지하거나 스크롤 오프셋을 계산하여 끝에 도달했을 때 `onNeedMore()`를 호출해야 합니다.
+   
+3. **스크롤 이동 제어 (`scrollToPage`)**
+   `useHybridInfinite`의 `goToPage`나 `scrollToPage`가 호출될 때 화면이 이동해야 하므로, 어댑터의 `scrollToPage` 내에서 가상화 라이브러리 전용 스크롤 API (예: `virtualizer.scrollToIndex(firstItemIndexOfPage)`)를 호출하고 `true`를 반환하도록 구현하세요.
+
+### 코드 예시 (Tanstack Virtual Adapter 생성 패턴)
+```typescript
+import { HybridViewportAdapter } from "@/app/void-ui/pagination-infinite-scroll/useHybridInfinite";
+import { Virtualizer } from "@tanstack/react-virtual";
+
+export function createTanstackVirtualAdapter(
+  virtualizer: Virtualizer<any, any>,
+  pageSize: number
+): HybridViewportAdapter {
+  return {
+    watchCurrentPage: (onChange) => {
+      // TODO: virtualizer의 onScroll 또는 range 변경 이벤트를 구독하여 로직 작성
+      // 예시: 첫 번째 렌더링된 아이템 인덱스로 페이지 도출
+      // const firstVisibleIndex = virtualizer.getVirtualItems()[0]?.index ?? 0;
+      // const page = Math.floor(firstVisibleIndex / pageSize) + 1;
+      // onChange(page);
+      return () => { /* 구독 해제 로직 */ };
+    },
+    watchLoadMore: (onNeedMore) => {
+      // TODO: 마지막 아이템 근처로 스크롤되었는지 감지하여 onNeedMore() 호출
+      return () => { /* 구독 해제 로직 */ };
+    },
+    scrollToPage: (page: number, behavior) => {
+      const targetIndex = (page - 1) * pageSize;
+      virtualizer.scrollToIndex(targetIndex, { align: 'start', behavior });
+      return true; // 어댑터가 스크롤 처리를 대신 완료했음을 알림
+    }
+  };
+}
+```
+
+## 4. 추가 AI 코딩 스킬 및 주의사항 (Rule)
+- **DOM 어트리뷰트 필수:** 가상화 어댑터를 쓰지 않고 기본 DOM 기반 렌더링을 사용할 경우, 각 페이지를 감싸는 프레임 DOM 요소에는 반드시 `data-page={pageNumber}` 파라미터를 부여하세요. 내부 `IntersectionObserver`가 이 값을 읽어 현재 페이지를 계산합니다.
+- **URL 동기화 옵션:** `syncUrl` 옵션을 사용할 경우, Next.js 환경에서는 클라이언트 하이드레이션 불일치(Hydration Mismatch)가 발생하지 않도록 초기 렌더링 시점의 처리에 각별히 유의하세요.
+- **불필요한 리렌더링 방지:** 어댑터 생성 함수나 `fetchPage` 콜백은 컴포넌트 내부에서 `useCallback` 또는 `useMemo`로 감싸서 의존성 변경으로 인한 무한 루프가 발생하지 않도록 코드를 생성하세요.

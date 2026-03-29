@@ -205,7 +205,7 @@ export function PaginationInfiniteClient({
                 value={pageInput}
                 onChange={(event) => setPageInput(event.target.value)}
                 onBlur={() => {
-                  void handlePageInputMove();
+                  handlePageInputMove();
                 }}
                 onKeyDown={(event) => {
                   if (event.key !== "Enter") return;
