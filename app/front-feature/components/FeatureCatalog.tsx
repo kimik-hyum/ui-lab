@@ -42,7 +42,7 @@ export function FeatureCatalog({ title, description, sections }: FeatureCatalogP
           <h1 className="text-4xl font-bold tracking-tight">{title}</h1>
           <p className="mt-3 text-zinc-400">{description}</p>
           <nav className="mt-6 flex flex-wrap gap-2">
-            {sections.map((section) => (
+            {visibleSections.map((section) => (
               <a
                 key={section.id}
                 href={`#${section.id}`}
@@ -55,7 +55,7 @@ export function FeatureCatalog({ title, description, sections }: FeatureCatalogP
         </header>
 
         <div className="space-y-10">
-          {sections.map((section) => (
+          {visibleSections.map((section) => (
             <section key={section.id} id={section.id} className="scroll-mt-20">
               <div className="mb-4">
                 <h2 className="text-2xl font-semibold text-zinc-100">{section.title}</h2>
