@@ -48,6 +48,13 @@ const Sidebar = () => {
             </div>
 
             <Link
+              href="/reports"
+              className="text-sm font-medium transition-colors hover:text-white hover:underline decoration-zinc-500 underline-offset-4"
+            >
+              Scout Reports
+            </Link>
+
+            <Link
               href="/about"
               className="text-sm font-medium transition-colors hover:text-white hover:underline decoration-zinc-500 underline-offset-4"
             >

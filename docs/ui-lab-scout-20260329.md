@@ -1,3 +1,15 @@
+---
+title: UI-LAB 기술 검증 리포트
+date: 2026-03-29
+model: claude-sonnet-4-6
+selected:
+  - { id: "react", label: "React", category: "프레임워크", version: "v19" }
+verdicts:
+  adopt: 6
+  watch: 1
+  skip: 0
+---
+
 # UI-LAB 기술 검증 리포트
 > 생성일: 2026-03-29 · Claude Sonnet 4.6 + Web Search
 

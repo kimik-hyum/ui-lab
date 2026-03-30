@@ -9,11 +9,10 @@ interface OptimisticListProps {
 }
 
 export function OptimisticList({ items, actionTrigger, onAddComplete }: OptimisticListProps) {
+  // [cmp:optimistic-source:start]
   const [, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const dismissTimerRef = useRef<number | null>(null);
-  
-  // [cmp:optimistic-source:start]
   const [optimisticItems, addOptimisticItem] = useOptimistic(
     items,
     (state: Todo[], newItem: Todo) => [...state, newItem]
@@ -23,14 +22,14 @@ export function OptimisticList({ items, actionTrigger, onAddComplete }: Optimist
   useEffect(() => {
     if (actionTrigger.id === 0) return;
 
+    // [cmp:optimistic-concurrency:start]
+    // [cmp:optimistic-write-path:start]
     const newItem: Todo = {
       id: crypto.randomUUID(),
       text: `New Item #${actionTrigger.id}`,
       createdAt: Date.now(),
     };
 
-    // [cmp:optimistic-concurrency:start]
-    // [cmp:optimistic-write-path:start]
     addOptimisticItem(newItem);
     startTransition(async () => {
       setError(null);

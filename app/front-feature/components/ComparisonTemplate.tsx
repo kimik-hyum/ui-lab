@@ -7,6 +7,16 @@ import { ComparisonInsightPanel } from './ComparisonInsightPanel';
 
 export type { ComparisonTopic } from './ComparisonTypes';
 
+const ANCHOR_LINE_RE = /\[\s*cmp:[a-z0-9-]+:(start|end)\s*\]/i;
+
+/** 앵커 마커가 포함된 줄을 제거한 코드를 반환합니다. */
+function stripAnchorLines(code: string): string {
+  return code
+    .split('\n')
+    .filter((line) => !ANCHOR_LINE_RE.test(line))
+    .join('\n');
+}
+
 // ----------------------------------------------------------------------
 // Types
 // ----------------------------------------------------------------------
@@ -188,9 +198,9 @@ export function ComparisonTemplate({
                 </div>
                 <div className="flex-1 p-6 overflow-y-auto bg-gradient-to-b from-gray-900 to-black relative">
                     {showCode ? (
-                         <ComparisonCodeBlock 
-                            code={leftCode} 
-                            title="Traditional" 
+                         <ComparisonCodeBlock
+                            code={stripAnchorLines(leftCode)}
+                            title="Traditional"
                             badge="Legacy" 
                             color="red" 
                             highlightedLines={activeTopic ? activeTopic.leftLines : []}
@@ -215,9 +225,9 @@ export function ComparisonTemplate({
                 </div>
                 <div className="flex-1 p-6 overflow-y-auto bg-gradient-to-b from-gray-900 to-blue-950/10 relative">
                      {showCode ? (
-                         <ComparisonCodeBlock 
-                            code={rightCode} 
-                            title="Optimized" 
+                         <ComparisonCodeBlock
+                            code={stripAnchorLines(rightCode)}
+                            title="Optimized"
                             badge="Modern" 
                             color="blue" 
                             highlightedLines={activeTopic ? activeTopic.rightLines : []}
