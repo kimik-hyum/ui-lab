@@ -36,6 +36,14 @@ const Sidebar = () => {
                 >
                   Next.js
                 </Link>
+                {process.env.NODE_ENV === "development" && (
+                  <Link
+                    href="/front-feature/scout"
+                    className="text-xs transition-colors text-zinc-500 hover:text-zinc-300"
+                  >
+                    Frontend Scout
+                  </Link>
+                )}
               </div>
             </div>
 

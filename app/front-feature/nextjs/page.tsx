@@ -7,6 +7,16 @@ const NEXTJS_VERSION_SECTIONS: FeatureCatalogSection[] = [
     subtitle: "App Router 중심 런타임/데이터 패턴",
     features: [
       {
+        id: "rsc-vs-csc",
+        title: "RSC vs CSC 렌더링 비교",
+        description:
+          "동일한 아티클 뷰어를 Server Component(서버 프리렌더)와 Client Component(클라이언트 fetch)로 구현해 번들 크기·네트워크 요청·로딩 UX 차이를 체감합니다.",
+        badge: "server components",
+        since: "since Next.js 13 App Router",
+        status: "available",
+        href: "/front-feature/nextjs/rsc-vs-csc",
+      },
+      {
         id: "server-actions",
         title: "Server Actions",
         description: "폼 처리와 서버 뮤테이션 흐름 비교 시나리오를 준비 중입니다.",

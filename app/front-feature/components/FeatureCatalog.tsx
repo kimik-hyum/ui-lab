@@ -24,6 +24,17 @@ interface FeatureCatalogProps {
 }
 
 export function FeatureCatalog({ title, description, sections }: FeatureCatalogProps) {
+  const isDev = process.env.NODE_ENV === "development";
+
+  const visibleSections = isDev
+    ? sections
+    : sections
+        .map((section) => ({
+          ...section,
+          features: section.features.filter((f) => f.status !== "planned"),
+        }))
+        .filter((section) => section.features.length > 0);
+
   return (
     <main className="min-h-screen bg-black p-8 text-white md:p-14">
       <div className="mx-auto max-w-6xl">

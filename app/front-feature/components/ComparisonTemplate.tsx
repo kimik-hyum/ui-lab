@@ -13,25 +13,28 @@ export type { ComparisonTopic } from './ComparisonTypes';
 
 interface ComparisonTemplateProps {
     title: string;
-    description: string;
+    description: React.ReactNode;
     leftTitle: string;
     rightTitle: string;
-    
+
     // Code
     leftCode: string;
     rightCode: string;
     topics: ComparisonTopic[];
 
     // Interactive Demo Renderers
-    /* 
+    /*
        We allow the consumer to render the interactive part.
        We manage the split view state (show Code vs show UI).
     */
     leftComponent: React.ReactNode;
     rightComponent: React.ReactNode;
-    
+
     // Header Actions (Optional for flexibility)
     headerActions?: React.ReactNode;
+
+    // Footer content rendered below the comparison panels
+    footer?: React.ReactNode;
 }
 
 export function ComparisonTemplate({
@@ -44,7 +47,8 @@ export function ComparisonTemplate({
     topics,
     leftComponent,
     rightComponent,
-    headerActions
+    headerActions,
+    footer,
 }: ComparisonTemplateProps) {
   const [showCode, setShowCode] = useState(false);
 
@@ -150,7 +154,7 @@ export function ComparisonTemplate({
 
   return (
     <div className="min-h-screen bg-black text-gray-200 font-sans selection:bg-gray-800">
-      <div className="w-full h-screen flex flex-col">
+      <div className={`w-full flex flex-col ${footer ? 'min-h-screen' : 'h-screen'}`}>
         {/* Header */}
         <header className="p-6 border-b border-gray-800 flex items-center justify-between shrink-0">
            <div>
@@ -233,6 +237,13 @@ export function ComparisonTemplate({
             <ComparisonInsightPanel topic={activeTopic} top={hoverY} />
         )}
       </div>
+
+      {/* Footer (tradeoff / use-case 등 추가 콘텐츠) */}
+      {footer && (
+        <div className="border-t border-gray-800 bg-black">
+          {footer}
+        </div>
+      )}
     </div>
   );
 }
