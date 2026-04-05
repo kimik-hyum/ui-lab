@@ -2,26 +2,59 @@
 @import "pretendard/dist/web/static/pretendard-subset.css";
 
 :root {
+  /* Base */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #0f172a;
+
+  /* Surface */
+  --surface: #f8fafc;
+  --surface-elevated: #f1f5f9;
+
+  /* Border */
+  --border: #e2e8f0;
+  --border-strong: #cbd5e1;
+
+  /* Text */
+  --muted-foreground: #64748b;
+  --subtle-foreground: #94a3b8;
+
+  /* Accent — Violet */
+  --accent: #7c3aed;
+  --accent-hover: #6d28d9;
+  --accent-foreground: #ffffff;
+  --accent-subtle: #ede9fe;
+  --accent-muted: #ddd6fe;
+
+  /* Verdict accent — left border + badge only, no card background */
+  --verdict-adopt: #34d399;       /* emerald-400 */
+  --verdict-adopt-text: #059669;  /* emerald-600 */
+  --verdict-adopt-badge: #d1fae5; /* emerald-100 */
+  --verdict-watch: #fbbf24;       /* amber-400 */
+  --verdict-watch-text: #d97706;  /* amber-600 */
+  --verdict-watch-badge: #fef3c7; /* amber-100 */
+  --verdict-skip: #cbd5e1;        /* slate-300 */
+  --verdict-skip-text: #94a3b8;   /* slate-400 */
+  --verdict-skip-badge: #f1f5f9;  /* slate-100 */
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    sans-serif;
-  --font-josefin: var(--font-josefin-sans), "Pretendard", -apple-system,
-    BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
-}
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-subtle-foreground: var(--subtle-foreground);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-subtle: var(--accent-subtle);
+  --color-accent-muted: var(--accent-muted);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-josefin: var(--font-josefin-sans), "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 
 body {

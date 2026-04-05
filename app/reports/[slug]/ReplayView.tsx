@@ -1,266 +1,247 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { ParsedReport, ReportItem } from "../utils/parseFrontmatter";
 
-// 기술 ID → 데모 페이지 매핑
-const DEMO_LINK_MAP: Record<string, string> = {
-  react: "/front-feature/react",
-  nextjs: "/front-feature/nextjs",
-  "rsc-vs-csc": "/front-feature/nextjs/rsc-vs-csc",
-  optimistic: "/front-feature/react/optimistic",
-  activity: "/front-feature/react/activity",
+const VERDICT_CONFIG = {
+  adopt: {
+    emoji: "✅", label: "도입 권장",
+    cardBorder: "border-slate-200 border-l-[3px] border-l-emerald-400",
+    badgeBorder: "border-emerald-200 bg-emerald-50",
+    text: "text-emerald-700",
+  },
+  watch: {
+    emoji: "👀", label: "관찰 대상",
+    cardBorder: "border-slate-200 border-l-[3px] border-l-amber-400",
+    badgeBorder: "border-amber-200 bg-amber-50",
+    text: "text-amber-700",
+  },
+  skip: {
+    emoji: "⏭", label: "스킵",
+    cardBorder: "border-slate-200 border-l-[3px] border-l-slate-300",
+    badgeBorder: "border-slate-200 bg-slate-50",
+    text: "text-slate-400",
+  },
 };
 
-const VERDICT_LABEL: Record<string, string> = {
-  adopt: "도입 권장",
-  watch: "관찰 대상",
-  skip: "스킵",
-};
-
-const VERDICT_COLOR: Record<string, string> = {
-  adopt: "text-emerald-400 border-emerald-900/50 bg-emerald-950/30",
-  watch: "text-amber-400 border-amber-900/50 bg-amber-950/30",
-  skip: "text-zinc-500 border-zinc-800 bg-zinc-900/30",
-};
-
-const VERDICT_EMOJI: Record<string, string> = {
-  adopt: "✅",
-  watch: "👀",
-  skip: "⏭",
-};
-
-export function ReplayView({ report }: { report: ParsedReport }) {
-  const { frontmatter: fm, sections } = report;
-  const [activeVerdict, setActiveVerdict] = useState<string | null>(null);
-
-  const filteredSections = activeVerdict
-    ? sections.filter((s) => s.verdict === activeVerdict)
-    : sections;
-
+// ─── 점수 바 ──────────────────────────────────────────────────────────────────
+function ScoreBar({ score }: { score: number }) {
   return (
-    <div className="flex h-screen flex-col bg-black text-zinc-200">
-      {/* 상단 배너 */}
-      <div className="shrink-0 border-b border-zinc-800 bg-zinc-950 px-6 py-3 flex items-center gap-3">
-        <span className="text-[10px] rounded-full border border-zinc-700 px-2 py-0.5 text-zinc-500 uppercase tracking-wider">
-          Replay Mode
-        </span>
-        <p className="text-xs text-zinc-500">
-          이 리포트는 <span className="text-zinc-300">로컬 환경</span>에서{" "}
-          <span className="text-zinc-300">{fm.model}</span> + Web Search로 생성됐습니다.
-          실제 AI 분석은 로컬에서만 실행됩니다.
-        </p>
+    <div className="flex items-center gap-1.5 shrink-0">
+      <div className="w-12 h-1 rounded-full bg-slate-200">
+        <div
+          className="h-full rounded-full bg-violet-400"
+          style={{ width: `${(score / 10) * 100}%` }}
+        />
       </div>
-
-      <div className="flex flex-1 overflow-hidden">
-        {/* ── 왼쪽: Scout UI (disabled 상태) ── */}
-        <aside className="w-64 shrink-0 border-r border-zinc-800 flex flex-col bg-zinc-950/60">
-          <div className="p-4 border-b border-zinc-800">
-            <h2 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider mb-3">
-              분석 대상
-            </h2>
-            <div className="flex flex-col gap-1.5">
-              {fm.selected.map((chip) => {
-                const demoHref = DEMO_LINK_MAP[chip.id];
-                return (
-                  <div
-                    key={chip.id}
-                    className="flex items-center justify-between rounded-lg border border-zinc-700 bg-zinc-800/60 px-3 py-2"
-                  >
-                    <div>
-                      <span className="text-xs font-medium text-zinc-200">{chip.label}</span>
-                      <span className="ml-1.5 text-[10px] text-zinc-500">{chip.version}</span>
-                    </div>
-                    <div className="flex items-center gap-1.5">
-                      <span className="text-[9px] text-zinc-600 bg-zinc-900 rounded px-1 py-0.5">
-                        {chip.category}
-                      </span>
-                      <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" title="선택됨" />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* 비활성 버튼들 */}
-          <div className="p-4 flex flex-col gap-2">
-            <div className="relative">
-              <button
-                disabled
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs text-zinc-600 cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                <span>🔍</span> 수집하기
-              </button>
-              <span className="absolute -top-2 right-2 text-[9px] bg-zinc-800 text-zinc-500 rounded px-1">
-                로컬 전용
-              </span>
-            </div>
-            <div className="relative">
-              <button
-                disabled
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs text-zinc-600 cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                <span>✔</span> 검증하기
-              </button>
-              <span className="absolute -top-2 right-2 text-[9px] bg-zinc-800 text-zinc-500 rounded px-1">
-                로컬 전용
-              </span>
-            </div>
-            <div className="relative">
-              <button
-                disabled
-                className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-2 text-xs text-zinc-600 cursor-not-allowed flex items-center justify-center gap-2"
-              >
-                <span>↓</span> MD 내보내기
-              </button>
-              <span className="absolute -top-2 right-2 text-[9px] bg-zinc-800 text-zinc-500 rounded px-1">
-                로컬 전용
-              </span>
-            </div>
-          </div>
-
-          {/* 판정 필터 */}
-          <div className="p-4 border-t border-zinc-800 mt-auto">
-            <p className="text-[10px] text-zinc-600 mb-2 uppercase tracking-wider">판정 필터</p>
-            <div className="flex flex-col gap-1">
-              {[
-                { key: "adopt", label: `✅ 도입 권장 ${fm.verdicts.adopt}` },
-                { key: "watch", label: `👀 관찰 대상 ${fm.verdicts.watch}` },
-                { key: "skip", label: `⏭ 스킵 ${fm.verdicts.skip}` },
-              ].map(({ key, label }) => (
-                <button
-                  key={key}
-                  onClick={() => setActiveVerdict((prev) => (prev === key ? null : key))}
-                  className={`rounded px-2 py-1 text-left text-xs transition-colors ${
-                    activeVerdict === key
-                      ? "bg-zinc-700 text-zinc-100"
-                      : "text-zinc-500 hover:text-zinc-300"
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </aside>
-
-        {/* ── 오른쪽: 결과 렌더링 ── */}
-        <main className="flex-1 overflow-y-auto px-8 py-6">
-          <div className="mx-auto max-w-2xl space-y-4">
-            {/* 헤더 */}
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold text-white">{fm.title}</h1>
-              <div className="mt-1 flex items-center gap-2 text-xs text-zinc-500">
-                <span>{fm.date}</span>
-                <span>·</span>
-                <span>{fm.model} + Web Search</span>
-              </div>
-              <div className="mt-3 flex gap-3">
-                {fm.verdicts.adopt > 0 && (
-                  <span className="text-xs text-emerald-400">✅ 도입 권장 {fm.verdicts.adopt}</span>
-                )}
-                {fm.verdicts.watch > 0 && (
-                  <span className="text-xs text-amber-400">👀 관찰 {fm.verdicts.watch}</span>
-                )}
-                {fm.verdicts.skip > 0 && (
-                  <span className="text-xs text-zinc-500">⏭ 스킵 {fm.verdicts.skip}</span>
-                )}
-              </div>
-            </div>
-
-            {/* 섹션별 아이템 */}
-            {filteredSections.map((section) =>
-              section.items.map((item) => (
-                <ItemCard
-                  key={item.title}
-                  item={item}
-                  verdict={section.verdict}
-                  selectedIds={fm.selected.map((s) => s.id)}
-                />
-              )),
-            )}
-          </div>
-        </main>
-      </div>
+      <span className="text-xs text-slate-400">{score}</span>
     </div>
   );
 }
 
-function ItemCard({
-  item,
-  verdict,
-  selectedIds,
-}: {
-  item: ReportItem;
-  verdict: string;
-  selectedIds: string[];
-}) {
-  const [expanded, setExpanded] = useState(false);
-
-  // 제목에서 기술명 추출해 데모 링크 찾기
-  const demoHref = Object.entries(DEMO_LINK_MAP).find(([key]) =>
-    item.title.toLowerCase().includes(key.replace(/-/g, " ")),
-  )?.[1] ?? null;
+// ─── 결과 카드 ───────────────────────────────────────────────────────────────
+function ItemCard({ item }: { item: ReportItem }) {
+  const [adoptionOpen, setAdoptionOpen] = useState(false);
+  const cfg = VERDICT_CONFIG[item.verdict];
+  const isImplemented = !!item.implementedHref;
 
   return (
-    <div className={`rounded-xl border p-5 ${VERDICT_COLOR[verdict] ?? "border-zinc-800"}`}>
-      <div className="flex items-start justify-between gap-3 mb-3">
-        <div className="flex items-center gap-2 flex-wrap">
-          <span className="text-sm font-semibold text-zinc-100">{item.title}</span>
+    <div className={`rounded-xl border bg-white overflow-hidden ${cfg.cardBorder}`}>
+      <div className="px-5 py-4">
+        {/* 제목 + 점수 + 판정 */}
+        <div className="flex items-start justify-between gap-3 mb-3">
+          <h3 className="text-sm font-semibold text-slate-800 leading-snug">{item.title}</h3>
+          <div className="flex items-center gap-2 shrink-0">
+            {item.score !== null && <ScoreBar score={item.score} />}
+            <span className={`text-xs rounded-full border px-2 py-0.5 ${cfg.badgeBorder} ${cfg.text}`}>
+              {cfg.emoji} {cfg.label}
+            </span>
+          </div>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
-          {item.score !== null && (
-            <span className="text-[10px] text-zinc-500">{item.score}/10</span>
-          )}
-          <span
-            className={`text-[10px] rounded-full border px-2 py-0.5 ${VERDICT_COLOR[verdict]}`}
+
+        {/* 구현 여부 배지 */}
+        {isImplemented ? (
+          <Link
+            href={item.implementedHref!}
+            className="inline-flex items-center gap-1.5 rounded-full border border-violet-200 bg-violet-50 px-2.5 py-1 text-xs text-violet-600 hover:bg-violet-100 transition-colors"
           >
-            {VERDICT_EMOJI[verdict]} {VERDICT_LABEL[verdict]}
+            <span className="h-1.5 w-1.5 rounded-full bg-violet-500" />
+            이 사이트에 구현됨 · {item.implementedLabel} →
+          </Link>
+        ) : (
+          <span className="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-2.5 py-1 text-xs text-slate-400">
+            <span className="h-1.5 w-1.5 rounded-full bg-slate-300" />
+            미구현
+          </span>
+        )}
+      </div>
+
+      {/* 본문 */}
+      {item.body && (
+        <div className="px-5 pb-3">
+          <p className="text-sm text-slate-600 leading-relaxed">{item.body}</p>
+        </div>
+      )}
+
+      {/* 데모 아이디어 — 기본 노출 */}
+      {item.demoIdea && (
+        <div className="mx-5 mb-4 rounded-lg bg-violet-50 border border-violet-100 px-4 py-3">
+          <p className="text-xs font-medium text-violet-500 mb-1">💡 데모 아이디어</p>
+          <p className="text-xs text-slate-600 leading-relaxed">{item.demoIdea}</p>
+        </div>
+      )}
+
+      {/* 적용 방법 — 접기 유지 */}
+      {item.adoptionPath && (
+        <>
+          <button
+            onClick={() => setAdoptionOpen((v) => !v)}
+            className="w-full px-5 py-3 text-left text-xs text-slate-400 hover:text-slate-600 border-t border-slate-200/80 transition-colors flex items-center justify-between"
+          >
+            <span>적용 방법 {adoptionOpen ? "접기" : "보기"}</span>
+            <svg
+              className={`w-3.5 h-3.5 transition-transform duration-200 ${adoptionOpen ? "rotate-180" : ""}`}
+              viewBox="0 0 14 14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+            >
+              <path d="M3 5l4 4 4-4" />
+            </svg>
+          </button>
+          {adoptionOpen && (
+            <div className="px-5 pb-4">
+              <div className="rounded-lg bg-white p-3 border border-slate-200">
+                <p className="text-xs text-slate-600 leading-relaxed">{item.adoptionPath}</p>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}
+
+// ─── 메인 ────────────────────────────────────────────────────────────────────
+export function ReplayView({ report }: { report: ParsedReport }) {
+  const { frontmatter: fm, items } = report;
+  const [filter, setFilter] = useState<"all" | "adopt" | "watch" | "skip">("all");
+
+  const implementedCount = items.filter((i) => i.implementedHref).length;
+  const filteredItems = filter === "all" ? items : items.filter((i) => i.verdict === filter);
+
+  const filterOptions = (["all", "adopt", "watch", "skip"] as const).filter((v) => {
+    if (v === "all") return true;
+    return items.filter((i) => i.verdict === v).length > 0;
+  });
+
+  return (
+    <div>
+      {/* 브레드크럼 */}
+      <div className="border-b border-slate-200 bg-slate-50 px-6 py-3 flex items-center gap-1.5">
+        <Link href="/reports" className="text-xs text-slate-400 hover:text-violet-600 transition-colors">
+          Scout Reports
+        </Link>
+        <span className="text-slate-300 text-xs">/</span>
+        <span className="text-xs text-slate-600 truncate max-w-xs">{fm.title}</span>
+        <div className="ml-auto flex items-center gap-1.5">
+          <span className="rounded-full border border-violet-200 bg-violet-50 px-2 py-0.5 text-xs text-violet-600 uppercase tracking-wider">
+            Scout Report
+          </span>
+          <span className="text-xs text-slate-400 ml-1">
+            <span className="text-slate-600">{fm.model}</span> + Web Search
           </span>
         </div>
       </div>
 
-      {item.body && (
-        <p className="text-sm text-zinc-400 leading-relaxed">{item.body}</p>
-      )}
+      {/* 본문 */}
+      <div className="max-w-3xl mx-auto px-6 py-10">
+        {/* 리포트 헤더 */}
+        <div className="mb-8 pb-8 border-b border-slate-200">
+          <div className="flex items-center gap-2 mb-2 flex-wrap">
+            <span className="text-xs text-slate-400">{fm.date}</span>
+            <span className="text-slate-200">·</span>
+            <span className="text-xs text-violet-500 font-medium">{fm.model}</span>
+            <span className="text-slate-200">·</span>
+            <span className="text-xs text-slate-400">Web Search</span>
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight text-slate-900 mb-3">{fm.title}</h1>
 
-      {(item.adoptionPath || item.demoIdea) && (
-        <button
-          onClick={() => setExpanded((v) => !v)}
-          className="mt-3 text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
-        >
-          {expanded ? "▲ 접기" : "▼ 적용 방법 · 데모 아이디어 보기"}
-        </button>
-      )}
+          {/* 판정 요약 */}
+          <div className="flex items-center gap-4 flex-wrap">
+            {fm.verdicts.adopt > 0 && (
+              <span className="text-sm font-semibold text-emerald-600">✅ 도입 권장 {fm.verdicts.adopt}</span>
+            )}
+            {fm.verdicts.watch > 0 && (
+              <span className="text-sm font-semibold text-amber-600">👀 관찰 대상 {fm.verdicts.watch}</span>
+            )}
+            {fm.verdicts.skip > 0 && (
+              <span className="text-sm font-semibold text-slate-400">⏭ 스킵 {fm.verdicts.skip}</span>
+            )}
+          </div>
 
-      {expanded && (
-        <div className="mt-3 space-y-3">
-          {item.adoptionPath && (
-            <div className="rounded-lg bg-zinc-900/60 p-3">
-              <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">적용 방법</p>
-              <p className="text-xs text-zinc-400 leading-relaxed">{item.adoptionPath}</p>
-            </div>
-          )}
-          {item.demoIdea && (
-            <div className="rounded-lg bg-zinc-900/60 p-3">
-              <p className="text-[10px] text-zinc-500 uppercase tracking-wider mb-1">💡 데모 아이디어</p>
-              <p className="text-xs text-zinc-400 leading-relaxed">{item.demoIdea}</p>
-            </div>
-          )}
+          {/* 분석 대상 칩 */}
+          <div className="mt-4 flex flex-wrap gap-2">
+            {fm.selected.map((chip) => (
+              <div
+                key={chip.id}
+                className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-slate-50 px-3 py-1"
+              >
+                <span className="text-xs text-slate-600">{chip.label}</span>
+                {chip.from && chip.to && (
+                  <>
+                    <span className="text-slate-300 text-xs">v{chip.from}</span>
+                    <span className="text-slate-300 text-xs">→</span>
+                    <span className="text-violet-600 text-xs font-medium">v{chip.to}</span>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      )}
 
-      {demoHref && (
-        <div className="mt-3 pt-3 border-t border-zinc-800/50">
-          <a
-            href={demoHref}
-            className="inline-flex items-center gap-1 text-xs text-blue-400 hover:text-blue-300 transition-colors"
-          >
-            → 구현된 데모 보기
-          </a>
+        {/* 인라인 필터 + 구현 현황 */}
+        <div className="flex items-center gap-2 mb-6 flex-wrap">
+          {filterOptions.map((v) => {
+            const cfg = v !== "all" ? VERDICT_CONFIG[v] : null;
+            const count = v === "all" ? items.length : items.filter((i) => i.verdict === v).length;
+            return (
+              <button
+                key={v}
+                onClick={() => setFilter(v)}
+                className={`px-4 py-1.5 rounded-full text-xs font-medium transition-all border ${
+                  filter === v
+                    ? "bg-violet-600 border-violet-600 text-white shadow-sm"
+                    : `border-slate-200 ${cfg ? cfg.text : "text-slate-500"} hover:border-slate-300 hover:text-slate-700 bg-white`
+                }`}
+              >
+                {v === "all" ? `전체 ${count}` : `${cfg!.emoji} ${cfg!.label} ${count}`}
+              </button>
+            );
+          })}
+
+          {/* 구현 현황 — 우측 정렬 */}
+          <div className="ml-auto flex items-center gap-2">
+            <div className="w-20 h-1.5 rounded-full bg-slate-200">
+              <div
+                className="h-full rounded-full bg-violet-500 transition-all"
+                style={{ width: `${Math.round((implementedCount / items.length) * 100)}%` }}
+              />
+            </div>
+            <span className="text-xs text-slate-400 whitespace-nowrap">
+              {implementedCount}/{items.length} 구현
+            </span>
+          </div>
         </div>
-      )}
+
+        {/* 결과 카드 목록 */}
+        <div className="space-y-3">
+          {filteredItems.map((item) => (
+            <ItemCard key={item.title} item={item} />
+          ))}
+        </div>
+      </div>
     </div>
   );
 }
