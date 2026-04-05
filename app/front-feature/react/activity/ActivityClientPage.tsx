@@ -192,13 +192,13 @@ export function ActivityClientPage({
         <div className="flex items-center gap-2">
           <button
             onClick={() => setHidden((prev) => !prev)}
-            className="rounded-full border border-zinc-700 bg-zinc-900 px-4 py-2 text-xs text-zinc-100 hover:bg-zinc-800"
+            className="rounded-full border border-slate-300 bg-white px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 transition-colors"
           >
             {hidden ? "패널 표시" : "패널 숨기기"}
           </button>
           <button
             onClick={resetStats}
-            className="rounded-full border border-zinc-700 px-4 py-2 text-xs text-zinc-300 hover:border-zinc-500 hover:text-white"
+            className="rounded-full border border-slate-300 px-4 py-2 text-xs text-slate-500 hover:border-slate-400 hover:text-slate-700 transition-colors"
           >
             지표 초기화
           </button>

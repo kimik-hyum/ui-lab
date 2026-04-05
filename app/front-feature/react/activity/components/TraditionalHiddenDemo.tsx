@@ -55,7 +55,7 @@ function WorkerCore({
   // [cmp:background-effects:end]
 
   return (
-    <div className="rounded-lg border border-zinc-800 bg-zinc-950/70 p-3 text-xs text-zinc-400">
+    <div className="rounded-lg border border-slate-200 bg-slate-100 p-3 text-xs text-slate-500">
       계산 토큰: {Math.round(computeToken).toLocaleString()}
     </div>
   );
@@ -64,31 +64,31 @@ function WorkerCore({
 export function TraditionalHiddenDemo({ hidden, tick, stats, statsRef }: TraditionalHiddenDemoProps) {
   return (
     <div>
-      <div className="mb-4 rounded-xl border border-zinc-800 bg-zinc-950/50 p-5">
+      <div className="mb-4 rounded-xl border border-slate-200 bg-slate-50 p-5">
         <div className="mb-3 flex items-center justify-between">
-          <h3 className="text-lg font-semibold text-zinc-100">Traditional (display: none)</h3>
-          <span className={`text-[10px] uppercase tracking-wider ${hidden ? "text-amber-300" : "text-emerald-300"}`}>
+          <h3 className="text-sm font-semibold text-slate-800">Traditional (display: none)</h3>
+          <span className={`text-[10px] uppercase tracking-wider font-medium ${hidden ? "text-amber-600" : "text-emerald-600"}`}>
             {hidden ? "hidden" : "visible"}
           </span>
         </div>
 
         <div className="grid grid-cols-3 gap-2 text-sm">
-          <div className="rounded border border-zinc-800 bg-black/40 px-3 py-2">
-            <p className="text-[11px] text-zinc-500">renders</p>
-            <p className="text-zinc-200">{stats.renders}</p>
+          <div className="rounded border border-slate-200 bg-white px-3 py-2">
+            <p className="text-[11px] text-slate-500">renders</p>
+            <p className="text-slate-800 font-medium">{stats.renders}</p>
           </div>
-          <div className="rounded border border-zinc-800 bg-black/40 px-3 py-2">
-            <p className="text-[11px] text-zinc-500">effect ticks</p>
-            <p className="text-zinc-200">{stats.effectTicks}</p>
+          <div className="rounded border border-slate-200 bg-white px-3 py-2">
+            <p className="text-[11px] text-slate-500">effect ticks</p>
+            <p className="text-slate-800 font-medium">{stats.effectTicks}</p>
           </div>
-          <div className="rounded border border-zinc-800 bg-black/40 px-3 py-2">
-            <p className="text-[11px] text-zinc-500">work units</p>
-            <p className="text-zinc-200">{stats.workUnits.toLocaleString()}</p>
+          <div className="rounded border border-slate-200 bg-white px-3 py-2">
+            <p className="text-[11px] text-slate-500">work units</p>
+            <p className="text-slate-800 font-medium">{stats.workUnits.toLocaleString()}</p>
           </div>
         </div>
       </div>
 
-      <div className="rounded-xl border border-zinc-800 bg-zinc-950/30 p-5">
+      <div className="rounded-xl border border-slate-200 bg-slate-50 p-5">
         {/* [cmp:hidden-strategy:start] */}
         <div className={hidden ? "hidden" : "block"}>
           <WorkerCore tick={tick} statsRef={statsRef} />

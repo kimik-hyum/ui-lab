@@ -103,19 +103,19 @@ export function CodeInsightTemplate({
   };
 
   return (
-    <div className="min-h-screen bg-black text-gray-200 font-sans selection:bg-gray-800">
+    <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-violet-100">
       <div className="w-full h-screen flex flex-col">
-        <header className="p-6 border-b border-gray-800 flex items-center justify-between shrink-0">
+        <header className="p-6 border-b border-slate-200 flex items-center justify-between shrink-0 bg-white">
           <div>
-            <h1 className="text-2xl font-bold text-white tracking-tight">{title}</h1>
-            <p className="text-gray-500 text-sm mt-1">{description}</p>
+            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">{title}</h1>
+            <p className="text-slate-500 text-sm mt-1">{description}</p>
           </div>
           {headerActions ? <div className="flex items-center gap-3">{headerActions}</div> : null}
         </header>
 
         <div className="flex flex-1 overflow-hidden">
-          <section className="w-2/3 min-w-0 border-r border-gray-800 flex flex-col">
-            {preview ? <div className="border-b border-gray-800 p-5 bg-gray-950/40">{preview}</div> : null}
+          <section className="w-2/3 min-w-0 border-r border-slate-200 flex flex-col">
+            {preview ? <div className="border-b border-slate-200 p-5 bg-slate-50">{preview}</div> : null}
             <div className="flex-1 p-6 overflow-y-auto bg-gradient-to-b from-gray-900 to-black">
               <ComparisonCodeBlock
                 code={code}
@@ -130,13 +130,13 @@ export function CodeInsightTemplate({
             </div>
           </section>
 
-          <aside className="w-1/3 min-w-0 flex flex-col bg-gray-950/30">
-            <div className="border-b border-gray-800 p-4">
-              <h2 className="text-sm font-semibold text-gray-200">핵심 포인트</h2>
-              <p className="mt-1 text-xs text-gray-500">항목을 선택하면 관련 코드 라인을 강조합니다.</p>
+          <aside className="w-1/3 min-w-0 flex flex-col bg-slate-50/60">
+            <div className="border-b border-slate-200 p-4">
+              <h2 className="text-sm font-semibold text-slate-700">핵심 포인트</h2>
+              <p className="mt-1 text-xs text-slate-500">항목을 선택하면 관련 코드 라인을 강조합니다.</p>
             </div>
 
-            <div className="p-4 space-y-2 overflow-y-auto border-b border-gray-800">
+            <div className="p-4 space-y-2 overflow-y-auto border-b border-slate-200">
               {topics.map((topic) => {
                 const isActive = topic.id === activeTopic?.id;
 
@@ -149,8 +149,8 @@ export function CodeInsightTemplate({
                     onClick={() => handleTopicActivate(topic)}
                     className={`w-full rounded-lg border px-3 py-2 text-left text-sm transition-colors ${
                       isActive
-                        ? 'border-blue-500/60 bg-blue-950/30 text-blue-100'
-                        : 'border-gray-800 bg-gray-900/40 text-gray-300 hover:border-gray-700'
+                        ? 'border-violet-400 bg-violet-50 text-violet-700'
+                        : 'border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50'
                     }`}
                   >
                     {topic.title}
@@ -161,12 +161,12 @@ export function CodeInsightTemplate({
 
             <div className="p-4 overflow-y-auto">
               {activeTopic ? (
-                <div className="rounded-xl border border-gray-800 bg-black/40 p-4">
-                  <h3 className="text-sm font-semibold text-blue-200">{activeTopic.title}</h3>
-                  <div className="mt-2 text-sm text-gray-300 leading-relaxed">{activeTopic.description}</div>
+                <div className="rounded-xl border border-slate-200 bg-white p-4">
+                  <h3 className="text-sm font-semibold text-violet-700">{activeTopic.title}</h3>
+                  <div className="mt-2 text-sm text-slate-600 leading-relaxed">{activeTopic.description}</div>
                 </div>
               ) : (
-                <p className="text-sm text-gray-500">오른쪽 항목 또는 코드 라인을 선택하면 설명을 표시합니다.</p>
+                <p className="text-sm text-slate-400">오른쪽 항목 또는 코드 라인을 선택하면 설명을 표시합니다.</p>
               )}
             </div>
           </aside>
