@@ -1,0 +1,28 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_input.file_path // .tool_response.filePath' | { read -r f; [[ \"$f\" =~ \\.(ts|tsx|js|jsx)$ ]] && yarn eslint --fix \"$f\"; } 2>/dev/null || true",
+            "statusMessage": "ESLint auto-fix 실행 중..."
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '\"[\" + (now | strftime(\"%H:%M:%S\")) + \"] \" + .tool_input.command' >> /tmp/ui-lab-bash-log.txt 2>/dev/null || true",
+            "async": true
+          }
+        ]
+      }
+    ]
+  }
+}

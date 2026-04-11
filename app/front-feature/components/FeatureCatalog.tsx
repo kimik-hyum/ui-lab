@@ -36,17 +36,17 @@ export function FeatureCatalog({ title, description, sections }: FeatureCatalogP
         .filter((section) => section.features.length > 0);
 
   return (
-    <main className="min-h-screen bg-black p-8 text-white md:p-14">
+    <main className="min-h-screen bg-white p-8 md:p-14">
       <div className="mx-auto max-w-6xl">
-        <header className="mb-10 border-b border-zinc-800 pb-6">
-          <h1 className="text-4xl font-bold tracking-tight">{title}</h1>
-          <p className="mt-3 text-zinc-400">{description}</p>
+        <header className="mb-10 border-b border-slate-200 pb-6">
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">{title}</h1>
+          <p className="mt-3 text-slate-500">{description}</p>
           <nav className="mt-6 flex flex-wrap gap-2">
             {visibleSections.map((section) => (
               <a
                 key={section.id}
                 href={`#${section.id}`}
-                className="rounded-full border border-zinc-700 px-3 py-1.5 text-xs text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white"
+                className="rounded-full border border-slate-200 px-3 py-1.5 text-xs text-slate-600 transition-colors hover:border-violet-200 hover:bg-violet-50 hover:text-violet-600"
               >
                 {section.title}
               </a>
@@ -58,8 +58,8 @@ export function FeatureCatalog({ title, description, sections }: FeatureCatalogP
           {visibleSections.map((section) => (
             <section key={section.id} id={section.id} className="scroll-mt-20">
               <div className="mb-4">
-                <h2 className="text-2xl font-semibold text-zinc-100">{section.title}</h2>
-                <p className="mt-1 text-sm text-zinc-500">{section.subtitle}</p>
+                <h2 className="text-2xl font-semibold tracking-tight text-slate-900">{section.title}</h2>
+                <p className="mt-1 text-sm text-slate-500">{section.subtitle}</p>
               </div>
 
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
@@ -67,29 +67,29 @@ export function FeatureCatalog({ title, description, sections }: FeatureCatalogP
                   const commonClassName = "group relative block rounded-xl border p-5 transition-all";
                   const activeClassName =
                     feature.status === "available"
-                      ? "border-zinc-700 bg-zinc-900/70 hover:border-zinc-500 hover:bg-zinc-900"
-                      : "border-zinc-800 bg-zinc-950/60";
+                      ? "border-slate-200 bg-white hover:border-violet-200 hover:shadow-sm hover:shadow-violet-100"
+                      : "border-slate-100 bg-slate-50 cursor-not-allowed";
 
                   const content = (
                     <>
                       <div className="mb-4 flex items-start justify-between gap-3">
                         <div className="space-y-1">
-                          <span className="inline-block rounded border border-blue-900 bg-blue-950/40 px-2 py-0.5 text-[10px] text-blue-300">
+                          <span className="inline-block rounded border border-violet-200 bg-violet-50 px-2 py-0.5 text-xs text-violet-600">
                             {feature.badge}
                           </span>
-                          <p className="text-[11px] text-zinc-500">{feature.since}</p>
+                          <p className="text-xs text-slate-400">{feature.since}</p>
                         </div>
                         <span
-                          className={`text-[10px] uppercase tracking-wider ${
-                            feature.status === "available" ? "text-emerald-300" : "text-zinc-500"
+                          className={`text-xs uppercase tracking-wider ${
+                            feature.status === "available" ? "text-emerald-600" : "text-slate-400"
                           }`}
                         >
                           {feature.status}
                         </span>
                       </div>
 
-                      <h3 className="text-lg font-semibold text-zinc-100">{feature.title}</h3>
-                      <p className="mt-2 text-sm text-zinc-400">{feature.description}</p>
+                      <h3 className="text-base font-semibold text-slate-900">{feature.title}</h3>
+                      <p className="mt-2 text-sm text-slate-500">{feature.description}</p>
                     </>
                   );
 

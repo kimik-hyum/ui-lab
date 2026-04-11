@@ -3,7 +3,21 @@ title: UI-LAB 기술 검증 리포트
 date: 2026-03-29
 model: claude-sonnet-4-6
 selected:
-  - { id: "react", label: "React", category: "프레임워크", version: "v19" }
+  - id: "react"
+    label: "React"
+    category: "프레임워크"
+    from: "18"
+    to: "19"
+implemented:
+  - verdict_title: "React 19 — Actions API (useActionState · useOptimistic · useFormStatus)"
+    href: "/front-feature/react/optimistic"
+    label: "Optimistic Updates 비교 데모"
+  - verdict_title: "React 19 — React Server Components (RSC) + Server Actions"
+    href: "/front-feature/nextjs/rsc-vs-csc"
+    label: "RSC vs CSC 렌더링 비교 데모"
+  - verdict_title: "React 19.2 — <ViewTransition> + <Activity> API"
+    href: "/front-feature/react/activity"
+    label: "Activity vs display:none 비교 데모"
 verdicts:
   adopt: 6
   watch: 1

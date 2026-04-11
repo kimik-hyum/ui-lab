@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en">
       <body
         suppressHydrationWarning
-        className={`${josefinSans.variable} antialiased bg-black text-white`}
+        className={`${josefinSans.variable} antialiased bg-white text-slate-900`}
       >
         <Sidebar />
         <div className="pl-64 min-h-screen">
