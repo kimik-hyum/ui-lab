@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# ui-lab monorepo
 
-## Getting Started
+Yarn Berry(workspaces) 기반 모노레포입니다.
 
-First, run the development server:
+## Workspace
+
+- `apps/lab-shell`: 기존 ui-lab Next.js 관리/비교 허브 앱
+- `apps/next-lab`: Next.js 실험 앱
+- `apps/sveltekit-lab`: SvelteKit 실험 앱
+
+## Requirements
+
+- Node.js 20+
+- Yarn 4.x
+
+## Install
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Development
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+# lab-shell (기본)
+yarn dev
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+# next-lab (3001)
+yarn dev:next-lab
 
-## Learn More
+# sveltekit-lab (3002)
+yarn dev:sveltekit-lab
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Build
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# 전체 workspace build
+yarn build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# lab-shell만 build
+yarn build:lab-shell
+```
 
-## Deploy on Vercel
+## Lighthouse Comparison (Next vs SvelteKit)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+루트에서 아래 명령으로 `apps/next-lab`과 `apps/sveltekit-lab`의 동일 경로를 측정합니다.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# 빠른 1회 측정
+yarn perf:lighthouse:quick
+
+# 기본 3회 측정
+yarn perf:lighthouse
+```
+
+옵션:
+
+```bash
+# 특정 경로 측정 (예: /about), 5회 실행
+LH_PATH=/about LH_RUNS=5 yarn perf:lighthouse
+```
+
+결과 파일:
+
+- 타임스탬프별 원본: `perf-results/lighthouse/<timestamp>/`
+- 최신 집계: `perf-results/lighthouse/latest.json`
+
+## Vercel Project Split
+
+각 앱은 별도 Vercel 프로젝트로 연결합니다.
+
+- Project A -> `apps/lab-shell`
+- Project B -> `apps/next-lab`
+- Project C -> `apps/sveltekit-lab`

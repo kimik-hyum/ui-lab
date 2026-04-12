@@ -2,9 +2,11 @@ import { promises as fs } from "fs";
 import path from "path";
 import { parseReport } from "./utils/parseFrontmatter";
 import { ReportListNav } from "./ReportListNav";
+import { resolveDocsDir } from "./utils/docsDir";
 
 async function getReports() {
-  const docsDir = path.join(process.cwd(), "docs");
+  const docsDir = await resolveDocsDir();
+  if (!docsDir) return [];
   const files = (await fs.readdir(docsDir)).filter((f) => f.endsWith(".md"));
   const reports = await Promise.all(
     files.map(async (file) => {

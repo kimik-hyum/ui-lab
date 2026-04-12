@@ -16,12 +16,12 @@ const TOPIC_DEFINITIONS = [
       <div className="space-y-2">
         <p>
           <span className="text-red-600 font-bold">CSC:</span>{' '}
-          <code>'use client'</code> 선언으로 컴포넌트 전체가 클라이언트 번들에 포함됩니다.
+          <code>use client</code> 선언으로 컴포넌트 전체가 클라이언트 번들에 포함됩니다.
           훅(useState, useEffect)과 모든 의존 코드가 브라우저로 전송됩니다.
         </p>
         <p>
           <span className="text-blue-600 font-bold">RSC:</span>{' '}
-          <code>'use client'</code>가 없으면 서버에서만 실행되고, 컴포넌트 코드는
+          <code>use client</code>가 없으면 서버에서만 실행되고, 컴포넌트 코드는
           클라이언트 번들에 포함되지 않아 JS 전송량이 줄어듭니다.
         </p>
       </div>
@@ -130,19 +130,20 @@ function RscSimulatedViewer({
   simulatedDelay: number;
   triggerKey: number;
 }) {
-  const [phase, setPhase] = useState<'loading' | 'done'>('loading');
+  const requestKey = `${simulatedDelay}:${triggerKey}`;
+  const [completedKey, setCompletedKey] = useState<string | null>(null);
   const [elapsed, setElapsed] = useState<number | null>(null);
+  const isLoading = completedKey !== requestKey;
+  const phase: 'loading' | 'done' = isLoading ? 'loading' : 'done';
 
   useEffect(() => {
-    setPhase('loading');
-    setElapsed(null);
     const start = performance.now();
     const timer = setTimeout(() => {
-      setPhase('done');
+      setCompletedKey(requestKey);
       setElapsed(Math.round(performance.now() - start));
     }, simulatedDelay);
     return () => clearTimeout(timer);
-  }, [simulatedDelay, triggerKey]);
+  }, [requestKey, simulatedDelay]);
 
   return (
     <div className="flex flex-col gap-4 h-full">
@@ -381,7 +382,7 @@ function TradeoffSection() {
         <p className="text-xs text-slate-500 leading-relaxed">
           <span className="text-slate-700 font-medium">권장 패턴 (Next.js App Router):</span>{' '}
           페이지·레이아웃 수준은 RSC로 데이터를 미리 가져오고,
-          클릭·입력 등 인터랙션이 필요한 리프 컴포넌트만 <code className="text-violet-600">'use client'</code>로 분리합니다.
+          클릭·입력 등 인터랙션이 필요한 리프 컴포넌트만 <code className="text-violet-600">use client</code>로 분리합니다.
           트래픽이 높은 공개 페이지라면 RSC에 <code className="text-violet-600">cache</code> 옵션을 적극 활용하세요.
         </p>
       </div>

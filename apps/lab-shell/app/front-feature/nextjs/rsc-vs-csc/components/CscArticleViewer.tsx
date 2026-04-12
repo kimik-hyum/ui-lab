@@ -9,30 +9,34 @@ import type { Article } from '../article';
 // 클라이언트 JavaScript 번들에 포함됩니다.
 export function CscArticleViewer({ delay, fetchKey }: { delay: number; fetchKey: number }) {
 // [cmp:client-boundary:end]
+  const requestKey = `${delay}:${fetchKey}`;
   // [cmp:loading-state:start]
   const [article, setArticle] = useState<Article | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [loadedKey, setLoadedKey] = useState<string | null>(null);
   const [elapsed, setElapsed] = useState<number | null>(null);
   const [fetchCount, setFetchCount] = useState(0);
+  const isLoading = loadedKey !== requestKey;
   // [cmp:loading-state:end]
 
   // [cmp:data-fetching:start]
   useEffect(() => {
-    setIsLoading(true);
-    setArticle(null);
-    setElapsed(null);
-
+    let isCancelled = false;
     const start = performance.now();
 
     fetch(`/api/rsc-demo?delay=${delay}`)
       .then((r) => r.json())
       .then((data: Article) => {
+        if (isCancelled) return;
         setArticle(data);
-        setIsLoading(false);
+        setLoadedKey(requestKey);
         setFetchCount((prev) => prev + 1);
         setElapsed(Math.round(performance.now() - start));
       });
-  }, [delay, fetchKey]);
+
+    return () => {
+      isCancelled = true;
+    };
+  }, [delay, requestKey]);
   // [cmp:data-fetching:end]
 
   return (
@@ -40,7 +44,7 @@ export function CscArticleViewer({ delay, fetchKey }: { delay: number; fetchKey:
       <MetricsBadge
         bundleSize="~3.2 KB"
         clientRequests={fetchCount}
-        elapsed={elapsed}
+        elapsed={isLoading ? null : elapsed}
         isLoading={isLoading}
       />
 

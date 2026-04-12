@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+**/node_modules/
 /.pnp
 .pnp.*
 .yarn/*
@@ -16,9 +17,14 @@
 # next.js
 /.next/
 /out/
+**/.next/
+**/out/
 
 # production
 /build
+**/build
+**/dist
+**/.svelte-kit/
 
 # misc
 .DS_Store
@@ -42,5 +48,9 @@ yarn-error.log*
 next-env.d.ts
 
 # local-only: Claude proxy 기반 도구 (git 제외)
-/app/front-feature/scout/
-/app/api/claude/
+/apps/lab-shell/app/front-feature/scout/
+/apps/lab-shell/app/api/claude/
+
+# lighthouse raw runs (keep only latest summary snapshot)
+perf-results/lighthouse/*/
+!perf-results/lighthouse/latest.json

@@ -1,34 +1,35 @@
 {
-  "name": "ui-lab",
-  "version": "0.1.0",
+  "name": "ui-lab-monorepo",
   "private": true,
   "packageManager": "yarn@4.6.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "dev": "yarn workspace lab-shell dev",
+    "dev:lab-shell": "yarn workspace lab-shell dev",
+    "dev:next-lab": "yarn workspace next-lab dev",
+    "dev:sveltekit-lab": "yarn workspace sveltekit-lab dev",
+    "build": "yarn workspaces foreach -Apt run build",
+    "build:lab-shell": "yarn workspace lab-shell build",
+    "lint": "yarn workspaces foreach -Apt run lint",
+    "lint:staged": "lint-staged",
+    "perf:lighthouse": "node scripts/lighthouse-compare.mjs",
+    "perf:lighthouse:quick": "LH_RUNS=1 node scripts/lighthouse-compare.mjs",
+    "prepare": "husky"
   },
-  "dependencies": {
-    "@types/react-syntax-highlighter": "^15.5.13",
-    "next": "16.1.1",
-    "pretendard": "^1.3.9",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
-    "react-syntax-highlighter": "^16.1.0",
-    "react-virtuoso": "^4.18.1"
+  "lint-staged": {
+    "apps/lab-shell/**/*.{js,jsx,ts,tsx}": [
+      "sh -c 'cd apps/lab-shell && ../../node_modules/.bin/eslint --max-warnings=0 --no-warn-ignored --ignore-pattern \"app/front-feature/nextjs/rsc-vs-csc/**\" .'"
+    ],
+    "apps/next-lab/**/*.{js,jsx,ts,tsx}": [
+      "sh -c 'cd apps/next-lab && ../../node_modules/.bin/eslint --max-warnings=0 --no-warn-ignored .'"
+    ]
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.1.1",
-    "tailwindcss": "^4",
-    "typescript": "^5"
-  },
-  "optionalDependencies": {
-    "@next/swc-linux-x64-gnu": "16.1.1"
+    "husky": "^9.1.7",
+    "lighthouse": "^13.1.0",
+    "lint-staged": "^16.4.0"
   }
 }
