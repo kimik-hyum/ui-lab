@@ -9,6 +9,9 @@
     "preview": "vite preview --port 3002",
     "lint": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json"
   },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.53.0"
+  },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^4.0.0",
     "@sveltejs/kit": "^2.0.0",

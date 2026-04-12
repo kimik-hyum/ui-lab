@@ -2,6 +2,7 @@
   <h1>SvelteKit Lab</h1>
   <p>모노레포 비교 실험용 SvelteKit 앱입니다.</p>
   <p><a href="/scenarios/data-loading">비교 시나리오로 이동</a></p>
+  <p><a href="/shop/wireless-headphones-x1">쇼핑몰 SSR 상세로 이동</a></p>
 </main>
 
 <style>

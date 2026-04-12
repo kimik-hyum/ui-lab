@@ -73,3 +73,30 @@ LH_PATH=/about LH_RUNS=5 yarn perf:lighthouse
 - Project A -> `apps/lab-shell`
 - Project B -> `apps/next-lab`
 - Project C -> `apps/sveltekit-lab`
+
+## Supabase SSR Shopping Detail Demo
+
+두 실험 앱 모두 같은 `public.products` 테이블을 API로 조회한 뒤 SSR로 상세 페이지를 렌더링합니다.
+
+- Next.js API: `/api/products/[slug]`
+- Next.js SSR 페이지: `/shop/[slug]`
+- SvelteKit API: `/api/products/[slug]`
+- SvelteKit SSR 페이지: `/shop/[slug]`
+
+예시 접근 경로:
+
+- `http://127.0.0.1:3001/shop/wireless-headphones-x1`
+- `http://127.0.0.1:3002/shop/wireless-headphones-x1`
+
+필수 환경변수(두 앱 공통):
+
+```bash
+SUPABASE_URL=...
+SUPABASE_ANON_KEY=...
+```
+
+마이그레이션 적용:
+
+```bash
+supabase db push
+```
