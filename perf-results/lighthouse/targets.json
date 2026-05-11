@@ -1,0 +1,22 @@
+{
+  "targets": [
+    {
+      "name": "next-lab",
+      "baseUrl": "http://127.0.0.1:3001",
+      "build": ["yarn", "workspace", "next-lab", "build"],
+      "start": ["yarn", "workspace", "next-lab", "start"]
+    },
+    {
+      "name": "sveltekit-lab",
+      "baseUrl": "http://127.0.0.1:3002",
+      "build": ["yarn", "workspace", "sveltekit-lab", "build"],
+      "start": ["yarn", "workspace", "sveltekit-lab", "preview"]
+    },
+    {
+      "name": "angular-lab",
+      "baseUrl": "http://127.0.0.1:3003",
+      "build": ["yarn", "workspace", "angular-lab", "build"],
+      "start": ["yarn", "workspace", "angular-lab", "preview"]
+    }
+  ]
+}

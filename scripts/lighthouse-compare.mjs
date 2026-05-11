@@ -27,7 +27,7 @@ const targets = [
     name: "sveltekit-lab",
     baseUrl: "http://127.0.0.1:3002",
     buildArgs: ["workspace", "sveltekit-lab", "build"],
-    startArgs: ["workspace", "sveltekit-lab", "preview", "--host", "127.0.0.1"],
+    startArgs: ["workspace", "sveltekit-lab", "preview"],
   },
 ];
 
