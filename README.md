@@ -7,6 +7,7 @@ Yarn Berry(workspaces) 기반 모노레포입니다.
 - `apps/lab-shell`: 기존 ui-lab Next.js 관리/비교 허브 앱
 - `apps/next-lab`: Next.js 실험 앱
 - `apps/sveltekit-lab`: SvelteKit 실험 앱
+- `apps/vue-lab`: Nuxt SSR 실험 앱
 
 ## Requirements
 
@@ -30,6 +31,9 @@ yarn dev:next-lab
 
 # sveltekit-lab (3002)
 yarn dev:sveltekit-lab
+
+# vue-lab (3004)
+yarn dev:vue-lab
 ```
 
 ## Build
@@ -44,7 +48,7 @@ yarn build:lab-shell
 
 ## Lighthouse Comparison (Next vs SvelteKit)
 
-루트에서 아래 명령으로 `apps/next-lab`과 `apps/sveltekit-lab`의 동일 경로를 측정합니다.
+루트에서 아래 명령으로 설정된 실험 앱의 동일 경로를 측정합니다.
 
 ```bash
 # 빠른 1회 측정
@@ -73,20 +77,24 @@ LH_PATH=/about LH_RUNS=5 yarn perf:lighthouse
 - Project A -> `apps/lab-shell`
 - Project B -> `apps/next-lab`
 - Project C -> `apps/sveltekit-lab`
+- Project D -> `apps/vue-lab`
 
 ## Supabase SSR Shopping Detail Demo
 
-두 실험 앱 모두 같은 `public.products` 테이블을 API로 조회한 뒤 SSR로 상세 페이지를 렌더링합니다.
+각 실험 앱은 같은 `public.products` 테이블을 API로 조회한 뒤 SSR로 상세 페이지를 렌더링합니다.
 
 - Next.js API: `/api/products/[slug]`
 - Next.js SSR 페이지: `/shop/[slug]`
 - SvelteKit API: `/api/products/[slug]`
 - SvelteKit SSR 페이지: `/shop/[slug]`
+- Nuxt API: `/api/products/[slug]`
+- Nuxt SSR 페이지: `/shop/[slug]`
 
 예시 접근 경로:
 
 - `http://127.0.0.1:3001/shop/wireless-headphones-x1`
 - `http://127.0.0.1:3002/shop/wireless-headphones-x1`
+- `http://127.0.0.1:3004/shop/wireless-headphones-x1`
 
 필수 환경변수(두 앱 공통):
 

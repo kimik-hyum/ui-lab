@@ -1,0 +1,20 @@
+{
+  "name": "vue-lab",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "NUXT_TELEMETRY_DISABLED=1 nuxt dev --host 127.0.0.1 --port 3004",
+    "build": "NUXT_TELEMETRY_DISABLED=1 nuxt build",
+    "preview": "HOST=127.0.0.1 PORT=3004 node .output/server/index.mjs",
+    "lint": "NUXT_TELEMETRY_DISABLED=1 nuxt typecheck"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.53.0",
+    "nuxt": "4.4.5"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "vue-tsc": "^3.1.5"
+  }
+}

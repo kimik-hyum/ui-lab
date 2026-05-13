@@ -13,10 +13,10 @@
       "start": ["yarn", "workspace", "sveltekit-lab", "preview"]
     },
     {
-      "name": "angular-lab",
-      "baseUrl": "http://127.0.0.1:3003",
-      "build": ["yarn", "workspace", "angular-lab", "build"],
-      "start": ["yarn", "workspace", "angular-lab", "preview"]
+      "name": "vue-lab",
+      "baseUrl": "http://127.0.0.1:3004",
+      "build": ["yarn", "workspace", "vue-lab", "build"],
+      "start": ["yarn", "workspace", "vue-lab", "preview"]
     }
   ]
 }

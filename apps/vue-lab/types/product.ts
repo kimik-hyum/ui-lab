@@ -1,4 +1,4 @@
-export type Product = {
+export type ProductRow = {
   id: string;
   slug: string;
   name: string;
@@ -15,7 +15,7 @@ export type Product = {
 };
 
 export type ProductApiResponse = {
-  product: Product;
+  product: ProductRow;
   fetchedAt: string;
-  source: string;
+  source: "nuxt-api";
 };

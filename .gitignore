@@ -25,6 +25,8 @@
 **/build
 **/dist
 **/.svelte-kit/
+**/.nuxt/
+**/.output/
 
 # misc
 .DS_Store
