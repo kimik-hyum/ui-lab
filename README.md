@@ -8,6 +8,7 @@ Yarn Berry(workspaces) 기반 모노레포입니다.
 - `apps/next-lab`: Next.js 실험 앱
 - `apps/sveltekit-lab`: SvelteKit 실험 앱
 - `apps/vue-lab`: Nuxt SSR 실험 앱
+- `apps/react-router-lab`: React Router v7 Framework Mode 실험 앱
 
 ## Requirements
 
@@ -34,6 +35,9 @@ yarn dev:sveltekit-lab
 
 # vue-lab (3004)
 yarn dev:vue-lab
+
+# react-router-lab (3005)
+yarn dev:react-router-lab
 ```
 
 ## Build
@@ -78,6 +82,7 @@ LH_PATH=/about LH_RUNS=5 yarn perf:lighthouse
 - Project B -> `apps/next-lab`
 - Project C -> `apps/sveltekit-lab`
 - Project D -> `apps/vue-lab`
+- Project E -> `apps/react-router-lab`
 
 ## Supabase SSR Shopping Detail Demo
 
@@ -89,12 +94,15 @@ LH_PATH=/about LH_RUNS=5 yarn perf:lighthouse
 - SvelteKit SSR 페이지: `/shop/[slug]`
 - Nuxt API: `/api/products/[slug]`
 - Nuxt SSR 페이지: `/shop/[slug]`
+- React Router API: `/api/products/:slug`
+- React Router SSR 페이지: `/shop/:slug`
 
 예시 접근 경로:
 
 - `http://127.0.0.1:3001/shop/wireless-headphones-x1`
 - `http://127.0.0.1:3002/shop/wireless-headphones-x1`
 - `http://127.0.0.1:3004/shop/wireless-headphones-x1`
+- `http://127.0.0.1:3005/shop/wireless-headphones-x1`
 
 필수 환경변수(두 앱 공통):
 

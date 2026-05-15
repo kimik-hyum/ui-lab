@@ -27,6 +27,7 @@
 **/.svelte-kit/
 **/.nuxt/
 **/.output/
+**/.react-router/
 
 # misc
 .DS_Store

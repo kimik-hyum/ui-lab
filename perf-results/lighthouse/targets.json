@@ -17,6 +17,12 @@
       "baseUrl": "http://127.0.0.1:3004",
       "build": ["yarn", "workspace", "vue-lab", "build"],
       "start": ["yarn", "workspace", "vue-lab", "preview"]
+    },
+    {
+      "name": "react-router-lab",
+      "baseUrl": "http://127.0.0.1:3005",
+      "build": ["yarn", "workspace", "react-router-lab", "build"],
+      "start": ["yarn", "workspace", "react-router-lab", "preview"]
     }
   ]
 }
