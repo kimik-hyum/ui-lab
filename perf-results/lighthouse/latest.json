@@ -1,57 +1,57 @@
 {
-  "generatedAt": "2026-04-12T15:24:29.389129Z",
+  "generatedAt": "2026-05-17T23:23:00.235966Z",
   "path": "/shop/wireless-headphones-x1",
   "runs": 5,
-  "preset": "perf",
+  "preset": "desktop",
   "chromeFlags": "--headless=new --no-sandbox",
   "targets": [
     {
       "name": "next-lab",
       "url": "http://127.0.0.1:3001/shop/wireless-headphones-x1",
-      "medianRun": 3,
+      "medianRun": 5,
       "medianPerformanceScore": 97.0,
       "medianMetrics": {
-        "fcpMs": 1226.33,
-        "lcpMs": 2592.99,
-        "tbtMs": 16.18,
+        "fcpMs": 206.92,
+        "lcpMs": 1247.91,
+        "tbtMs": 0.0,
         "cls": 0.0,
-        "speedIndexMs": 1788.0,
+        "speedIndexMs": 427.15,
         "inpMs": null
       },
       "runs": [
         {
           "run": 1,
-          "performanceScore": 97.0,
+          "performanceScore": 98.0,
           "metrics": {
-            "fcpMs": 1218.7,
-            "lcpMs": 2593.7,
-            "tbtMs": 17.08,
+            "fcpMs": 212.37,
+            "lcpMs": 1139.4,
+            "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 1788.0,
+            "speedIndexMs": 551.55,
             "inpMs": null
           }
         },
         {
           "run": 2,
-          "performanceScore": 97.0,
+          "performanceScore": 98.0,
           "metrics": {
-            "fcpMs": 1218.2,
-            "lcpMs": 2593.2,
-            "tbtMs": 14.93,
+            "fcpMs": 208.03,
+            "lcpMs": 1104.35,
+            "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 1789.0,
+            "speedIndexMs": 334.65,
             "inpMs": null
           }
         },
         {
           "run": 3,
-          "performanceScore": 97.0,
+          "performanceScore": 96.0,
           "metrics": {
-            "fcpMs": 1226.33,
-            "lcpMs": 2592.99,
-            "tbtMs": 16.18,
+            "fcpMs": 206.6,
+            "lcpMs": 1367.21,
+            "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 1788.0,
+            "speedIndexMs": 405.12,
             "inpMs": null
           }
         },
@@ -59,11 +59,11 @@
           "run": 4,
           "performanceScore": 97.0,
           "metrics": {
-            "fcpMs": 1220.29,
-            "lcpMs": 2595.29,
-            "tbtMs": 15.6,
+            "fcpMs": 207.86,
+            "lcpMs": 1267.99,
+            "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 1788.0,
+            "speedIndexMs": 436.69,
             "inpMs": null
           }
         },
@@ -71,11 +71,11 @@
           "run": 5,
           "performanceScore": 97.0,
           "metrics": {
-            "fcpMs": 1212.95,
-            "lcpMs": 2596.29,
-            "tbtMs": 16.33,
+            "fcpMs": 206.92,
+            "lcpMs": 1247.91,
+            "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 1786.0,
+            "speedIndexMs": 427.15,
             "inpMs": null
           }
         }
@@ -85,149 +85,225 @@
       "name": "sveltekit-lab",
       "url": "http://127.0.0.1:3002/shop/wireless-headphones-x1",
       "medianRun": 3,
-      "medianPerformanceScore": 97.0,
+      "medianPerformanceScore": 98.0,
       "medianMetrics": {
-        "fcpMs": 1203.68,
-        "lcpMs": 2537.01,
+        "fcpMs": 311.82,
+        "lcpMs": 1191.32,
         "tbtMs": 0.0,
         "cls": 0.0,
-        "speedIndexMs": 2093.0,
+        "speedIndexMs": 539.0,
         "inpMs": null
       },
       "runs": [
         {
           "run": 1,
-          "performanceScore": 97.0,
+          "performanceScore": 98.0,
           "metrics": {
-            "fcpMs": 1200.64,
-            "lcpMs": 2525.64,
+            "fcpMs": 314.05,
+            "lcpMs": 1172.61,
             "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 2087.0,
+            "speedIndexMs": 466.26,
             "inpMs": null
           }
         },
         {
           "run": 2,
-          "performanceScore": 97.0,
+          "performanceScore": 96.0,
           "metrics": {
-            "fcpMs": 1200.3,
-            "lcpMs": 2541.96,
+            "fcpMs": 310.69,
+            "lcpMs": 1398.67,
             "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 2100.0,
+            "speedIndexMs": 702.03,
             "inpMs": null
           }
         },
         {
           "run": 3,
-          "performanceScore": 97.0,
+          "performanceScore": 98.0,
           "metrics": {
-            "fcpMs": 1203.68,
-            "lcpMs": 2537.01,
+            "fcpMs": 311.82,
+            "lcpMs": 1191.32,
             "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 2093.0,
+            "speedIndexMs": 539.0,
             "inpMs": null
           }
         },
         {
           "run": 4,
-          "performanceScore": 97.0,
+          "performanceScore": 98.0,
           "metrics": {
-            "fcpMs": 1203.42,
-            "lcpMs": 2536.76,
+            "fcpMs": 310.71,
+            "lcpMs": 1134.64,
             "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 2101.0,
+            "speedIndexMs": 544.31,
             "inpMs": null
           }
         },
         {
           "run": 5,
-          "performanceScore": 97.0,
+          "performanceScore": 98.0,
           "metrics": {
-            "fcpMs": 1185.18,
-            "lcpMs": 2526.85,
+            "fcpMs": 307.98,
+            "lcpMs": 1138.09,
             "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 2084.0,
+            "speedIndexMs": 460.9,
             "inpMs": null
           }
         }
       ]
     },
     {
-      "name": "angular-lab",
-      "url": "http://127.0.0.1:3003/shop/wireless-headphones-x1",
-      "medianRun": 5,
-      "medianPerformanceScore": 93.0,
+      "name": "vue-lab",
+      "url": "http://127.0.0.1:3004/shop/wireless-headphones-x1",
+      "medianRun": 2,
+      "medianPerformanceScore": 98.0,
       "medianMetrics": {
-        "fcpMs": 670.75,
-        "lcpMs": 3195.75,
-        "tbtMs": 17.57,
+        "fcpMs": 445.55,
+        "lcpMs": 1181.87,
+        "tbtMs": 0.0,
         "cls": 0.0,
-        "speedIndexMs": 1584.0,
+        "speedIndexMs": 567.35,
         "inpMs": null
       },
       "runs": [
         {
           "run": 1,
-          "performanceScore": 93.0,
+          "performanceScore": 98.0,
           "metrics": {
-            "fcpMs": 672.11,
-            "lcpMs": 3163.77,
-            "tbtMs": 15.86,
+            "fcpMs": 445.58,
+            "lcpMs": 1124.91,
+            "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 1569.0,
+            "speedIndexMs": 445.58,
             "inpMs": null
           }
         },
         {
           "run": 2,
-          "performanceScore": 94.0,
+          "performanceScore": 98.0,
           "metrics": {
-            "fcpMs": 665.86,
-            "lcpMs": 3149.2,
-            "tbtMs": 17.86,
+            "fcpMs": 445.55,
+            "lcpMs": 1181.87,
+            "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 1558.0,
+            "speedIndexMs": 567.35,
             "inpMs": null
           }
         },
         {
           "run": 3,
-          "performanceScore": 93.0,
+          "performanceScore": 98.0,
           "metrics": {
-            "fcpMs": 660.19,
-            "lcpMs": 3293.53,
-            "tbtMs": 17.8,
+            "fcpMs": 445.02,
+            "lcpMs": 1126.1,
+            "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 1594.0,
+            "speedIndexMs": 482.38,
             "inpMs": null
           }
         },
         {
           "run": 4,
-          "performanceScore": 94.0,
+          "performanceScore": 98.0,
           "metrics": {
-            "fcpMs": 672.2,
-            "lcpMs": 3155.53,
-            "tbtMs": 16.55,
+            "fcpMs": 442.6,
+            "lcpMs": 1170.64,
+            "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 1568.0,
+            "speedIndexMs": 471.93,
             "inpMs": null
           }
         },
         {
           "run": 5,
-          "performanceScore": 93.0,
+          "performanceScore": 97.0,
           "metrics": {
-            "fcpMs": 670.75,
-            "lcpMs": 3195.75,
-            "tbtMs": 17.57,
+            "fcpMs": 443.03,
+            "lcpMs": 1227.44,
+            "tbtMs": 0.0,
             "cls": 0.0,
-            "speedIndexMs": 1584.0,
+            "speedIndexMs": 468.05,
+            "inpMs": null
+          }
+        }
+      ]
+    },
+    {
+      "name": "react-router-lab",
+      "url": "http://127.0.0.1:3005/shop/wireless-headphones-x1",
+      "medianRun": 3,
+      "medianPerformanceScore": 97.0,
+      "medianMetrics": {
+        "fcpMs": 372.51,
+        "lcpMs": 1234.27,
+        "tbtMs": 0.0,
+        "cls": 0.0,
+        "speedIndexMs": 514.6,
+        "inpMs": null
+      },
+      "runs": [
+        {
+          "run": 1,
+          "performanceScore": 97.0,
+          "metrics": {
+            "fcpMs": 373.94,
+            "lcpMs": 1223.29,
+            "tbtMs": 0.0,
+            "cls": 0.0,
+            "speedIndexMs": 489.09,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 2,
+          "performanceScore": 97.0,
+          "metrics": {
+            "fcpMs": 369.03,
+            "lcpMs": 1278.22,
+            "tbtMs": 0.0,
+            "cls": 0.0,
+            "speedIndexMs": 471.68,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 3,
+          "performanceScore": 97.0,
+          "metrics": {
+            "fcpMs": 372.51,
+            "lcpMs": 1234.27,
+            "tbtMs": 0.0,
+            "cls": 0.0,
+            "speedIndexMs": 514.6,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 4,
+          "performanceScore": 97.0,
+          "metrics": {
+            "fcpMs": 371.08,
+            "lcpMs": 1276.28,
+            "tbtMs": 0.0,
+            "cls": 0.0,
+            "speedIndexMs": 472.06,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 5,
+          "performanceScore": 98.0,
+          "metrics": {
+            "fcpMs": 371.33,
+            "lcpMs": 1154.09,
+            "tbtMs": 0.0,
+            "cls": 0.0,
+            "speedIndexMs": 482.18,
             "inpMs": null
           }
         }

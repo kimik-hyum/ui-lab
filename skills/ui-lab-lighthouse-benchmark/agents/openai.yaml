@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI Lab Lighthouse 벤치마크"
+  short_description: "ui-lab 앱들의 Lighthouse 성능 비교를 반복 가능하게 수행합니다."
+  default_prompt: "ui-lab 프레임워크 앱들의 Lighthouse 성능 벤치마크를 준비, 실행, 설명할 때 이 skill을 사용하세요."
