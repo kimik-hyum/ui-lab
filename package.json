@@ -28,6 +28,7 @@
     "build:lab-shell": "yarn workspace lab-shell build",
     "lint": "yarn workspaces foreach -Apt run lint",
     "lint:staged": "lint-staged",
+    "generate:types:openapi": "node scripts/generate-openapi-types.mjs",
     "perf:lighthouse": "node scripts/lighthouse-compare.mjs",
     "perf:lighthouse:quick": "LH_RUNS=1 node scripts/lighthouse-compare.mjs",
     "prepare": "husky"
@@ -43,6 +44,9 @@
   "devDependencies": {
     "husky": "^9.1.7",
     "lighthouse": "^13.1.0",
-    "lint-staged": "^16.4.0"
+    "lint-staged": "^16.4.0",
+    "openapi-typescript": "^7.13.0",
+    "swagger2openapi": "^7.0.8",
+    "typescript": "^5"
   }
 }

@@ -1,9 +1,5 @@
 import { error as svelteError } from '@sveltejs/kit';
-import type { ProductRow } from '$lib/server/supabase';
-
-type ProductApiResponse = {
-  product: ProductRow;
-};
+import type { ProductApiResponse } from '@ui-lab/api-types';
 
 export const load = async ({ fetch, params }) => {
   const response = await fetch(`/api/products/${params.slug}`);

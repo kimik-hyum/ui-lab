@@ -1,22 +1,7 @@
 import Link from "next/link";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
-
-type Product = {
-  id: string;
-  slug: string;
-  name: string;
-  brand: string;
-  price: number;
-  currency: string;
-  description: string;
-  image_url: string;
-  image_width: number;
-  image_height: number;
-  stock: number;
-  rating: number;
-  created_at: string;
-};
+import type { ProductApiResponse, ProductRow } from "@ui-lab/api-types";
 
 async function resolveBaseUrl() {
   const requestHeaders = await headers();
@@ -30,7 +15,7 @@ async function resolveBaseUrl() {
   return `${protocol}://${host}`;
 }
 
-async function loadProduct(slug: string): Promise<Product> {
+async function loadProduct(slug: string): Promise<ProductRow> {
   const baseUrl = await resolveBaseUrl();
   const response = await fetch(`${baseUrl}/api/products/${slug}`, {
     cache: "no-store",
@@ -44,7 +29,7 @@ async function loadProduct(slug: string): Promise<Product> {
     throw new Error(`상품 조회 실패: ${response.status}`);
   }
 
-  const payload = (await response.json()) as { product: Product };
+  const payload = (await response.json()) as ProductApiResponse;
   return payload.product;
 }
 
