@@ -8,6 +8,7 @@
   ],
   "scripts": {
     "dev": "yarn workspace lab-shell dev",
+    "dev:all": "yarn workspaces foreach -A --exclude ui-lab-monorepo --parallel --interlaced --verbose run dev",
     "dev:lab-shell": "yarn workspace lab-shell dev",
     "dev:next-lab": "yarn workspace next-lab dev",
     "dev:react-router-lab": "yarn workspace react-router-lab dev",

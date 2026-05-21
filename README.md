@@ -24,8 +24,14 @@ yarn install
 ## Development
 
 ```bash
+# 전체 앱 동시 실행
+yarn dev:all
+
 # lab-shell (기본)
 yarn dev
+
+# lab-shell (3003)
+yarn dev:lab-shell
 
 # next-lab (3001)
 yarn dev:next-lab

@@ -38,6 +38,10 @@ function formatPrice(price: number, currency: string) {
   }).format(price);
 }
 
+function formatUtcDateTime(value: string) {
+  return new Date(value).toISOString().replace("T", " ").slice(0, 19) + " UTC";
+}
+
 export default function ShopProductDetailPage({ loaderData }: Route.ComponentProps) {
   const { product } = loaderData;
 
@@ -79,7 +83,7 @@ export default function ShopProductDetailPage({ loaderData }: Route.ComponentPro
             </tr>
             <tr>
               <th>생성일</th>
-              <td>{new Date(product.created_at).toLocaleString("ko-KR")}</td>
+              <td>{formatUtcDateTime(product.created_at)}</td>
             </tr>
           </tbody>
         </table>
