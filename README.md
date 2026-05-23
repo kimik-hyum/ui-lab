@@ -56,6 +56,26 @@ yarn build
 yarn build:lab-shell
 ```
 
+## OpenAPI Types
+
+Supabase Data API OpenAPI 스펙에서 공용 타입을 생성합니다. 생성 결과는 `packages/api-types`에 저장되고 각 실험 앱에서 `@ui-lab/api-types`로 참조합니다.
+
+```bash
+SUPABASE_URL=...
+SUPABASE_SECRET_KEY=... # 또는 SUPABASE_SERVICE_ROLE_KEY
+yarn generate:types:openapi
+```
+
+또는 Supabase Management API 토큰을 사용할 수 있습니다.
+
+```bash
+SUPABASE_PROJECT_REF=...
+SUPABASE_ACCESS_TOKEN=...
+yarn generate:types:openapi
+```
+
+기본 schema는 `public`이며, 필요하면 `SUPABASE_SCHEMA=...`로 바꿀 수 있습니다.
+
 ## Lighthouse Comparison (Next vs SvelteKit)
 
 루트에서 아래 명령으로 설정된 실험 앱의 동일 경로를 측정합니다.

@@ -1,3 +1,6 @@
 {
-  "framework": "react-router"
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "react-router",
+  "installCommand": "cd ../.. && corepack yarn install --immutable",
+  "buildCommand": "cd ../.. && corepack yarn build:react-router-lab"
 }
