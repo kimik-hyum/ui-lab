@@ -1,6 +1,6 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "nuxtjs",
-  "installCommand": "cd ../.. && yarn install --immutable",
-  "buildCommand": "cd ../.. && yarn build:vue-lab"
+  "installCommand": "cd ../.. && corepack yarn install --immutable",
+  "buildCommand": "cd ../.. && corepack yarn build:vue-lab"
 }
