@@ -39,3 +39,6 @@
 - `yarn lint` 통과
 - `yarn build` 통과
 - 코드 비교 화면에서 hover 토픽/라인 매칭이 자연스럽게 동작
+
+## Review guidelines
+- PR 리뷰에서 변경 요청, 추가 요청, 보완 제안, 리뷰 요약을 남길 때는 한국어로 작성합니다.
