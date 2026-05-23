@@ -1,3 +1,6 @@
 {
-  "framework": "sveltekit"
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "sveltekit",
+  "installCommand": "cd ../.. && yarn install --immutable",
+  "buildCommand": "cd ../.. && yarn build:sveltekit-lab"
 }
