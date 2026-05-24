@@ -4,17 +4,9 @@ import React, { useState, useMemo, useRef } from 'react';
 import type { ComparisonTopic } from './ComparisonTypes';
 import { ComparisonCodeBlock } from './ComparisonCodeBlock';
 import { ComparisonInsightPanel } from './ComparisonInsightPanel';
+import { stripAnchorLines } from './codeAnchors';
 
 export type { ComparisonTopic } from './ComparisonTypes';
-
-const ANCHOR_LINE_RE = /\[\s*cmp:[a-z0-9-]+:(start|end)\s*\]/i;
-
-function stripAnchorLines(code: string): string {
-  return code
-    .split('\n')
-    .filter((line) => !ANCHOR_LINE_RE.test(line))
-    .join('\n');
-}
 
 interface ComparisonTemplateProps {
     title: string;
