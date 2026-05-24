@@ -3,6 +3,7 @@
 import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ComparisonTopic } from "../../components/ComparisonTypes";
 import { ComparisonTemplate } from "../../components/ComparisonTemplate";
+import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import { ActivityHiddenDemo } from "./components/ActivityHiddenDemo";
 import { TraditionalHiddenDemo, WorkerStats } from "./components/TraditionalHiddenDemo";
 
@@ -21,8 +22,6 @@ const INITIAL_STATS: WorkerStats = {
   effectTicks: 0,
   workUnits: 0,
 };
-
-const ANCHOR_MARKER_PATTERN = /\[cmp:([a-z0-9-]+):(start|end)\]/i;
 
 const TOPIC_DEFINITIONS: TopicDefinition[] = [
   {
@@ -82,47 +81,6 @@ const TOPIC_DEFINITIONS: TopicDefinition[] = [
     fallbackRightLines: [32, 33, 34, 35, 36],
   },
 ];
-
-const collectAnchorLines = (code: string): Record<string, number[]> => {
-  const lines = code.split("\n");
-  const rangeMap = new Map<string, { start?: number; end?: number }>();
-
-  lines.forEach((line, index) => {
-    const markerMatch = line.match(ANCHOR_MARKER_PATTERN);
-    if (!markerMatch) return;
-
-    const markerKey = markerMatch[1];
-    const markerType = markerMatch[2];
-    const lineNumber = index + 1;
-    const current = rangeMap.get(markerKey) ?? {};
-
-    if (markerType === "start") {
-      current.start = lineNumber;
-    } else {
-      current.end = lineNumber;
-    }
-
-    rangeMap.set(markerKey, current);
-  });
-
-  const result: Record<string, number[]> = {};
-  rangeMap.forEach((range, key) => {
-    if (!range.start || !range.end || range.end <= range.start + 1) return;
-    const start = range.start + 1;
-    const end = range.end - 1;
-    result[key] = Array.from({ length: end - start + 1 }, (_, idx) => start + idx).filter(
-      (lineNumber) => !ANCHOR_MARKER_PATTERN.test(lines[lineNumber - 1]),
-    );
-  });
-
-  return result;
-};
-
-const resolveTopicLines = (anchors: string[], anchorLines: Record<string, number[]>, fallback: number[]) => {
-  const resolved = anchors.flatMap((anchor) => anchorLines[anchor] ?? []);
-  const uniqueSorted = Array.from(new Set(resolved)).sort((a, b) => a - b);
-  return uniqueSorted.length > 0 ? uniqueSorted : fallback;
-};
 
 export function ActivityClientPage({
   traditionalCode,
