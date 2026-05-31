@@ -7,7 +7,7 @@ description: ui-lab에서 next-lab, sveltekit-lab, vue-lab, react-router-lab 같
 
 ## Overview
 
-`ui-lab` 모노레포에서 로컬 Lighthouse 성능 비교를 반복 가능하게 수행할 때 이 skill을 사용합니다. 실제 측정 주체는 Lighthouse CLI와 headless Chrome이며, Codex는 명령 준비, 실행 순서 관리, 스크립트/설정 수정, 결과 JSON 해석만 담당합니다.
+`ui-lab` 모노레포에서 로컬 Lighthouse 성능 비교를 반복 가능하게 수행할 때 이 skill을 사용합니다. 실제 측정 주체는 Lighthouse CLI와 headless Chrome이며, Codex는 명령 준비, 실행 순서 관리, Node.js 스크립트/설정 수정, 결과 JSON 해석만 담당합니다.
 
 사용자가 벤치마크 방식을 조사하거나 설계하거나 설명만 요청한 경우에는 Lighthouse, build, preview server를 실행하지 않습니다.
 
@@ -33,7 +33,7 @@ dev server가 아니라 production build 기준으로 측정합니다. 각 대�
 1. workspace 앱을 build합니다.
 2. 해당 앱의 production server 또는 preview server만 시작합니다.
 3. 측정 URL이 응답할 때까지 대기합니다.
-4. 설정된 횟수만큼 Lighthouse CLI를 실행합니다.
+4. 설정된 횟수만큼 Lighthouse CLI를 실행합니다. 기록용 기본값은 최소 5회입니다.
 5. 각 실행의 원본 Lighthouse JSON report를 저장합니다.
 6. median run을 선택해 요약합니다.
 7. 서버를 종료한 뒤 다음 대상으로 이동합니다.
@@ -89,16 +89,30 @@ perf-results/lighthouse/latest.json
 ```bash
 yarn perf:lighthouse:quick
 yarn perf:lighthouse
+yarn perf:check
 ```
 
-위 스크립트가 모든 프레임워크 앱을 측정한다고 말하기 전에 `scripts/lighthouse-compare.mjs`를 확인합니다. 일부 앱만 들어 있는 하드코딩 `targets` 배열이 남아 있다면 `perf-results/lighthouse/targets.json`을 읽도록 바꾸거나, 하드코딩 목록을 일관되게 확장합니다.
+`yarn perf:check`는 `scripts/performance-check.mjs`를 통해 같은 production server 기동 안에서 Lighthouse와 SSR response 체크를 함께 실행합니다. 기본 `PERF_MODE=parallel`은 두 체크를 동시에 시작하므로, 하네스 smoke/회귀 체크에 적합합니다. 엄밀한 기록용 성능 비교는 경합 영향을 줄이기 위해 `perf:lighthouse`와 `perf:ssr`를 분리 실행할 수 있습니다.
+
+위 스크립트가 모든 프레임워크 앱을 측정한다고 말하기 전에 `perf-results/lighthouse/targets.json`과 `scripts/lighthouse-compare.mjs`를 확인합니다. 일부 앱만 들어 있는 하드코딩 `targets` 배열이 남아 있다면 `perf-results/lighthouse/targets.json`을 읽도록 바꾸거나, 하드코딩 목록을 일관되게 확장합니다.
 
 runner를 수정할 때는 아래 환경변수를 지원합니다.
 
 - `LH_PATH`: 측정 경로, 기본값 `/`
-- `LH_RUNS`: 실행 횟수, 기본값 `3` 또는 문서화된 프로젝트 기본값
+- `LH_RUNS`: 실행 횟수, 기본값 `5`
+- `LH_MIN_RUNS`: 최소 실행 횟수, 기본값 `5`
+- `LH_TARGETS`: 쉼표로 구분한 대상 이름
 - `LH_PRESET`: Lighthouse preset, 기본값 `desktop`
 - `LH_CHROME_FLAGS`: Chrome flags, 기본값 `--headless=new --no-sandbox`
+
+통합 runner를 수정할 때는 아래 환경변수를 지원합니다.
+
+- `PERF_PATH`: Lighthouse와 SSR에 함께 쓸 경로
+- `PERF_RUNS`: 공통 실행 횟수, 기본값 `5`
+- `PERF_MIN_RUNS`: 최소 실행 횟수, 기본값 `5`
+- `PERF_TARGETS`: 쉼표로 구분한 대상 이름
+- `PERF_MODE`: `parallel` 또는 `sequential`, 기본값 `parallel`
+- `SSR_EXPECT_TEXT`: SSR 필수 콘텐츠 및 content-ready 측정 문자열
 
 ## Supabase 공정성 기준
 

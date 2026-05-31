@@ -9,7 +9,10 @@ export default function HomePage() {
         비교 시나리오: <Link href="/scenarios/data-loading">/scenarios/data-loading</Link>
       </p>
       <p>
-        쇼핑몰 SSR 상세: <Link href="/shop/wireless-headphones-x1">/shop/wireless-headphones-x1</Link>
+        쇼핑몰 SSR 상세 시나리오:{" "}
+        <Link href="/scenarios/shopping-detail-ssr">
+          /scenarios/shopping-detail-ssr
+        </Link>
       </p>
     </main>
   );

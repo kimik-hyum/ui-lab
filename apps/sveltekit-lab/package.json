@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.53.0",
+    "@tanstack/svelte-query": "^6.1.33",
     "@ui-lab/api-types": "workspace:*"
   },
   "devDependencies": {

@@ -1,1 +1,1 @@
-export type { ProductApiResponse, ProductRow } from "@ui-lab/api-types";
+export type { ProductRow } from "@ui-lab/api-types";

@@ -57,3 +57,11 @@ next-env.d.ts
 # lighthouse raw runs (keep only latest summary snapshot)
 perf-results/lighthouse/*/
 !perf-results/lighthouse/latest.json
+
+# SSR raw runs (keep only latest summary snapshot)
+perf-results/ssr/*/
+!perf-results/ssr/latest.json
+
+# Combined Lighthouse + SSR raw runs
+perf-results/performance/*/
+!perf-results/performance/latest.json

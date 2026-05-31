@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
+import Sidebar from "./components/Sidebar";
+import { QueryProvider } from "./providers/query-provider";
 
 const josefinSans = Josefin_Sans({
   variable: "--font-josefin-sans",
@@ -13,8 +15,6 @@ export const metadata: Metadata = {
   description: "UI-LAB experiments and feature comparisons",
 };
 
-import Sidebar from "./components/Sidebar";
-
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -26,10 +26,10 @@ export default function RootLayout({
         suppressHydrationWarning
         className={`${josefinSans.variable} antialiased bg-white text-slate-900`}
       >
-        <Sidebar />
-        <div className="pl-64 min-h-screen">
-            {children}
-        </div>
+        <QueryProvider>
+          <Sidebar />
+          <div className="pl-64 min-h-screen">{children}</div>
+        </QueryProvider>
       </body>
     </html>
   );

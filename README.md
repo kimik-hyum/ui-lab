@@ -10,6 +10,11 @@ Yarn Berry(workspaces) 기반 모노레포입니다.
 - `apps/vue-lab`: Nuxt SSR 실험 앱
 - `apps/react-router-lab`: React Router v7 Framework Mode 실험 앱
 
+## Docs
+
+- `docs/architecture/react-next-architecture.md`: Next.js App Router 기반 React 앱의 권장 파일 구조와 데이터 흐름
+- `docs/ui-lab-scout-20260329.md`: React/Next.js 기능 검증 리포트
+
 ## Requirements
 
 - Node.js 20+

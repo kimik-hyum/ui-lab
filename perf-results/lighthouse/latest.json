@@ -1,309 +1,41 @@
 {
-  "generatedAt": "2026-05-17T23:23:00.235966Z",
-  "path": "/shop/wireless-headphones-x1",
-  "runs": 5,
+  "generatedAt": "2026-05-31T09:30:06.749Z",
+  "path": "/scenarios/shopping-detail-ssr",
+  "runs": 1,
+  "minRuns": 1,
   "preset": "desktop",
   "chromeFlags": "--headless=new --no-sandbox",
+  "environment": {
+    "node": "v24.15.0",
+    "platform": "Darwin 24.5.0",
+    "arch": "arm64",
+    "cpu": "Apple M1 Pro",
+    "timeZone": "Asia/Seoul"
+  },
   "targets": [
     {
       "name": "next-lab",
-      "url": "http://127.0.0.1:3001/shop/wireless-headphones-x1",
-      "medianRun": 5,
-      "medianPerformanceScore": 97.0,
+      "url": "http://127.0.0.1:3001/scenarios/shopping-detail-ssr",
+      "medianRun": 1,
+      "medianPerformanceScore": 94,
       "medianMetrics": {
-        "fcpMs": 206.92,
-        "lcpMs": 1247.91,
-        "tbtMs": 0.0,
-        "cls": 0.0,
-        "speedIndexMs": 427.15,
+        "fcpMs": 213.66,
+        "lcpMs": 1591.5,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 630.18,
         "inpMs": null
       },
       "runs": [
         {
           "run": 1,
-          "performanceScore": 98.0,
+          "performanceScore": 94,
           "metrics": {
-            "fcpMs": 212.37,
-            "lcpMs": 1139.4,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 551.55,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 2,
-          "performanceScore": 98.0,
-          "metrics": {
-            "fcpMs": 208.03,
-            "lcpMs": 1104.35,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 334.65,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 3,
-          "performanceScore": 96.0,
-          "metrics": {
-            "fcpMs": 206.6,
-            "lcpMs": 1367.21,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 405.12,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 4,
-          "performanceScore": 97.0,
-          "metrics": {
-            "fcpMs": 207.86,
-            "lcpMs": 1267.99,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 436.69,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 5,
-          "performanceScore": 97.0,
-          "metrics": {
-            "fcpMs": 206.92,
-            "lcpMs": 1247.91,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 427.15,
-            "inpMs": null
-          }
-        }
-      ]
-    },
-    {
-      "name": "sveltekit-lab",
-      "url": "http://127.0.0.1:3002/shop/wireless-headphones-x1",
-      "medianRun": 3,
-      "medianPerformanceScore": 98.0,
-      "medianMetrics": {
-        "fcpMs": 311.82,
-        "lcpMs": 1191.32,
-        "tbtMs": 0.0,
-        "cls": 0.0,
-        "speedIndexMs": 539.0,
-        "inpMs": null
-      },
-      "runs": [
-        {
-          "run": 1,
-          "performanceScore": 98.0,
-          "metrics": {
-            "fcpMs": 314.05,
-            "lcpMs": 1172.61,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 466.26,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 2,
-          "performanceScore": 96.0,
-          "metrics": {
-            "fcpMs": 310.69,
-            "lcpMs": 1398.67,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 702.03,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 3,
-          "performanceScore": 98.0,
-          "metrics": {
-            "fcpMs": 311.82,
-            "lcpMs": 1191.32,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 539.0,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 4,
-          "performanceScore": 98.0,
-          "metrics": {
-            "fcpMs": 310.71,
-            "lcpMs": 1134.64,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 544.31,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 5,
-          "performanceScore": 98.0,
-          "metrics": {
-            "fcpMs": 307.98,
-            "lcpMs": 1138.09,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 460.9,
-            "inpMs": null
-          }
-        }
-      ]
-    },
-    {
-      "name": "vue-lab",
-      "url": "http://127.0.0.1:3004/shop/wireless-headphones-x1",
-      "medianRun": 2,
-      "medianPerformanceScore": 98.0,
-      "medianMetrics": {
-        "fcpMs": 445.55,
-        "lcpMs": 1181.87,
-        "tbtMs": 0.0,
-        "cls": 0.0,
-        "speedIndexMs": 567.35,
-        "inpMs": null
-      },
-      "runs": [
-        {
-          "run": 1,
-          "performanceScore": 98.0,
-          "metrics": {
-            "fcpMs": 445.58,
-            "lcpMs": 1124.91,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 445.58,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 2,
-          "performanceScore": 98.0,
-          "metrics": {
-            "fcpMs": 445.55,
-            "lcpMs": 1181.87,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 567.35,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 3,
-          "performanceScore": 98.0,
-          "metrics": {
-            "fcpMs": 445.02,
-            "lcpMs": 1126.1,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 482.38,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 4,
-          "performanceScore": 98.0,
-          "metrics": {
-            "fcpMs": 442.6,
-            "lcpMs": 1170.64,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 471.93,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 5,
-          "performanceScore": 97.0,
-          "metrics": {
-            "fcpMs": 443.03,
-            "lcpMs": 1227.44,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 468.05,
-            "inpMs": null
-          }
-        }
-      ]
-    },
-    {
-      "name": "react-router-lab",
-      "url": "http://127.0.0.1:3005/shop/wireless-headphones-x1",
-      "medianRun": 3,
-      "medianPerformanceScore": 97.0,
-      "medianMetrics": {
-        "fcpMs": 372.51,
-        "lcpMs": 1234.27,
-        "tbtMs": 0.0,
-        "cls": 0.0,
-        "speedIndexMs": 514.6,
-        "inpMs": null
-      },
-      "runs": [
-        {
-          "run": 1,
-          "performanceScore": 97.0,
-          "metrics": {
-            "fcpMs": 373.94,
-            "lcpMs": 1223.29,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 489.09,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 2,
-          "performanceScore": 97.0,
-          "metrics": {
-            "fcpMs": 369.03,
-            "lcpMs": 1278.22,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 471.68,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 3,
-          "performanceScore": 97.0,
-          "metrics": {
-            "fcpMs": 372.51,
-            "lcpMs": 1234.27,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 514.6,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 4,
-          "performanceScore": 97.0,
-          "metrics": {
-            "fcpMs": 371.08,
-            "lcpMs": 1276.28,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 472.06,
-            "inpMs": null
-          }
-        },
-        {
-          "run": 5,
-          "performanceScore": 98.0,
-          "metrics": {
-            "fcpMs": 371.33,
-            "lcpMs": 1154.09,
-            "tbtMs": 0.0,
-            "cls": 0.0,
-            "speedIndexMs": 482.18,
+            "fcpMs": 213.66,
+            "lcpMs": 1591.5,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 630.18,
             "inpMs": null
           }
         }

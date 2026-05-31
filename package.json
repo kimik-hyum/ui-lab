@@ -34,7 +34,11 @@
     "lint:staged": "lint-staged",
     "generate:types:openapi": "node scripts/generate-openapi-types.mjs",
     "perf:lighthouse": "node scripts/lighthouse-compare.mjs",
-    "perf:lighthouse:quick": "LH_RUNS=1 node scripts/lighthouse-compare.mjs",
+    "perf:lighthouse:quick": "LH_MIN_RUNS=1 LH_RUNS=1 node scripts/lighthouse-compare.mjs",
+    "perf:check": "node scripts/performance-check.mjs",
+    "perf:check:quick": "PERF_MIN_RUNS=1 PERF_RUNS=1 node scripts/performance-check.mjs",
+    "perf:ssr": "node scripts/ssr-compare.mjs",
+    "perf:ssr:quick": "SSR_MIN_RUNS=1 SSR_RUNS=1 node scripts/ssr-compare.mjs",
     "prepare": "husky"
   },
   "lint-staged": {

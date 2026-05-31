@@ -1,0 +1,742 @@
+{
+  "generatedAt": "2026-05-31T09:24:19.708Z",
+  "mode": "parallel",
+  "minRuns": 5,
+  "lighthouse": {
+    "path": "/scenarios/shopping-detail-ssr",
+    "runs": 5,
+    "preset": "desktop",
+    "chromeFlags": "--headless=new --no-sandbox"
+  },
+  "ssr": {
+    "path": "/scenarios/shopping-detail-ssr",
+    "runs": 5,
+    "warmup": 3,
+    "expectedText": "홈으로 이동"
+  },
+  "environment": {
+    "node": "v24.15.0",
+    "platform": "Darwin 24.5.0",
+    "arch": "arm64",
+    "cpu": "Apple M1 Pro",
+    "timeZone": "Asia/Seoul"
+  },
+  "targets": [
+    {
+      "name": "next-lab",
+      "baseUrl": "http://127.0.0.1:3001",
+      "lighthouse": {
+        "url": "http://127.0.0.1:3001/scenarios/shopping-detail-ssr",
+        "medianRun": 1,
+        "medianPerformanceScore": 95,
+        "medianMetrics": {
+          "fcpMs": 218.9,
+          "lcpMs": 1466.79,
+          "tbtMs": 0,
+          "cls": 0,
+          "speedIndexMs": 763.14,
+          "inpMs": null
+        },
+        "runs": [
+          {
+            "run": 1,
+            "performanceScore": 95,
+            "metrics": {
+              "fcpMs": 218.9,
+              "lcpMs": 1466.79,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 763.14,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 2,
+            "performanceScore": 93,
+            "metrics": {
+              "fcpMs": 208.18,
+              "lcpMs": 1739.84,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 661.29,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 3,
+            "performanceScore": 95,
+            "metrics": {
+              "fcpMs": 213.75,
+              "lcpMs": 1574.82,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 676.81,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 4,
+            "performanceScore": 94,
+            "metrics": {
+              "fcpMs": 216.72,
+              "lcpMs": 1663.79,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 586.13,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 5,
+            "performanceScore": 95,
+            "metrics": {
+              "fcpMs": 208.74,
+              "lcpMs": 1577.15,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 651.29,
+              "inpMs": null
+            }
+          }
+        ]
+      },
+      "ssr": {
+        "url": "http://127.0.0.1:3001/scenarios/shopping-detail-ssr",
+        "checklist": {
+          "statusOk": true,
+          "expectedTextOk": true,
+          "contentReadyOk": true
+        },
+        "medianMetrics": {
+          "responseStartMs": 5.07,
+          "ttfbMs": 5.25,
+          "contentReadyMs": 53.56,
+          "totalMs": 54.1,
+          "htmlBytes": 11463
+        },
+        "distribution": {
+          "responseStartMs": {
+            "min": 4.25,
+            "median": 5.07,
+            "p95": 7.51
+          },
+          "ttfbMs": {
+            "min": 4.37,
+            "median": 5.25,
+            "p95": 7.91
+          },
+          "contentReadyMs": {
+            "min": 44.64,
+            "median": 53.56,
+            "p95": 73.86
+          },
+          "totalMs": {
+            "min": 44.98,
+            "median": 54.1,
+            "p95": 74.29
+          },
+          "htmlBytes": {
+            "min": 11463,
+            "median": 11463,
+            "p95": 11463
+          }
+        },
+        "streamingDeltaMs": 48.31,
+        "runs": [
+          {
+            "run": 1,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 7.51,
+            "ttfbMs": 7.91,
+            "contentReadyMs": 53.56,
+            "totalMs": 54.1,
+            "htmlBytes": 11463,
+            "containsExpectedText": true
+          },
+          {
+            "run": 2,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 5.78,
+            "ttfbMs": 6,
+            "contentReadyMs": 44.64,
+            "totalMs": 44.98,
+            "htmlBytes": 11463,
+            "containsExpectedText": true
+          },
+          {
+            "run": 3,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 5.07,
+            "ttfbMs": 5.25,
+            "contentReadyMs": 54.4,
+            "totalMs": 54.98,
+            "htmlBytes": 11463,
+            "containsExpectedText": true
+          },
+          {
+            "run": 4,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 4.25,
+            "ttfbMs": 4.37,
+            "contentReadyMs": 45.02,
+            "totalMs": 45.53,
+            "htmlBytes": 11463,
+            "containsExpectedText": true
+          },
+          {
+            "run": 5,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 4.99,
+            "ttfbMs": 5.14,
+            "contentReadyMs": 73.86,
+            "totalMs": 74.29,
+            "htmlBytes": 11463,
+            "containsExpectedText": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "sveltekit-lab",
+      "baseUrl": "http://127.0.0.1:3002",
+      "lighthouse": {
+        "url": "http://127.0.0.1:3002/scenarios/shopping-detail-ssr",
+        "medianRun": 4,
+        "medianPerformanceScore": 95,
+        "medianMetrics": {
+          "fcpMs": 338.03,
+          "lcpMs": 1451.34,
+          "tbtMs": 0,
+          "cls": 0,
+          "speedIndexMs": 853.27,
+          "inpMs": null
+        },
+        "runs": [
+          {
+            "run": 1,
+            "performanceScore": 96,
+            "metrics": {
+              "fcpMs": 330,
+              "lcpMs": 1403.85,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 832.74,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 2,
+            "performanceScore": 93,
+            "metrics": {
+              "fcpMs": 337.84,
+              "lcpMs": 1777.07,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 862.37,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 3,
+            "performanceScore": 97,
+            "metrics": {
+              "fcpMs": 351.3,
+              "lcpMs": 1289.06,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 766.63,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 4,
+            "performanceScore": 95,
+            "metrics": {
+              "fcpMs": 338.03,
+              "lcpMs": 1451.34,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 853.27,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 5,
+            "performanceScore": 92,
+            "metrics": {
+              "fcpMs": 339.82,
+              "lcpMs": 1811.22,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 821.47,
+              "inpMs": null
+            }
+          }
+        ]
+      },
+      "ssr": {
+        "url": "http://127.0.0.1:3002/scenarios/shopping-detail-ssr",
+        "checklist": {
+          "statusOk": true,
+          "expectedTextOk": true,
+          "contentReadyOk": true
+        },
+        "medianMetrics": {
+          "responseStartMs": 71.74,
+          "ttfbMs": 71.95,
+          "contentReadyMs": 71.95,
+          "totalMs": 71.99,
+          "htmlBytes": 3492
+        },
+        "distribution": {
+          "responseStartMs": {
+            "min": 62.79,
+            "median": 71.74,
+            "p95": 159.28
+          },
+          "ttfbMs": {
+            "min": 62.99,
+            "median": 71.95,
+            "p95": 159.52
+          },
+          "contentReadyMs": {
+            "min": 62.99,
+            "median": 71.95,
+            "p95": 159.52
+          },
+          "totalMs": {
+            "min": 63.02,
+            "median": 71.99,
+            "p95": 159.56
+          },
+          "htmlBytes": {
+            "min": 3492,
+            "median": 3492,
+            "p95": 3492
+          }
+        },
+        "streamingDeltaMs": 0,
+        "runs": [
+          {
+            "run": 1,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 62.79,
+            "ttfbMs": 62.99,
+            "contentReadyMs": 62.99,
+            "totalMs": 63.02,
+            "htmlBytes": 3492,
+            "containsExpectedText": true
+          },
+          {
+            "run": 2,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 159.28,
+            "ttfbMs": 159.52,
+            "contentReadyMs": 159.52,
+            "totalMs": 159.56,
+            "htmlBytes": 3492,
+            "containsExpectedText": true
+          },
+          {
+            "run": 3,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 71.74,
+            "ttfbMs": 71.95,
+            "contentReadyMs": 71.95,
+            "totalMs": 71.99,
+            "htmlBytes": 3492,
+            "containsExpectedText": true
+          },
+          {
+            "run": 4,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 70.39,
+            "ttfbMs": 70.58,
+            "contentReadyMs": 70.58,
+            "totalMs": 70.62,
+            "htmlBytes": 3492,
+            "containsExpectedText": true
+          },
+          {
+            "run": 5,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 88.16,
+            "ttfbMs": 88.62,
+            "contentReadyMs": 88.62,
+            "totalMs": 88.66,
+            "htmlBytes": 3492,
+            "containsExpectedText": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "vue-lab",
+      "baseUrl": "http://127.0.0.1:3004",
+      "lighthouse": {
+        "url": "http://127.0.0.1:3004/scenarios/shopping-detail-ssr",
+        "medianRun": 4,
+        "medianPerformanceScore": 96,
+        "medianMetrics": {
+          "fcpMs": 505.16,
+          "lcpMs": 1404.99,
+          "tbtMs": 0,
+          "cls": 0,
+          "speedIndexMs": 519.27,
+          "inpMs": null
+        },
+        "runs": [
+          {
+            "run": 1,
+            "performanceScore": 97,
+            "metrics": {
+              "fcpMs": 509.53,
+              "lcpMs": 1287.5,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 509.53,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 2,
+            "performanceScore": 93,
+            "metrics": {
+              "fcpMs": 508.6,
+              "lcpMs": 1802.52,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 508.6,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 3,
+            "performanceScore": 97,
+            "metrics": {
+              "fcpMs": 506.82,
+              "lcpMs": 1237.9,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 568.64,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 4,
+            "performanceScore": 96,
+            "metrics": {
+              "fcpMs": 505.16,
+              "lcpMs": 1404.99,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 519.27,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 5,
+            "performanceScore": 95,
+            "metrics": {
+              "fcpMs": 504.35,
+              "lcpMs": 1532.62,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 554.04,
+              "inpMs": null
+            }
+          }
+        ]
+      },
+      "ssr": {
+        "url": "http://127.0.0.1:3004/scenarios/shopping-detail-ssr",
+        "checklist": {
+          "statusOk": true,
+          "expectedTextOk": true,
+          "contentReadyOk": true
+        },
+        "medianMetrics": {
+          "responseStartMs": 66.99,
+          "ttfbMs": 67.04,
+          "contentReadyMs": 67.04,
+          "totalMs": 67.07,
+          "htmlBytes": 5845
+        },
+        "distribution": {
+          "responseStartMs": {
+            "min": 32.4,
+            "median": 66.99,
+            "p95": 157.43
+          },
+          "ttfbMs": {
+            "min": 32.44,
+            "median": 67.04,
+            "p95": 157.47
+          },
+          "contentReadyMs": {
+            "min": 32.44,
+            "median": 67.04,
+            "p95": 157.47
+          },
+          "totalMs": {
+            "min": 32.47,
+            "median": 67.07,
+            "p95": 157.5
+          },
+          "htmlBytes": {
+            "min": 5845,
+            "median": 5845,
+            "p95": 5845
+          }
+        },
+        "streamingDeltaMs": 0,
+        "runs": [
+          {
+            "run": 1,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 66.99,
+            "ttfbMs": 67.04,
+            "contentReadyMs": 67.04,
+            "totalMs": 67.07,
+            "htmlBytes": 5845,
+            "containsExpectedText": true
+          },
+          {
+            "run": 2,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 65.11,
+            "ttfbMs": 65.15,
+            "contentReadyMs": 65.15,
+            "totalMs": 65.18,
+            "htmlBytes": 5845,
+            "containsExpectedText": true
+          },
+          {
+            "run": 3,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 67.95,
+            "ttfbMs": 68.01,
+            "contentReadyMs": 68.01,
+            "totalMs": 68.04,
+            "htmlBytes": 5845,
+            "containsExpectedText": true
+          },
+          {
+            "run": 4,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 157.43,
+            "ttfbMs": 157.47,
+            "contentReadyMs": 157.47,
+            "totalMs": 157.5,
+            "htmlBytes": 5845,
+            "containsExpectedText": true
+          },
+          {
+            "run": 5,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 32.4,
+            "ttfbMs": 32.44,
+            "contentReadyMs": 32.44,
+            "totalMs": 32.47,
+            "htmlBytes": 5845,
+            "containsExpectedText": true
+          }
+        ]
+      }
+    },
+    {
+      "name": "react-router-lab",
+      "baseUrl": "http://127.0.0.1:3005",
+      "lighthouse": {
+        "url": "http://127.0.0.1:3005/scenarios/shopping-detail-ssr",
+        "medianRun": 1,
+        "medianPerformanceScore": 96,
+        "medianMetrics": {
+          "fcpMs": 369.73,
+          "lcpMs": 1381.55,
+          "tbtMs": 0,
+          "cls": 0,
+          "speedIndexMs": 666.08,
+          "inpMs": null
+        },
+        "runs": [
+          {
+            "run": 1,
+            "performanceScore": 96,
+            "metrics": {
+              "fcpMs": 369.73,
+              "lcpMs": 1381.55,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 666.08,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 2,
+            "performanceScore": 96,
+            "metrics": {
+              "fcpMs": 425.23,
+              "lcpMs": 1424.81,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 773.49,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 3,
+            "performanceScore": 94,
+            "metrics": {
+              "fcpMs": 445.58,
+              "lcpMs": 1552.51,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 823.5,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 4,
+            "performanceScore": 97,
+            "metrics": {
+              "fcpMs": 427.49,
+              "lcpMs": 1266.24,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 738.12,
+              "inpMs": null
+            }
+          },
+          {
+            "run": 5,
+            "performanceScore": 95,
+            "metrics": {
+              "fcpMs": 478.72,
+              "lcpMs": 1449.04,
+              "tbtMs": 0,
+              "cls": 0,
+              "speedIndexMs": 778.21,
+              "inpMs": null
+            }
+          }
+        ]
+      },
+      "ssr": {
+        "url": "http://127.0.0.1:3005/scenarios/shopping-detail-ssr",
+        "checklist": {
+          "statusOk": true,
+          "expectedTextOk": true,
+          "contentReadyOk": true
+        },
+        "medianMetrics": {
+          "responseStartMs": 87.78,
+          "ttfbMs": 87.91,
+          "contentReadyMs": 87.91,
+          "totalMs": 88.59,
+          "htmlBytes": 5975
+        },
+        "distribution": {
+          "responseStartMs": {
+            "min": 46.68,
+            "median": 87.78,
+            "p95": 128.42
+          },
+          "ttfbMs": {
+            "min": 46.83,
+            "median": 87.91,
+            "p95": 128.59
+          },
+          "contentReadyMs": {
+            "min": 46.83,
+            "median": 87.91,
+            "p95": 128.59
+          },
+          "totalMs": {
+            "min": 47.23,
+            "median": 88.59,
+            "p95": 128.91
+          },
+          "htmlBytes": {
+            "min": 5975,
+            "median": 5975,
+            "p95": 5975
+          }
+        },
+        "streamingDeltaMs": 0,
+        "runs": [
+          {
+            "run": 1,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 128.42,
+            "ttfbMs": 128.59,
+            "contentReadyMs": 128.59,
+            "totalMs": 128.91,
+            "htmlBytes": 5975,
+            "containsExpectedText": true
+          },
+          {
+            "run": 2,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 87.78,
+            "ttfbMs": 87.91,
+            "contentReadyMs": 87.91,
+            "totalMs": 88.59,
+            "htmlBytes": 5975,
+            "containsExpectedText": true
+          },
+          {
+            "run": 3,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 46.68,
+            "ttfbMs": 46.83,
+            "contentReadyMs": 46.83,
+            "totalMs": 47.23,
+            "htmlBytes": 5975,
+            "containsExpectedText": true
+          },
+          {
+            "run": 4,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 61.45,
+            "ttfbMs": 61.98,
+            "contentReadyMs": 61.98,
+            "totalMs": 62.3,
+            "htmlBytes": 5975,
+            "containsExpectedText": true
+          },
+          {
+            "run": 5,
+            "status": 200,
+            "ok": true,
+            "responseStartMs": 90.73,
+            "ttfbMs": 91,
+            "contentReadyMs": 91,
+            "totalMs": 92.05,
+            "htmlBytes": 5975,
+            "containsExpectedText": true
+          }
+        ]
+      }
+    }
+  ]
+}
