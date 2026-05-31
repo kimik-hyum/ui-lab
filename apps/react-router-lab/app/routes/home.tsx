@@ -13,9 +13,9 @@ export default function Home() {
       <h1>React Router Lab</h1>
       <p>모노레포 비교 실험용 React Router v7 Framework Mode 앱입니다.</p>
       <p>
-        쇼핑몰 SSR 상세:{" "}
-        <Link to="/shop/wireless-headphones-x1">
-          /shop/wireless-headphones-x1
+        쇼핑몰 SSR 상세 시나리오:{" "}
+        <Link to="/scenarios/shopping-detail-ssr">
+          /scenarios/shopping-detail-ssr
         </Link>
       </p>
     </main>

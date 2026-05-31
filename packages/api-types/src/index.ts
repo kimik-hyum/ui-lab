@@ -11,9 +11,3 @@ type ProductSchema = SchemaByName<"products"> extends never
   : SchemaByName<"products">;
 
 export type ProductRow = ProductSchema;
-
-export type ProductApiResponse = {
-  product: ProductRow;
-  fetchedAt: string;
-  source: string;
-};

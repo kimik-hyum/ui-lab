@@ -1,0 +1,245 @@
+{
+  "generatedAt": "2026-05-31T09:59:08.775Z",
+  "path": "/scenarios/shopping-detail-ssr",
+  "runs": 1,
+  "minRuns": 1,
+  "warmup": 3,
+  "expectedText": "홈으로 이동",
+  "environment": {
+    "node": "v24.15.0",
+    "platform": "Darwin 24.5.0",
+    "arch": "arm64",
+    "cpu": "Apple M1 Pro",
+    "timeZone": "Asia/Seoul"
+  },
+  "targets": [
+    {
+      "name": "next-lab",
+      "url": "http://127.0.0.1:3001/scenarios/shopping-detail-ssr",
+      "checklist": {
+        "statusOk": true,
+        "expectedTextOk": true,
+        "contentReadyOk": true
+      },
+      "medianMetrics": {
+        "responseStartMs": 8.01,
+        "ttfbMs": 8.3,
+        "contentReadyMs": 83.2,
+        "totalMs": 83.72,
+        "htmlBytes": 11463
+      },
+      "distribution": {
+        "responseStartMs": {
+          "min": 8.01,
+          "median": 8.01,
+          "p95": 8.01
+        },
+        "ttfbMs": {
+          "min": 8.3,
+          "median": 8.3,
+          "p95": 8.3
+        },
+        "contentReadyMs": {
+          "min": 83.2,
+          "median": 83.2,
+          "p95": 83.2
+        },
+        "totalMs": {
+          "min": 83.72,
+          "median": 83.72,
+          "p95": 83.72
+        },
+        "htmlBytes": {
+          "min": 11463,
+          "median": 11463,
+          "p95": 11463
+        }
+      },
+      "streamingDeltaMs": 74.9,
+      "runs": [
+        {
+          "run": 1,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 8.01,
+          "ttfbMs": 8.3,
+          "contentReadyMs": 83.2,
+          "totalMs": 83.72,
+          "htmlBytes": 11463,
+          "containsExpectedText": true
+        }
+      ]
+    },
+    {
+      "name": "sveltekit-lab",
+      "url": "http://127.0.0.1:3002/scenarios/shopping-detail-ssr",
+      "checklist": {
+        "statusOk": true,
+        "expectedTextOk": true,
+        "contentReadyOk": true
+      },
+      "medianMetrics": {
+        "responseStartMs": 70.87,
+        "ttfbMs": 71.53,
+        "contentReadyMs": 71.53,
+        "totalMs": 71.6,
+        "htmlBytes": 3492
+      },
+      "distribution": {
+        "responseStartMs": {
+          "min": 70.87,
+          "median": 70.87,
+          "p95": 70.87
+        },
+        "ttfbMs": {
+          "min": 71.53,
+          "median": 71.53,
+          "p95": 71.53
+        },
+        "contentReadyMs": {
+          "min": 71.53,
+          "median": 71.53,
+          "p95": 71.53
+        },
+        "totalMs": {
+          "min": 71.6,
+          "median": 71.6,
+          "p95": 71.6
+        },
+        "htmlBytes": {
+          "min": 3492,
+          "median": 3492,
+          "p95": 3492
+        }
+      },
+      "streamingDeltaMs": 0,
+      "runs": [
+        {
+          "run": 1,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 70.87,
+          "ttfbMs": 71.53,
+          "contentReadyMs": 71.53,
+          "totalMs": 71.6,
+          "htmlBytes": 3492,
+          "containsExpectedText": true
+        }
+      ]
+    },
+    {
+      "name": "vue-lab",
+      "url": "http://127.0.0.1:3004/scenarios/shopping-detail-ssr",
+      "checklist": {
+        "statusOk": true,
+        "expectedTextOk": true,
+        "contentReadyOk": true
+      },
+      "medianMetrics": {
+        "responseStartMs": 61.34,
+        "ttfbMs": 61.4,
+        "contentReadyMs": 61.4,
+        "totalMs": 61.44,
+        "htmlBytes": 5769
+      },
+      "distribution": {
+        "responseStartMs": {
+          "min": 61.34,
+          "median": 61.34,
+          "p95": 61.34
+        },
+        "ttfbMs": {
+          "min": 61.4,
+          "median": 61.4,
+          "p95": 61.4
+        },
+        "contentReadyMs": {
+          "min": 61.4,
+          "median": 61.4,
+          "p95": 61.4
+        },
+        "totalMs": {
+          "min": 61.44,
+          "median": 61.44,
+          "p95": 61.44
+        },
+        "htmlBytes": {
+          "min": 5769,
+          "median": 5769,
+          "p95": 5769
+        }
+      },
+      "streamingDeltaMs": 0,
+      "runs": [
+        {
+          "run": 1,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 61.34,
+          "ttfbMs": 61.4,
+          "contentReadyMs": 61.4,
+          "totalMs": 61.44,
+          "htmlBytes": 5769,
+          "containsExpectedText": true
+        }
+      ]
+    },
+    {
+      "name": "react-router-lab",
+      "url": "http://127.0.0.1:3005/scenarios/shopping-detail-ssr",
+      "checklist": {
+        "statusOk": true,
+        "expectedTextOk": true,
+        "contentReadyOk": true
+      },
+      "medianMetrics": {
+        "responseStartMs": 41.52,
+        "ttfbMs": 41.78,
+        "contentReadyMs": 41.78,
+        "totalMs": 42.18,
+        "htmlBytes": 5975
+      },
+      "distribution": {
+        "responseStartMs": {
+          "min": 41.52,
+          "median": 41.52,
+          "p95": 41.52
+        },
+        "ttfbMs": {
+          "min": 41.78,
+          "median": 41.78,
+          "p95": 41.78
+        },
+        "contentReadyMs": {
+          "min": 41.78,
+          "median": 41.78,
+          "p95": 41.78
+        },
+        "totalMs": {
+          "min": 42.18,
+          "median": 42.18,
+          "p95": 42.18
+        },
+        "htmlBytes": {
+          "min": 5975,
+          "median": 5975,
+          "p95": 5975
+        }
+      },
+      "streamingDeltaMs": 0,
+      "runs": [
+        {
+          "run": 1,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 41.52,
+          "ttfbMs": 41.78,
+          "contentReadyMs": 41.78,
+          "totalMs": 42.18,
+          "htmlBytes": 5975,
+          "containsExpectedText": true
+        }
+      ]
+    }
+  ]
+}

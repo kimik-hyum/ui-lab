@@ -4478,6 +4478,62 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@tanstack/match-sorter-utils@npm:^8.19.4":
+  version: 8.19.4
+  resolution: "@tanstack/match-sorter-utils@npm:8.19.4"
+  dependencies:
+    remove-accents: "npm:0.5.0"
+  checksum: 10c0/935022e3d639f19472131d289f3e1202253ff34301717c337e9bac0eeae6a0bd56450ed8ae2f7eb7ac9dfefa7ceaa7d126d8c5441021968b4a9eabc3ac4f8ba1
+  languageName: node
+  linkType: hard
+
+"@tanstack/query-core@npm:5.100.14":
+  version: 5.100.14
+  resolution: "@tanstack/query-core@npm:5.100.14"
+  checksum: 10c0/947942b1499169b279faf4eddd570719db5d6863c89db4ec2d54e1eb3fb66a679cfa87a15c9f2e9d5de523e4bcc1782c020fba913ead461b73ecec4fdd986c59
+  languageName: node
+  linkType: hard
+
+"@tanstack/react-query@npm:^5.100.14":
+  version: 5.100.14
+  resolution: "@tanstack/react-query@npm:5.100.14"
+  dependencies:
+    "@tanstack/query-core": "npm:5.100.14"
+  peerDependencies:
+    react: ^18 || ^19
+  checksum: 10c0/f124e7671f5731a88241a71a6ce7da54f0bafb960ec4107d1eb24d0fc25136d10cd02ebd68956eb0605a29e60d925e82bfb52386b25cbe2e1cb4c166017cbf2a
+  languageName: node
+  linkType: hard
+
+"@tanstack/svelte-query@npm:^6.1.33":
+  version: 6.1.33
+  resolution: "@tanstack/svelte-query@npm:6.1.33"
+  dependencies:
+    "@tanstack/query-core": "npm:5.100.14"
+  peerDependencies:
+    svelte: ^5.25.0
+  checksum: 10c0/49911e239c67f6f0de099411bdd5a7a7fca74086b27c8326b6ee9a810e0ead4cac1c08397bde970521635167e5d09678f27cdfe52b63ef452410cbe0722ca926
+  languageName: node
+  linkType: hard
+
+"@tanstack/vue-query@npm:^5.100.14":
+  version: 5.100.14
+  resolution: "@tanstack/vue-query@npm:5.100.14"
+  dependencies:
+    "@tanstack/match-sorter-utils": "npm:^8.19.4"
+    "@tanstack/query-core": "npm:5.100.14"
+    "@vue/devtools-api": "npm:^6.6.3"
+    vue-demi: "npm:^0.14.10"
+  peerDependencies:
+    "@vue/composition-api": ^1.1.2
+    vue: ^2.6.0 || ^3.3.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+  checksum: 10c0/04515d03eeb504b5f9b004a8214ed16d731b5138093fef725d03c2aa4234b680c5abbe8cf2b46e6c832ae2d98bea7e98ded686af431cb47ec0bed5a41ae16f52
+  languageName: node
+  linkType: hard
+
 "@tootallnate/quickjs-emscripten@npm:^0.23.0":
   version: 0.23.0
   resolution: "@tootallnate/quickjs-emscripten@npm:0.23.0"
@@ -5236,6 +5292,13 @@ __metadata:
     "@vue/compiler-dom": "npm:3.5.34"
     "@vue/shared": "npm:3.5.34"
   checksum: 10c0/2ea308fd11a5dfc9c6d3d67a04290f0e938ce299cd66fe58e6af176c9c9f46b7210ef3024a1968757bc4cf6d569dce6217ba2b37bd6f0bf49f5ee9732008d6c0
+  languageName: node
+  linkType: hard
+
+"@vue/devtools-api@npm:^6.6.3":
+  version: 6.6.4
+  resolution: "@vue/devtools-api@npm:6.6.4"
+  checksum: 10c0/0a993ae23618166e1bee5a7c14cebd8312752b93c143cbdd48fb2d0f7ade070d0e6baf757cd920d4681fef8f9acf29515162160f38cc7410f9a684d2df21b6de
   languageName: node
   linkType: hard
 
@@ -10019,6 +10082,7 @@ __metadata:
   dependencies:
     "@next/swc-linux-x64-gnu": "npm:16.1.1"
     "@tailwindcss/postcss": "npm:^4"
+    "@tanstack/react-query": "npm:^5.100.14"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
@@ -10986,6 +11050,7 @@ __metadata:
   resolution: "next-lab@workspace:apps/next-lab"
   dependencies:
     "@supabase/supabase-js": "npm:^2.53.0"
+    "@tanstack/react-query": "npm:^5.100.14"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
@@ -12872,6 +12937,7 @@ __metadata:
     "@react-router/node": "npm:7.15.0"
     "@react-router/serve": "npm:7.15.0"
     "@supabase/supabase-js": "npm:^2.53.0"
+    "@tanstack/react-query": "npm:^5.100.14"
     "@types/node": "npm:^20"
     "@types/react": "npm:^19"
     "@types/react-dom": "npm:^19"
@@ -13057,6 +13123,13 @@ __metadata:
     gopd: "npm:^1.2.0"
     set-function-name: "npm:^2.0.2"
   checksum: 10c0/83b88e6115b4af1c537f8dabf5c3744032cb875d63bc05c288b1b8c0ef37cbe55353f95d8ca817e8843806e3e150b118bc624e4279b24b4776b4198232735a77
+  languageName: node
+  linkType: hard
+
+"remove-accents@npm:0.5.0":
+  version: 0.5.0
+  resolution: "remove-accents@npm:0.5.0"
+  checksum: 10c0/a75321aa1b53d9abe82637115a492770bfe42bb38ed258be748bf6795871202bc8b4badff22013494a7029f5a241057ad8d3f72adf67884dbe15a9e37e87adc4
   languageName: node
   linkType: hard
 
@@ -14476,6 +14549,7 @@ __metadata:
     "@sveltejs/adapter-vercel": "npm:^5.0.0"
     "@sveltejs/kit": "npm:^2.0.0"
     "@sveltejs/vite-plugin-svelte": "npm:^4.0.0"
+    "@tanstack/svelte-query": "npm:^6.1.33"
     "@ui-lab/api-types": "workspace:*"
     svelte: "npm:^5.0.0"
     svelte-check: "npm:^4.0.0"
@@ -15614,6 +15688,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"vue-demi@npm:^0.14.10":
+  version: 0.14.10
+  resolution: "vue-demi@npm:0.14.10"
+  peerDependencies:
+    "@vue/composition-api": ^1.0.0-rc.1
+    vue: ^3.0.0-0 || ^2.6.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+  bin:
+    vue-demi-fix: bin/vue-demi-fix.js
+    vue-demi-switch: bin/vue-demi-switch.js
+  checksum: 10c0/a9ed8712fa36d01bc13c39757f95f30cebf42d557b99e94bff86d8660c81f2911b41220f7affc023d1ffcc19e13999e4a83019991e264787cca2c616e83aea48
+  languageName: node
+  linkType: hard
+
 "vue-devtools-stub@npm:^0.1.0":
   version: 0.1.0
   resolution: "vue-devtools-stub@npm:0.1.0"
@@ -15626,9 +15716,11 @@ __metadata:
   resolution: "vue-lab@workspace:apps/vue-lab"
   dependencies:
     "@supabase/supabase-js": "npm:^2.53.0"
+    "@tanstack/vue-query": "npm:^5.100.14"
     "@ui-lab/api-types": "workspace:*"
     nuxt: "npm:4.4.5"
     typescript: "npm:^5.0.0"
+    vue: "npm:3.5.34"
     vue-tsc: "npm:^3.1.5"
   languageName: unknown
   linkType: soft
@@ -15684,7 +15776,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vue@npm:^3.5.33":
+"vue@npm:3.5.34, vue@npm:^3.5.33":
   version: 3.5.34
   resolution: "vue@npm:3.5.34"
   dependencies:
