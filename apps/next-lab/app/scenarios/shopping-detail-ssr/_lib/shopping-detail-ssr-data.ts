@@ -46,7 +46,11 @@ export function toShoppingDetailSsrViewModel(
       currency: product.currency,
       maximumFractionDigits: 0,
     }).format(product.price),
-    formattedCreatedAt: new Date(product.created_at).toLocaleString("ko-KR"),
+    formattedCreatedAt: new Intl.DateTimeFormat("ko-KR", {
+      dateStyle: "medium",
+      timeStyle: "short",
+      timeZone: "Asia/Seoul",
+    }).format(new Date(product.created_at)),
     sourceLabel: "Next.js Server Component -> Supabase server helper",
   };
 }

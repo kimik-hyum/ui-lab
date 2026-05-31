@@ -10,5 +10,6 @@ export function formatShoppingDetailSsrDate(dateTime: string) {
   return new Intl.DateTimeFormat("ko-KR", {
     dateStyle: "medium",
     timeStyle: "short",
+    timeZone: "Asia/Seoul",
   }).format(new Date(dateTime));
 }
