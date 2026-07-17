@@ -46,7 +46,7 @@ export default function ShoppingDetailSsrView({ data }: ShoppingDetailSsrViewPro
             </tr>
             <tr>
               <th scope="row">생성일</th>
-              <td>{formatUtcDateTime(product.created_at)}</td>
+              <td>{formatDateTime(product.created_at)}</td>
             </tr>
             <tr>
               <th scope="row">데이터 경계</th>
@@ -75,6 +75,10 @@ function formatPrice(price: number, currency: string) {
   }).format(price);
 }
 
-function formatUtcDateTime(value: string) {
-  return `${new Date(value).toISOString().replace("T", " ").slice(0, 19)} UTC`;
+function formatDateTime(value: string) {
+  return new Intl.DateTimeFormat("ko-KR", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: "Asia/Seoul",
+  }).format(new Date(value));
 }
