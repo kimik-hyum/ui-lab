@@ -55,6 +55,13 @@ const Sidebar = () => {
             </Link>
 
             <Link
+              href="/upgrade-logs"
+              className="rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-violet-50 hover:text-violet-600"
+            >
+              버전업 로그
+            </Link>
+
+            <Link
               href="/about"
               className="rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-violet-50 hover:text-violet-600"
             >

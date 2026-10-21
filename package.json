@@ -2,6 +2,9 @@
   "name": "ui-lab-monorepo",
   "private": true,
   "packageManager": "yarn@4.6.0",
+  "engines": {
+    "node": ">=24.15.0 <25"
+  },
   "workspaces": [
     "apps/*",
     "packages/*"
@@ -31,6 +34,7 @@
     "build:sveltekit-lab": "yarn workspace sveltekit-lab build",
     "build:vue-lab": "yarn workspace vue-lab build",
     "lint": "yarn workspaces foreach -Apt run lint",
+    "test:upgrade-logs": "node --test scripts/upgrade-log.test.mjs",
     "lint:staged": "lint-staged",
     "generate:types:openapi": "node scripts/generate-openapi-types.mjs",
     "perf:lighthouse": "node scripts/lighthouse-compare.mjs",

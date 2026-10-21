@@ -12,13 +12,16 @@ export function TraditionalList({ items, actionTrigger, onAddComplete }: Traditi
   // [cmp:state-mirroring:start]
   // Manual State Mirroring
   const [localItems, setLocalItems] = useState(items);
+  const [previousItems, setPreviousItems] = useState(items);
   const [error, setError] = useState<string | null>(null);
   const processedActionIdRef = useRef(0);
   const dismissTimerRef = useRef<number | null>(null);
 
-  useEffect(() => {
+  // 비교 데모의 수동 복제는 유지하되, props 변경을 다음 Effect까지 미루지 않습니다.
+  if (items !== previousItems) {
+    setPreviousItems(items);
     setLocalItems(items);
-  }, [items]);
+  }
   // [cmp:state-mirroring:end]
 
   useEffect(() => {

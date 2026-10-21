@@ -1,4 +1,4 @@
-import { getSupabaseServerClient, type ProductRow } from '$lib/server/supabase';
+import { getSupabaseServerClient, type ProductRow } from '#lib/server/supabase.ts';
 
 const PRODUCT_COLUMNS =
   'id, slug, name, brand, price, currency, description, image_url, image_width, image_height, stock, rating, created_at';

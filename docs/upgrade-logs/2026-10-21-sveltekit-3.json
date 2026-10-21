@@ -1,0 +1,283 @@
+{
+  "schemaVersion": 2,
+  "id": "2026-10-21-sveltekit-3",
+  "title": "SvelteKit 3 · Svelte 5.57.2",
+  "summary": "SvelteKit 3에 맞춰 설정·import·환경변수 구성을 이전했습니다.",
+  "startedAt": "2026-10-21T14:12:31.553+09:00",
+  "updatedAt": "2026-10-21T14:48:58.883+09:00",
+  "status": "completed",
+  "packages": [
+    {
+      "workspace": "sveltekit-lab",
+      "name": "@sveltejs/kit",
+      "declaredBefore": "^2.0.0",
+      "declaredAfter": "^3.1.0",
+      "installedBefore": "2.57.1",
+      "target": "3.1.0",
+      "installedAfter": "3.1.0"
+    },
+    {
+      "workspace": "sveltekit-lab",
+      "name": "@sveltejs/vite-plugin-svelte",
+      "declaredBefore": "^4.0.0",
+      "declaredAfter": "^7.3.1",
+      "installedBefore": "4.0.4",
+      "target": "7.3.1",
+      "installedAfter": "7.3.1"
+    },
+    {
+      "workspace": "sveltekit-lab",
+      "name": "@sveltejs/adapter-vercel",
+      "declaredBefore": "^5.0.0",
+      "declaredAfter": "^7.0.1",
+      "installedBefore": "5.10.3",
+      "target": "7.0.1",
+      "installedAfter": "7.0.1"
+    },
+    {
+      "workspace": "sveltekit-lab",
+      "name": "svelte",
+      "declaredBefore": "^5.0.0",
+      "declaredAfter": "^5.57.2",
+      "installedBefore": "5.55.3",
+      "target": "5.57.2",
+      "installedAfter": "5.57.2"
+    },
+    {
+      "workspace": "sveltekit-lab",
+      "name": "svelte-check",
+      "declaredBefore": "^4.0.0",
+      "declaredAfter": "^4.7.7",
+      "installedBefore": "4.4.6",
+      "target": "4.7.7",
+      "installedAfter": "4.7.7"
+    },
+    {
+      "workspace": "sveltekit-lab",
+      "name": "vite",
+      "declaredBefore": "^5.0.0",
+      "declaredAfter": "^8.3.4",
+      "installedBefore": "5.4.21",
+      "target": "8.3.4",
+      "installedAfter": "8.3.4"
+    },
+    {
+      "workspace": "sveltekit-lab",
+      "name": "typescript",
+      "declaredBefore": "^5.0.0",
+      "declaredAfter": "^6.0.3",
+      "installedBefore": "5.9.3",
+      "target": "6.0.3",
+      "installedAfter": "6.0.3"
+    }
+  ],
+  "sources": [
+    {
+      "id": "kit",
+      "title": "SvelteKit 3 이전 가이드",
+      "url": "https://svelte.dev/docs/kit/migrating-to-sveltekit-3",
+      "checkedOn": "2026-10-21"
+    },
+    {
+      "id": "vite",
+      "title": "Vite 8 이전 가이드",
+      "url": "https://vite.dev/guide/migration",
+      "checkedOn": "2026-10-21"
+    },
+    {
+      "id": "env",
+      "title": "SvelteKit 환경변수",
+      "url": "https://svelte.dev/docs/kit/environment-variables",
+      "checkedOn": "2026-10-21"
+    }
+  ],
+  "changes": [
+    {
+      "paths": [
+        "apps/sveltekit-lab/svelte.config.js",
+        "apps/sveltekit-lab/vite.config.ts",
+        "apps/sveltekit-lab/tsconfig.json",
+        "apps/sveltekit-lab/package.json",
+        "apps/sveltekit-lab/AGENTS.md"
+      ],
+      "reason": "SvelteKit 3의 설정 구조로 옮기고, 호환되는 TypeScript 6과 Node 24 런타임을 사용합니다.",
+      "before": "svelte.config.js · .svelte-kit/tsconfig.json\nTypeScript 5 · Vercel Node 20",
+      "after": "vite.config.ts의 sveltekit(...) · $app/tsconfig\nTypeScript 6.0.3 · Vercel Node 24",
+      "sourceIds": [
+        "kit",
+        "vite"
+      ],
+      "recommendation": "설정은 Vite 플러그인으로 옮기고 $app/tsconfig를 확장합니다. SvelteKit 3의 TypeScript 지원 범위는 6.x입니다.",
+      "files": [
+        {
+          "path": "apps/sveltekit-lab/vite.config.ts",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 1,
+                "code": "import { sveltekit } from '@sveltejs/kit/vite';\nimport { defineConfig } from 'vite';\n\nexport default defineConfig({\n  plugins: [sveltekit()],\n});"
+              },
+              "after": {
+                "startLine": 1,
+                "code": "import adapter from '@sveltejs/adapter-vercel';\nimport { sveltekit } from '@sveltejs/kit/vite';\nimport { vitePreprocess } from '@sveltejs/vite-plugin-svelte';\nimport { defineConfig } from 'vite';\n\nexport default defineConfig({\n  plugins: [sveltekit({\n    preprocess: vitePreprocess(),\n    adapter: adapter({ runtime: 'nodejs24.x' }),\n  })],\n});"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/sveltekit-lab/svelte.config.js",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 1,
+                "code": "import adapter from '@sveltejs/adapter-vercel';\nimport { vitePreprocess } from '@sveltejs/vite-plugin-svelte';\n\nconst config = {\n  preprocess: vitePreprocess(),\n  kit: {\n    adapter: adapter({ runtime: 'nodejs20.x' }),\n  },\n};\n\nexport default config;"
+              },
+              "after": null
+            }
+          ]
+        },
+        {
+          "path": "apps/sveltekit-lab/tsconfig.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 1,
+                "code": "{\n  \"extends\": \"./.svelte-kit/tsconfig.json\",\n  \"compilerOptions\": {\n    \"allowJs\": true,\n    \"checkJs\": true,"
+              },
+              "after": {
+                "startLine": 1,
+                "code": "{\n  \"extends\": \"$app/tsconfig\",\n  \"compilerOptions\": {\n    \"allowJs\": true,\n    \"checkJs\": true,"
+              }
+            },
+            {
+              "before": {
+                "startLine": 12,
+                "code": "    \"moduleResolution\": \"bundler\"\n  },\n  \"include\": [\n    \".svelte-kit/ambient.d.ts\",\n    \".svelte-kit/non-ambient.d.ts\",\n    \".svelte-kit/types/**/*.d.ts\",\n    \"src/**/*.d.ts\",\n    \"src/**/*.ts\",\n    \"src/**/*.js\",\n    \"src/**/*.svelte\",\n    \"vite.config.ts\",\n    \"svelte.config.js\"\n  ]\n}"
+              },
+              "after": {
+                "startLine": 12,
+                "code": "    \"moduleResolution\": \"bundler\"\n  },\n  \"include\": [\n    \"src\",\n    \"*.ts\"\n  ],\n  \"exclude\": [\"src/service-worker\"]\n}"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/sveltekit-lab/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 15,
+                "code": "    \"@ui-lab/api-types\": \"workspace:*\"\n  },\n  \"devDependencies\": {\n    \"@sveltejs/adapter-vercel\": \"^5.0.0\",\n    \"@sveltejs/kit\": \"^2.0.0\",\n    \"@sveltejs/vite-plugin-svelte\": \"^4.0.0\",\n    \"svelte\": \"^5.0.0\",\n    \"svelte-check\": \"^4.0.0\",\n    \"typescript\": \"^5.0.0\",\n    \"vite\": \"^5.0.0\"\n  }\n}"
+              },
+              "after": {
+                "startLine": 15,
+                "code": "    \"@ui-lab/api-types\": \"workspace:*\"\n  },\n  \"devDependencies\": {\n    \"@sveltejs/adapter-vercel\": \"^7.0.1\",\n    \"@sveltejs/kit\": \"^3.1.0\",\n    \"@sveltejs/vite-plugin-svelte\": \"^7.3.1\",\n    \"svelte\": \"^5.57.2\",\n    \"svelte-check\": \"^4.7.7\",\n    \"typescript\": \"^6.0.3\",\n    \"vite\": \"^8.3.4\"\n  },\n  \"imports\": {\n    \"#lib/*\": \"./src/lib/*\"\n  }\n}"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paths": [
+        "apps/sveltekit-lab/src/env.ts",
+        "apps/sveltekit-lab/src/lib/server/supabase.ts",
+        "apps/sveltekit-lab/src/routes/+layout.ts",
+        "apps/sveltekit-lab/src/lib/server/scenarios/shopping-detail-ssr.ts",
+        "apps/sveltekit-lab/src/routes/scenarios/shopping-detail-ssr/+page.server.ts"
+      ],
+      "reason": "변경된 import 경로와 서버 전용 환경변수 API에 맞춰 사용처를 이전했습니다.",
+      "before": "$lib · $app/environment · $env/dynamic/private",
+      "after": "#lib/*.ts · $app/env · $app/env/private\nsrc/env.ts에서 서버 변수 선언",
+      "sourceIds": [
+        "kit",
+        "env"
+      ],
+      "recommendation": "라이브러리 경로는 package.json imports로 정의하고, 환경변수는 src/env.ts에 선언한 뒤 $app/env/private에서 읽습니다.",
+      "files": [
+        {
+          "path": "apps/sveltekit-lab/src/lib/server/supabase.ts",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 1,
+                "code": "import { createClient } from '@supabase/supabase-js';\nimport { env } from '$env/dynamic/private';\nimport type { ProductRow } from '@ui-lab/api-types';\n\nexport type { ProductRow };\n\nexport function getSupabaseServerClient() {\n  const supabaseUrl = env.SUPABASE_URL;\n  const supabaseAnonKey = env.SUPABASE_ANON_KEY;\n\n  if (!supabaseUrl || !supabaseAnonKey) {\n    throw new Error('SUPABASE_URL 또는 SUPABASE_ANON_KEY 환경변수가 설정되지 않았습니다.');"
+              },
+              "after": {
+                "startLine": 1,
+                "code": "import { createClient } from '@supabase/supabase-js';\nimport { SUPABASE_URL, SUPABASE_ANON_KEY } from '$app/env/private';\nimport type { ProductRow } from '@ui-lab/api-types';\n\nexport type { ProductRow };\n\nexport function getSupabaseServerClient() {\n  const supabaseUrl = SUPABASE_URL;\n  const supabaseAnonKey = SUPABASE_ANON_KEY;\n\n  if (!supabaseUrl || !supabaseAnonKey) {\n    throw new Error('SUPABASE_URL 또는 SUPABASE_ANON_KEY 환경변수가 설정되지 않았습니다.');"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/sveltekit-lab/src/env.ts",
+          "excerpts": [
+            {
+              "before": null,
+              "after": {
+                "startLine": 1,
+                "code": "import { defineEnvVars } from '@sveltejs/kit/env';\n\n// 서버 전용이며 실행 시점에 읽습니다. 값은 저장소에 기록하지 않습니다.\nexport const variables = defineEnvVars({\n  SUPABASE_URL: {},\n  SUPABASE_ANON_KEY: {},\n});"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/sveltekit-lab/src/routes/+layout.ts",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 1,
+                "code": "import { browser } from \"$app/environment\";\nimport { QueryClient } from \"@tanstack/svelte-query\";\nimport type { LayoutLoad } from \"./$types\";\n"
+              },
+              "after": {
+                "startLine": 1,
+                "code": "import { browser } from \"$app/env\";\nimport { QueryClient } from \"@tanstack/svelte-query\";\nimport type { LayoutLoad } from \"./$types\";\n"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/sveltekit-lab/src/lib/server/scenarios/shopping-detail-ssr.ts",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 1,
+                "code": "import { getSupabaseServerClient, type ProductRow } from '$lib/server/supabase';\n\nconst PRODUCT_COLUMNS =\n  'id, slug, name, brand, price, currency, description, image_url, image_width, image_height, stock, rating, created_at';"
+              },
+              "after": {
+                "startLine": 1,
+                "code": "import { getSupabaseServerClient, type ProductRow } from '#lib/server/supabase.ts';\n\nconst PRODUCT_COLUMNS =\n  'id, slug, name, brand, price, currency, description, image_url, image_width, image_height, stock, rating, created_at';"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/sveltekit-lab/src/routes/scenarios/shopping-detail-ssr/+page.server.ts",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 1,
+                "code": "import { error } from '@sveltejs/kit';\nimport { getShoppingDetailSsrProduct } from '$lib/server/scenarios/shopping-detail-ssr';\nimport type { PageServerLoad } from './$types';\n\nconst DEFAULT_PRODUCT_SLUG = 'wireless-headphones-x1';"
+              },
+              "after": {
+                "startLine": 1,
+                "code": "import { error } from '@sveltejs/kit';\nimport { getShoppingDetailSsrProduct } from '#lib/server/scenarios/shopping-detail-ssr.ts';\nimport type { PageServerLoad } from './$types';\n\nconst DEFAULT_PRODUCT_SLUG = 'wireless-headphones-x1';"
+              }
+            },
+            {
+              "before": {
+                "startLine": 14,
+                "code": "  const product = await getShoppingDetailSsrProduct(requestedSlug);\n\n  if (!product) {\n    throw error(404, `상품을 찾을 수 없습니다: ${requestedSlug}`);\n  }\n\n  return {"
+              },
+              "after": {
+                "startLine": 14,
+                "code": "  const product = await getShoppingDetailSsrProduct(requestedSlug);\n\n  if (!product) {\n    error(404, `상품을 찾을 수 없습니다: ${requestedSlug}`);\n  }\n\n  return {"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

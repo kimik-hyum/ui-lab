@@ -26,7 +26,7 @@ type SearchParamValue = string | string[] | undefined;
 type PageSearchParams = Record<string, SearchParamValue>;
 
 type AdapterLivePageProps = {
-  searchParams?: Promise<PageSearchParams> | PageSearchParams;
+  searchParams: Promise<PageSearchParams>;
 };
 
 const parsePage = (value: SearchParamValue): number => {
@@ -50,7 +50,7 @@ async function fetchInitialProducts(page: number): Promise<ProductsResponse> {
 }
 
 export default async function AdapterLivePage({ searchParams }: AdapterLivePageProps) {
-  const resolvedSearchParams = await Promise.resolve(searchParams ?? {});
+  const resolvedSearchParams = await searchParams;
   const initialPage = parsePage(resolvedSearchParams[PAGE_PARAM_KEY]);
   const initialData = await fetchInitialProducts(initialPage);
 

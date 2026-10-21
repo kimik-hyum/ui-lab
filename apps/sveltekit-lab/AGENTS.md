@@ -7,7 +7,14 @@
 
 - SvelteKit의 파일 기반 라우팅과 `+page`, `+page.server`, `+server` convention을 유지합니다.
 - 퍼포먼스 비교용 시나리오를 작고 반복 가능한 단위로 구현합니다.
-- route-local colocation을 활용하되, 서버 전용 코드는 `$lib/server` 또는 `.server.ts`로 안전하게 분리합니다.
+- route-local colocation을 활용하되, 서버 전용 코드는 `#lib/server` 또는 `.server.ts`로 안전하게 분리합니다.
+
+## SvelteKit 3 설정
+
+- 설정과 Vercel adapter는 `vite.config.ts`의 `sveltekit(...)`에 둡니다.
+- `#lib/*`는 `package.json`의 `imports`로 정의하며 import에 파일 확장자를 포함합니다.
+- `tsconfig.json`은 `$app/tsconfig`를 확장합니다.
+- 환경변수는 `src/env.ts`에서 선언하고 서버에서 `$app/env/private`로 읽습니다.
 
 ## 기본 구조
 
@@ -63,12 +70,12 @@ src/lib/scenarios/{scenario-id}/
 
 - private env, DB, Supabase 접근이 필요한 초기 데이터는 `+page.server.ts`에서 로딩합니다.
 - 외부 공개 API처럼 클라이언트에서도 안전한 fetch는 필요에 따라 universal `+page.ts`를 검토할 수 있습니다.
-- `+page.server.ts`에서 내부 `+server.ts` endpoint를 `fetch`할 수 있지만, 순수 SSR 성능 비교에서는 `$lib/server/scenarios/{scenario-id}.ts` helper 직접 호출을 우선합니다.
-- API response 변환, fixture 생성, 정렬/필터링 같은 성능 비교 핵심 로직은 view 파일에 숨기지 않고 `_lib/` 또는 `$lib/scenarios/`로 분리합니다.
+- `+page.server.ts`에서 내부 `+server.ts` endpoint를 `fetch`할 수 있지만, 순수 SSR 성능 비교에서는 `#lib/server/scenarios/{scenario-id}.ts` helper 직접 호출을 우선합니다.
+- API response 변환, fixture 생성, 정렬/필터링 같은 성능 비교 핵심 로직은 view 파일에 숨기지 않고 `_lib/` 또는 `#lib/scenarios/`로 분리합니다.
 
 ## SSR/API/Query 시나리오 구분
 
-- SSR 자체 성능을 비교하는 시나리오는 `+page.server.ts`에서 `$lib/server` helper를 직접 호출합니다.
+- SSR 자체 성능을 비교하는 시나리오는 `+page.server.ts`에서 `#lib/server` helper를 직접 호출합니다.
 - API endpoint 왕복 또는 SvelteKit server `fetch` inline 동작까지 비교하는 시나리오는 `src/routes/api/scenarios/{scenario-id}/+server.ts`를 명시적으로 만들고, 시나리오 이름이나 코드 주석에 API/fetch 경계가 의도임을 남깁니다.
 - TanStack Query hydration/client cache를 비교하는 시나리오는 순수 SvelteKit SSR 시나리오와 분리하고, query key, queryFn, initial data 또는 hydration 경계를 코드에서 드러냅니다.
 - 기본은 `load`에서 데이터를 `await`하는 blocking SSR이라 `ttfb ≈ content-ready ≈ total`입니다. streaming 비교가 목적이면 `load`가 streamed promise를 반환하고 `{#await}`로 처리하며, 이 경우 `ttfb`(셸)와 content-ready를 분리해 비교합니다.
@@ -80,7 +87,7 @@ src/lib/scenarios/{scenario-id}/
 - TanStack Query는 client cache, background refetch, pagination, infinite query, optimistic mutation에 사용합니다.
 - SvelteKit native `load`만으로 충분한 SSR-only 시나리오에는 TanStack Query를 억지로 넣지 않습니다.
 - query-managed 시나리오는 route-local `_lib/{scenario-id}-query.ts`에 query key와 queryFn을 모읍니다.
-- queryFn은 browser-safe fetcher만 import합니다. `$lib/server` 모듈을 query module이나 `.svelte` 파일에서 직접 import하지 않습니다.
+- queryFn은 browser-safe fetcher만 import합니다. `#lib/server` 모듈을 query module이나 `.svelte` 파일에서 직접 import하지 않습니다.
 - 서버 prefetch/hydration이 필요한 경우 해당 시나리오에서 SvelteKit load data와 TanStack Query cache가 각각 무엇을 담당하는지 명확히 남깁니다.
 
 ## Mutation 기준
@@ -99,16 +106,16 @@ src/lib/scenarios/{scenario-id}/
 
 ## Import와 서버 경계 기준
 
-- 서버 전용 코드는 `$lib/server` 또는 `.server.ts` suffix를 사용합니다.
-- `.svelte`, `+page.ts`, browser-safe query module에서는 `$lib/server`를 import하지 않습니다.
+- 서버 전용 코드는 `#lib/server` 또는 `.server.ts` suffix를 사용합니다.
+- `.svelte`, `+page.ts`, browser-safe query module에서는 `#lib/server`를 import하지 않습니다.
 - `import type`만 필요한 경우 값 import로 바꾸지 않습니다.
-- app/server 공용 코드는 `$lib/scenarios/{scenario-id}`에 둡니다.
+- app/server 공용 코드는 `#lib/scenarios/{scenario-id}`에 둡니다.
 - 무거운 client-only 라이브러리는 route-local component나 browser-only query module에서만 import합니다.
 
 ## 성능 비교 유의사항
 
 - 전역 provider, 전역 CSS, 공유 dependency를 추가하기 전에 모든 프레임워크 비교에 필요한지 확인합니다.
-- 비교 목적이 렌더링 성능이면 API 호출 비용과 구분되도록 `$lib/scenarios/{scenario-id}/fixtures.ts` 같은 deterministic fixture를 사용합니다.
+- 비교 목적이 렌더링 성능이면 API 호출 비용과 구분되도록 `#lib/scenarios/{scenario-id}/fixtures.ts` 같은 deterministic fixture를 사용합니다.
 - 비교 목적이 data loading이면 `+page.server.ts`, universal `+page.ts`, `+server.ts`, TanStack Query cache 중 무엇을 측정하는지 코드 이름으로 드러냅니다.
 - SvelteKit의 fetch inlining, request coalescing, invalidation 흐름이 결과에 영향을 주면 코드나 문서에 짧게 남깁니다.
 - 성능 테스트는 dev mode가 아니라 build 후 preview/production 모드에서 비교합니다.

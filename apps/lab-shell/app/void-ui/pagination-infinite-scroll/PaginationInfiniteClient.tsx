@@ -1,7 +1,8 @@
 'use client';
 
 import Link from "next/link";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback } from "react";
+import { PageNumberInput } from "./PageNumberInput";
 import { useHybridInfinite } from "./useHybridInfinite";
 
 type Product = {
@@ -94,11 +95,6 @@ export function PaginationInfiniteClient({
     loadMoreRootMargin: "0px 0px 420px 0px",
     preserveExistingParams,
   });
-  const [pageInput, setPageInput] = useState(String(currentPage));
-
-  useEffect(() => {
-    setPageInput(String(currentPage));
-  }, [currentPage]);
 
   const handleGoToFirst = useCallback(() => {
     if (isLoading || currentPage === 1) return;
@@ -127,17 +123,6 @@ export function PaginationInfiniteClient({
     });
   }, [currentPage, ensurePageLoaded, isLoading, isPageLoaded, scrollToPage]);
 
-  const handlePageInputMove = useCallback(async () => {
-    const parsed = Number(pageInput);
-
-    if (!Number.isInteger(parsed) || parsed < 1 || parsed > totalPages) {
-      setPageInput(String(currentPage));
-      return;
-    }
-
-    if (parsed === currentPage || isLoading) return;
-    void goToPage(parsed);
-  }, [currentPage, goToPage, isLoading, pageInput, totalPages]);
 
   return (
     <main className="min-h-screen bg-black px-5 py-10 text-white md:px-10">
@@ -196,24 +181,12 @@ export function PaginationInfiniteClient({
 
             <div className="inline-flex items-center gap-3 rounded-full bg-zinc-800/80 px-3 py-1.5">
               <span className="text-zinc-400">현재페이지</span>
-              <input
-                type="number"
-                min={1}
-                max={totalPages}
-                step={1}
-                inputMode="numeric"
-                value={pageInput}
-                onChange={(event) => setPageInput(event.target.value)}
-                onBlur={() => {
-                  handlePageInputMove();
-                }}
-                onKeyDown={(event) => {
-                  if (event.key !== "Enter") return;
-                  event.currentTarget.blur();
-                }}
-                disabled={isLoading}
-                className="w-14 rounded border border-zinc-700 bg-zinc-900 px-2 py-1 text-right font-semibold text-white focus:border-cyan-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
-                aria-label="현재 페이지 입력"
+              <PageNumberInput
+                key={currentPage}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                isLoading={isLoading}
+                onNavigate={(page) => { void goToPage(page); }}
               />
               <span className="text-zinc-600">/</span>
               <span className="text-zinc-400">전체페이지</span>

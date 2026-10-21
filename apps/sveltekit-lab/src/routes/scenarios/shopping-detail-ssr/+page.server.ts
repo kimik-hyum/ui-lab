@@ -1,5 +1,5 @@
 import { error } from '@sveltejs/kit';
-import { getShoppingDetailSsrProduct } from '$lib/server/scenarios/shopping-detail-ssr';
+import { getShoppingDetailSsrProduct } from '#lib/server/scenarios/shopping-detail-ssr.ts';
 import type { PageServerLoad } from './$types';
 
 const DEFAULT_PRODUCT_SLUG = 'wireless-headphones-x1';
@@ -14,7 +14,7 @@ export const load: PageServerLoad = async ({ url }) => {
   const product = await getShoppingDetailSsrProduct(requestedSlug);
 
   if (!product) {
-    throw error(404, `상품을 찾을 수 없습니다: ${requestedSlug}`);
+    error(404, `상품을 찾을 수 없습니다: ${requestedSlug}`);
   }
 
   return {

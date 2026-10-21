@@ -25,7 +25,7 @@ const TOPIC_DEFINITIONS: TopicDefinition[] = [
             <div className="space-y-2">
                 <p>
                     <span className="text-red-300 font-bold">Traditional:</span> 부모 상태(`items`)를 로컬 `useState`로 복제한 뒤
-                    `useEffect` 동기화까지 직접 유지해야 합니다. 상태 소유권이 분산되어 유지보수 비용이 커집니다.
+                    props 변경 감지와 수동 동기화까지 직접 유지해야 합니다. 상태 소유권이 분산되어 유지보수 비용이 커집니다.
                 </p>
                 <p>
                     <span className="text-blue-300 font-bold">Optimistic:</span> `useOptimistic(state, updateFn)`으로 원본 상태를

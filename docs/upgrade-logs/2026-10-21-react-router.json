@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 2,
+  "id": "2026-10-21-react-router",
+  "title": "React Router 7.18.4 · Vite 8",
+  "summary": "Vercel과 호환되는 최신 Router 7 및 Vite 8을 적용했습니다.",
+  "startedAt": "2026-10-21T14:12:31.553+09:00",
+  "updatedAt": "2026-10-21T14:48:58.883+09:00",
+  "status": "completed",
+  "packages": [
+    {
+      "workspace": "react-router-lab",
+      "name": "react-router",
+      "declaredBefore": "7.15.0",
+      "declaredAfter": "7.18.4",
+      "installedBefore": "7.15.0",
+      "target": "7.18.4",
+      "installedAfter": "7.18.4"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "@react-router/node",
+      "declaredBefore": "7.15.0",
+      "declaredAfter": "7.18.4",
+      "installedBefore": "7.15.0",
+      "target": "7.18.4",
+      "installedAfter": "7.18.4"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "@react-router/serve",
+      "declaredBefore": "7.15.0",
+      "declaredAfter": "7.18.4",
+      "installedBefore": "7.15.0",
+      "target": "7.18.4",
+      "installedAfter": "7.18.4"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "@react-router/dev",
+      "declaredBefore": "7.15.0",
+      "declaredAfter": "7.18.4",
+      "installedBefore": "7.15.0",
+      "target": "7.18.4",
+      "installedAfter": "7.18.4"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "@vercel/react-router",
+      "declaredBefore": "^1.3.0",
+      "declaredAfter": "^1.3.7",
+      "installedBefore": "1.3.0",
+      "target": "1.3.7",
+      "installedAfter": "1.3.7"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "vite",
+      "declaredBefore": "^7.0.0",
+      "declaredAfter": "^8.3.4",
+      "installedBefore": "7.3.3",
+      "target": "8.3.4",
+      "installedAfter": "8.3.4"
+    }
+  ],
+  "sources": [
+    {
+      "id": "router",
+      "title": "React Router 이전 가이드",
+      "url": "https://reactrouter.com/upgrading/v7",
+      "checkedOn": "2026-10-21"
+    },
+    {
+      "id": "vercel",
+      "title": "Vercel 어댑터 지원 버전",
+      "url": "https://registry.npmjs.org/@vercel/react-router/1.3.7",
+      "checkedOn": "2026-10-21"
+    },
+    {
+      "id": "vite",
+      "title": "Vite 8 이전 가이드",
+      "url": "https://vite.dev/guide/migration",
+      "checkedOn": "2026-10-21"
+    }
+  ],
+  "changes": [
+    {
+      "paths": [
+        "apps/react-router-lab/package.json",
+        "yarn.lock"
+      ],
+      "reason": "Vercel 어댑터의 7.x 지원 범위에 맞춰 Router 7.18.4를 선택하고 Vite 8을 함께 적용했습니다.",
+      "before": "Router 7.15 · Vite 7 · Vercel 어댑터 1.3.0",
+      "after": "Router 7.18.4 · Vite 8 · 어댑터 1.3.7\nloader·ErrorBoundary·배포 preset은 그대로 호환",
+      "sourceIds": [
+        "router",
+        "vercel",
+        "vite"
+      ],
+      "recommendation": "Router 8 이전 가이드는 먼저 최신 7.x로 올리도록 안내합니다. 어댑터 1.3.7은 Router 7만 지원하므로 8.5.0은 보류합니다.",
+      "files": [
+        {
+          "path": "apps/react-router-lab/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 14,
+                "code": "    \"@react-router/node\": \"7.15.0\",\n    \"@react-router/serve\": \"7.15.0\","
+              },
+              "after": {
+                "startLine": 14,
+                "code": "    \"@react-router/node\": \"7.18.4\",\n    \"@react-router/serve\": \"7.18.4\","
+              }
+            },
+            {
+              "before": {
+                "startLine": 19,
+                "code": "    \"@vercel/react-router\": \"^1.3.0\","
+              },
+              "after": {
+                "startLine": 19,
+                "code": "    \"@vercel/react-router\": \"^1.3.7\","
+              }
+            },
+            {
+              "before": {
+                "startLine": 23,
+                "code": "    \"react-router\": \"7.15.0\""
+              },
+              "after": {
+                "startLine": 23,
+                "code": "    \"react-router\": \"7.18.4\""
+              }
+            },
+            {
+              "before": {
+                "startLine": 26,
+                "code": "    \"@react-router/dev\": \"7.15.0\","
+              },
+              "after": {
+                "startLine": 26,
+                "code": "    \"@react-router/dev\": \"7.18.4\","
+              }
+            },
+            {
+              "before": {
+                "startLine": 31,
+                "code": "    \"vite\": \"^7.0.0\""
+              },
+              "after": {
+                "startLine": 31,
+                "code": "    \"vite\": \"^8.3.4\""
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

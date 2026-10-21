@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Virtuoso, VirtuosoHandle, ListRange } from "react-virtuoso";
 import { useHybridInfinite } from "../useHybridInfinite";
+import { PageNumberInput } from "../PageNumberInput";
 import { createVirtuosoAdapter, VirtuosoHybridAdapter } from "./virtuoso-adapter-example";
 
 type Product = {
@@ -100,11 +101,6 @@ export function VirtuosoViewExample({
     adapter: adapter ?? undefined,
   });
 
-  const [pageInput, setPageInput] = useState(String(currentPage));
-
-  useEffect(() => {
-    setPageInput(String(currentPage));
-  }, [currentPage]);
 
   const flattenedProducts = useMemo(() => pages.flatMap((pageItem) => pageItem.items), [pages]);
 
@@ -132,14 +128,6 @@ export function VirtuosoViewExample({
     [currentPage, goToPage, isLoading, totalPages],
   );
 
-  const handleInputMove = useCallback(() => {
-    const parsed = Number(pageInput);
-    if (!Number.isInteger(parsed) || parsed < 1 || parsed > totalPages) {
-      setPageInput(String(currentPage));
-      return;
-    }
-    handleMove(parsed);
-  }, [currentPage, handleMove, pageInput, totalPages]);
 
   const handleGoToPrevious = useCallback(async () => {
     if (isLoading || currentPage <= 1) return;
@@ -191,22 +179,12 @@ export function VirtuosoViewExample({
             </button>
             <div className="inline-flex items-center gap-3 rounded-full bg-zinc-800/80 px-3 py-1.5">
               <span className="text-zinc-400">현재페이지</span>
-              <input
-                type="number"
-                min={1}
-                max={totalPages}
-                step={1}
-                inputMode="numeric"
-                value={pageInput}
-                onChange={(event) => setPageInput(event.target.value)}
-                onBlur={handleInputMove}
-                onKeyDown={(event) => {
-                  if (event.key !== "Enter") return;
-                  event.currentTarget.blur();
-                }}
-                disabled={isLoading}
-                className="w-14 rounded border border-zinc-700 bg-zinc-900 px-2 py-1 text-right font-semibold text-white focus:border-cyan-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
-                aria-label="현재 페이지 입력"
+              <PageNumberInput
+                key={currentPage}
+                currentPage={currentPage}
+                totalPages={totalPages}
+                isLoading={isLoading}
+                onNavigate={handleMove}
               />
               <span className="text-zinc-600">/</span>
               <span className="text-zinc-400">전체페이지</span>

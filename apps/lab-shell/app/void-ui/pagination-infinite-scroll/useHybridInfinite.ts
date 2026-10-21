@@ -75,6 +75,7 @@ export function useHybridInfinite<T>({
   const sentinelRef = useRef<HTMLElement | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
   const didRestoreFromUrlRef = useRef(false);
+  const requiresUrlRestoreRef = useRef(false);
 
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
   const maxLoadedPage = useMemo(() => pages.reduce((max, item) => Math.max(max, item.page), 1), [pages]);
@@ -271,10 +272,13 @@ export function useHybridInfinite<T>({
 
     const pageFromUrl = parsePageFromSearch(new URL(window.location.href).searchParams.get(pageParamKey));
     if (!pageFromUrl || pageFromUrl === initialPage.page) {
-      setIsRestoreReady(true);
       return;
     }
 
+    // 실제 복원 요청이 있는 동안에만 URL 덮어쓰기를 막습니다.
+    requiresUrlRestoreRef.current = true;
+    // 브라우저 URL에서 복원하는 네트워크 요청은 시작 즉시 loading을 표시해야 합니다.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     void goToPage(pageFromUrl).finally(() => {
       setIsRestoreReady(true);
     });
@@ -283,7 +287,7 @@ export function useHybridInfinite<T>({
 
   // [cmp:url-sync:start]
   useEffect(() => {
-    if (!syncUrl || !isRestoreReady) return;
+    if (!syncUrl || (requiresUrlRestoreRef.current && !isRestoreReady)) return;
 
     const url = new URL(window.location.href);
     if (!preserveExistingParams) {
