@@ -1,4 +1,5 @@
-import { FeatureCatalog, FeatureCatalogSection } from "../components/FeatureCatalog";
+import { FeatureCatalog } from "../components/FeatureCatalog";
+import type { FeatureCatalogSection } from "../components/FeatureCatalogTypes";
 
 const NEXTJS_VERSION_SECTIONS: FeatureCatalogSection[] = [
   {
@@ -62,8 +63,8 @@ const NEXTJS_VERSION_SECTIONS: FeatureCatalogSection[] = [
 export default function NextJSFeaturesPage() {
   return (
     <FeatureCatalog
-      title="Next.js Feature Catalog"
-      description="Next.js 버전별 기능을 같은 카드 패턴으로 정리해 React 섹션과 탐색 경험을 통일합니다."
+      title="Next.js 기능 비교"
+      description="서버와 클라이언트의 역할부터 데이터 로딩까지. 같은 화면을 만드는 서로 다른 구현을 비교하세요."
       sections={NEXTJS_VERSION_SECTIONS}
     />
   );

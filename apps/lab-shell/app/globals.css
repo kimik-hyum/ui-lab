@@ -2,41 +2,30 @@
 @import "pretendard/dist/web/static/pretendard-subset.css";
 
 :root {
-  /* Base */
-  --background: #ffffff;
-  --foreground: #0f172a;
-
-  /* Surface */
-  --surface: #f8fafc;
-  --surface-elevated: #f1f5f9;
-
-  /* Border */
-  --border: #e2e8f0;
-  --border-strong: #cbd5e1;
-
-  /* Text */
-  --muted-foreground: #64748b;
-  --subtle-foreground: #94a3b8;
-
-  /* Accent — Violet */
-  --accent: #7c3aed;
-  --accent-hover: #6d28d9;
+  --background: #f7f8fa;
+  --foreground: #182329;
+  --surface: #f5f7f8;
+  --surface-elevated: #edf1f3;
+  --border: #e4e8eb;
+  --border-strong: #cbd4d9;
+  --muted-foreground: #5f6d77;
+  --subtle-foreground: #64737c;
+  --accent: #087f72;
+  --accent-hover: #06685e;
   --accent-foreground: #ffffff;
-  --accent-subtle: #ede9fe;
-  --accent-muted: #ddd6fe;
-
-  /* Verdict accent — left border + badge only, no card background */
-  --verdict-adopt: #34d399;       /* emerald-400 */
-  --verdict-adopt-text: #059669;  /* emerald-600 */
-  --verdict-adopt-badge: #d1fae5; /* emerald-100 */
-  --verdict-watch: #fbbf24;       /* amber-400 */
-  --verdict-watch-text: #d97706;  /* amber-600 */
-  --verdict-watch-badge: #fef3c7; /* amber-100 */
-  --verdict-skip: #cbd5e1;        /* slate-300 */
-  --verdict-skip-text: #94a3b8;   /* slate-400 */
-  --verdict-skip-badge: #f1f5f9;  /* slate-100 */
+  --accent-subtle: #e7f3ef;
+  --accent-muted: #b8dfd4;
+  --shell-header-height: 64px;
+  --verdict-adopt: #34d399;
+  --verdict-adopt-text: #047857;
+  --verdict-adopt-badge: #d1fae5;
+  --verdict-watch: #fbbf24;
+  --verdict-watch-text: #b45309;
+  --verdict-watch-badge: #fef3c7;
+  --verdict-skip: #cbd5e1;
+  --verdict-skip-text: #64748b;
+  --verdict-skip-badge: #f1f5f9;
 }
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -51,14 +40,187 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-subtle: var(--accent-subtle);
   --color-accent-muted: var(--accent-muted);
-
-  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-josefin: var(--font-josefin-sans), "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --font-sans:
+    "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-josefin: var(--font-sans);
+  --font-mono:
+    ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono",
+    "Pretendard", monospace;
 }
-
-body {
-  background: var(--background);
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+  button,
+  a,
+  input {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:not(:disabled),
+  summary {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: #c4e6dc;
+    color: #163c34;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd4d9 transparent;
+  }
+  html {
+    scroll-padding-top: 80px;
+  }
+  body:has(dialog[open]) {
+    overflow: hidden;
+  }
+}
+.app-shell {
+  --sidebar-width: 0px;
+}
+.shell-sidebar {
+  display: none;
+}
+.shell-topbar {
+  height: var(--shell-header-height);
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  z-index: 40;
+}
+.shell-content {
+  min-width: 0;
+  min-height: 100dvh;
+  padding-top: var(--shell-header-height);
+  margin-left: var(--sidebar-width);
+}
+.shell-content:focus {
+  outline: none;
+}
+.workspace-page {
+  width: 100%;
+  min-width: 0;
+  padding: 24px 18px 40px;
+}
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--foreground);
+  color: white;
+  font-size: 13px;
+}
+.skip-link:focus {
+  top: 12px;
+}
+dialog::backdrop {
+  background: rgb(15 23 32 / 35%);
+  backdrop-filter: blur(3px);
+}
+.mobile-drawer {
+  position: fixed;
+  inset: 0 auto 0 0;
+  width: min(304px, calc(100vw - 40px));
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  padding: 0;
+  border: 0;
+  background: transparent;
   color: var(--foreground);
-  font-family: var(--font-sans);
+}
+.mobile-drawer .sidebar-label {
+  display: revert;
+}
+.search-dialog {
+  position: fixed;
+  inset: 14vh 0 auto;
+  margin-inline: auto;
+  width: min(580px, calc(100vw - 32px));
+  max-width: none;
+  padding: 0;
+  overflow: visible;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: 0 24px 80px rgb(15 23 32 / 22%);
+}
+@media (min-width: 768px) {
+  .app-shell {
+    --sidebar-width: 72px;
+  }
+  .shell-sidebar {
+    display: block;
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--sidebar-width);
+    border-right: 1px solid var(--border);
+    background: #f5f7f8;
+    z-index: 50;
+  }
+  .shell-sidebar .sidebar-label {
+    display: none;
+  }
+  .shell-sidebar .sidebar-brand {
+    justify-content: center;
+    padding-inline: 0;
+  }
+  .shell-sidebar .sidebar-inner {
+    padding-inline: 10px;
+  }
+  .shell-sidebar .sidebar-link,
+  .shell-sidebar .sidebar-search {
+    justify-content: center;
+    padding-inline: 0;
+  }
+  .workspace-page {
+    padding: 30px 28px 48px;
+  }
+}
+@media (min-width: 1280px) {
+  .app-shell {
+    --sidebar-width: 232px;
+  }
+  .app-shell[data-collapsed="true"] {
+    --sidebar-width: 72px;
+  }
+  .app-shell:not([data-collapsed="true"]) .sidebar-label {
+    display: revert;
+  }
+  .app-shell:not([data-collapsed="true"]) .sidebar-brand {
+    justify-content: flex-start;
+    padding-inline: 24px;
+  }
+  .app-shell:not([data-collapsed="true"]) .sidebar-inner {
+    padding-inline: 12px;
+  }
+  .app-shell:not([data-collapsed="true"]) .sidebar-link,
+  .app-shell:not([data-collapsed="true"]) .sidebar-search {
+    justify-content: flex-start;
+    padding-inline: 12px;
+  }
+}
+@media (min-width: 1536px) {
+  .workspace-page {
+    padding: 36px 40px 52px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

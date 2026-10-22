@@ -159,38 +159,20 @@ export function VirtuosoViewExample({
   }, [currentPage, ensurePageLoaded, isLoading, isPageLoaded, scrollToPage]);
 
   return (
-    <main className="min-h-screen bg-black px-5 py-10 text-white md:px-10">
-      <div className="mx-auto max-w-4xl">
-        <header className="mb-7 border-b border-zinc-800 pb-6">
-          <p className="text-[11px] uppercase tracking-[0.2em] text-cyan-300">Void UI / Virtuoso Adapter Live</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight">Pagenation Infinify Scroll (Virtuoso)</h1>
-          <p className="mt-2 text-sm text-zinc-400">
-            기본 데모와 같은 컨트롤 레이아웃을 유지하면서 virtualization 어댑터를 주입한 예시입니다.
+    <main className="workspace-page text-foreground">
+      <div className="w-full min-w-0">
+        <header className="mb-7 border-b border-border pb-6">
+          <p className="font-mono text-[10px] uppercase tracking-[0.15em] text-accent">Void UI / Virtuoso Adapter Live</p>
+          <h1 className="mt-3 text-2xl font-semibold tracking-tight sm:text-3xl">Pagination + Infinite Scroll (Virtuoso)</h1>
+          <p className="mt-2 text-sm leading-6 text-muted-foreground">
+            화면에 보이는 항목만 렌더링하는 가상화 목록에서 페이지 이동과 연속 탐색을 확인합니다.
           </p>
         </header>
 
-        <div className="sticky top-4 z-20 mb-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900/90 px-2 py-2 text-xs backdrop-blur">
-            <button
-              type="button"
-              onClick={() => handleMove(1)}
-              disabled={isLoading || currentPage === 1}
-              className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              처음
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                void handleGoToPrevious();
-              }}
-              disabled={isLoading || currentPage === 1}
-              className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
-            >
-              이전
-            </button>
-            <div className="inline-flex items-center gap-3 rounded-full bg-zinc-800/80 px-3 py-1.5">
-              <span className="text-zinc-400">현재페이지</span>
+        <div className="sticky top-[calc(var(--shell-header-height)+12px)] z-20 mb-7">
+          <nav aria-label="상품 목록 페이지 이동" className="flex max-w-full flex-wrap items-center gap-2 rounded-xl border border-border bg-white/95 p-3 text-xs shadow-sm backdrop-blur sm:w-fit">
+            <div className="flex w-full flex-wrap items-center justify-center gap-2 rounded-lg bg-surface px-3 py-2 sm:w-auto">
+              <span className="text-muted-foreground">페이지</span>
               <input
                 type="number"
                 min={1}
@@ -205,49 +187,70 @@ export function VirtuosoViewExample({
                   event.currentTarget.blur();
                 }}
                 disabled={isLoading}
-                className="w-14 rounded border border-zinc-700 bg-zinc-900 px-2 py-1 text-right font-semibold text-white focus:border-cyan-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
+                className="min-h-9 w-16 rounded-md border border-border bg-white px-2 py-1 text-right font-mono font-medium text-foreground focus:border-accent disabled:cursor-not-allowed disabled:opacity-40"
                 aria-label="현재 페이지 입력"
               />
-              <span className="text-zinc-600">/</span>
-              <span className="text-zinc-400">전체페이지</span>
-              <strong className="text-white">{totalPages}</strong>
+              <span className="text-muted-foreground">/</span>
+              <span className="text-muted-foreground">전체</span>
+              <strong className="text-foreground">{totalPages}</strong>
+
             </div>
-            <button
+            <div className="grid w-full grid-cols-3 gap-2 sm:flex sm:w-auto">
+              <button
+              type="button"
+              onClick={() => handleMove(1)}
+              disabled={isLoading || currentPage === 1}
+              className="min-h-10 rounded-lg border border-border bg-white px-4 py-2 text-foreground transition-colors enabled:hover:border-accent/40 enabled:hover:bg-accent-subtle enabled:hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              처음
+            </button>
+              <button
+              type="button"
+              onClick={() => {
+                void handleGoToPrevious();
+              }}
+              disabled={isLoading || currentPage === 1}
+              className="min-h-10 rounded-lg border border-border bg-white px-4 py-2 text-foreground transition-colors enabled:hover:border-accent/40 enabled:hover:bg-accent-subtle enabled:hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
+            >
+              이전
+            </button>
+              <button
               type="button"
               onClick={() => handleMove(totalPages)}
               disabled={isLoading || currentPage === totalPages}
-              className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
+              className="min-h-10 rounded-lg border border-border bg-white px-4 py-2 text-foreground transition-colors enabled:hover:border-accent/40 enabled:hover:bg-accent-subtle enabled:hover:text-accent disabled:cursor-not-allowed disabled:opacity-40"
             >
               마지막
             </button>
-          </div>
+            </div>
+          </nav>
         </div>
 
-        <div className="h-[68vh] overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950/60">
+        <div className="h-[65dvh] min-h-[320px] overflow-hidden rounded-xl border border-border bg-white">
           <Virtuoso
             ref={virtuosoRef}
             data={flattenedProducts}
             rangeChanged={handleRangeChanged}
             itemContent={(index, product) => (
-              <div key={product.id} className="border-b border-zinc-800/80 px-5 py-4">
+              <div key={product.id} className="border-b border-border px-4 py-4 sm:px-5">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-sm font-medium text-zinc-100">
+                    <p className="text-sm font-medium text-foreground">
                       #{index + 1} {product.title}
                     </p>
-                    <p className="mt-2 text-xs text-zinc-400">{product.description}</p>
-                    <p className="mt-2 text-[11px] text-zinc-500">
+                    <p className="mt-2 text-xs text-muted-foreground">{product.description}</p>
+                    <p className="mt-2 text-[11px] text-muted-foreground">
                       {product.category} · rating {product.rating} · stock {product.stock}
                     </p>
                   </div>
-                  <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 text-xs text-emerald-300">${product.price}</span>
+                  <span className="shrink-0 rounded-md bg-accent-subtle px-2 py-1 font-mono text-xs text-accent">${product.price}</span>
                 </div>
               </div>
             )}
           />
         </div>
 
-        <div className="py-8 text-center text-xs text-zinc-500">
+        <div className="py-8 text-center text-xs text-muted-foreground">
           {isLoading
             ? "다음 페이지 로딩 중..."
             : canLoadMore
@@ -255,7 +258,7 @@ export function VirtuosoViewExample({
               : "마지막 페이지입니다."}
         </div>
         {error ? (
-          <p className="rounded-md border border-red-900 bg-red-950/30 px-3 py-2 text-xs text-red-300">{error}</p>
+          <p role="alert" className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-xs leading-6 text-red-700">{error}</p>
         ) : null}
       </div>
     </main>

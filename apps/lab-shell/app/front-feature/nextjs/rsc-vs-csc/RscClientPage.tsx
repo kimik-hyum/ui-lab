@@ -106,16 +106,16 @@ function RscSimulatedViewer({
     <div className="flex flex-col gap-4 h-full">
       <div className="flex flex-wrap gap-2 text-[11px]">
         <span className="rounded border border-blue-200 bg-blue-50 px-2 py-1 text-blue-600">
-          📦 JS Bundle: 0 B
+          RSC 본문 번들: 0 B (개념 예시)
         </span>
         <span className="rounded border border-slate-200 bg-slate-50 px-2 py-1 text-slate-500">
-          🔄 Client fetch: 0회
+          추가 Client fetch: 0회
         </span>
         <span className="rounded border border-amber-200 bg-amber-50 px-2 py-1 text-amber-600">
-          ⚙️ 서버 CPU 사용
+          렌더링 흐름 시뮬레이션
         </span>
         <span className="rounded border border-slate-200 bg-slate-50 px-2 py-1 text-slate-500">
-          ⏱ TTFB 시뮬:{' '}
+          TTFB 시뮬:{' '}
           {phase === 'loading' ? (
             <span className="text-amber-600">서버 렌더링 중...</span>
           ) : (
@@ -142,7 +142,7 @@ function RscSimulatedViewer({
       ) : (
         <article className="flex flex-col gap-5 text-sm">
           <div>
-            <div className="mb-2 inline-flex items-center gap-1 rounded-full border border-violet-200 bg-violet-50 px-2 py-0.5 text-[10px] text-violet-600">
+            <div className="mb-2 inline-flex items-center gap-1 rounded-full border border-accent/20 bg-accent-subtle px-2 py-0.5 text-[10px] text-accent">
               ✓ 서버에서 프리렌더됨
             </div>
             <h1 className="text-lg font-bold text-slate-900 leading-snug">{article.title}</h1>
@@ -165,7 +165,7 @@ function RscSimulatedViewer({
             </div>
           </div>
 
-          <p className="text-slate-600 leading-relaxed border-l-2 border-violet-400 pl-3">
+          <p className="text-slate-600 leading-relaxed border-l-2 border-accent pl-3">
             {article.intro}
           </p>
 
@@ -213,9 +213,8 @@ export function RscClientPage({
       title="RSC vs CSC 렌더링 비교"
       description={
         <span>
-          동일한 아티클 뷰어를 CSC와 RSC로 구현해 차이를 체감합니다.{' '}
-          <span className="text-amber-600">RSC는 서버 CPU를 소비하고, CSC는 클라이언트 기기를 소비합니다.</span>
-          {' '}어느 쪽이 낫다기보다 상황에 따라 선택해야 합니다.
+          동일한 아티클을 클라이언트에서 요청하는 구현과 서버에서 미리 읽는 구현을 비교합니다.{' '}
+          <span className="text-amber-700">화면의 지연은 동작 설명을 위한 시뮬레이션입니다.</span>
         </span>
       }
       leftTitle="Client Component (CSC)"
@@ -224,19 +223,21 @@ export function RscClientPage({
       rightCode={rscCode}
       topics={topics}
       headerActions={
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs text-slate-500">데이터 지연</span>
-          <div className="flex gap-1">
+          <div className="flex flex-wrap gap-1">
             {DELAY_OPTIONS.map((d) => (
               <button
                 key={d}
+                type="button"
+                aria-pressed={delay === d}
                 onClick={() => {
                   setDelay(d);
                   setRefetchKey((k) => k + 1);
                 }}
-                className={`rounded px-2 py-1 text-xs transition-colors ${
+                className={`min-h-9 rounded-md px-2.5 py-1.5 text-xs transition-colors ${
                   delay === d
-                    ? 'bg-violet-600 text-white border border-violet-600'
+                    ? 'bg-accent text-white border border-accent'
                     : 'border border-slate-200 text-slate-500 hover:border-slate-300 hover:text-slate-700'
                 }`}
               >
@@ -246,7 +247,7 @@ export function RscClientPage({
           </div>
           <button
             onClick={() => setRefetchKey((k) => k + 1)}
-            className="rounded-full border border-slate-200 px-3 py-1 text-xs text-slate-500 hover:border-slate-300 hover:text-slate-700 transition-colors"
+            className="min-h-9 rounded-lg border border-border bg-white px-3 py-1.5 text-xs text-muted-foreground hover:bg-surface hover:text-foreground transition-colors"
           >
             재요청
           </button>
@@ -302,7 +303,7 @@ function TradeoffSection() {
   ];
 
   return (
-    <div className="px-8 py-10">
+    <div className="px-5 py-7 sm:px-7 lg:px-8 lg:py-10">
       <h2 className="text-lg font-semibold text-slate-900 mb-1">트레이드오프 — 언제 무엇을 쓸까</h2>
       <p className="text-sm text-slate-500 mb-6">
         RSC가 무조건 우월하지 않습니다. 서버 CPU 비용을 클라이언트 번들·UX와 교환하는 선택입니다.
@@ -310,7 +311,7 @@ function TradeoffSection() {
       </p>
 
       <div className="overflow-x-auto rounded-xl border border-slate-200">
-        <table className="w-full text-sm">
+        <table className="w-full min-w-[640px] text-sm">
           <thead>
             <tr className="border-b border-slate-200 bg-slate-50">
               <th className="px-4 py-3 text-left text-xs text-slate-500 font-medium w-2/5">상황</th>
@@ -339,8 +340,8 @@ function TradeoffSection() {
         <p className="text-xs text-slate-500 leading-relaxed">
           <span className="text-slate-700 font-medium">권장 패턴 (Next.js App Router):</span>{' '}
           페이지·레이아웃 수준은 RSC로 데이터를 미리 가져오고,
-          클릭·입력 등 인터랙션이 필요한 리프 컴포넌트만 <code className="text-violet-600">use client</code>로 분리합니다.
-          트래픽이 높은 공개 페이지라면 RSC에 <code className="text-violet-600">cache</code> 옵션을 적극 활용하세요.
+          클릭·입력 등 인터랙션이 필요한 리프 컴포넌트만 <code className="text-accent">use client</code>로 분리합니다.
+          트래픽이 높은 공개 페이지라면 RSC에 <code className="text-accent">cache</code> 옵션을 적극 활용하세요.
         </p>
       </div>
     </div>

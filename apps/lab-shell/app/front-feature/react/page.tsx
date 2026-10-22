@@ -1,4 +1,5 @@
-import { FeatureCatalog, FeatureCatalogSection } from "../components/FeatureCatalog";
+import { FeatureCatalog } from "../components/FeatureCatalog";
+import type { FeatureCatalogSection } from "../components/FeatureCatalogTypes";
 
 const REACT_VERSION_SECTIONS: FeatureCatalogSection[] = [
   {
@@ -62,8 +63,8 @@ const REACT_VERSION_SECTIONS: FeatureCatalogSection[] = [
 export default function ReactFeaturesPage() {
   return (
     <FeatureCatalog
-      title="React Feature Catalog"
-      description="버전별로 기능을 정리하고, 현재 사용 가능한 비교 시나리오와 예정 항목을 분리해 관리합니다."
+      title="React 기능 비교"
+      description="새로운 기능을 적용한 구현과 기존 구현을 나란히 실행하고, 상태 관리와 렌더링의 차이를 확인하세요."
       sections={REACT_VERSION_SECTIONS}
     />
   );
