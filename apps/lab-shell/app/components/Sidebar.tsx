@@ -36,6 +36,12 @@ const Sidebar = () => {
                 >
                   Next.js
                 </Link>
+                <Link
+                  href="/front-feature/libraries"
+                  className="rounded px-3 py-1.5 text-xs text-slate-500 transition-colors hover:bg-violet-50 hover:text-violet-600"
+                >
+                  라이브러리
+                </Link>
                 {process.env.NODE_ENV === "development" && (
                   <Link
                     href="/front-feature/scout"

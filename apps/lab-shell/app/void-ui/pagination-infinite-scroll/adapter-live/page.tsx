@@ -62,7 +62,7 @@ export default async function AdapterLivePage({ searchParams }: AdapterLivePageP
       initialPage={initialPage}
       initialProducts={initialData.products}
       initialTotal={initialData.total}
-      pageSize={initialData.limit}
+      pageSize={PAGE_SIZE}
     />
   );
 }

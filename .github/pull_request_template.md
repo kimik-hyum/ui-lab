@@ -15,7 +15,10 @@
 실행한 검증:
 
 - [ ] `yarn lint`
+- [ ] `yarn test`
 - [ ] `yarn build`
+- [ ] 현재 코드의 서버에서 `yarn test:runtime` (SSR·캐시·초기 HTML 변경 시)
+- [ ] 변경한 상호작용을 브라우저에서 확인했습니다. (해당 시)
 - [ ] 기타:
 
 ## 더 필요한 작업

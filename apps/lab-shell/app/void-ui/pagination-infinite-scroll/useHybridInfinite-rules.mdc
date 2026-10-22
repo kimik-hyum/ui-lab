@@ -22,6 +22,8 @@ export interface HybridViewportAdapter {
   setSentinelRef?: (node: HTMLElement | null) => void;
   // 현재 화면에 보이는 페이지 번호를 추적하여 onChange로 전달 (반환값: 정리 함수)
   watchCurrentPage?: (onChange: (page: number) => void) => () => void;
+  // 최초 버튼 클릭 후, 위쪽 경계로 스크롤할 때 이전 페이지 로드
+  watchLoadPrevious?: (onNeedPrevious: () => void) => () => void;
   // 스크롤이 끝에 도달했을 때 다음 페이지 로드를 트리거 (반환값: 정리 함수)
   watchLoadMore?: (onNeedMore: () => void) => () => void;
   // 특정 페이지로 스크롤 이동 (가상화 라이브러리의 scrollToIndex 등으로 대체)
@@ -80,3 +82,11 @@ export function createTanstackVirtualAdapter(
 - **DOM 어트리뷰트 필수:** 가상화 어댑터를 쓰지 않고 기본 DOM 기반 렌더링을 사용할 경우, 각 페이지를 감싸는 프레임 DOM 요소에는 반드시 `data-page={pageNumber}` 파라미터를 부여하세요. 내부 `IntersectionObserver`가 이 값을 읽어 현재 페이지를 계산합니다.
 - **URL 동기화 옵션:** `syncUrl` 옵션을 사용할 경우, Next.js 환경에서는 클라이언트 하이드레이션 불일치(Hydration Mismatch)가 발생하지 않도록 초기 렌더링 시점의 처리에 각별히 유의하세요.
 - **불필요한 리렌더링 방지:** 어댑터 생성 함수나 `fetchPage` 콜백은 컴포넌트 내부에서 `useCallback` 또는 `useMemo`로 감싸서 의존성 변경으로 인한 무한 루프가 발생하지 않도록 코드를 생성하세요.
+
+## 5. 이전 페이지 로딩
+- URL로 진입하거나 새로고침하면 해당 페이지만 시작점으로 사용합니다. 이전 페이지는 `enablePrevious()` 버튼을 눌러야 자동 로딩을 허용합니다.
+- 이전 요청은 현재 URL이 아니라 로드된 최소 페이지 − 1을 대상으로 합니다. `goToPage()`로 목록을 교체하면 활성화 상태도 초기화합니다.
+- `setPreviousSentinelRef`는 일반 목록 위에 연결합니다. 가상 목록은 `watchLoadPrevious`로 위쪽 스크롤을 연결합니다. 단순 마운트·범위 변경만으로 이전 요청을 발생시키지 않습니다.
+- 앞에 추가해도 읽던 항목의 화면 위치를 유지합니다. Virtuoso는 `firstItemIndex`를 추가 항목 수만큼 줄이고 상품 ID를 key로 사용합니다. rangeChanged는 절대 인덱스, scrollToIndex는 로드된 목록 기준 상대 인덱스입니다.
+- 일반 목록의 위치를 직접 보정할 때 `overflow-anchor: none`은 하단 로딩 표시까지 포함한 영역에 적용합니다. 상품 목록에만 적용하면 브라우저가 하단 표시를 기준점으로 삼아 다음 페이지 추가 시 바닥으로 이동하고 로딩을 반복할 수 있습니다.
+- 실패 시 기존 목록을 유지하며 자동 재요청은 멈춥니다. 사용자의 재시도로 같은 방향·페이지를 다시 불러옵니다.

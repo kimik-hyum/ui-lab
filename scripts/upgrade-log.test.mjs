@@ -3,6 +3,7 @@ import { readdirSync, readFileSync } from "node:fs";
 import { test } from "node:test";
 import { parseUpgradeLog } from "../apps/lab-shell/app/upgrade-logs/_lib/parse-upgrade-log.ts";
 import { buildFileDiff } from "../apps/lab-shell/app/upgrade-logs/_lib/code-diff.ts";
+import { summarizeUpgradeLog } from "../apps/lab-shell/app/upgrade-logs/_lib/summary.ts";
 
 const directory = new URL("../docs/upgrade-logs/", import.meta.url);
 const filenames = readdirSync(directory).filter((filename) => filename.endsWith(".json"));
@@ -44,6 +45,19 @@ test("완료 기록에는 설치 버전과 변경 근거가 있어야 한다", (
   assert.throws(() => parseUpgradeLog(record, filename), /completed evidence/);
   record.changes = changes;
   assert.equal(parseUpgradeLog(record, filename).status, "completed");
+});
+
+test("목록은 미설치 목표를 적용 버전으로 표시하지 않고 반복된 파일을 한 번만 센다", () => {
+  const record = fixture();
+  record.status = "in-progress";
+  record.packages[0].installedAfter = null;
+  record.changes = [record.changes[0], structuredClone(record.changes[0])];
+  const summary = summarizeUpgradeLog(parseUpgradeLog(record, filename));
+  assert.equal(summary.primary.after, "확인 중");
+  assert.notEqual(summary.primary.after, record.packages[0].target);
+  assert.equal(summary.changeCount, 2);
+  assert.equal(summary.fileCount, record.changes[0].files.length);
+  assert.equal("changes" in summary, false);
 });
 
 test("이전 형식도 실행 보고 없이 읽고 새 형식에는 해당 필드를 허용하지 않는다", () => {

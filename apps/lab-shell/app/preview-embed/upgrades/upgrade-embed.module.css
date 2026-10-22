@@ -1,0 +1,193 @@
+.embed {
+  --upgrade-ink: #e8e6df;
+  --upgrade-muted: #aaa89f;
+  --upgrade-subtle: #929087;
+  --upgrade-line: #41433a;
+  --upgrade-paper: #1c1c1a;
+  --upgrade-raised: #242422;
+  --upgrade-accent: #b8c5a1;
+  --upgrade-accent-hover: #ced8bb;
+  --upgrade-soft: #2a3025;
+  display: flow-root;
+  min-width: 0;
+  min-height: 0;
+  background: var(--upgrade-paper);
+  color: var(--upgrade-ink);
+  color-scheme: dark;
+  font-family: Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Content height, rather than the iframe viewport, determines the frame height. */
+.embed > main {
+  width: 100%;
+  max-width: none;
+  min-height: 0;
+  margin: 0;
+  padding: 24px;
+}
+
+.embed :where(main, section, article, nav, details, [data-file-diff], [data-diff-excerpt], [data-diff-side]),
+.embed > main > div,
+.embed :global(.grid) > * {
+  min-width: 0;
+}
+
+.embed :where(h1, h2, h3, p, nav, summary) {
+  overflow-wrap: anywhere;
+}
+
+.embed select {
+  max-width: 100%;
+}
+
+.embed table {
+  min-width: 560px;
+}
+
+.embed :global(.overflow-x-auto) {
+  max-width: 100%;
+  overscroll-behavior-x: contain;
+}
+
+/* Only the surrounding preview supplies the duplicate title and navigation. */
+:global(html[data-upgrade-embedded="true"]) .embed > main > a:first-child,
+:global(html[data-upgrade-embedded="true"]) .embed > main > header > h1,
+:global(html[data-upgrade-embedded="true"]) .embed > main > header > p,
+:global(html[data-upgrade-embedded="true"]) .embed > main > header > div:first-child > p,
+:global(html[data-upgrade-embedded="true"]) .embed > main > header > div:first-child > p + span {
+  display: none;
+}
+
+:global(html[data-upgrade-embedded="true"]) .embed > main > header {
+  margin-top: 0;
+  padding-bottom: 24px;
+}
+
+:global(html[data-upgrade-embedded="true"]) .embed > main > header > div:first-child {
+  margin-bottom: 0;
+}
+
+:global(html[data-upgrade-embedded="true"]) .embed > main > header > div:last-child {
+  margin-top: 12px;
+}
+
+/* Keep the shared code viewer's gray surfaces and syntax colors untouched. */
+.embed :global(.bg-white) {
+  background-color: var(--upgrade-paper);
+}
+
+.embed :global(.bg-slate-50),
+.embed :global(.bg-slate-50\/60),
+.embed :global(.bg-slate-50\/70),
+.embed :global(.bg-slate-100) {
+  background-color: var(--upgrade-raised);
+}
+
+.embed :global(.border-slate-100),
+.embed :global(.border-slate-200),
+.embed :global(.border-slate-300),
+.embed :global(.divide-slate-100) > :not(:last-child),
+.embed :global(.divide-slate-200) > :not(:last-child) {
+  border-color: var(--upgrade-line);
+}
+
+.embed :global(.text-slate-900),
+.embed :global(.text-slate-800),
+.embed :global(.text-slate-700) {
+  color: var(--upgrade-ink);
+}
+
+.embed :global(.text-slate-600),
+.embed :global(.text-slate-500),
+.embed :global(.text-slate-400) {
+  color: var(--upgrade-muted);
+}
+
+.embed :global(.text-slate-300),
+.embed :global(.text-slate-200) {
+  color: var(--upgrade-subtle);
+}
+
+.embed :global(.bg-violet-50),
+.embed :global(.bg-violet-50\/40) {
+  background-color: var(--upgrade-soft);
+}
+
+.embed :global(.text-violet-500),
+.embed :global(.text-violet-600),
+.embed :global(.text-violet-700) {
+  color: var(--upgrade-accent);
+}
+
+.embed :global(.border-violet-200),
+.embed :global(.border-violet-300),
+.embed :global(.hover\:border-violet-300):hover {
+  border-color: #656b59;
+}
+
+.embed :global(.hover\:text-violet-700):hover {
+  color: var(--upgrade-accent-hover);
+}
+
+.embed :global(.hover\:bg-violet-50\/50):hover {
+  background-color: var(--upgrade-soft);
+}
+
+.embed :global(.focus\:outline-violet-500):focus {
+  outline-color: var(--upgrade-accent);
+}
+
+.embed :where(a, button, select, summary):focus-visible {
+  outline: 2px solid var(--upgrade-accent);
+  outline-offset: 2px;
+}
+
+.embed :global(.bg-emerald-50) {
+  background-color: #252f23;
+}
+
+.embed :global(.text-emerald-700) {
+  color: #b1c8a7;
+}
+
+.embed :global(.ring-emerald-200) {
+  --tw-ring-color: #455d47;
+}
+
+.embed :global(.ring-violet-200) {
+  --tw-ring-color: #656b59;
+}
+
+.embed :global(.bg-amber-50) {
+  background-color: #302720;
+}
+
+.embed :global(.text-amber-800) {
+  color: #d9bc83;
+}
+
+.embed :global(.ring-amber-200) {
+  --tw-ring-color: #66573b;
+}
+
+.embed :global(.ring-slate-200) {
+  --tw-ring-color: var(--upgrade-line);
+}
+
+.embed :global(.text-red-600) {
+  color: #dfa49d;
+}
+
+.embed :global(.text-blue-600) {
+  color: #a4b7c4;
+}
+
+@media (max-width: 599px) {
+  .embed > main {
+    padding: 16px;
+  }
+
+  :global(html[data-upgrade-embedded="true"]) .embed > main > header {
+    padding-bottom: 20px;
+  }
+}

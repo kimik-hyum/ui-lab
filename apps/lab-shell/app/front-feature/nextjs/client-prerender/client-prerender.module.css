@@ -1,0 +1,4 @@
+/* 고정 우열 표기 대신 위의 실제 비교 이름을 사용합니다. */
+:global(.min-h-screen.bg-white):has(.controls) :global(.bg-gray-950) > :global(.bg-gray-900):first-child {
+  display: none;
+}

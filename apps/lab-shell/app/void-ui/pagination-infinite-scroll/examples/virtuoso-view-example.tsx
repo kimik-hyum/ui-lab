@@ -3,7 +3,9 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Virtuoso, VirtuosoHandle, ListRange } from "react-virtuoso";
 import { useHybridInfinite } from "../useHybridInfinite";
+import { PreviousContentControl } from "../PreviousContentControl";
 import { PageNumberInput } from "../PageNumberInput";
+import { focusPageNavigationCommand } from "../page-navigation-events";
 import { createVirtuosoAdapter, VirtuosoHybridAdapter } from "./virtuoso-adapter-example";
 
 type Product = {
@@ -85,10 +87,15 @@ export function VirtuosoViewExample({
     isLoading,
     error,
     canLoadMore,
+    canLoadPrevious,
+    previousAutoEnabled,
+    enablePrevious,
+    listVersion,
     goToPage,
     ensurePageLoaded,
     isPageLoaded,
     scrollToPage,
+    retry,
   } = useHybridInfinite<Product>({
     initialPage: { page: initialPage, items: initialProducts },
     initialTotal,
@@ -103,20 +110,22 @@ export function VirtuosoViewExample({
 
 
   const flattenedProducts = useMemo(() => pages.flatMap((pageItem) => pageItem.items), [pages]);
+  const firstLoadedPage = pages[0]?.page ?? 1;
 
-  useEffect(() => {
+  const syncAdapterBounds = useCallback(() => {
     totalCountRef.current = flattenedProducts.length;
-  }, [flattenedProducts.length]);
+    firstLoadedPageRef.current = firstLoadedPage;
+  }, [firstLoadedPage, flattenedProducts.length]);
 
-  useLayoutEffect(() => {
-    firstLoadedPageRef.current = pages[0]?.page ?? 1;
-  }, [pages]);
+  useLayoutEffect(syncAdapterBounds, [syncAdapterBounds]);
 
   const handleRangeChanged = useCallback(
     (range: ListRange) => {
+      // 자식의 범위 이벤트가 부모 layoutEffect보다 먼저 와도 현재 목록을 기준으로 계산합니다.
+      syncAdapterBounds();
       adapter?.onRangeChanged(range);
     },
-    [adapter],
+    [adapter, syncAdapterBounds],
   );
 
   const handleMove = useCallback(
@@ -148,37 +157,39 @@ export function VirtuosoViewExample({
 
   return (
     <main className="min-h-screen bg-black px-5 py-10 text-white md:px-10">
-      <div className="mx-auto max-w-4xl">
-        <header className="mb-7 border-b border-zinc-800 pb-6">
-          <p className="text-[11px] uppercase tracking-[0.2em] text-cyan-300">Void UI / Virtuoso Adapter Live</p>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight">Pagenation Infinify Scroll (Virtuoso)</h1>
+      <div className="mx-auto min-w-0 max-w-4xl">
+        <header data-infinite-heading className="mb-7 border-b border-zinc-800 pb-6">
+          <p className="text-[11px] tracking-wide text-cyan-300">실험실 · 가상 목록</p>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight">무한 스크롤 · Virtuoso</h1>
           <p className="mt-2 text-sm text-zinc-400">
-            기본 데모와 같은 컨트롤 레이아웃을 유지하면서 virtualization 어댑터를 주입한 예시입니다.
+            목록 안을 스크롤해 상품을 더 보세요. 화면 주변의 항목만 렌더링하며, 페이지 번호로도 이동할 수 있습니다.
           </p>
         </header>
 
         <div className="sticky top-4 z-20 mb-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900/90 px-2 py-2 text-xs backdrop-blur">
+          <div data-page-navigation role="group" aria-label="페이지 이동" onPointerDownCapture={focusPageNavigationCommand} className="flex w-fit max-w-full flex-wrap items-center gap-2 rounded-2xl border border-zinc-700 bg-zinc-900/90 p-2 text-xs backdrop-blur">
             <button
               type="button"
+              data-page-command="first"
               onClick={() => handleMove(1)}
               disabled={isLoading || currentPage === 1}
-              className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
+              className="min-h-11 min-w-11 rounded-full border border-zinc-700 px-3 py-2 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
             >
               처음
             </button>
             <button
               type="button"
+              data-page-command="previous"
               onClick={() => {
                 void handleGoToPrevious();
               }}
               disabled={isLoading || currentPage === 1}
-              className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
+              className="min-h-11 min-w-11 rounded-full border border-zinc-700 px-3 py-2 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
             >
               이전
             </button>
-            <div className="inline-flex items-center gap-3 rounded-full bg-zinc-800/80 px-3 py-1.5">
-              <span className="text-zinc-400">현재페이지</span>
+            <div className="order-first inline-flex min-w-0 w-full flex-wrap items-center justify-center gap-2 rounded-xl bg-zinc-800/80 px-3 py-1 sm:order-none sm:w-auto [&_input]:min-h-11">
+              <span className="text-zinc-400">페이지</span>
               <PageNumberInput
                 key={currentPage}
                 currentPage={currentPage}
@@ -186,55 +197,63 @@ export function VirtuosoViewExample({
                 isLoading={isLoading}
                 onNavigate={handleMove}
               />
-              <span className="text-zinc-600">/</span>
-              <span className="text-zinc-400">전체페이지</span>
-              <strong className="text-white">{totalPages}</strong>
+              <span aria-hidden="true" className="text-zinc-600">/</span>
+              <strong className="text-white"><span className="sr-only">전체 </span>{totalPages}</strong>
             </div>
             <button
               type="button"
+              data-page-command="last"
               onClick={() => handleMove(totalPages)}
               disabled={isLoading || currentPage === totalPages}
-              className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
+              className="min-h-11 min-w-11 rounded-full border border-zinc-700 px-3 py-2 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
             >
               마지막
             </button>
           </div>
+          {error && (
+            <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-xl border border-red-900 bg-zinc-900/90 px-3 py-2 text-xs backdrop-blur">
+              <p role="alert" className="min-w-0 flex-1 break-words text-red-300">{error}</p>
+              <button type="button" disabled={isLoading} onClick={() => { void retry(); }} className="min-h-11 shrink-0 rounded-full border border-zinc-700 px-3 py-2 text-sm text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40">다시 불러오기</button>
+            </div>
+          )}
         </div>
 
-        <div className="h-[68vh] overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950/60">
+        <PreviousContentControl canLoadPrevious={canLoadPrevious} autoEnabled={previousAutoEnabled} isLoading={isLoading} hasError={Boolean(error)} onLoad={enablePrevious} />
+        <div data-first-loaded-page={firstLoadedPage} className="h-[68vh] min-w-0 overflow-hidden rounded-2xl border border-zinc-800 bg-zinc-950/60">
           <Virtuoso
+            key={listVersion}
             ref={virtuosoRef}
+            firstItemIndex={(firstLoadedPage - 1) * pageSize + 1}
+            computeItemKey={(_, product) => product.id}
+            onScroll={(event) => { adapter?.onScroll(event.currentTarget.scrollTop); }}
             data={flattenedProducts}
             rangeChanged={handleRangeChanged}
             itemContent={(index, product) => (
-              <div key={product.id} className="border-b border-zinc-800/80 px-5 py-4">
+              <div data-product-id={product.id} key={product.id} className="min-w-0 border-b border-zinc-800/80 px-4 py-4 sm:px-5">
                 <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-sm font-medium text-zinc-100">
-                      #{index + 1} {product.title}
+                  <div className="min-w-0">
+                    <p className="break-words text-sm font-medium text-zinc-100">
+                      #{index} {product.title}
                     </p>
-                    <p className="mt-2 text-xs text-zinc-400">{product.description}</p>
-                    <p className="mt-2 text-[11px] text-zinc-500">
+                    <p className="mt-2 break-words text-xs text-zinc-400">{product.description}</p>
+                    <p className="mt-2 break-words text-[11px] text-zinc-500">
                       {product.category} · rating {product.rating} · stock {product.stock}
                     </p>
                   </div>
-                  <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 text-xs text-emerald-300">${product.price}</span>
+                  <span className="shrink-0 whitespace-nowrap rounded-md bg-emerald-500/10 px-2 py-0.5 text-xs text-emerald-300">${product.price}</span>
                 </div>
               </div>
             )}
           />
         </div>
 
-        <div className="py-8 text-center text-xs text-zinc-500">
-          {isLoading
-            ? "다음 페이지 로딩 중..."
-            : canLoadMore
-              ? "스크롤하면 다음 페이지를 불러옵니다."
-              : "마지막 페이지입니다."}
+        <div className="py-6 text-center text-xs text-zinc-500">
+          {!error && (
+            <p role="status" aria-live="polite" aria-atomic="true">
+              {isLoading ? "상품을 불러오는 중…" : canLoadMore ? "목록 안을 스크롤하면 다음 페이지를 불러옵니다." : "마지막 페이지입니다."}
+            </p>
+          )}
         </div>
-        {error ? (
-          <p className="rounded-md border border-red-900 bg-red-950/30 px-3 py-2 text-xs text-red-300">{error}</p>
-        ) : null}
       </div>
     </main>
   );

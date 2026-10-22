@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Josefin_Sans } from "next/font/google";
 import "./globals.css";
-import Sidebar from "./components/Sidebar";
+import AppShell from "./components/AppShell";
 import { QueryProvider } from "./providers/query-provider";
 
 const josefinSans = Josefin_Sans({
@@ -21,14 +21,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body
         suppressHydrationWarning
         className={`${josefinSans.variable} antialiased bg-white text-slate-900`}
       >
         <QueryProvider>
-          <Sidebar />
-          <div className="pl-64 min-h-screen">{children}</div>
+          <AppShell>{children}</AppShell>
         </QueryProvider>
       </body>
     </html>

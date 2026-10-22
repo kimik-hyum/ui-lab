@@ -2,7 +2,9 @@
 
 import Link from "next/link";
 import { useCallback } from "react";
+import { PreviousContentControl } from "./PreviousContentControl";
 import { PageNumberInput } from "./PageNumberInput";
+import { focusPageNavigationCommand } from "./page-navigation-events";
 import { useHybridInfinite } from "./useHybridInfinite";
 
 type Product = {
@@ -76,12 +78,17 @@ export function PaginationInfiniteClient({
     isLoading,
     error,
     canLoadMore,
+    canLoadPrevious,
+    previousAutoEnabled,
+    enablePrevious,
+    setPreviousSentinelRef,
     setPageRef,
     setSentinelRef,
     goToPage,
     ensurePageLoaded,
     isPageLoaded,
     scrollToPage,
+    retry,
   } = useHybridInfinite<Product>({
     initialPage: { page: initialPage, items: initialProducts },
     initialTotal,
@@ -125,62 +132,65 @@ export function PaginationInfiniteClient({
 
 
   return (
-    <main className="min-h-screen bg-black px-5 py-10 text-white md:px-10">
-      <div className="mx-auto max-w-4xl">
-        <header className="mb-7 border-b border-zinc-800 pb-6">
-          <div className="flex items-center justify-between gap-3">
-            <p className="text-[11px] uppercase tracking-[0.2em] text-cyan-300">Void UI / Hybrid Navigation</p>
-            <div className="flex items-center gap-2">
+    // Include the loading footer: otherwise the browser anchors to it and follows every append.
+    <main className="min-h-screen bg-black px-5 py-10 text-white [overflow-anchor:none] md:px-10">
+      <div className="mx-auto min-w-0 max-w-4xl">
+        <header data-infinite-heading className="mb-7 border-b border-zinc-800 pb-6">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <p className="text-[11px] tracking-wide text-cyan-300">실험실 · 일반 목록</p>
+            <div className="flex flex-wrap items-center gap-2">
               <Link
                 href="/void-ui/pagination-infinite-scroll/adapter-live"
-                className="rounded-full border border-zinc-700 px-3 py-1 text-[11px] text-zinc-300 transition-colors hover:border-cyan-400 hover:text-cyan-200"
+                className="inline-flex min-h-11 items-center rounded-full border border-zinc-700 px-3 py-2 text-xs text-zinc-300 transition-colors hover:border-cyan-400 hover:text-cyan-200"
               >
-                Virtuoso 실행 데모
+                Virtuoso 목록
               </Link>
               <Link
                 href="/void-ui/pagination-infinite-scroll/adapter-view"
-                className="rounded-full border border-zinc-700 px-3 py-1 text-[11px] text-zinc-300 transition-colors hover:border-cyan-400 hover:text-cyan-200"
+                className="inline-flex min-h-11 items-center rounded-full border border-zinc-700 px-3 py-2 text-xs text-zinc-300 transition-colors hover:border-cyan-400 hover:text-cyan-200"
               >
-                Adapter 뷰 예시
+                어댑터 코드
               </Link>
               <Link
                 href="/void-ui/pagination-infinite-scroll/hook"
-                className="rounded-full border border-zinc-700 px-3 py-1 text-[11px] text-zinc-300 transition-colors hover:border-cyan-400 hover:text-cyan-200"
+                className="inline-flex min-h-11 items-center rounded-full border border-zinc-700 px-3 py-2 text-xs text-zinc-300 transition-colors hover:border-cyan-400 hover:text-cyan-200"
               >
-                Hook 코드 해설
+                훅 해설
               </Link>
             </div>
           </div>
-          <h1 className="mt-3 text-3xl font-semibold tracking-tight">Pagenation Infinify Scroll</h1>
+          <h1 className="mt-3 text-3xl font-semibold tracking-tight">무한 스크롤</h1>
           <p className="mt-2 text-sm text-zinc-400">
-            훅은 headless로 유지하고, 현재 화면은 데모 전용 스타일 레이어만 적용한 상태입니다.
+            아래로 스크롤해 상품을 더 보고, 페이지 번호를 입력해 원하는 위치로 이동하세요.
           </p>
         </header>
 
         <div className="sticky top-4 z-20 mb-7">
-          <div className="inline-flex items-center gap-2 rounded-full border border-zinc-700 bg-zinc-900/90 px-2 py-2 text-xs backdrop-blur">
+          <div data-page-navigation role="group" aria-label="페이지 이동" onPointerDownCapture={focusPageNavigationCommand} className="flex w-fit max-w-full flex-wrap items-center gap-2 rounded-2xl border border-zinc-700 bg-zinc-900/90 p-2 text-xs backdrop-blur">
             <button
               type="button"
+              data-page-command="first"
               onClick={handleGoToFirst}
               disabled={isLoading || currentPage === 1}
-              className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
+              className="min-h-11 min-w-11 rounded-full border border-zinc-700 px-3 py-2 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
             >
               처음
             </button>
 
             <button
               type="button"
+              data-page-command="previous"
               onClick={() => {
                 void handleGoToPrevious();
               }}
               disabled={isLoading || currentPage === 1}
-              className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
+              className="min-h-11 min-w-11 rounded-full border border-zinc-700 px-3 py-2 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
             >
               이전
             </button>
 
-            <div className="inline-flex items-center gap-3 rounded-full bg-zinc-800/80 px-3 py-1.5">
-              <span className="text-zinc-400">현재페이지</span>
+            <div className="order-first inline-flex min-w-0 w-full flex-wrap items-center justify-center gap-2 rounded-xl bg-zinc-800/80 px-3 py-1 sm:order-none sm:w-auto [&_input]:min-h-11">
+              <span className="text-zinc-400">페이지</span>
               <PageNumberInput
                 key={currentPage}
                 currentPage={currentPage}
@@ -188,42 +198,51 @@ export function PaginationInfiniteClient({
                 isLoading={isLoading}
                 onNavigate={(page) => { void goToPage(page); }}
               />
-              <span className="text-zinc-600">/</span>
-              <span className="text-zinc-400">전체페이지</span>
-              <strong className="text-white">{totalPages}</strong>
+              <span aria-hidden="true" className="text-zinc-600">/</span>
+              <strong className="text-white"><span className="sr-only">전체 </span>{totalPages}</strong>
             </div>
 
             <button
               type="button"
+              data-page-command="last"
               onClick={handleGoToLast}
               disabled={isLoading || currentPage === totalPages}
-              className="rounded-full border border-zinc-700 px-3 py-1 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
+              className="min-h-11 min-w-11 rounded-full border border-zinc-700 px-3 py-2 text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
             >
               마지막
             </button>
           </div>
+          {error && (
+            <div className="mt-2 flex flex-wrap items-center justify-between gap-x-3 gap-y-1 rounded-xl border border-red-900 bg-zinc-900/90 px-3 py-2 text-xs backdrop-blur">
+              <p role="alert" className="min-w-0 flex-1 break-words text-red-300">{error}</p>
+              <button type="button" disabled={isLoading} onClick={() => { void retry(); }} className="min-h-11 shrink-0 rounded-full border border-zinc-700 px-3 py-2 text-sm text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40">다시 불러오기</button>
+            </div>
+          )}
         </div>
 
+        <div ref={setPreviousSentinelRef}>
+          <PreviousContentControl canLoadPrevious={canLoadPrevious} autoEnabled={previousAutoEnabled} isLoading={isLoading} hasError={Boolean(error)} onLoad={enablePrevious} />
+        </div>
         <div className="space-y-6">
           {pages.map((pageItem) => (
             <section
               key={pageItem.page}
               data-page={pageItem.page}
               ref={(node) => setPageRef(pageItem.page, node)}
-              className="scroll-mt-24 rounded-2xl border border-zinc-800 bg-zinc-950/60 p-5"
+              className="min-w-0 scroll-mt-40 rounded-2xl border border-zinc-800 bg-zinc-950/60 p-4 sm:scroll-mt-24 sm:p-5"
             >
-              <h2 className="mb-4 text-sm font-semibold tracking-wide text-cyan-300">PAGE {pageItem.page}</h2>
+              <h2 className="mb-4 text-sm font-semibold tracking-wide text-cyan-300">{pageItem.page}페이지</h2>
               <ul className="space-y-3">
                 {pageItem.items.map((product) => (
-                  <li key={product.id} className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4">
+                  <li data-product-id={product.id} key={product.id} className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-4">
                     <div className="flex items-start justify-between gap-3">
-                      <h3 className="text-sm font-medium text-zinc-100">{product.title}</h3>
-                      <span className="rounded-md bg-emerald-500/10 px-2 py-0.5 text-xs text-emerald-300">
+                      <h3 className="min-w-0 break-words text-sm font-medium text-zinc-100">{product.title}</h3>
+                      <span className="shrink-0 whitespace-nowrap rounded-md bg-emerald-500/10 px-2 py-0.5 text-xs text-emerald-300">
                         ${product.price}
                       </span>
                     </div>
-                    <p className="mt-2 max-h-10 overflow-hidden text-xs text-zinc-400">{product.description}</p>
-                    <p className="mt-2 text-[11px] text-zinc-500">
+                    <p className="mt-2 max-h-10 overflow-hidden break-words text-xs text-zinc-400">{product.description}</p>
+                    <p className="mt-2 break-words text-[11px] text-zinc-500">
                       {product.category} · rating {product.rating} · stock {product.stock}
                     </p>
                   </li>
@@ -233,19 +252,13 @@ export function PaginationInfiniteClient({
           ))}
         </div>
 
-        <div ref={setSentinelRef} className="py-8 text-center text-xs text-zinc-500">
-          {isLoading
-            ? "다음 페이지 로딩 중..."
-            : canLoadMore
-              ? "스크롤하면 다음 페이지를 불러옵니다."
-              : "마지막 페이지입니다."}
+        <div ref={setSentinelRef} className="py-6 text-center text-xs text-zinc-500">
+          {!error && (
+            <p role="status" aria-live="polite" aria-atomic="true">
+              {isLoading ? "상품을 불러오는 중…" : canLoadMore ? "스크롤하면 다음 페이지를 불러옵니다." : "마지막 페이지입니다."}
+            </p>
+          )}
         </div>
-
-        {error ? (
-          <p className="rounded-md border border-red-900 bg-red-950/30 px-3 py-2 text-xs text-red-300">
-            {error}
-          </p>
-        ) : null}
       </div>
     </main>
   );

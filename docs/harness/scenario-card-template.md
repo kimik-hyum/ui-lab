@@ -17,6 +17,7 @@
 - [ ] Lighthouse performance
 - [ ] SSR response
 - [ ] DX score
+- [ ] AI task quality (실행 조건과 결과는 `ai-work-record-template.md` 사용)
 
 ## Scenario Type
 

@@ -1,0 +1,4 @@
+/* 입력 우선순위의 차이를 구형/신형 코드로 오해하지 않도록 이 페이지에서만 숨깁니다. */
+:global(.min-h-screen.bg-white):has(.controls) :global(.bg-gray-950) > :global(.bg-gray-900):first-child {
+  display: none;
+}

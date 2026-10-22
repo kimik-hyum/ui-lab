@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from "react";
+import { shouldDiscardPageDraft } from "./page-navigation-events";
 
 interface PageNumberInputProps {
   currentPage: number;
@@ -31,7 +32,13 @@ export function PageNumberInput({ currentPage, totalPages, isLoading, onNavigate
       inputMode="numeric"
       value={draft}
       onChange={(event) => setDraft(event.target.value)}
-      onBlur={commit}
+      onBlur={(event) => {
+        if (shouldDiscardPageDraft(event)) {
+          setDraft(String(currentPage));
+          return;
+        }
+        commit();
+      }}
       onKeyDown={(event) => {
         if (event.key === "Enter") event.currentTarget.blur();
       }}

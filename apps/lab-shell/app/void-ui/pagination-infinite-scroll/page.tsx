@@ -64,7 +64,7 @@ export default async function PaginationInfiniteScrollPage({
       initialPage={initialPage}
       initialProducts={initialData.products}
       initialTotal={initialData.total}
-      pageSize={initialData.limit}
+      pageSize={PAGE_SIZE}
       syncUrl
       restoreFromUrl
       pageParamKey={PAGE_PARAM_KEY}

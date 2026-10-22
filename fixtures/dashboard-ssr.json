@@ -1,0 +1,13 @@
+{
+  "team": { "id": "alpha", "name": "알파 팀" },
+  "title": "팀 작업 현황",
+  "summary": [
+    { "label": "진행 중", "value": 8 },
+    { "label": "검토 대기", "value": 3 }
+  ],
+  "activities": [
+    { "id": "activity-1", "title": "공통 카드와 간격 정리", "status": "진행 중", "owner": "민지", "time": "09:10" },
+    { "id": "activity-2", "title": "설치 가이드 업데이트", "status": "검토 대기", "owner": "준호", "time": "09:25" },
+    { "id": "activity-3", "title": "키보드 탐색 개선", "status": "완료", "owner": "수연", "time": "09:40" }
+  ]
+}

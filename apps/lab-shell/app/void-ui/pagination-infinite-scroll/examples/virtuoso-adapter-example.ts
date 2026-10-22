@@ -16,6 +16,7 @@ type RangeListener = (range: ListRange) => void;
 
 export type VirtuosoHybridAdapter = HybridViewportAdapter & {
   onRangeChanged: (range: ListRange) => void;
+  onScroll: (scrollTop: number) => void;
 };
 
 const clampPage = (page: number): number => {
@@ -33,6 +34,8 @@ export function createVirtuosoAdapter({
 }: CreateVirtuosoAdapterOptions): VirtuosoHybridAdapter {
   const currentPageListeners = new Set<(page: number) => void>();
   const loadMoreListeners = new Set<() => void>();
+  const previousListeners = new Set<() => void>();
+  let previousScrollTop = 0;
   const rangeListeners = new Set<RangeListener>();
 
   const onRangeChanged = (range: ListRange) => {
@@ -43,8 +46,8 @@ export function createVirtuosoAdapter({
     currentPageListeners.add(onChange);
 
     const listener: RangeListener = (range) => {
-      const firstLoadedPage = clampPage(getFirstLoadedPage());
-      const page = clampPage(firstLoadedPage + Math.floor(range.startIndex / pageSize));
+      // firstItemIndex and range indices are 1-based product positions, stable across prepend.
+      const page = clampPage(Math.floor((range.startIndex - 1) / pageSize) + 1);
       currentPageListeners.forEach((notify) => notify(page));
     };
 
@@ -59,8 +62,9 @@ export function createVirtuosoAdapter({
     loadMoreListeners.add(onNeedMore);
 
     const listener: RangeListener = (range) => {
-      const lastIndex = getTotalCount() - 1;
-      if (lastIndex < 0) return;
+      const count = getTotalCount();
+      if (count === 0) return;
+      const lastIndex = (getFirstLoadedPage() - 1) * pageSize + count;
 
       if (range.endIndex >= lastIndex - loadMoreThreshold) {
         loadMoreListeners.forEach((notify) => notify());
@@ -77,6 +81,15 @@ export function createVirtuosoAdapter({
   return {
     watchCurrentPage,
     watchLoadMore,
+    watchLoadPrevious: (onNeedPrevious) => {
+      previousListeners.add(onNeedPrevious);
+      return () => { previousListeners.delete(onNeedPrevious); };
+    },
+    onScroll: (scrollTop) => {
+      const movingUp = scrollTop < previousScrollTop;
+      previousScrollTop = scrollTop;
+      if (movingUp && scrollTop <= 200) previousListeners.forEach((notify) => notify());
+    },
     scrollToPage: (page, behavior = "smooth") => {
       const firstLoadedPage = clampPage(getFirstLoadedPage());
       const index = Math.max(0, (page - firstLoadedPage) * pageSize);

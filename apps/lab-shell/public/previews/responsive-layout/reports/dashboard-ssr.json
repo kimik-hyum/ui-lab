@@ -1,0 +1,1291 @@
+{
+  "schemaVersion": 1,
+  "id": "dashboard-ssr",
+  "title": "대시보드 SSR · 반복 관찰 결과",
+  "generatedAt": "2026-10-21T21:50:29.024Z",
+  "startedAt": "2026-10-21T21:50:28.186Z",
+  "scenario": {
+    "path": "/scenarios/dashboard-ssr",
+    "team": "alpha",
+    "delayMs": 0,
+    "renderMode": "blocking",
+    "marker": "data-dashboard-ready=\"v1\"",
+    "fixture": "deterministic"
+  },
+  "method": {
+    "runs": 20,
+    "warmup": 3,
+    "order": "rotating-sequential",
+    "scope": "observer-server-to-framework",
+    "cache": "no-store"
+  },
+  "environment": {
+    "node": "v24.15.0",
+    "platform": "Darwin 25.5.0",
+    "arch": "arm64",
+    "cpu": "Apple M1 Pro",
+    "timeZone": "Asia/Seoul",
+    "network": "loopback"
+  },
+  "provenance": {
+    "gitCommit": "badeaa54dbe416ce8955d5a94ec45e8acc139682",
+    "dirty": true,
+    "sourceDigest": "25d0437f304049842394c35eee2c5ae90d2fb3a8294694e63c722bb7f9055d5a",
+    "sourceFiles": [
+      {
+        "path": "apps/lab-shell/app/api/ssr-observer/[framework]/route.ts",
+        "sha256": "0d9e3c2633755b6a82776f5833e64901c70f698eb063982a7b9d482089b0a30b"
+      },
+      {
+        "path": "apps/lab-shell/app/ssr-lab/framework-dashboard/_lib/html-parser.ts",
+        "sha256": "a8401c357584097421446f663024466b0b7b8bed15fa62a811ce088ccea9687e"
+      },
+      {
+        "path": "apps/lab-shell/app/ssr-lab/framework-dashboard/_lib/observe-response.ts",
+        "sha256": "f5a6e4d4f972275a2cd19b667d30b59c620756633e80e5207edbf3c8cf85023f"
+      },
+      {
+        "path": "apps/lab-shell/app/ssr-lab/framework-dashboard/_lib/observer.server.ts",
+        "sha256": "af065fc66e6f9351a8079f4d67bd26a249a816d540b3cb090308e2ed85fcafb9"
+      },
+      {
+        "path": "apps/lab-shell/app/ssr-lab/framework-dashboard/_lib/targets.ts",
+        "sha256": "8f963d7086eaee1a2a02d86885876b1a9b02250f11307f383d43904d8ea25ae9"
+      },
+      {
+        "path": "apps/lab-shell/app/ssr-lab/framework-dashboard/_lib/types.ts",
+        "sha256": "87158b373e79df161736d0be3b530e50bb0f6733c1551c260e9254165a129630"
+      },
+      {
+        "path": "apps/lab-shell/app/ssr-lab/framework-dashboard/source-catalog.ts",
+        "sha256": "0959b3d12e98ede84277f0aef7968d019e058652abfbc963fc7a0de480d13b0a"
+      },
+      {
+        "path": "apps/lab-shell/next.config.ts",
+        "sha256": "ebef22f11a8c74fb5b552d5c3f40ef214332b23255eca1b442909e10973f251d"
+      },
+      {
+        "path": "apps/lab-shell/package.json",
+        "sha256": "e7f179251a7e07d75997416cef2c0aa0e94a20c5c5512002e1823350d850b7ca"
+      },
+      {
+        "path": "apps/lab-shell/public/previews/responsive-layout/report-data.js",
+        "sha256": "040640ea9156329d81d9e301614bbcafee302055acce76fbbd76b25023f64107"
+      },
+      {
+        "path": "apps/lab-shell/tsconfig.json",
+        "sha256": "be18523b23b78b6e1a876ddd107d330f0168bddf09d751b57e0b5edce69c66f3"
+      },
+      {
+        "path": "apps/next-lab/app/globals.css",
+        "sha256": "d00cc856682dbe090903b4870de7fc91e1a50cf9b69921ba449f8222ebfb8133"
+      },
+      {
+        "path": "apps/next-lab/app/layout.tsx",
+        "sha256": "93c82ad3477c027fa2548995f52c71701bc2a5e09f86c38b494b5bdb40260132"
+      },
+      {
+        "path": "apps/next-lab/app/providers/query-provider.tsx",
+        "sha256": "7d73bcf1569de56dc8885356b0f7b48b1323efee1955dadba0ce3f98d97dcff6"
+      },
+      {
+        "path": "apps/next-lab/app/scenarios/dashboard-ssr/_components/DashboardSsrView.tsx",
+        "sha256": "89cd05c6265b4f5d6b7b061e854339710fecd22c84d41abb4841c42b6513e42f"
+      },
+      {
+        "path": "apps/next-lab/app/scenarios/dashboard-ssr/_lib/dashboard-ssr-data.server.ts",
+        "sha256": "f5e44e1dc33aaf42a9247b62ce64104c21485411dd385dde0134b761ec4b4ad1"
+      },
+      {
+        "path": "apps/next-lab/app/scenarios/dashboard-ssr/error.tsx",
+        "sha256": "49f5b5e64ef634487fcbcd4b5d2ef37a0a03d6540a18107aa2bcc726e396139f"
+      },
+      {
+        "path": "apps/next-lab/app/scenarios/dashboard-ssr/not-found.tsx",
+        "sha256": "fde2270d05ca9ebc27dd6d1567802c431e6f2d87e0108195894dc8fb27afb2e5"
+      },
+      {
+        "path": "apps/next-lab/app/scenarios/dashboard-ssr/page.tsx",
+        "sha256": "f195eb088941e5ae0e9ba2b0fe0098fd6d1f793e98ef1cfa6bf8824029816724"
+      },
+      {
+        "path": "apps/next-lab/next.config.ts",
+        "sha256": "ab4c61f6ee100ae43610a18512f1ebcec842bb2405431e1009266173f21cf772"
+      },
+      {
+        "path": "apps/next-lab/package.json",
+        "sha256": "9d27a2e776f308600b73d8f3506424fd33459dc13b11acbffd2f246ff4f56ae7"
+      },
+      {
+        "path": "apps/next-lab/tsconfig.json",
+        "sha256": "8d3cfecc924ff54cde6c1c99294fecb49d1824d536ee3cc5d058013aee5e0c2f"
+      },
+      {
+        "path": "apps/react-router-lab/app/providers/query-provider.tsx",
+        "sha256": "da874892544886c4aede0eb2f12728381861185f4c9157c7e208d28f4036ba6c"
+      },
+      {
+        "path": "apps/react-router-lab/app/root.tsx",
+        "sha256": "8d5b90bcc0173288692f51778dd8a98f66559fca680ce72ea7a15d60e82b7789"
+      },
+      {
+        "path": "apps/react-router-lab/app/routes.ts",
+        "sha256": "187f84fdc7754e92a94bd707336e3554ab0a2c1e601d104e4e7a90f01f947e6a"
+      },
+      {
+        "path": "apps/react-router-lab/app/routes/scenarios.dashboard-ssr.tsx",
+        "sha256": "0b90fb6599fb91ee010590ce9173188bdcecef4c0e247a39a796ec3b2c155793"
+      },
+      {
+        "path": "apps/react-router-lab/app/scenarios/dashboard-ssr/components/DashboardSsrView.tsx",
+        "sha256": "c065b16332bf1dd603c3ad23b4a15f38c1e9a161e62fe52417295c3cdf81a969"
+      },
+      {
+        "path": "apps/react-router-lab/app/scenarios/dashboard-ssr/lib/dashboard-ssr-data.server.ts",
+        "sha256": "31d67775e92cdfd2b94ec9f6fdb8668542a44f5e0f151dae59e8a6c3869fb9a3"
+      },
+      {
+        "path": "apps/react-router-lab/app/styles/main.css",
+        "sha256": "d00cc856682dbe090903b4870de7fc91e1a50cf9b69921ba449f8222ebfb8133"
+      },
+      {
+        "path": "apps/react-router-lab/package.json",
+        "sha256": "7b5e7e7ae4e85d3f927bc53347da6a9046429f99425e06f653f150f17a4fd09b"
+      },
+      {
+        "path": "apps/react-router-lab/react-router.config.ts",
+        "sha256": "58831ab595364eebe4d20b861a5b8e9e6d848e2e3cb7fcac4985ed052c6341e6"
+      },
+      {
+        "path": "apps/react-router-lab/tsconfig.json",
+        "sha256": "d7894a30ca528d12d4bece7a8afd89d23cdf2bff9b3219d49f4cd79b850b5983"
+      },
+      {
+        "path": "apps/react-router-lab/vite.config.ts",
+        "sha256": "cf7425961c9bde238d98875f6926ed63a82d655ee1eedde5d052875196a87fd5"
+      },
+      {
+        "path": "apps/sveltekit-lab/package.json",
+        "sha256": "c207bcaadcb08d214000fe0c12dae8982f74e6b9a14bd5db86f9199562c0c7a3"
+      },
+      {
+        "path": "apps/sveltekit-lab/src/app.html",
+        "sha256": "640cf9bccf6dda83be9e4f3374394121c056fceae08751ba63569baca0f09a92"
+      },
+      {
+        "path": "apps/sveltekit-lab/src/lib/server/scenarios/dashboard-ssr.ts",
+        "sha256": "55987f02bbce0a55052eba1c6d4e26abfecdcb0357227365afd9acd6581103e3"
+      },
+      {
+        "path": "apps/sveltekit-lab/src/routes/+layout.svelte",
+        "sha256": "da66cafa676a24d6aa775284b136207f05b40661c403119aa0eccb284cbeb885"
+      },
+      {
+        "path": "apps/sveltekit-lab/src/routes/+layout.ts",
+        "sha256": "fa7b4fdf5acb24d9fe0648be2e4a4066254a9f153504b6d2fb11f6274c378982"
+      },
+      {
+        "path": "apps/sveltekit-lab/src/routes/scenarios/dashboard-ssr/+error.svelte",
+        "sha256": "b1e5c6ffd6c83bb8d574658fb6d0388325320cc929c831f3568baa11a6a1835c"
+      },
+      {
+        "path": "apps/sveltekit-lab/src/routes/scenarios/dashboard-ssr/+page.server.ts",
+        "sha256": "96d1dd203ba20d96d8bdd909615084c5b49a89ce0afbe36778dbdb5682d97460"
+      },
+      {
+        "path": "apps/sveltekit-lab/src/routes/scenarios/dashboard-ssr/+page.svelte",
+        "sha256": "693cd6aa2b2e507eff70094c695a6297095cbb41af1e9d3826d41c7625f2b7dd"
+      },
+      {
+        "path": "apps/sveltekit-lab/src/routes/scenarios/dashboard-ssr/_components/DashboardSsrView.svelte",
+        "sha256": "1637c9b5d1cee167d50c5e0860012f644216b9b117b3a3a5b0a9e69c584095d3"
+      },
+      {
+        "path": "apps/sveltekit-lab/tsconfig.json",
+        "sha256": "288beeddff7f98902cc34007c9f8fdadab67cece54340f01c9e54fba0ea0e5ee"
+      },
+      {
+        "path": "apps/sveltekit-lab/vite.config.ts",
+        "sha256": "c9813febb62d3c96a7542ce03006c5c156b16795f87a13adbfcb38b085a901ea"
+      },
+      {
+        "path": "apps/vue-lab/app.vue",
+        "sha256": "0f726f6a452814de5029d73f9df4803400a737cb2dfa2364455edda42012b5c6"
+      },
+      {
+        "path": "apps/vue-lab/assets/css/main.css",
+        "sha256": "d00cc856682dbe090903b4870de7fc91e1a50cf9b69921ba449f8222ebfb8133"
+      },
+      {
+        "path": "apps/vue-lab/components/scenarios/dashboard-ssr/DashboardSsrView.vue",
+        "sha256": "5d5e4fafcf580850900743939567a236106e9d040b332cf9ea07c490bf7bd252"
+      },
+      {
+        "path": "apps/vue-lab/nuxt.config.ts",
+        "sha256": "e3c2e2fa75126e3792e6d3b4ce5819889c0208d0e9b49fdc4d9113690287f335"
+      },
+      {
+        "path": "apps/vue-lab/package.json",
+        "sha256": "e8d2d3d0704bc8ca38ed895c2fc92c837c91d03a0ca4dc2ecfc789bd58193d14"
+      },
+      {
+        "path": "apps/vue-lab/pages/scenarios/dashboard-ssr.vue",
+        "sha256": "4889d7533828162fe75dd0de0960f1cfdf5a63747502ce06049a5a7a3206bbd1"
+      },
+      {
+        "path": "apps/vue-lab/plugins/vue-query.ts",
+        "sha256": "506dfc6773894d18cd07107e25541ec43b6e209c87dd0dc2a6b24d027fe14bfa"
+      },
+      {
+        "path": "apps/vue-lab/server/api/scenarios/dashboard-ssr.get.ts",
+        "sha256": "bb88ea824bad3b93932c366497c0c50ba6d9f050ad8f7812791225ab689cd128"
+      },
+      {
+        "path": "apps/vue-lab/server/utils/scenarios/dashboard-ssr.ts",
+        "sha256": "b0fac2b65abdd92696df21f6ca26ccc660db23b47c602690a549301518d2772c"
+      },
+      {
+        "path": "apps/vue-lab/shared/scenarios/dashboard-ssr/types.ts",
+        "sha256": "00c4022b2c57e64e35bdf22c29e392b23750b7cd41ae9d4f8ed98b50c41a8d14"
+      },
+      {
+        "path": "apps/vue-lab/tsconfig.json",
+        "sha256": "56f5b528cc102a257b71c01305f8b1456762d85793bd610bf613f2d7c3e1fc84"
+      },
+      {
+        "path": "fixtures/dashboard-ssr-types.ts",
+        "sha256": "83cc3279669fefd63bfdd1806208a88cf56b33d2ea643f88fc105a8b8bf522b2"
+      },
+      {
+        "path": "fixtures/dashboard-ssr.css",
+        "sha256": "b879f921be3174413ee8d7f2da57b78685bea522fe0e3254a40b7cf5e4a34176"
+      },
+      {
+        "path": "fixtures/dashboard-ssr.json",
+        "sha256": "cb93de19371992e6dc6fa3cb9fcaa0977918b91b63b459aaf9e3f879d71e8b2b"
+      },
+      {
+        "path": "package.json",
+        "sha256": "b1bbbd719e795dc70c4fa7a60dd26b20a4f0ee686c64b629444bf645271da940"
+      },
+      {
+        "path": "packages/api-types/package.json",
+        "sha256": "292e5106484032faa85c494f93bf392aad45990f6c84f5ee6c376a9c78b299e2"
+      },
+      {
+        "path": "scripts/collect-dashboard-report.mjs",
+        "sha256": "257d60c043bd9d8de0e0005c9aad1384c8d5e5783071fd5633dcf5283be68dac"
+      },
+      {
+        "path": "yarn.lock",
+        "sha256": "ab40077efb807ffaeb00f273722e25d5e110a26e36a38f070921da301ce783bd"
+      }
+    ]
+  },
+  "targets": [
+    {
+      "id": "next",
+      "label": "Next.js",
+      "version": "16.4.2",
+      "renderMode": "blocking",
+      "path": "/scenarios/dashboard-ssr",
+      "statistics": {
+        "contentReadyMs": {
+          "min": 3.44,
+          "median": 4.31,
+          "p95": 5.22
+        },
+        "firstByteMs": {
+          "min": 3.44,
+          "median": 4.31,
+          "p95": 5.22
+        },
+        "totalMs": {
+          "min": 3.79,
+          "median": 4.58,
+          "p95": 5.64
+        },
+        "htmlBytes": {
+          "min": 10528,
+          "median": 10528,
+          "p95": 10528
+        }
+      },
+      "samples": [
+        {
+          "run": 1,
+          "observedAt": "2026-10-21T21:50:28.444Z",
+          "metrics": {
+            "responseStartMs": 5.85,
+            "firstByteMs": 6,
+            "contentReadyMs": 6,
+            "totalMs": 6.45,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 2,
+          "observedAt": "2026-10-21T21:50:28.481Z",
+          "metrics": {
+            "responseStartMs": 4.85,
+            "firstByteMs": 5.01,
+            "contentReadyMs": 5.01,
+            "totalMs": 5.28,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 3,
+          "observedAt": "2026-10-21T21:50:28.496Z",
+          "metrics": {
+            "responseStartMs": 4.88,
+            "firstByteMs": 5.06,
+            "contentReadyMs": 5.06,
+            "totalMs": 5.49,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 4,
+          "observedAt": "2026-10-21T21:50:28.514Z",
+          "metrics": {
+            "responseStartMs": 3.31,
+            "firstByteMs": 3.44,
+            "contentReadyMs": 3.44,
+            "totalMs": 3.91,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 5,
+          "observedAt": "2026-10-21T21:50:28.529Z",
+          "metrics": {
+            "responseStartMs": 3.49,
+            "firstByteMs": 3.65,
+            "contentReadyMs": 3.65,
+            "totalMs": 3.89,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 6,
+          "observedAt": "2026-10-21T21:50:28.561Z",
+          "metrics": {
+            "responseStartMs": 4.18,
+            "firstByteMs": 4.34,
+            "contentReadyMs": 4.34,
+            "totalMs": 4.59,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 7,
+          "observedAt": "2026-10-21T21:50:28.576Z",
+          "metrics": {
+            "responseStartMs": 4.16,
+            "firstByteMs": 4.36,
+            "contentReadyMs": 4.36,
+            "totalMs": 4.65,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 8,
+          "observedAt": "2026-10-21T21:50:28.591Z",
+          "metrics": {
+            "responseStartMs": 4.25,
+            "firstByteMs": 4.44,
+            "contentReadyMs": 4.44,
+            "totalMs": 4.71,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 9,
+          "observedAt": "2026-10-21T21:50:28.605Z",
+          "metrics": {
+            "responseStartMs": 4.04,
+            "firstByteMs": 4.27,
+            "contentReadyMs": 4.27,
+            "totalMs": 4.57,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 10,
+          "observedAt": "2026-10-21T21:50:28.635Z",
+          "metrics": {
+            "responseStartMs": 3.76,
+            "firstByteMs": 4.47,
+            "contentReadyMs": 4.47,
+            "totalMs": 4.78,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 11,
+          "observedAt": "2026-10-21T21:50:28.649Z",
+          "metrics": {
+            "responseStartMs": 4.15,
+            "firstByteMs": 4.39,
+            "contentReadyMs": 4.39,
+            "totalMs": 4.67,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 12,
+          "observedAt": "2026-10-21T21:50:28.665Z",
+          "metrics": {
+            "responseStartMs": 4.85,
+            "firstByteMs": 5.22,
+            "contentReadyMs": 5.22,
+            "totalMs": 5.64,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 13,
+          "observedAt": "2026-10-21T21:50:28.683Z",
+          "metrics": {
+            "responseStartMs": 3.61,
+            "firstByteMs": 3.82,
+            "contentReadyMs": 3.82,
+            "totalMs": 4.08,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 14,
+          "observedAt": "2026-10-21T21:50:28.713Z",
+          "metrics": {
+            "responseStartMs": 3.45,
+            "firstByteMs": 3.65,
+            "contentReadyMs": 3.65,
+            "totalMs": 3.92,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 15,
+          "observedAt": "2026-10-21T21:50:28.727Z",
+          "metrics": {
+            "responseStartMs": 3.59,
+            "firstByteMs": 4.03,
+            "contentReadyMs": 4.03,
+            "totalMs": 4.46,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 16,
+          "observedAt": "2026-10-21T21:50:28.742Z",
+          "metrics": {
+            "responseStartMs": 3.39,
+            "firstByteMs": 3.54,
+            "contentReadyMs": 3.54,
+            "totalMs": 3.79,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 17,
+          "observedAt": "2026-10-21T21:50:28.755Z",
+          "metrics": {
+            "responseStartMs": 3.65,
+            "firstByteMs": 3.85,
+            "contentReadyMs": 3.85,
+            "totalMs": 4.17,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 18,
+          "observedAt": "2026-10-21T21:50:28.785Z",
+          "metrics": {
+            "responseStartMs": 3.51,
+            "firstByteMs": 3.71,
+            "contentReadyMs": 3.71,
+            "totalMs": 3.96,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 19,
+          "observedAt": "2026-10-21T21:50:28.798Z",
+          "metrics": {
+            "responseStartMs": 4.72,
+            "firstByteMs": 4.94,
+            "contentReadyMs": 4.94,
+            "totalMs": 5.26,
+            "htmlBytes": 10528
+          }
+        },
+        {
+          "run": 20,
+          "observedAt": "2026-10-21T21:50:28.812Z",
+          "metrics": {
+            "responseStartMs": 3.39,
+            "firstByteMs": 3.56,
+            "contentReadyMs": 3.56,
+            "totalMs": 3.96,
+            "htmlBytes": 10528
+          }
+        }
+      ]
+    },
+    {
+      "id": "react-router",
+      "label": "React Router",
+      "version": "7.18.4",
+      "renderMode": "blocking",
+      "path": "/scenarios/dashboard-ssr",
+      "statistics": {
+        "contentReadyMs": {
+          "min": 2.08,
+          "median": 2.43,
+          "p95": 3.35
+        },
+        "firstByteMs": {
+          "min": 2.08,
+          "median": 2.43,
+          "p95": 3.35
+        },
+        "totalMs": {
+          "min": 2.36,
+          "median": 2.94,
+          "p95": 3.64
+        },
+        "htmlBytes": {
+          "min": 5874,
+          "median": 5874,
+          "p95": 5874
+        }
+      },
+      "samples": [
+        {
+          "run": 1,
+          "observedAt": "2026-10-21T21:50:28.453Z",
+          "metrics": {
+            "responseStartMs": 2.11,
+            "firstByteMs": 2.3,
+            "contentReadyMs": 2.3,
+            "totalMs": 2.72,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 2,
+          "observedAt": "2026-10-21T21:50:28.466Z",
+          "metrics": {
+            "responseStartMs": 2.73,
+            "firstByteMs": 2.94,
+            "contentReadyMs": 2.94,
+            "totalMs": 3.27,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 3,
+          "observedAt": "2026-10-21T21:50:28.503Z",
+          "metrics": {
+            "responseStartMs": 2.48,
+            "firstByteMs": 2.68,
+            "contentReadyMs": 2.68,
+            "totalMs": 3.48,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 4,
+          "observedAt": "2026-10-21T21:50:28.520Z",
+          "metrics": {
+            "responseStartMs": 2.65,
+            "firstByteMs": 2.82,
+            "contentReadyMs": 2.82,
+            "totalMs": 3.5,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 5,
+          "observedAt": "2026-10-21T21:50:28.534Z",
+          "metrics": {
+            "responseStartMs": 2.1,
+            "firstByteMs": 2.35,
+            "contentReadyMs": 2.35,
+            "totalMs": 2.61,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 6,
+          "observedAt": "2026-10-21T21:50:28.549Z",
+          "metrics": {
+            "responseStartMs": 2.33,
+            "firstByteMs": 2.53,
+            "contentReadyMs": 2.53,
+            "totalMs": 2.84,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 7,
+          "observedAt": "2026-10-21T21:50:28.582Z",
+          "metrics": {
+            "responseStartMs": 2.03,
+            "firstByteMs": 2.18,
+            "contentReadyMs": 2.18,
+            "totalMs": 2.99,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 8,
+          "observedAt": "2026-10-21T21:50:28.597Z",
+          "metrics": {
+            "responseStartMs": 2.56,
+            "firstByteMs": 2.75,
+            "contentReadyMs": 2.75,
+            "totalMs": 3.01,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 9,
+          "observedAt": "2026-10-21T21:50:28.612Z",
+          "metrics": {
+            "responseStartMs": 3.17,
+            "firstByteMs": 3.35,
+            "contentReadyMs": 3.35,
+            "totalMs": 3.64,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 10,
+          "observedAt": "2026-10-21T21:50:28.624Z",
+          "metrics": {
+            "responseStartMs": 2.18,
+            "firstByteMs": 2.31,
+            "contentReadyMs": 2.31,
+            "totalMs": 2.54,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 11,
+          "observedAt": "2026-10-21T21:50:28.656Z",
+          "metrics": {
+            "responseStartMs": 2.14,
+            "firstByteMs": 2.41,
+            "contentReadyMs": 2.41,
+            "totalMs": 2.79,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 12,
+          "observedAt": "2026-10-21T21:50:28.672Z",
+          "metrics": {
+            "responseStartMs": 2.21,
+            "firstByteMs": 2.45,
+            "contentReadyMs": 2.45,
+            "totalMs": 2.93,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 13,
+          "observedAt": "2026-10-21T21:50:28.688Z",
+          "metrics": {
+            "responseStartMs": 2.83,
+            "firstByteMs": 2.95,
+            "contentReadyMs": 2.95,
+            "totalMs": 3.32,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 14,
+          "observedAt": "2026-10-21T21:50:28.703Z",
+          "metrics": {
+            "responseStartMs": 1.84,
+            "firstByteMs": 2.2,
+            "contentReadyMs": 2.2,
+            "totalMs": 2.49,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 15,
+          "observedAt": "2026-10-21T21:50:28.733Z",
+          "metrics": {
+            "responseStartMs": 2.1,
+            "firstByteMs": 2.35,
+            "contentReadyMs": 2.35,
+            "totalMs": 3.11,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 16,
+          "observedAt": "2026-10-21T21:50:28.747Z",
+          "metrics": {
+            "responseStartMs": 2.18,
+            "firstByteMs": 2.33,
+            "contentReadyMs": 2.33,
+            "totalMs": 2.59,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 17,
+          "observedAt": "2026-10-21T21:50:28.761Z",
+          "metrics": {
+            "responseStartMs": 3.51,
+            "firstByteMs": 3.69,
+            "contentReadyMs": 3.69,
+            "totalMs": 3.98,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 18,
+          "observedAt": "2026-10-21T21:50:28.774Z",
+          "metrics": {
+            "responseStartMs": 2.02,
+            "firstByteMs": 2.17,
+            "contentReadyMs": 2.17,
+            "totalMs": 2.43,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 19,
+          "observedAt": "2026-10-21T21:50:28.805Z",
+          "metrics": {
+            "responseStartMs": 1.88,
+            "firstByteMs": 2.08,
+            "contentReadyMs": 2.08,
+            "totalMs": 2.36,
+            "htmlBytes": 5874
+          }
+        },
+        {
+          "run": 20,
+          "observedAt": "2026-10-21T21:50:28.818Z",
+          "metrics": {
+            "responseStartMs": 2.44,
+            "firstByteMs": 2.58,
+            "contentReadyMs": 2.58,
+            "totalMs": 2.95,
+            "htmlBytes": 5874
+          }
+        }
+      ]
+    },
+    {
+      "id": "sveltekit",
+      "label": "SvelteKit",
+      "version": "3.1.0",
+      "renderMode": "blocking",
+      "path": "/scenarios/dashboard-ssr",
+      "statistics": {
+        "contentReadyMs": {
+          "min": 1.62,
+          "median": 2.01,
+          "p95": 2.52
+        },
+        "firstByteMs": {
+          "min": 1.62,
+          "median": 2.01,
+          "p95": 2.52
+        },
+        "totalMs": {
+          "min": 1.75,
+          "median": 2.2,
+          "p95": 3.08
+        },
+        "htmlBytes": {
+          "min": 3528,
+          "median": 3528,
+          "p95": 3528
+        }
+      },
+      "samples": [
+        {
+          "run": 1,
+          "observedAt": "2026-10-21T21:50:28.457Z",
+          "metrics": {
+            "responseStartMs": 1.89,
+            "firstByteMs": 2.07,
+            "contentReadyMs": 2.07,
+            "totalMs": 2.68,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 2,
+          "observedAt": "2026-10-21T21:50:28.471Z",
+          "metrics": {
+            "responseStartMs": 2.13,
+            "firstByteMs": 2.32,
+            "contentReadyMs": 2.32,
+            "totalMs": 3.03,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 3,
+          "observedAt": "2026-10-21T21:50:28.488Z",
+          "metrics": {
+            "responseStartMs": 1.86,
+            "firstByteMs": 1.99,
+            "contentReadyMs": 1.99,
+            "totalMs": 2.53,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 4,
+          "observedAt": "2026-10-21T21:50:28.525Z",
+          "metrics": {
+            "responseStartMs": 1.89,
+            "firstByteMs": 2.05,
+            "contentReadyMs": 2.05,
+            "totalMs": 2.21,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 5,
+          "observedAt": "2026-10-21T21:50:28.539Z",
+          "metrics": {
+            "responseStartMs": 1.93,
+            "firstByteMs": 2.23,
+            "contentReadyMs": 2.23,
+            "totalMs": 2.44,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 6,
+          "observedAt": "2026-10-21T21:50:28.554Z",
+          "metrics": {
+            "responseStartMs": 1.84,
+            "firstByteMs": 2.02,
+            "contentReadyMs": 2.02,
+            "totalMs": 2.19,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 7,
+          "observedAt": "2026-10-21T21:50:28.568Z",
+          "metrics": {
+            "responseStartMs": 1.73,
+            "firstByteMs": 1.86,
+            "contentReadyMs": 1.86,
+            "totalMs": 2.01,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 8,
+          "observedAt": "2026-10-21T21:50:28.602Z",
+          "metrics": {
+            "responseStartMs": 2.01,
+            "firstByteMs": 2.16,
+            "contentReadyMs": 2.16,
+            "totalMs": 2.31,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 9,
+          "observedAt": "2026-10-21T21:50:28.617Z",
+          "metrics": {
+            "responseStartMs": 1.79,
+            "firstByteMs": 1.92,
+            "contentReadyMs": 1.92,
+            "totalMs": 2.06,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 10,
+          "observedAt": "2026-10-21T21:50:28.628Z",
+          "metrics": {
+            "responseStartMs": 1.53,
+            "firstByteMs": 1.65,
+            "contentReadyMs": 1.65,
+            "totalMs": 1.8,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 11,
+          "observedAt": "2026-10-21T21:50:28.641Z",
+          "metrics": {
+            "responseStartMs": 1.68,
+            "firstByteMs": 1.82,
+            "contentReadyMs": 1.82,
+            "totalMs": 1.96,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 12,
+          "observedAt": "2026-10-21T21:50:28.677Z",
+          "metrics": {
+            "responseStartMs": 3.35,
+            "firstByteMs": 3.61,
+            "contentReadyMs": 3.61,
+            "totalMs": 3.8,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 13,
+          "observedAt": "2026-10-21T21:50:28.694Z",
+          "metrics": {
+            "responseStartMs": 1.97,
+            "firstByteMs": 2.19,
+            "contentReadyMs": 2.19,
+            "totalMs": 3.08,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 14,
+          "observedAt": "2026-10-21T21:50:28.706Z",
+          "metrics": {
+            "responseStartMs": 1.51,
+            "firstByteMs": 1.62,
+            "contentReadyMs": 1.62,
+            "totalMs": 1.75,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 15,
+          "observedAt": "2026-10-21T21:50:28.719Z",
+          "metrics": {
+            "responseStartMs": 1.56,
+            "firstByteMs": 1.76,
+            "contentReadyMs": 1.76,
+            "totalMs": 1.91,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 16,
+          "observedAt": "2026-10-21T21:50:28.751Z",
+          "metrics": {
+            "responseStartMs": 1.99,
+            "firstByteMs": 2.12,
+            "contentReadyMs": 2.12,
+            "totalMs": 2.28,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 17,
+          "observedAt": "2026-10-21T21:50:28.766Z",
+          "metrics": {
+            "responseStartMs": 1.52,
+            "firstByteMs": 1.72,
+            "contentReadyMs": 1.72,
+            "totalMs": 1.88,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 18,
+          "observedAt": "2026-10-21T21:50:28.778Z",
+          "metrics": {
+            "responseStartMs": 1.6,
+            "firstByteMs": 1.74,
+            "contentReadyMs": 1.74,
+            "totalMs": 1.87,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 19,
+          "observedAt": "2026-10-21T21:50:28.790Z",
+          "metrics": {
+            "responseStartMs": 1.78,
+            "firstByteMs": 1.96,
+            "contentReadyMs": 1.96,
+            "totalMs": 2.13,
+            "htmlBytes": 3528
+          }
+        },
+        {
+          "run": 20,
+          "observedAt": "2026-10-21T21:50:28.822Z",
+          "metrics": {
+            "responseStartMs": 2.34,
+            "firstByteMs": 2.52,
+            "contentReadyMs": 2.52,
+            "totalMs": 2.69,
+            "htmlBytes": 3528
+          }
+        }
+      ]
+    },
+    {
+      "id": "nuxt",
+      "label": "Nuxt",
+      "version": "4.6.2",
+      "renderMode": "blocking",
+      "path": "/scenarios/dashboard-ssr",
+      "statistics": {
+        "contentReadyMs": {
+          "min": 2.11,
+          "median": 2.47,
+          "p95": 2.95
+        },
+        "firstByteMs": {
+          "min": 2.11,
+          "median": 2.47,
+          "p95": 2.95
+        },
+        "totalMs": {
+          "min": 2.26,
+          "median": 2.63,
+          "p95": 3.12
+        },
+        "htmlBytes": {
+          "min": 5186,
+          "median": 5186,
+          "p95": 5186
+        }
+      },
+      "samples": [
+        {
+          "run": 1,
+          "observedAt": "2026-10-21T21:50:28.461Z",
+          "metrics": {
+            "responseStartMs": 2.26,
+            "firstByteMs": 2.3,
+            "contentReadyMs": 2.3,
+            "totalMs": 2.46,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 2,
+          "observedAt": "2026-10-21T21:50:28.476Z",
+          "metrics": {
+            "responseStartMs": 2.89,
+            "firstByteMs": 2.95,
+            "contentReadyMs": 2.95,
+            "totalMs": 3.12,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 3,
+          "observedAt": "2026-10-21T21:50:28.492Z",
+          "metrics": {
+            "responseStartMs": 2.24,
+            "firstByteMs": 2.28,
+            "contentReadyMs": 2.28,
+            "totalMs": 2.44,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 4,
+          "observedAt": "2026-10-21T21:50:28.509Z",
+          "metrics": {
+            "responseStartMs": 2.65,
+            "firstByteMs": 2.7,
+            "contentReadyMs": 2.7,
+            "totalMs": 2.87,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 5,
+          "observedAt": "2026-10-21T21:50:28.543Z",
+          "metrics": {
+            "responseStartMs": 3.66,
+            "firstByteMs": 3.73,
+            "contentReadyMs": 3.73,
+            "totalMs": 3.94,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 6,
+          "observedAt": "2026-10-21T21:50:28.557Z",
+          "metrics": {
+            "responseStartMs": 2.4,
+            "firstByteMs": 2.45,
+            "contentReadyMs": 2.45,
+            "totalMs": 2.6,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 7,
+          "observedAt": "2026-10-21T21:50:28.571Z",
+          "metrics": {
+            "responseStartMs": 2.41,
+            "firstByteMs": 2.46,
+            "contentReadyMs": 2.46,
+            "totalMs": 2.62,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 8,
+          "observedAt": "2026-10-21T21:50:28.587Z",
+          "metrics": {
+            "responseStartMs": 2.64,
+            "firstByteMs": 2.68,
+            "contentReadyMs": 2.68,
+            "totalMs": 2.83,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 9,
+          "observedAt": "2026-10-21T21:50:28.620Z",
+          "metrics": {
+            "responseStartMs": 2.14,
+            "firstByteMs": 2.18,
+            "contentReadyMs": 2.18,
+            "totalMs": 2.31,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 10,
+          "observedAt": "2026-10-21T21:50:28.631Z",
+          "metrics": {
+            "responseStartMs": 2.21,
+            "firstByteMs": 2.25,
+            "contentReadyMs": 2.25,
+            "totalMs": 2.4,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 11,
+          "observedAt": "2026-10-21T21:50:28.645Z",
+          "metrics": {
+            "responseStartMs": 2.8,
+            "firstByteMs": 2.84,
+            "contentReadyMs": 2.84,
+            "totalMs": 2.98,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 12,
+          "observedAt": "2026-10-21T21:50:28.661Z",
+          "metrics": {
+            "responseStartMs": 2.46,
+            "firstByteMs": 2.53,
+            "contentReadyMs": 2.53,
+            "totalMs": 2.7,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 13,
+          "observedAt": "2026-10-21T21:50:28.699Z",
+          "metrics": {
+            "responseStartMs": 2.23,
+            "firstByteMs": 2.28,
+            "contentReadyMs": 2.28,
+            "totalMs": 2.45,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 14,
+          "observedAt": "2026-10-21T21:50:28.709Z",
+          "metrics": {
+            "responseStartMs": 2.49,
+            "firstByteMs": 2.53,
+            "contentReadyMs": 2.53,
+            "totalMs": 2.7,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 15,
+          "observedAt": "2026-10-21T21:50:28.722Z",
+          "metrics": {
+            "responseStartMs": 2.49,
+            "firstByteMs": 2.54,
+            "contentReadyMs": 2.54,
+            "totalMs": 2.7,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 16,
+          "observedAt": "2026-10-21T21:50:28.738Z",
+          "metrics": {
+            "responseStartMs": 2.41,
+            "firstByteMs": 2.47,
+            "contentReadyMs": 2.47,
+            "totalMs": 2.63,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 17,
+          "observedAt": "2026-10-21T21:50:28.770Z",
+          "metrics": {
+            "responseStartMs": 2.74,
+            "firstByteMs": 2.8,
+            "contentReadyMs": 2.8,
+            "totalMs": 2.97,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 18,
+          "observedAt": "2026-10-21T21:50:28.781Z",
+          "metrics": {
+            "responseStartMs": 2.05,
+            "firstByteMs": 2.11,
+            "contentReadyMs": 2.11,
+            "totalMs": 2.26,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 19,
+          "observedAt": "2026-10-21T21:50:28.794Z",
+          "metrics": {
+            "responseStartMs": 2.31,
+            "firstByteMs": 2.36,
+            "contentReadyMs": 2.36,
+            "totalMs": 2.51,
+            "htmlBytes": 5186
+          }
+        },
+        {
+          "run": 20,
+          "observedAt": "2026-10-21T21:50:28.809Z",
+          "metrics": {
+            "responseStartMs": 2.08,
+            "firstByteMs": 2.12,
+            "contentReadyMs": 2.12,
+            "totalMs": 2.27,
+            "htmlBytes": 5186
+          }
+        }
+      ]
+    }
+  ]
+}

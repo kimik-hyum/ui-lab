@@ -1,0 +1,5 @@
+/* Framework choices are peers. Keep A/B headings without the template's
+   Traditional/Legacy and Optimized/Modern labels inside the code cards. */
+:global(.min-h-screen.bg-white):has(.controls) :global(.bg-gray-950) > :global(.bg-gray-900):first-child {
+  display: none;
+}
