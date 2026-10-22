@@ -72,18 +72,18 @@ export function TraditionalHiddenDemo({ hidden, tick, stats, statsRef }: Traditi
           </span>
         </div>
 
-        <div className="grid grid-cols-3 gap-2 text-sm">
+        <div className="grid grid-cols-2 gap-2 text-sm sm:grid-cols-3">
           <div className="rounded border border-slate-200 bg-white px-3 py-2">
             <p className="text-[11px] text-slate-500">renders</p>
-            <p className="text-slate-800 font-medium">{stats.renders}</p>
+            <p className="break-all font-mono text-xs font-medium tabular-nums text-slate-800">{stats.renders}</p>
           </div>
           <div className="rounded border border-slate-200 bg-white px-3 py-2">
             <p className="text-[11px] text-slate-500">effect ticks</p>
-            <p className="text-slate-800 font-medium">{stats.effectTicks}</p>
+            <p className="break-all font-mono text-xs font-medium tabular-nums text-slate-800">{stats.effectTicks}</p>
           </div>
-          <div className="rounded border border-slate-200 bg-white px-3 py-2">
+          <div className="col-span-2 rounded border border-slate-200 bg-white px-3 py-2 sm:col-span-1">
             <p className="text-[11px] text-slate-500">work units</p>
-            <p className="text-slate-800 font-medium">{stats.workUnits.toLocaleString()}</p>
+            <p className="break-all font-mono text-xs font-medium tabular-nums text-slate-800">{stats.workUnits.toLocaleString()}</p>
           </div>
         </div>
       </div>

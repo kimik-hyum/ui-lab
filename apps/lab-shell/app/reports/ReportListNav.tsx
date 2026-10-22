@@ -13,40 +13,42 @@ export function ReportListNav({ reports }: { reports: ReportSummary[] }) {
   const pathname = usePathname();
 
   return (
-    <nav className="flex-1 overflow-y-auto py-1">
+    <nav aria-label="리포트 목록" className="space-y-1">
+      {reports.length === 0 && <p className="px-3 py-4 text-xs leading-5 text-muted-foreground">아직 등록된 리포트가 없습니다.</p>}
       {reports.map(({ slug, frontmatter: fm }) => {
         const isActive = pathname === `/reports/${slug}`;
         return (
           <Link
             key={slug}
             href={`/reports/${slug}`}
-            className={`block px-4 py-3 border-l-2 transition-colors ${
+            aria-current={isActive ? "page" : undefined}
+            className={`block rounded-lg border px-3 py-3.5 transition-colors ${
               isActive
-                ? "border-l-violet-500 bg-violet-50 text-slate-900"
-                : "border-l-transparent hover:bg-white text-slate-600 hover:text-slate-900"
+                ? "border-accent/15 bg-accent-subtle text-foreground"
+                : "border-transparent text-muted-foreground hover:bg-surface hover:text-foreground"
             }`}
           >
-            <p className="text-xs font-medium leading-snug line-clamp-2 mb-1.5">
+            <p className="mb-2 text-xs font-medium leading-5">
               {fm.title}
             </p>
             <div className="flex items-center gap-1.5 flex-wrap">
-              <span className="text-[10px] text-slate-400">{fm.date}</span>
+              <span className="font-mono text-[10px] text-muted-foreground">{fm.date}</span>
               {fm.verdicts.adopt > 0 && (
                 <>
                   <span className="text-slate-300 text-[10px]">·</span>
-                  <span className="text-[10px] text-emerald-600 font-medium">✅ {fm.verdicts.adopt}</span>
+                  <span className="text-[10px] font-medium text-accent">도입 {fm.verdicts.adopt}</span>
                 </>
               )}
               {fm.verdicts.watch > 0 && (
                 <>
                   <span className="text-slate-300 text-[10px]">·</span>
-                  <span className="text-[10px] text-amber-500 font-medium">👀 {fm.verdicts.watch}</span>
+                  <span className="text-[10px] font-medium text-amber-700">관찰 {fm.verdicts.watch}</span>
                 </>
               )}
               {fm.verdicts.skip > 0 && (
                 <>
                   <span className="text-slate-300 text-[10px]">·</span>
-                  <span className="text-[10px] text-slate-400">⏭ {fm.verdicts.skip}</span>
+                  <span className="text-[10px] text-muted-foreground">보류 {fm.verdicts.skip}</span>
                 </>
               )}
             </div>

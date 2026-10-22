@@ -24,11 +24,11 @@ const TOPIC_DEFINITIONS: TopicDefinition[] = [
         description: (
             <div className="space-y-2">
                 <p>
-                    <span className="text-red-300 font-bold">Traditional:</span> 부모 상태(`items`)를 로컬 `useState`로 복제한 뒤
+                    <span className="text-amber-700 font-semibold">Traditional:</span> 부모 상태(`items`)를 로컬 `useState`로 복제한 뒤
                     `useEffect` 동기화까지 직접 유지해야 합니다. 상태 소유권이 분산되어 유지보수 비용이 커집니다.
                 </p>
                 <p>
-                    <span className="text-blue-300 font-bold">Optimistic:</span> `useOptimistic(state, updateFn)`으로 원본 상태를
+                    <span className="text-accent font-semibold">Optimistic:</span> `useOptimistic(state, updateFn)`으로 원본 상태를
                     기준으로 낙관 상태를 계산합니다. React 공식 문서처럼 `updateFn`만 순수하게 유지하면 됩니다.
                 </p>
             </div>
@@ -44,11 +44,11 @@ const TOPIC_DEFINITIONS: TopicDefinition[] = [
         description: (
             <div className="space-y-2">
                 <p>
-                    <span className="text-red-300 font-bold">Traditional:</span> 새 항목 생성, 이전 상태 백업, 실패 시 롤백, 에러 UI 처리까지
+                    <span className="text-amber-700 font-semibold">Traditional:</span> 새 항목 생성, 이전 상태 백업, 실패 시 롤백, 에러 UI 처리까지
                     한 흐름에 직접 작성해야 합니다.
                 </p>
                 <p>
-                    <span className="text-blue-300 font-bold">Optimistic:</span> `addOptimisticItem`으로 의도를 먼저 반영하고,
+                    <span className="text-accent font-semibold">Optimistic:</span> `addOptimisticItem`으로 의도를 먼저 반영하고,
                     성공 시 확정 상태만 커밋합니다. 실패 시 낙관 상태는 자동으로 사라집니다.
                 </p>
             </div>
@@ -64,11 +64,11 @@ const TOPIC_DEFINITIONS: TopicDefinition[] = [
         description: (
             <div className="space-y-2">
                 <p>
-                    <span className="text-red-300 font-bold">Traditional:</span> 빠른 연속 클릭 시 각 요청의 롤백 시점과 백업 상태를
+                    <span className="text-amber-700 font-semibold">Traditional:</span> 빠른 연속 클릭 시 각 요청의 롤백 시점과 백업 상태를
                     사람이 맞춰야 해서 코드가 빠르게 복잡해집니다.
                 </p>
                 <p>
-                    <span className="text-blue-300 font-bold">Optimistic:</span> 낙관 상태는 pending 동안만 유지되고 실패 시 자동 폐기됩니다.
+                    <span className="text-accent font-semibold">Optimistic:</span> 낙관 상태는 pending 동안만 유지되고 실패 시 자동 폐기됩니다.
                     `Fail Next`와 `Add 3 Fast`로 직접 재현해보면 차이가 더 분명합니다.
                 </p>
             </div>
@@ -137,25 +137,26 @@ export function ClientPage({ traditionalCode, optimisticCode }: { traditionalCod
         topics={comparisonTopics}
 
         headerActions={
-            <div className="flex items-center gap-2">
+            <div className="flex flex-wrap items-center gap-2">
               <button
                 onClick={handleAction}
-                className="bg-white text-black px-4 py-2 rounded-full text-sm font-bold hover:scale-105 active:scale-95 transition-all shadow-[0_0_20px_rgba(255,255,255,0.3)]"
+                className="min-h-9 rounded-lg bg-accent px-3 py-2 text-xs font-semibold text-white transition-colors hover:bg-accent-hover"
               >
                 Add Item
               </button>
               <button
                 onClick={handleBurstAction}
-                className="bg-zinc-800 text-zinc-100 px-4 py-2 rounded-full text-sm font-medium border border-zinc-700 hover:bg-zinc-700 transition-colors"
+                className="min-h-9 rounded-lg border border-border bg-white px-3 py-2 text-xs font-medium text-foreground transition-colors hover:bg-surface"
               >
                 Add 3 Fast
               </button>
               <button
+                aria-pressed={failNext}
                 onClick={() => setFailNext((prev) => !prev)}
-                className={`px-4 py-2 rounded-full text-sm font-medium border transition-colors ${
+                className={`min-h-9 px-3 py-2 rounded-lg text-xs font-medium border transition-colors ${
                   failNext
-                    ? 'bg-red-500/20 text-red-200 border-red-500/40 hover:bg-red-500/30'
-                    : 'bg-zinc-900 text-zinc-300 border-zinc-700 hover:bg-zinc-800'
+                    ? 'bg-rose-50 text-rose-700 border-rose-200 hover:bg-rose-100'
+                    : 'bg-white text-muted-foreground border-border hover:bg-surface'
                 }`}
               >
                 Fail Next: {failNext ? 'ON' : 'OFF'}
@@ -164,18 +165,24 @@ export function ClientPage({ traditionalCode, optimisticCode }: { traditionalCod
         }
 
         leftComponent={
+          <div>
+            {trigger.id === 0 ? <div className="mb-5 rounded-xl border border-dashed border-border bg-surface px-5 py-10 text-center"><p className="text-sm font-medium text-foreground">직접 실행해 보세요</p><p className="mt-2 text-xs leading-relaxed text-muted-foreground">상단의 Add Item으로 항목을 추가합니다.<br />대기 상태와 실패 시 복원을 비교하세요.</p></div> : null}
             <TraditionalList 
                 items={itemsA} 
                 actionTrigger={trigger} 
                 onAddComplete={handleAddA}
             />
+          </div>
         }
         rightComponent={
+          <div>
+            {trigger.id === 0 ? <div className="mb-5 rounded-xl border border-dashed border-accent/25 bg-accent-subtle/40 px-5 py-10 text-center"><p className="text-sm font-medium text-foreground">같은 동작, 다른 구현</p><p className="mt-2 text-xs leading-relaxed text-muted-foreground">두 패널에 같은 요청이 전달됩니다.<br />코드 비교에서 상태 관리의 차이도 살펴보세요.</p></div> : null}
             <OptimisticList 
                 items={itemsB} 
                 actionTrigger={trigger} 
                 onAddComplete={handleAddB}
             />
+          </div>
         }
     />
   );
