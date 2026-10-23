@@ -157,3 +157,15 @@ Hydration 전후 DOM 비교는 현재 하네스 기본 성능 축에서 제외�
 - `history.json`은 Git에 보관합니다. 큰 원본 보고서는 기존 timestamp 폴더에 남기고 웹용 기록에는 요약만 담습니다. 웹에 새 기록을 반영하려면 lab-shell을 재빌드합니다.
 - 같은 실행 ID는 덮어쓰지 않으며, 부분 대상 측정·빠른 점검·병렬 점검도 원래 조건으로 기록합니다. 날짜가 가깝다는 이유로 서로 다른 SSR·Lighthouse 실행을 하나로 합치지 않습니다.
 - 2026-05-31 기록의 버전은 해당 측정 스냅샷을 저장한 `ef08c64`의 `package.json`·`yarn.lock`과 2026-10-21 업그레이드 로그를 대조해 복원했습니다. 화면에 `이력에서 복원`으로 표시하며, 측정 코드 커밋을 추정해 채우지는 않습니다.
+
+## 1 Mbps 네트워크 제한 비교
+
+개별 `perf:ssr`, `perf:lighthouse` 실행에 `PERF_NETWORK_PROFILE=1mbps-100ms`를 지정합니다. 다운로드·업로드 설정은 1,000 Kbps, 추가 요청 지연은 100 ms, 브라우저 CPU 배율은 1입니다.
+
+- Lighthouse는 `devtools` 방식으로 브라우저→앱·외부 이미지 요청을 제한합니다. 기존 desktop 시뮬레이션 결과와 구분합니다.
+- SSR 도구→앱 및 앱→Supabase는 loopback 전용 HTTP 프록시를 거칩니다. 요청 전 50 ms, 응답 전 50 ms를 추가하고 응답 본문을 요청별 1 Mbps로 나누어 전송합니다. GET/HEAD만 허용하며 업로드 본문은 없습니다. 압축 바이트와 스트리밍 순서를 유지합니다.
+- 실제 Supabase/이미지 서비스의 처리 시간과 인터넷 지연은 남습니다. 이는 동일한 **제한 설정** 비교이며, 외부 지연이 완전히 고정된 순수 프레임워크 벤치마크는 아닙니다. 운영체제 전체 네트워크 설정은 변경하지 않습니다.
+- 서버 준비 후 각 축에서 3회 예열합니다. SSR 20회, Lighthouse 5회 이상을 순차 측정합니다. Lighthouse는 실행마다 새 브라우저 프로필을 사용합니다.
+- `PERF_COMPARISON_ID`, `PERF_COHORT=before|current`, `PERF_HARNESS_SHA256`로 같은 도구의 버전업 전후 실행을 묶습니다. `PERF_TARGETS_PATH`로 비어 있는 별도 포트의 대상 명령을 지정하고, `LH_CLI_PATH`로 같은 Lighthouse CLI를 사용합니다.
+- 이전 체크아웃에서 현재 runner의 절대 경로를 실행할 수 있습니다. `PERF_OUTPUT_ROOT`를 현재 저장소로 지정하면 과거 체크아웃의 소스·설치 버전을 현재 이력에 누적합니다. `PERF_UPDATE_LATEST=0`은 이전 버전 결과가 최신 스냅샷을 덮어쓰는 것을 방지합니다.
+- 이전 lockfile과 현재 lockfile을 각각 그대로 설치합니다. React·Vue·Vite 등 함께 바뀐 의존성의 영향도 포함하므로 단일 패키지 버전만의 인과 효과로 해석하지 않습니다.

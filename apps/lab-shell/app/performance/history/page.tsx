@@ -58,6 +58,7 @@ export default async function PerformanceHistoryPage({ searchParams }: {
                   </div>
                 </dl>
                 <div className="mt-5 border-t border-border pt-3">
+                  {ssr?.record.network && <p className="mb-2 text-[11px] font-medium text-primary">{ssr.record.network.label}</p>}
                   <p className="text-[10px] leading-5 text-muted-foreground">SSR {ssr ? formatSnapshotDate(ssr.record.generatedAt) : "미측정"}<br />LH {lighthouse ? formatSnapshotDate(lighthouse.record.generatedAt) : "미측정"} · KST</p>
                   <Link href={`#${name}`} className="mt-2 inline-flex min-h-8 items-center text-xs font-medium text-primary hover:underline">버전별 기록 ↓</Link>
                 </div>

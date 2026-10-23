@@ -24,6 +24,9 @@ export type MeasurementRecord = {
   expectedText: string | null;
   environment: { cpu?: string; platform?: string; arch?: string; node?: string; timeZone?: string };
   source: { commit: string; dirty: boolean } | null;
+  network?: { id: string; label: string; scope: string; limitation: string; backend: string };
+  comparison?: { id: string; cohort: string };
+  measurementTool?: { lighthouseVersion: string; userAgent: string };
   targets: HistoryTarget[];
 };
 

@@ -9,8 +9,11 @@ import { resolve } from "node:path";
 import { performance } from "node:perf_hooks";
 import { setTimeout as delay } from "node:timers/promises";
 import { captureSource, captureTargetVersions, savePerformanceHistory } from "./performance-history.mjs";
+import { createThrottledProxy, prepareBackendNetwork, readNetworkProfile } from "./performance-network.mjs";
 
 const ROOT_DIR = process.cwd();
+const OUTPUT_ROOT = process.env.PERF_OUTPUT_ROOT ?? ROOT_DIR;
+const NETWORK = readNetworkProfile();
 const MIN_RUNS = toInt(process.env.SSR_MIN_RUNS, 5);
 const RUNS = Math.max(toInt(process.env.SSR_RUNS, 5), MIN_RUNS);
 const WARMUP = toInt(process.env.SSR_WARMUP, 3);
@@ -19,8 +22,8 @@ const EXPECT_TEXT = process.env.SSR_EXPECT_TEXT ?? "";
 const TARGET_FILTER = parseTargetFilter(process.env.SSR_TARGETS);
 
 const TIMESTAMP = new Date().toISOString().replace(/[:.]/g, "-");
-const OUTPUT_DIR = resolve(ROOT_DIR, "perf-results", "ssr", TIMESTAMP);
-const LATEST_PATH = resolve(ROOT_DIR, "perf-results", "ssr", "latest.json");
+const OUTPUT_DIR = resolve(OUTPUT_ROOT, "perf-results", "ssr", TIMESTAMP);
+const LATEST_PATH = resolve(OUTPUT_ROOT, "perf-results", "ssr", "latest.json");
 
 const targets = [
   {
@@ -50,7 +53,10 @@ const targets = [
 ];
 
 async function main() {
-  const selectedTargets = targets.filter((target) => {
+  const configuredTargets = process.env.PERF_TARGETS_PATH
+    ? JSON.parse(readFileSync(process.env.PERF_TARGETS_PATH, "utf8")).targets.map((target) => ({ ...target, buildArgs: target.build.slice(1), startCommand: target.start }))
+    : targets;
+  const selectedTargets = configuredTargets.filter((target) => {
     return TARGET_FILTER.size === 0 || TARGET_FILTER.has(target.name);
   });
 
@@ -72,6 +78,8 @@ async function main() {
     minRuns: MIN_RUNS,
     warmup: WARMUP,
     expectedText: EXPECT_TEXT || null,
+    network: NETWORK,
+    comparison: process.env.PERF_COMPARISON_ID ? { id: process.env.PERF_COMPARISON_ID, cohort: process.env.PERF_COHORT ?? "current", harnessSha256: process.env.PERF_HARNESS_SHA256 ?? null } : null,
     environment: {
       node: process.version,
       platform: `${os.type()} ${os.release()}`,
@@ -86,23 +94,30 @@ async function main() {
     const url = `${target.baseUrl}${TARGET_PATH}`;
     const versionInfo = captureTargetVersions(ROOT_DIR, target.name);
 
-    console.log(`\n[${target.name}] build`);
-    await runYarn(target.buildArgs, { env: buildTargetEnv(target) });
-
-    console.log(`[${target.name}] start server`);
-    const server = spawn("yarn", target.startArgs, {
-      cwd: ROOT_DIR,
-      stdio: "inherit",
-      env: buildTargetEnv(target),
-    });
-
+    const backend = await prepareBackendNetwork(buildTargetEnv(target), NETWORK);
+    let server;
+    let proxy;
     try {
+      console.log(`\n[${target.name}] build`);
+      await runYarn(target.buildArgs, { env: backend.env });
+
+      console.log(`[${target.name}] start server`);
+      const [binary, ...startArgs] = target.startCommand ?? ["yarn", ...target.startArgs];
+      server = spawn(binary, startArgs, {
+        cwd: ROOT_DIR,
+        stdio: "inherit",
+        env: backend.env,
+      });
+
       await waitForHttp(url);
+      proxy = NETWORK ? await createThrottledProxy(target.baseUrl, NETWORK) : null;
+      const measuredUrl = proxy ? `${proxy.url}${TARGET_PATH}` : url;
 
       if (WARMUP > 0) {
         console.log(`[${target.name}] warmup x${WARMUP} -> ${url}`);
         for (let i = 1; i <= WARMUP; i += 1) {
-          await measureSsrResponse(url, 0).catch(() => {});
+          const warmup = await measureSsrResponse(measuredUrl, 0);
+          if (!warmup.ok) throw new Error(`Warmup HTTP ${warmup.status}`);
         }
       }
 
@@ -110,10 +125,11 @@ async function main() {
 
       const runResults = [];
       for (let i = 1; i <= RUNS; i += 1) {
-        runResults.push(await measureSsrResponse(url, i));
+        runResults.push(await measureSsrResponse(measuredUrl, i));
       }
 
       const checklist = buildChecklist(runResults);
+      if (Object.values(checklist).some((value) => value === false)) throw new Error(`${target.name}: SSR content/status check failed`);
 
       const metricKeys = [
         "responseStartMs",
@@ -148,6 +164,8 @@ async function main() {
         distribution,
         streamingDeltaMs,
         runs: runResults,
+        backendRequests: backend.stats,
+        proxyRequests: proxy?.stats ?? [],
       };
 
       writeFileSync(
@@ -156,16 +174,18 @@ async function main() {
       );
       summary.targets.push(targetSummary);
     } finally {
-      await stopProcess(server);
+      if (server) await stopProcess(server);
+      if (proxy) await proxy.close();
+      await backend.close();
     }
   }
 
   writeFileSync(resolve(OUTPUT_DIR, "summary.json"), JSON.stringify(summary, null, 2));
-  writeFileSync(LATEST_PATH, JSON.stringify(summary, null, 2));
-  savePerformanceHistory(ROOT_DIR, "ssr", summary);
+  if (process.env.PERF_UPDATE_LATEST !== "0") writeFileSync(LATEST_PATH, JSON.stringify(summary, null, 2));
+  savePerformanceHistory(OUTPUT_ROOT, "ssr", summary);
 
   console.log(`\nSaved summary: ${resolve(OUTPUT_DIR, "summary.json")}`);
-  console.log(`Updated latest: ${LATEST_PATH}`);
+  if (process.env.PERF_UPDATE_LATEST !== "0") console.log(`Updated latest: ${LATEST_PATH}`);
 }
 
 async function measureSsrResponse(url, run) {
@@ -256,7 +276,7 @@ async function waitForHttp(url, timeoutMs = 90_000) {
   while (Date.now() - startedAt < timeoutMs) {
     try {
       const response = await fetch(url, { redirect: "manual" });
-      if (response.status >= 200 && response.status < 500) return;
+      if (response.ok) { await response.arrayBuffer(); return; }
     } catch {
       // ignore until timeout
     }

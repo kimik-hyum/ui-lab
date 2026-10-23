@@ -23,6 +23,9 @@ function MeasurementDetails({ entry }: { entry: MeasurementEntry }) {
           {metrics.map(([label, value]) => <div key={label}><dt>{label}</dt><dd className="font-mono text-foreground">{value}</dd></div>)}
         </dl>
         <div className="space-y-1 border-t border-border pt-3">
+          {record.network && <><p className="font-medium text-foreground">{record.network.label} · 실제 Supabase 연결</p><p>적용 구간: {record.network.scope}</p><p>{record.network.limitation}</p></>}
+          {record.comparison && <p>동일 조건 비교: {record.comparison.id} · {record.comparison.cohort === "before" ? "버전업 전" : "버전업 후"}</p>}
+          {record.measurementTool && <p>Lighthouse {record.measurementTool.lighthouseVersion} · {record.measurementTool.userAgent}</p>}
           <p className="break-all font-mono text-[11px]">{record.path}</p>
           <p>{record.environment.cpu} · {record.environment.platform} · Node {record.environment.node}</p>
           {record.warmup !== null && <p>예열 {record.warmup}회 제외</p>}
@@ -71,6 +74,7 @@ function MeasurementResult({ entry, compact = false }: { entry: MeasurementEntry
         </dl>
       </div>
       <p className="mt-4 break-words text-xs leading-5 text-muted-foreground">{record.path === "/scenarios/shopping-detail-ssr" ? "상품 상세 SSR" : record.path} · {modeLabel(record.mode)}{record.preset ? ` · ${record.preset}` : ""}</p>
+      {record.network && <p className="mt-1 text-xs font-medium text-primary">{record.network.label} · 실제 Supabase</p>}
       <MeasurementDetails entry={entry} />
     </div>
   );

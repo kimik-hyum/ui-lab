@@ -48,6 +48,9 @@ export function toHistoryRecord(kind, summary) {
     expectedText: settings.expectedText ?? null,
     environment: summary.environment,
     source: summary.source ?? null,
+    ...(summary.network ? { network: summary.network } : {}),
+    ...(summary.comparison ? { comparison: summary.comparison } : {}),
+    ...(summary.measurementTool ? { measurementTool: summary.measurementTool } : {}),
     targets: summary.targets.map((target) => {
       const result = combined ? target[kind] : target;
       return {
