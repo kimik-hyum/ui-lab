@@ -6,6 +6,7 @@ import {
   getPerformanceSnapshot,
   getSsrChart,
   getTargetDisplayName,
+  getTargetVersion,
   getTargetMode,
   performanceSources,
 } from "./data";
@@ -34,8 +35,8 @@ export default function PerformancePage() {
           <Link href={performanceSources.methodology} target="_blank" rel="noreferrer" className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-border bg-white px-4 text-xs font-medium text-foreground transition-colors hover:border-primary/40 hover:text-primary">
             측정 방법 <span aria-hidden="true">↗</span>
           </Link>
-          <Link href={performanceSources.result} target="_blank" rel="noreferrer" className="inline-flex min-h-10 items-center gap-2 rounded-lg bg-primary px-4 text-xs font-medium text-white transition-colors hover:bg-primary-hover">
-            20회 측정 리포트 <span aria-hidden="true">↗</span>
+          <Link href="/performance/history" className="inline-flex min-h-10 items-center gap-2 rounded-lg bg-primary px-4 text-xs font-medium text-white transition-colors hover:bg-primary-hover">
+            버전별 기록 <span aria-hidden="true">→</span>
           </Link>
         </div>
       </header>
@@ -82,6 +83,7 @@ export default function PerformancePage() {
                 <div key={target.name} className="grid min-w-0 grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-2 sm:grid-cols-[118px_minmax(0,1fr)_78px]">
                   <div className="flex items-center gap-2 sm:block">
                     <p className="text-sm font-semibold text-foreground">{target.label}</p>
+                    <p className="font-mono text-[10px] text-primary">v{target.version}</p>
                     <p className="font-mono text-[10px] text-muted-foreground sm:mt-1">{target.mode}</p>
                   </div>
                   <div className="relative col-span-2 row-start-2 h-7 overflow-hidden rounded bg-surface sm:col-span-1 sm:row-auto" aria-hidden="true">
@@ -140,7 +142,7 @@ export default function PerformancePage() {
             <tbody>
               {ssr.targets.map((target) => (
                 <tr key={target.name} className="border-t border-border transition-colors hover:bg-surface/60">
-                  <th scope="row" className="sticky left-0 z-10 bg-white px-6 py-4 font-semibold text-foreground">{getTargetDisplayName(target.name)}</th>
+                  <th scope="row" className="sticky left-0 z-10 bg-white px-6 py-4 font-semibold text-foreground">{getTargetDisplayName(target.name)}<span className="mt-1 block font-mono text-[10px] font-normal text-muted-foreground">{getTargetVersion(target.name, target.versions)}</span></th>
                   <td className="px-4 py-4 font-mono text-[10px] text-muted-foreground">{getTargetMode(target.name, ssr.path)}</td>
                   <td className="px-4 py-4 text-right font-mono text-primary">
                     <p className="font-semibold">{formatMetric(target.medianMetrics.contentReadyMs)} ms</p>
@@ -168,7 +170,7 @@ export default function PerformancePage() {
         {lighthouse.targets.map((target) => (
           <div key={target.name} className="grid gap-6 p-5 sm:p-6 lg:grid-cols-[180px_minmax(0,1fr)]">
             <div>
-              <p className="text-xs font-medium text-muted-foreground">{getTargetDisplayName(target.name)} · {lighthouse.preset}</p>
+              <p className="text-xs font-medium text-muted-foreground">{getTargetDisplayName(target.name)} {getTargetVersion(target.name, target.versions)} · {lighthouse.preset}</p>
               <p className="mt-2 font-mono text-4xl font-semibold tracking-tight text-foreground">{target.medianPerformanceScore}<span className="ml-1 text-sm font-normal text-muted-foreground">/ 100</span></p>
               <p className="mt-2 text-xs text-muted-foreground">Performance score</p>
             </div>

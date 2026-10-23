@@ -20,7 +20,35 @@
 
 이 시나리오는 실제 Supabase `products` 테이블을 호출합니다. 비교 1차 지표는 `ttfb`가 아니라 **content-ready**(핵심 콘텐츠가 HTML에 처음 들어온 시각)입니다. 자세한 기준은 `docs/harness/performance-methodology.md`를 따릅니다.
 
-### 측정 환경
+### 2026-10-23 재측정
+
+- 기준 코드: `127ceda`. Next.js 16.4.2 / React 19.3.1, React Router 7.18.4, SvelteKit 3.1.0 / Svelte 5.57.2, Nuxt 4.6.2 / Vue 3.5.44.
+- 환경: Apple M1 Pro, Darwin 25.5.0 arm64, Node v24.15.0, Asia/Seoul. 로컬 production 서버에서 동일한 Supabase cloud 상품을 조회했습니다. 외부 네트워크 왕복 비용을 포함하며 Supabase 리전은 확인되지 않았습니다.
+- Supabase 사전 조회 1회(HTTP 200, 736.99ms)는 결과에서 제외했습니다. 각 앱에서 예열 3회 후 SSR 20회를 측정했습니다.
+- SSR을 모두 마친 뒤 Lighthouse 13.1.0 desktop을 앱별 5회씩 별도 실행했습니다. 프레임워크별로 순차 진행했으며 SSR과 Lighthouse를 병렬 측정하지 않았습니다.
+
+| Framework | SSR 방식 | Content-ready 최소 / 중앙 / p95 (ms) | Lighthouse 점수 | LCP (ms) |
+|---|---|---:|---:|---:|
+| Next.js | Streaming | 23.01 / 33.24 / 47.90 | 96 | 1403.20 |
+| React Router | Blocking | 23.66 / 37.39 / 46.05 | 98 | 1171.45 |
+| SvelteKit | Blocking | 30.10 / 35.79 / 63.94 | 98 | 1192.02 |
+| Nuxt | Blocking | 25.10 / 37.60 / 56.00 | 98 | 1158.00 |
+
+- SSR 80회 모두 HTTP 200 및 필수 콘텐츠 검사를 통과했습니다. Lighthouse 원본 20개에 runtime error는 없습니다.
+- Lighthouse 점수는 점수 기준 중앙 실행이며, LCP도 그 실행의 값입니다. 지표별 독립 중앙값이 아닙니다. 해당 실행의 TBT와 CLS는 네 앱 모두 0이고 INP는 미측정입니다.
+- Next.js의 Lighthouse 점수는 실행 순서대로 `86, 96, 96, 96, 96`이었습니다. 첫 실행을 제거하거나 재측정으로 대체하지 않았습니다. React Router의 `/favicon.ico` 404 로그는 있었으나 측정 대상 페이지는 정상 응답했습니다.
+- 이번 SSR 중앙값 차이는 약 4ms입니다. 네트워크가 포함된 단일 시나리오이므로 프레임워크 자체의 우열이나 버전업 효과로 단정하지 않습니다. 아래 5월 기록과도 OS·네트워크·실행 조건이 달라 직접적인 개선율을 계산하지 않습니다.
+
+실행 명령:
+
+```sh
+SSR_PATH=/scenarios/shopping-detail-ssr SSR_EXPECT_TEXT="홈으로 이동" SSR_RUNS=20 SSR_WARMUP=3 yarn perf:ssr
+LH_PATH=/scenarios/shopping-detail-ssr LH_RUNS=5 LH_PRESET=desktop yarn perf:lighthouse
+```
+
+요약은 [SSR latest](../../../perf-results/ssr/latest.json), [Lighthouse latest](../../../perf-results/lighthouse/latest.json)에 저장했습니다. 로컬 원본 실행 디렉터리는 각각 `2026-10-23T03-38-45-788Z`, `2026-10-23T03-39-26-357Z`이며, 예열·버전·명령·서버 복구 정보는 각 디렉터리의 `execution-context.json`에 보관했습니다.
+
+### 2026-05-31 측정 환경
 
 - 머신: Apple M1 Pro, Darwin 24.5.0 (arm64)
 - Node: v24.15.0, timezone Asia/Seoul

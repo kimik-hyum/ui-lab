@@ -25,6 +25,7 @@ export type MeasurementEnvironment = {
 
 export type SsrTarget = {
   name: string;
+  versions?: Partial<Record<string, string>>;
   url: string;
   checklist: {
     statusOk: boolean;
@@ -55,6 +56,7 @@ export type LighthouseSnapshot = {
   environment: MeasurementEnvironment;
   targets: {
     name: string;
+    versions?: Partial<Record<string, string>>;
     medianPerformanceScore: number;
     medianMetrics: {
       fcpMs: number;
@@ -84,6 +86,17 @@ const targetNames: Record<string, string> = {
 
 export function getTargetDisplayName(name: string) {
   return targetNames[name] ?? name;
+}
+
+const frameworkPackages: Record<string, string> = {
+  "next-lab": "next",
+  "sveltekit-lab": "@sveltejs/kit",
+  "vue-lab": "nuxt",
+  "react-router-lab": "react-router",
+};
+
+export function getTargetVersion(name: string, versions: Partial<Record<string, string>> = {}) {
+  return versions[frameworkPackages[name]] ?? "미기록";
 }
 
 /** Modes describe the checked-in shopping-detail scenario, not timing heuristics. */
@@ -122,6 +135,7 @@ export function getSsrChart(snapshot: SsrSnapshot) {
     targets: snapshot.targets.map((target) => ({
       ...target,
       label: getTargetDisplayName(target.name),
+      version: getTargetVersion(target.name, target.versions),
       mode: getTargetMode(target.name, snapshot.path),
       width: (target.medianMetrics.contentReadyMs / limit) * 100,
     })),
@@ -129,8 +143,8 @@ export function getSsrChart(snapshot: SsrSnapshot) {
 }
 
 export const performanceSources = {
-  ssr: "https://github.com/kimik-hyum/ui-lab/blob/main/perf-results/ssr/latest.json",
-  lighthouse: "https://github.com/kimik-hyum/ui-lab/blob/main/perf-results/lighthouse/latest.json",
+  ssr: "/performance/export?kind=ssr",
+  lighthouse: "/performance/export?kind=lighthouse",
   methodology: "https://github.com/kimik-hyum/ui-lab/blob/main/docs/harness/performance-methodology.md",
   result: "https://github.com/kimik-hyum/ui-lab/blob/main/docs/harness/results/shopping-detail-ssr.md",
 };

@@ -149,3 +149,11 @@ Hydration 전후 DOM 비교는 현재 하네스 기본 성능 축에서 제외�
 - SSR response: `perf-results/ssr/`
 
 각 실행은 timestamp 디렉터리에 `summary.json`을 저장하고, `latest.json`을 갱신합니다.
+
+## 웹에서 버전별 기록 보기
+
+- `/performance`는 최신 결과를 상세 비교합니다. `/performance/history`는 상단에 프레임워크별 최신 버전을 요약하고, 하단을 **프레임워크 → 버전 탭 → SSR·Lighthouse** 순서로 나눕니다. 각 검사는 최근 측정을 먼저 보여주고 이전 실행은 펼쳐서 확인합니다. 프레임워크마다 선택한 버전은 URL에 저장됩니다.
+- `perf:ssr`, `perf:lighthouse`, `perf:check`는 대상 workspace의 **실제 설치 버전**, 코드 커밋과 미커밋 변경 여부, 측정 조건과 요약을 `perf-results/history.json`에 자동 누적합니다. 버전 범위만 있는 `package.json` 값을 설치 버전으로 사용하지 않습니다.
+- `history.json`은 Git에 보관합니다. 큰 원본 보고서는 기존 timestamp 폴더에 남기고 웹용 기록에는 요약만 담습니다. 웹에 새 기록을 반영하려면 lab-shell을 재빌드합니다.
+- 같은 실행 ID는 덮어쓰지 않으며, 부분 대상 측정·빠른 점검·병렬 점검도 원래 조건으로 기록합니다. 날짜가 가깝다는 이유로 서로 다른 SSR·Lighthouse 실행을 하나로 합치지 않습니다.
+- 2026-05-31 기록의 버전은 해당 측정 스냅샷을 저장한 `ef08c64`의 `package.json`·`yarn.lock`과 2026-10-21 업그레이드 로그를 대조해 복원했습니다. 화면에 `이력에서 복원`으로 표시하며, 측정 코드 커밋을 추정해 채우지는 않습니다.

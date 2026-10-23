@@ -39,6 +39,7 @@ export const featureComparisons = [
 ];
 export const searchablePages = [
   ...navigationGroups.flatMap((group) => group.items.map((item) => ({ ...item, description: group.title }))),
+  { label: "버전별 측정 기록", href: "/performance/history", icon: "gauge" as const, description: "성능 측정 · 프레임워크 버전별 SSR·Lighthouse 기록" },
   ...labExperiments.map((item) => ({ label: item.title, href: item.href, icon: item.icon, description: `실험실 · ${item.tag}` })),
   ...featureComparisons.map((item) => ({ label: item.title, href: item.href, icon: item.icon, description: `기능 비교 · ${item.category} · ${item.tag}` })),
   { label: "무한스크롤 훅 해설", href: "/void-ui/pagination-infinite-scroll/hook", icon: "code" as const, description: "실험실 · 무한스크롤 구현 해설" },
@@ -50,6 +51,7 @@ export function getCurrentPage(pathname: string) {
 }
 
 export function getPageSection(pathname: string) {
+  if (pathname.startsWith("/performance/")) return { label: "성능 측정", href: "/performance" };
   if (pathname.startsWith("/void-ui/")) return { label: "실험실", href: "/void-ui" };
   if (pathname.startsWith("/front-feature/") || pathname.startsWith("/ssr-lab/")) {
     return { label: "기능 비교", href: "/front-feature" };

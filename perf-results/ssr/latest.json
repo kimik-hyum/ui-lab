@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-05-31T09:59:08.775Z",
+  "generatedAt": "2026-10-23T03:38:45.799Z",
   "path": "/scenarios/shopping-detail-ssr",
-  "runs": 1,
-  "minRuns": 1,
+  "runs": 20,
+  "minRuns": 5,
   "warmup": 3,
   "expectedText": "홈으로 이동",
   "environment": {
     "node": "v24.15.0",
-    "platform": "Darwin 24.5.0",
+    "platform": "Darwin 25.5.0",
     "arch": "arm64",
     "cpu": "Apple M1 Pro",
     "timeZone": "Asia/Seoul"
@@ -22,53 +22,272 @@
         "contentReadyOk": true
       },
       "medianMetrics": {
-        "responseStartMs": 8.01,
-        "ttfbMs": 8.3,
-        "contentReadyMs": 83.2,
-        "totalMs": 83.72,
-        "htmlBytes": 11463
+        "responseStartMs": 4.17,
+        "ttfbMs": 4.37,
+        "contentReadyMs": 33.24,
+        "totalMs": 33.4,
+        "htmlBytes": 11736
       },
       "distribution": {
         "responseStartMs": {
-          "min": 8.01,
-          "median": 8.01,
-          "p95": 8.01
+          "min": 3.2,
+          "median": 4.17,
+          "p95": 6.34
         },
         "ttfbMs": {
-          "min": 8.3,
-          "median": 8.3,
-          "p95": 8.3
+          "min": 3.36,
+          "median": 4.37,
+          "p95": 6.43
         },
         "contentReadyMs": {
-          "min": 83.2,
-          "median": 83.2,
-          "p95": 83.2
+          "min": 23.01,
+          "median": 33.24,
+          "p95": 47.9
         },
         "totalMs": {
-          "min": 83.72,
-          "median": 83.72,
-          "p95": 83.72
+          "min": 23.14,
+          "median": 33.4,
+          "p95": 48.18
         },
         "htmlBytes": {
-          "min": 11463,
-          "median": 11463,
-          "p95": 11463
+          "min": 11736,
+          "median": 11736,
+          "p95": 11736
         }
       },
-      "streamingDeltaMs": 74.9,
+      "streamingDeltaMs": 28.87,
       "runs": [
         {
           "run": 1,
           "status": 200,
           "ok": true,
-          "responseStartMs": 8.01,
-          "ttfbMs": 8.3,
-          "contentReadyMs": 83.2,
-          "totalMs": 83.72,
-          "htmlBytes": 11463,
+          "responseStartMs": 5.96,
+          "ttfbMs": 6.14,
+          "contentReadyMs": 43.94,
+          "totalMs": 44.26,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 2,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 6.34,
+          "ttfbMs": 6.43,
+          "contentReadyMs": 38.74,
+          "totalMs": 38.91,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 3,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 5.09,
+          "ttfbMs": 5.24,
+          "contentReadyMs": 45.85,
+          "totalMs": 46.37,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 4,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 7.08,
+          "ttfbMs": 7.17,
+          "contentReadyMs": 39.21,
+          "totalMs": 39.35,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 5,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 5.41,
+          "ttfbMs": 5.57,
+          "contentReadyMs": 47.9,
+          "totalMs": 48.18,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 6,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 5.98,
+          "ttfbMs": 6.28,
+          "contentReadyMs": 24.54,
+          "totalMs": 24.72,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 7,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 4.67,
+          "ttfbMs": 4.83,
+          "contentReadyMs": 27.04,
+          "totalMs": 27.23,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 8,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 3.78,
+          "ttfbMs": 3.91,
+          "contentReadyMs": 48.89,
+          "totalMs": 49.03,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 9,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 3.95,
+          "ttfbMs": 4.13,
+          "contentReadyMs": 33.24,
+          "totalMs": 33.4,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 10,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 4.17,
+          "ttfbMs": 4.37,
+          "contentReadyMs": 24.01,
+          "totalMs": 24.19,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 11,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 4.17,
+          "ttfbMs": 4.35,
+          "contentReadyMs": 33.32,
+          "totalMs": 33.47,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 12,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 4.84,
+          "ttfbMs": 4.92,
+          "contentReadyMs": 23.01,
+          "totalMs": 23.14,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 13,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 4.33,
+          "ttfbMs": 4.41,
+          "contentReadyMs": 38.22,
+          "totalMs": 38.35,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 14,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 5.35,
+          "ttfbMs": 5.52,
+          "contentReadyMs": 25.36,
+          "totalMs": 25.69,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 15,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 3.64,
+          "ttfbMs": 3.77,
+          "contentReadyMs": 47.29,
+          "totalMs": 47.43,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 16,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 3.87,
+          "ttfbMs": 3.98,
+          "contentReadyMs": 23.59,
+          "totalMs": 23.78,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 17,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 3.49,
+          "ttfbMs": 3.62,
+          "contentReadyMs": 23.2,
+          "totalMs": 23.32,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 18,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 3.59,
+          "ttfbMs": 3.69,
+          "contentReadyMs": 31.74,
+          "totalMs": 32.38,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 19,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 3.81,
+          "ttfbMs": 3.92,
+          "contentReadyMs": 25.22,
+          "totalMs": 25.34,
+          "htmlBytes": 11736,
+          "containsExpectedText": true
+        },
+        {
+          "run": 20,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 3.2,
+          "ttfbMs": 3.36,
+          "contentReadyMs": 36.99,
+          "totalMs": 37.11,
+          "htmlBytes": 11736,
           "containsExpectedText": true
         }
-      ]
+      ],
+      "versions": {
+        "next": "16.4.2",
+        "react": "19.3.1",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "execution-context",
+        "reference": "측정 당시 실행 기록",
+        "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+      }
     },
     {
       "name": "sveltekit-lab",
@@ -79,37 +298,37 @@
         "contentReadyOk": true
       },
       "medianMetrics": {
-        "responseStartMs": 70.87,
-        "ttfbMs": 71.53,
-        "contentReadyMs": 71.53,
-        "totalMs": 71.6,
-        "htmlBytes": 3492
+        "responseStartMs": 35.55,
+        "ttfbMs": 35.79,
+        "contentReadyMs": 35.79,
+        "totalMs": 35.83,
+        "htmlBytes": 4355
       },
       "distribution": {
         "responseStartMs": {
-          "min": 70.87,
-          "median": 70.87,
-          "p95": 70.87
+          "min": 29.93,
+          "median": 35.55,
+          "p95": 63.73
         },
         "ttfbMs": {
-          "min": 71.53,
-          "median": 71.53,
-          "p95": 71.53
+          "min": 30.1,
+          "median": 35.79,
+          "p95": 63.94
         },
         "contentReadyMs": {
-          "min": 71.53,
-          "median": 71.53,
-          "p95": 71.53
+          "min": 30.1,
+          "median": 35.79,
+          "p95": 63.94
         },
         "totalMs": {
-          "min": 71.6,
-          "median": 71.6,
-          "p95": 71.6
+          "min": 30.15,
+          "median": 35.83,
+          "p95": 63.98
         },
         "htmlBytes": {
-          "min": 3492,
-          "median": 3492,
-          "p95": 3492
+          "min": 4355,
+          "median": 4355,
+          "p95": 4355
         }
       },
       "streamingDeltaMs": 0,
@@ -118,14 +337,234 @@
           "run": 1,
           "status": 200,
           "ok": true,
-          "responseStartMs": 70.87,
-          "ttfbMs": 71.53,
-          "contentReadyMs": 71.53,
-          "totalMs": 71.6,
-          "htmlBytes": 3492,
+          "responseStartMs": 39.93,
+          "ttfbMs": 40.1,
+          "contentReadyMs": 40.1,
+          "totalMs": 40.14,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 2,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 47.3,
+          "ttfbMs": 47.91,
+          "contentReadyMs": 47.91,
+          "totalMs": 47.96,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 3,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 34.6,
+          "ttfbMs": 34.79,
+          "contentReadyMs": 34.79,
+          "totalMs": 34.83,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 4,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 32.4,
+          "ttfbMs": 32.53,
+          "contentReadyMs": 32.53,
+          "totalMs": 32.58,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 5,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 36.52,
+          "ttfbMs": 36.68,
+          "contentReadyMs": 36.68,
+          "totalMs": 36.71,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 6,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 40.25,
+          "ttfbMs": 40.42,
+          "contentReadyMs": 40.42,
+          "totalMs": 40.46,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 7,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 33.19,
+          "ttfbMs": 33.67,
+          "contentReadyMs": 33.67,
+          "totalMs": 33.71,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 8,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 67.76,
+          "ttfbMs": 68.22,
+          "contentReadyMs": 68.22,
+          "totalMs": 68.31,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 9,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 43.19,
+          "ttfbMs": 43.44,
+          "contentReadyMs": 43.44,
+          "totalMs": 43.47,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 10,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 35.71,
+          "ttfbMs": 35.87,
+          "contentReadyMs": 35.87,
+          "totalMs": 35.91,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 11,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 32.51,
+          "ttfbMs": 32.67,
+          "contentReadyMs": 32.67,
+          "totalMs": 32.7,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 12,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 34,
+          "ttfbMs": 34.17,
+          "contentReadyMs": 34.17,
+          "totalMs": 34.2,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 13,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 38.61,
+          "ttfbMs": 39.49,
+          "contentReadyMs": 39.49,
+          "totalMs": 39.59,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 14,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 63.73,
+          "ttfbMs": 63.94,
+          "contentReadyMs": 63.94,
+          "totalMs": 63.98,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 15,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 34.41,
+          "ttfbMs": 34.72,
+          "contentReadyMs": 34.72,
+          "totalMs": 34.78,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 16,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 29.93,
+          "ttfbMs": 30.1,
+          "contentReadyMs": 30.1,
+          "totalMs": 30.15,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 17,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 32.6,
+          "ttfbMs": 32.78,
+          "contentReadyMs": 32.78,
+          "totalMs": 32.82,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 18,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 35.55,
+          "ttfbMs": 35.79,
+          "contentReadyMs": 35.79,
+          "totalMs": 35.83,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 19,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 43.45,
+          "ttfbMs": 43.61,
+          "contentReadyMs": 43.61,
+          "totalMs": 43.65,
+          "htmlBytes": 4355,
+          "containsExpectedText": true
+        },
+        {
+          "run": 20,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 33.98,
+          "ttfbMs": 34.2,
+          "contentReadyMs": 34.2,
+          "totalMs": 34.24,
+          "htmlBytes": 4355,
           "containsExpectedText": true
         }
-      ]
+      ],
+      "versions": {
+        "@sveltejs/kit": "3.1.0",
+        "svelte": "5.57.2",
+        "vite": "8.3.4",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "execution-context",
+        "reference": "측정 당시 실행 기록",
+        "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+      }
     },
     {
       "name": "vue-lab",
@@ -136,37 +575,37 @@
         "contentReadyOk": true
       },
       "medianMetrics": {
-        "responseStartMs": 61.34,
-        "ttfbMs": 61.4,
-        "contentReadyMs": 61.4,
-        "totalMs": 61.44,
-        "htmlBytes": 5769
+        "responseStartMs": 37.53,
+        "ttfbMs": 37.6,
+        "contentReadyMs": 37.6,
+        "totalMs": 37.62,
+        "htmlBytes": 6224
       },
       "distribution": {
         "responseStartMs": {
-          "min": 61.34,
-          "median": 61.34,
-          "p95": 61.34
+          "min": 25.06,
+          "median": 37.53,
+          "p95": 55.95
         },
         "ttfbMs": {
-          "min": 61.4,
-          "median": 61.4,
-          "p95": 61.4
+          "min": 25.1,
+          "median": 37.6,
+          "p95": 56
         },
         "contentReadyMs": {
-          "min": 61.4,
-          "median": 61.4,
-          "p95": 61.4
+          "min": 25.1,
+          "median": 37.6,
+          "p95": 56
         },
         "totalMs": {
-          "min": 61.44,
-          "median": 61.44,
-          "p95": 61.44
+          "min": 25.15,
+          "median": 37.62,
+          "p95": 56.03
         },
         "htmlBytes": {
-          "min": 5769,
-          "median": 5769,
-          "p95": 5769
+          "min": 6224,
+          "median": 6224,
+          "p95": 6224
         }
       },
       "streamingDeltaMs": 0,
@@ -175,14 +614,233 @@
           "run": 1,
           "status": 200,
           "ok": true,
-          "responseStartMs": 61.34,
-          "ttfbMs": 61.4,
-          "contentReadyMs": 61.4,
-          "totalMs": 61.44,
-          "htmlBytes": 5769,
+          "responseStartMs": 32.67,
+          "ttfbMs": 32.71,
+          "contentReadyMs": 32.71,
+          "totalMs": 32.73,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 2,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 33.15,
+          "ttfbMs": 33.21,
+          "contentReadyMs": 33.21,
+          "totalMs": 33.25,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 3,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 37.53,
+          "ttfbMs": 37.6,
+          "contentReadyMs": 37.6,
+          "totalMs": 37.62,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 4,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 36.7,
+          "ttfbMs": 36.75,
+          "contentReadyMs": 36.75,
+          "totalMs": 36.78,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 5,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 61.32,
+          "ttfbMs": 61.36,
+          "contentReadyMs": 61.36,
+          "totalMs": 61.4,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 6,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 43.2,
+          "ttfbMs": 43.25,
+          "contentReadyMs": 43.25,
+          "totalMs": 43.28,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 7,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 41.28,
+          "ttfbMs": 41.33,
+          "contentReadyMs": 41.33,
+          "totalMs": 41.36,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 8,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 43.7,
+          "ttfbMs": 43.75,
+          "contentReadyMs": 43.75,
+          "totalMs": 43.78,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 9,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 38.46,
+          "ttfbMs": 38.5,
+          "contentReadyMs": 38.5,
+          "totalMs": 38.54,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 10,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 40.58,
+          "ttfbMs": 40.62,
+          "contentReadyMs": 40.62,
+          "totalMs": 40.66,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 11,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 25.06,
+          "ttfbMs": 25.1,
+          "contentReadyMs": 25.1,
+          "totalMs": 25.15,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 12,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 43.18,
+          "ttfbMs": 43.22,
+          "contentReadyMs": 43.22,
+          "totalMs": 43.26,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 13,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 36.8,
+          "ttfbMs": 36.85,
+          "contentReadyMs": 36.85,
+          "totalMs": 36.89,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 14,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 55.95,
+          "ttfbMs": 56,
+          "contentReadyMs": 56,
+          "totalMs": 56.03,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 15,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 28.68,
+          "ttfbMs": 28.72,
+          "contentReadyMs": 28.72,
+          "totalMs": 28.75,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 16,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 40.26,
+          "ttfbMs": 40.31,
+          "contentReadyMs": 40.31,
+          "totalMs": 40.34,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 17,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 26.84,
+          "ttfbMs": 26.88,
+          "contentReadyMs": 26.88,
+          "totalMs": 26.91,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 18,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 31.88,
+          "ttfbMs": 31.92,
+          "contentReadyMs": 31.92,
+          "totalMs": 31.95,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 19,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 40.03,
+          "ttfbMs": 40.08,
+          "contentReadyMs": 40.08,
+          "totalMs": 40.11,
+          "htmlBytes": 6224,
+          "containsExpectedText": true
+        },
+        {
+          "run": 20,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 29.97,
+          "ttfbMs": 30.02,
+          "contentReadyMs": 30.02,
+          "totalMs": 30.05,
+          "htmlBytes": 6224,
           "containsExpectedText": true
         }
-      ]
+      ],
+      "versions": {
+        "nuxt": "4.6.2",
+        "vue": "3.5.44",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "execution-context",
+        "reference": "측정 당시 실행 기록",
+        "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+      }
     },
     {
       "name": "react-router-lab",
@@ -193,37 +851,37 @@
         "contentReadyOk": true
       },
       "medianMetrics": {
-        "responseStartMs": 41.52,
-        "ttfbMs": 41.78,
-        "contentReadyMs": 41.78,
-        "totalMs": 42.18,
-        "htmlBytes": 5975
+        "responseStartMs": 37.12,
+        "ttfbMs": 37.39,
+        "contentReadyMs": 37.39,
+        "totalMs": 37.57,
+        "htmlBytes": 5951
       },
       "distribution": {
         "responseStartMs": {
-          "min": 41.52,
-          "median": 41.52,
-          "p95": 41.52
+          "min": 23.55,
+          "median": 37.12,
+          "p95": 45.94
         },
         "ttfbMs": {
-          "min": 41.78,
-          "median": 41.78,
-          "p95": 41.78
+          "min": 23.66,
+          "median": 37.39,
+          "p95": 46.05
         },
         "contentReadyMs": {
-          "min": 41.78,
-          "median": 41.78,
-          "p95": 41.78
+          "min": 23.66,
+          "median": 37.39,
+          "p95": 46.05
         },
         "totalMs": {
-          "min": 42.18,
-          "median": 42.18,
-          "p95": 42.18
+          "min": 23.9,
+          "median": 37.57,
+          "p95": 46.19
         },
         "htmlBytes": {
-          "min": 5975,
-          "median": 5975,
-          "p95": 5975
+          "min": 5951,
+          "median": 5951,
+          "p95": 5951
         }
       },
       "streamingDeltaMs": 0,
@@ -232,14 +890,238 @@
           "run": 1,
           "status": 200,
           "ok": true,
-          "responseStartMs": 41.52,
-          "ttfbMs": 41.78,
-          "contentReadyMs": 41.78,
-          "totalMs": 42.18,
-          "htmlBytes": 5975,
+          "responseStartMs": 44.42,
+          "ttfbMs": 44.7,
+          "contentReadyMs": 44.7,
+          "totalMs": 44.97,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 2,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 37.3,
+          "ttfbMs": 37.52,
+          "contentReadyMs": 37.52,
+          "totalMs": 37.99,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 3,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 44.34,
+          "ttfbMs": 44.46,
+          "contentReadyMs": 44.46,
+          "totalMs": 44.61,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 4,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 32.15,
+          "ttfbMs": 32.4,
+          "contentReadyMs": 32.4,
+          "totalMs": 32.59,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 5,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 37.61,
+          "ttfbMs": 37.8,
+          "contentReadyMs": 37.8,
+          "totalMs": 38.03,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 6,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 40.37,
+          "ttfbMs": 40.86,
+          "contentReadyMs": 40.86,
+          "totalMs": 40.99,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 7,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 48.61,
+          "ttfbMs": 48.78,
+          "contentReadyMs": 48.78,
+          "totalMs": 48.9,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 8,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 34.15,
+          "ttfbMs": 34.43,
+          "contentReadyMs": 34.43,
+          "totalMs": 34.58,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 9,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 38.1,
+          "ttfbMs": 38.52,
+          "contentReadyMs": 38.52,
+          "totalMs": 38.7,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 10,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 36.46,
+          "ttfbMs": 36.57,
+          "contentReadyMs": 36.57,
+          "totalMs": 37.1,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 11,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 28.05,
+          "ttfbMs": 28.51,
+          "contentReadyMs": 28.51,
+          "totalMs": 28.65,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 12,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 37.3,
+          "ttfbMs": 37.54,
+          "contentReadyMs": 37.54,
+          "totalMs": 37.76,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 13,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 24.53,
+          "ttfbMs": 24.66,
+          "contentReadyMs": 24.66,
+          "totalMs": 24.81,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 14,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 29.22,
+          "ttfbMs": 29.31,
+          "contentReadyMs": 29.31,
+          "totalMs": 29.49,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 15,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 37.12,
+          "ttfbMs": 37.39,
+          "contentReadyMs": 37.39,
+          "totalMs": 37.57,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 16,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 40.8,
+          "ttfbMs": 41.01,
+          "contentReadyMs": 41.01,
+          "totalMs": 41.5,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 17,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 45.94,
+          "ttfbMs": 46.05,
+          "contentReadyMs": 46.05,
+          "totalMs": 46.19,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 18,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 31.12,
+          "ttfbMs": 31.51,
+          "contentReadyMs": 31.51,
+          "totalMs": 31.8,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 19,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 23.55,
+          "ttfbMs": 23.66,
+          "contentReadyMs": 23.66,
+          "totalMs": 23.9,
+          "htmlBytes": 5951,
+          "containsExpectedText": true
+        },
+        {
+          "run": 20,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 32.05,
+          "ttfbMs": 32.2,
+          "contentReadyMs": 32.2,
+          "totalMs": 32.42,
+          "htmlBytes": 5951,
           "containsExpectedText": true
         }
-      ]
+      ],
+      "versions": {
+        "react": "19.3.1",
+        "react-router": "7.18.4",
+        "vite": "8.3.4",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "execution-context",
+        "reference": "측정 당시 실행 기록",
+        "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+      }
     }
-  ]
+  ],
+  "source": {
+    "commit": "127ceda55289e323f478acc6608b4e4e026f2bea",
+    "dirty": false
+  }
 }

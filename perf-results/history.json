@@ -1,0 +1,1150 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "lighthouse-2026-10-23T03-39-26-376Z",
+      "kind": "lighthouse",
+      "generatedAt": "2026-10-23T03:39:26.376Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 5,
+      "warmup": null,
+      "preset": "desktop",
+      "expectedText": null,
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 25.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": {
+        "commit": "127ceda55289e323f478acc6608b4e4e026f2bea",
+        "dirty": false
+      },
+      "targets": [
+        {
+          "name": "next-lab",
+          "versions": {
+            "next": "16.4.2",
+            "react": "19.3.1",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "execution-context",
+            "reference": "측정 당시 실행 기록",
+            "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+          },
+          "medianMetrics": {
+            "fcpMs": 209.05,
+            "lcpMs": 1403.2,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 351.22,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 96,
+          "medianRun": 3
+        },
+        {
+          "name": "sveltekit-lab",
+          "versions": {
+            "@sveltejs/kit": "3.1.0",
+            "svelte": "5.57.2",
+            "vite": "8.3.4",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "execution-context",
+            "reference": "측정 당시 실행 기록",
+            "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+          },
+          "medianMetrics": {
+            "fcpMs": 337.49,
+            "lcpMs": 1192.02,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 423.81,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 98,
+          "medianRun": 3
+        },
+        {
+          "name": "vue-lab",
+          "versions": {
+            "nuxt": "4.6.2",
+            "vue": "3.5.44",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "execution-context",
+            "reference": "측정 당시 실행 기록",
+            "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+          },
+          "medianMetrics": {
+            "fcpMs": 488.28,
+            "lcpMs": 1158,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 488.28,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 98,
+          "medianRun": 2
+        },
+        {
+          "name": "react-router-lab",
+          "versions": {
+            "react": "19.3.1",
+            "react-router": "7.18.4",
+            "vite": "8.3.4",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "execution-context",
+            "reference": "측정 당시 실행 기록",
+            "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+          },
+          "medianMetrics": {
+            "fcpMs": 369.69,
+            "lcpMs": 1171.45,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 473.48,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 98,
+          "medianRun": 2
+        }
+      ]
+    },
+    {
+      "id": "ssr-2026-10-23T03-38-45-799Z",
+      "kind": "ssr",
+      "generatedAt": "2026-10-23T03:38:45.799Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 20,
+      "warmup": 3,
+      "preset": null,
+      "expectedText": "홈으로 이동",
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 25.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": {
+        "commit": "127ceda55289e323f478acc6608b4e4e026f2bea",
+        "dirty": false
+      },
+      "targets": [
+        {
+          "name": "next-lab",
+          "versions": {
+            "next": "16.4.2",
+            "react": "19.3.1",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "execution-context",
+            "reference": "측정 당시 실행 기록",
+            "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+          },
+          "medianMetrics": {
+            "responseStartMs": 4.17,
+            "ttfbMs": 4.37,
+            "contentReadyMs": 33.24,
+            "totalMs": 33.4,
+            "htmlBytes": 11736
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 3.2,
+              "median": 4.17,
+              "p95": 6.34
+            },
+            "ttfbMs": {
+              "min": 3.36,
+              "median": 4.37,
+              "p95": 6.43
+            },
+            "contentReadyMs": {
+              "min": 23.01,
+              "median": 33.24,
+              "p95": 47.9
+            },
+            "totalMs": {
+              "min": 23.14,
+              "median": 33.4,
+              "p95": 48.18
+            },
+            "htmlBytes": {
+              "min": 11736,
+              "median": 11736,
+              "p95": 11736
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "sveltekit-lab",
+          "versions": {
+            "@sveltejs/kit": "3.1.0",
+            "svelte": "5.57.2",
+            "vite": "8.3.4",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "execution-context",
+            "reference": "측정 당시 실행 기록",
+            "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+          },
+          "medianMetrics": {
+            "responseStartMs": 35.55,
+            "ttfbMs": 35.79,
+            "contentReadyMs": 35.79,
+            "totalMs": 35.83,
+            "htmlBytes": 4355
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 29.93,
+              "median": 35.55,
+              "p95": 63.73
+            },
+            "ttfbMs": {
+              "min": 30.1,
+              "median": 35.79,
+              "p95": 63.94
+            },
+            "contentReadyMs": {
+              "min": 30.1,
+              "median": 35.79,
+              "p95": 63.94
+            },
+            "totalMs": {
+              "min": 30.15,
+              "median": 35.83,
+              "p95": 63.98
+            },
+            "htmlBytes": {
+              "min": 4355,
+              "median": 4355,
+              "p95": 4355
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "vue-lab",
+          "versions": {
+            "nuxt": "4.6.2",
+            "vue": "3.5.44",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "execution-context",
+            "reference": "측정 당시 실행 기록",
+            "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+          },
+          "medianMetrics": {
+            "responseStartMs": 37.53,
+            "ttfbMs": 37.6,
+            "contentReadyMs": 37.6,
+            "totalMs": 37.62,
+            "htmlBytes": 6224
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 25.06,
+              "median": 37.53,
+              "p95": 55.95
+            },
+            "ttfbMs": {
+              "min": 25.1,
+              "median": 37.6,
+              "p95": 56
+            },
+            "contentReadyMs": {
+              "min": 25.1,
+              "median": 37.6,
+              "p95": 56
+            },
+            "totalMs": {
+              "min": 25.15,
+              "median": 37.62,
+              "p95": 56.03
+            },
+            "htmlBytes": {
+              "min": 6224,
+              "median": 6224,
+              "p95": 6224
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "react-router-lab",
+          "versions": {
+            "react": "19.3.1",
+            "react-router": "7.18.4",
+            "vite": "8.3.4",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "execution-context",
+            "reference": "측정 당시 실행 기록",
+            "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+          },
+          "medianMetrics": {
+            "responseStartMs": 37.12,
+            "ttfbMs": 37.39,
+            "contentReadyMs": 37.39,
+            "totalMs": 37.57,
+            "htmlBytes": 5951
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 23.55,
+              "median": 37.12,
+              "p95": 45.94
+            },
+            "ttfbMs": {
+              "min": 23.66,
+              "median": 37.39,
+              "p95": 46.05
+            },
+            "contentReadyMs": {
+              "min": 23.66,
+              "median": 37.39,
+              "p95": 46.05
+            },
+            "totalMs": {
+              "min": 23.9,
+              "median": 37.57,
+              "p95": 46.19
+            },
+            "htmlBytes": {
+              "min": 5951,
+              "median": 5951,
+              "p95": 5951
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        }
+      ]
+    },
+    {
+      "id": "ssr-2026-05-31T09-59-08-775Z",
+      "kind": "ssr",
+      "generatedAt": "2026-05-31T09:59:08.775Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 1,
+      "warmup": 3,
+      "preset": null,
+      "expectedText": "홈으로 이동",
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 24.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": null,
+      "targets": [
+        {
+          "name": "next-lab",
+          "versions": {
+            "next": "16.1.1",
+            "react": "19.2.3",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "responseStartMs": 8.01,
+            "ttfbMs": 8.3,
+            "contentReadyMs": 83.2,
+            "totalMs": 83.72,
+            "htmlBytes": 11463
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 8.01,
+              "median": 8.01,
+              "p95": 8.01
+            },
+            "ttfbMs": {
+              "min": 8.3,
+              "median": 8.3,
+              "p95": 8.3
+            },
+            "contentReadyMs": {
+              "min": 83.2,
+              "median": 83.2,
+              "p95": 83.2
+            },
+            "totalMs": {
+              "min": 83.72,
+              "median": 83.72,
+              "p95": 83.72
+            },
+            "htmlBytes": {
+              "min": 11463,
+              "median": 11463,
+              "p95": 11463
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "sveltekit-lab",
+          "versions": {
+            "@sveltejs/kit": "2.57.1",
+            "svelte": "5.55.3",
+            "vite": "5.4.21",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "responseStartMs": 70.87,
+            "ttfbMs": 71.53,
+            "contentReadyMs": 71.53,
+            "totalMs": 71.6,
+            "htmlBytes": 3492
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 70.87,
+              "median": 70.87,
+              "p95": 70.87
+            },
+            "ttfbMs": {
+              "min": 71.53,
+              "median": 71.53,
+              "p95": 71.53
+            },
+            "contentReadyMs": {
+              "min": 71.53,
+              "median": 71.53,
+              "p95": 71.53
+            },
+            "totalMs": {
+              "min": 71.6,
+              "median": 71.6,
+              "p95": 71.6
+            },
+            "htmlBytes": {
+              "min": 3492,
+              "median": 3492,
+              "p95": 3492
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "vue-lab",
+          "versions": {
+            "nuxt": "4.4.5",
+            "vue": "3.5.34",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "responseStartMs": 61.34,
+            "ttfbMs": 61.4,
+            "contentReadyMs": 61.4,
+            "totalMs": 61.44,
+            "htmlBytes": 5769
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 61.34,
+              "median": 61.34,
+              "p95": 61.34
+            },
+            "ttfbMs": {
+              "min": 61.4,
+              "median": 61.4,
+              "p95": 61.4
+            },
+            "contentReadyMs": {
+              "min": 61.4,
+              "median": 61.4,
+              "p95": 61.4
+            },
+            "totalMs": {
+              "min": 61.44,
+              "median": 61.44,
+              "p95": 61.44
+            },
+            "htmlBytes": {
+              "min": 5769,
+              "median": 5769,
+              "p95": 5769
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "react-router-lab",
+          "versions": {
+            "react": "19.2.3",
+            "react-router": "7.15.0",
+            "vite": "7.3.3",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "responseStartMs": 41.52,
+            "ttfbMs": 41.78,
+            "contentReadyMs": 41.78,
+            "totalMs": 42.18,
+            "htmlBytes": 5975
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 41.52,
+              "median": 41.52,
+              "p95": 41.52
+            },
+            "ttfbMs": {
+              "min": 41.78,
+              "median": 41.78,
+              "p95": 41.78
+            },
+            "contentReadyMs": {
+              "min": 41.78,
+              "median": 41.78,
+              "p95": 41.78
+            },
+            "totalMs": {
+              "min": 42.18,
+              "median": 42.18,
+              "p95": 42.18
+            },
+            "htmlBytes": {
+              "min": 5975,
+              "median": 5975,
+              "p95": 5975
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        }
+      ]
+    },
+    {
+      "id": "lighthouse-2026-05-31T09-30-06-749Z",
+      "kind": "lighthouse",
+      "generatedAt": "2026-05-31T09:30:06.749Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 1,
+      "warmup": null,
+      "preset": "desktop",
+      "expectedText": null,
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 24.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": null,
+      "targets": [
+        {
+          "name": "next-lab",
+          "versions": {
+            "next": "16.1.1",
+            "react": "19.2.3",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "fcpMs": 213.66,
+            "lcpMs": 1591.5,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 630.18,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 94,
+          "medianRun": 1
+        }
+      ]
+    },
+    {
+      "id": "lighthouse-2026-05-31T09-24-19-708Z",
+      "kind": "lighthouse",
+      "generatedAt": "2026-05-31T09:24:19.708Z",
+      "mode": "parallel",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 5,
+      "warmup": null,
+      "preset": "desktop",
+      "expectedText": null,
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 24.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": null,
+      "targets": [
+        {
+          "name": "next-lab",
+          "versions": {
+            "next": "16.1.1",
+            "react": "19.2.3",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "fcpMs": 218.9,
+            "lcpMs": 1466.79,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 763.14,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 95,
+          "medianRun": 1
+        },
+        {
+          "name": "sveltekit-lab",
+          "versions": {
+            "@sveltejs/kit": "2.57.1",
+            "svelte": "5.55.3",
+            "vite": "5.4.21",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "fcpMs": 338.03,
+            "lcpMs": 1451.34,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 853.27,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 95,
+          "medianRun": 4
+        },
+        {
+          "name": "vue-lab",
+          "versions": {
+            "nuxt": "4.4.5",
+            "vue": "3.5.34",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "fcpMs": 505.16,
+            "lcpMs": 1404.99,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 519.27,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 96,
+          "medianRun": 4
+        },
+        {
+          "name": "react-router-lab",
+          "versions": {
+            "react": "19.2.3",
+            "react-router": "7.15.0",
+            "vite": "7.3.3",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "fcpMs": 369.73,
+            "lcpMs": 1381.55,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 666.08,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 96,
+          "medianRun": 1
+        }
+      ]
+    },
+    {
+      "id": "ssr-2026-05-31T09-24-19-708Z",
+      "kind": "ssr",
+      "generatedAt": "2026-05-31T09:24:19.708Z",
+      "mode": "parallel",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 5,
+      "warmup": 3,
+      "preset": null,
+      "expectedText": "홈으로 이동",
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 24.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": null,
+      "targets": [
+        {
+          "name": "next-lab",
+          "versions": {
+            "next": "16.1.1",
+            "react": "19.2.3",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "responseStartMs": 5.07,
+            "ttfbMs": 5.25,
+            "contentReadyMs": 53.56,
+            "totalMs": 54.1,
+            "htmlBytes": 11463
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 4.25,
+              "median": 5.07,
+              "p95": 7.51
+            },
+            "ttfbMs": {
+              "min": 4.37,
+              "median": 5.25,
+              "p95": 7.91
+            },
+            "contentReadyMs": {
+              "min": 44.64,
+              "median": 53.56,
+              "p95": 73.86
+            },
+            "totalMs": {
+              "min": 44.98,
+              "median": 54.1,
+              "p95": 74.29
+            },
+            "htmlBytes": {
+              "min": 11463,
+              "median": 11463,
+              "p95": 11463
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "sveltekit-lab",
+          "versions": {
+            "@sveltejs/kit": "2.57.1",
+            "svelte": "5.55.3",
+            "vite": "5.4.21",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "responseStartMs": 71.74,
+            "ttfbMs": 71.95,
+            "contentReadyMs": 71.95,
+            "totalMs": 71.99,
+            "htmlBytes": 3492
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 62.79,
+              "median": 71.74,
+              "p95": 159.28
+            },
+            "ttfbMs": {
+              "min": 62.99,
+              "median": 71.95,
+              "p95": 159.52
+            },
+            "contentReadyMs": {
+              "min": 62.99,
+              "median": 71.95,
+              "p95": 159.52
+            },
+            "totalMs": {
+              "min": 63.02,
+              "median": 71.99,
+              "p95": 159.56
+            },
+            "htmlBytes": {
+              "min": 3492,
+              "median": 3492,
+              "p95": 3492
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "vue-lab",
+          "versions": {
+            "nuxt": "4.4.5",
+            "vue": "3.5.34",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "responseStartMs": 66.99,
+            "ttfbMs": 67.04,
+            "contentReadyMs": 67.04,
+            "totalMs": 67.07,
+            "htmlBytes": 5845
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 32.4,
+              "median": 66.99,
+              "p95": 157.43
+            },
+            "ttfbMs": {
+              "min": 32.44,
+              "median": 67.04,
+              "p95": 157.47
+            },
+            "contentReadyMs": {
+              "min": 32.44,
+              "median": 67.04,
+              "p95": 157.47
+            },
+            "totalMs": {
+              "min": 32.47,
+              "median": 67.07,
+              "p95": 157.5
+            },
+            "htmlBytes": {
+              "min": 5845,
+              "median": 5845,
+              "p95": 5845
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "react-router-lab",
+          "versions": {
+            "react": "19.2.3",
+            "react-router": "7.15.0",
+            "vite": "7.3.3",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "responseStartMs": 87.78,
+            "ttfbMs": 87.91,
+            "contentReadyMs": 87.91,
+            "totalMs": 88.59,
+            "htmlBytes": 5975
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 46.68,
+              "median": 87.78,
+              "p95": 128.42
+            },
+            "ttfbMs": {
+              "min": 46.83,
+              "median": 87.91,
+              "p95": 128.59
+            },
+            "contentReadyMs": {
+              "min": 46.83,
+              "median": 87.91,
+              "p95": 128.59
+            },
+            "totalMs": {
+              "min": 47.23,
+              "median": 88.59,
+              "p95": 128.91
+            },
+            "htmlBytes": {
+              "min": 5975,
+              "median": 5975,
+              "p95": 5975
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        }
+      ]
+    },
+    {
+      "id": "ssr-2026-05-31T09-11-18-248Z",
+      "kind": "ssr",
+      "generatedAt": "2026-05-31T09:11:18.248Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 20,
+      "warmup": 3,
+      "preset": null,
+      "expectedText": "홈으로 이동",
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 24.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": null,
+      "targets": [
+        {
+          "name": "vue-lab",
+          "versions": {
+            "nuxt": "4.4.5",
+            "vue": "3.5.34",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "responseStartMs": 68.61,
+            "ttfbMs": 68.78,
+            "contentReadyMs": 68.78,
+            "totalMs": 68.98,
+            "htmlBytes": 5845
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 35.64,
+              "median": 68.61,
+              "p95": 136.05
+            },
+            "ttfbMs": {
+              "min": 35.76,
+              "median": 68.78,
+              "p95": 136.14
+            },
+            "contentReadyMs": {
+              "min": 35.76,
+              "median": 68.78,
+              "p95": 136.14
+            },
+            "totalMs": {
+              "min": 35.85,
+              "median": 68.98,
+              "p95": 136.24
+            },
+            "htmlBytes": {
+              "min": 5845,
+              "median": 5845,
+              "p95": 5845
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "react-router-lab",
+          "versions": {
+            "react": "19.2.3",
+            "react-router": "7.15.0",
+            "vite": "7.3.3",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "reconstructed",
+            "reference": "측정 기록 커밋의 package.json·yarn.lock 및 버전업 로그 대조",
+            "commit": "ef08c640f505127837fec3edd5191a38ab3f2fce"
+          },
+          "medianMetrics": {
+            "responseStartMs": 67.48,
+            "ttfbMs": 68,
+            "contentReadyMs": 68,
+            "totalMs": 68.72,
+            "htmlBytes": 5975
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 30.95,
+              "median": 67.48,
+              "p95": 141.97
+            },
+            "ttfbMs": {
+              "min": 31.13,
+              "median": 68,
+              "p95": 142.29
+            },
+            "contentReadyMs": {
+              "min": 31.13,
+              "median": 68,
+              "p95": 142.29
+            },
+            "totalMs": {
+              "min": 31.53,
+              "median": 68.72,
+              "p95": 142.59
+            },
+            "htmlBytes": {
+              "min": 5975,
+              "median": 5975,
+              "p95": 5975
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        }
+      ]
+    }
+  ]
+}

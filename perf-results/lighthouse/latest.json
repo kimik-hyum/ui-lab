@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-05-31T09:30:06.749Z",
+  "generatedAt": "2026-10-23T03:39:26.376Z",
   "path": "/scenarios/shopping-detail-ssr",
-  "runs": 1,
-  "minRuns": 1,
+  "runs": 5,
+  "minRuns": 5,
   "preset": "desktop",
   "chromeFlags": "--headless=new --no-sandbox",
   "environment": {
     "node": "v24.15.0",
-    "platform": "Darwin 24.5.0",
+    "platform": "Darwin 25.5.0",
     "arch": "arm64",
     "cpu": "Apple M1 Pro",
     "timeZone": "Asia/Seoul"
@@ -16,30 +16,352 @@
     {
       "name": "next-lab",
       "url": "http://127.0.0.1:3001/scenarios/shopping-detail-ssr",
-      "medianRun": 1,
-      "medianPerformanceScore": 94,
+      "medianRun": 3,
+      "medianPerformanceScore": 96,
       "medianMetrics": {
-        "fcpMs": 213.66,
-        "lcpMs": 1591.5,
+        "fcpMs": 209.05,
+        "lcpMs": 1403.2,
         "tbtMs": 0,
         "cls": 0,
-        "speedIndexMs": 630.18,
+        "speedIndexMs": 351.22,
         "inpMs": null
       },
       "runs": [
         {
           "run": 1,
-          "performanceScore": 94,
+          "performanceScore": 86,
           "metrics": {
-            "fcpMs": 213.66,
-            "lcpMs": 1591.5,
+            "fcpMs": 216.61,
+            "lcpMs": 2502.15,
             "tbtMs": 0,
             "cls": 0,
-            "speedIndexMs": 630.18,
+            "speedIndexMs": 786.79,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 2,
+          "performanceScore": 96,
+          "metrics": {
+            "fcpMs": 211.09,
+            "lcpMs": 1412.81,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 310.64,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 3,
+          "performanceScore": 96,
+          "metrics": {
+            "fcpMs": 209.05,
+            "lcpMs": 1403.2,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 351.22,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 4,
+          "performanceScore": 96,
+          "metrics": {
+            "fcpMs": 209.16,
+            "lcpMs": 1392.8,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 273.85,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 5,
+          "performanceScore": 96,
+          "metrics": {
+            "fcpMs": 219.41,
+            "lcpMs": 1409.64,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 286.06,
             "inpMs": null
           }
         }
-      ]
+      ],
+      "versions": {
+        "next": "16.4.2",
+        "react": "19.3.1",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "execution-context",
+        "reference": "측정 당시 실행 기록",
+        "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+      }
+    },
+    {
+      "name": "sveltekit-lab",
+      "url": "http://127.0.0.1:3002/scenarios/shopping-detail-ssr",
+      "medianRun": 3,
+      "medianPerformanceScore": 98,
+      "medianMetrics": {
+        "fcpMs": 337.49,
+        "lcpMs": 1192.02,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 423.81,
+        "inpMs": null
+      },
+      "runs": [
+        {
+          "run": 1,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 336.22,
+            "lcpMs": 1155.93,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 391.54,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 2,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 336.65,
+            "lcpMs": 1104.79,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 419.03,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 3,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 337.49,
+            "lcpMs": 1192.02,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 423.81,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 4,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 333.76,
+            "lcpMs": 1137.53,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 396.3,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 5,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 347.57,
+            "lcpMs": 1168.27,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 425.34,
+            "inpMs": null
+          }
+        }
+      ],
+      "versions": {
+        "@sveltejs/kit": "3.1.0",
+        "svelte": "5.57.2",
+        "vite": "8.3.4",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "execution-context",
+        "reference": "측정 당시 실행 기록",
+        "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+      }
+    },
+    {
+      "name": "vue-lab",
+      "url": "http://127.0.0.1:3004/scenarios/shopping-detail-ssr",
+      "medianRun": 2,
+      "medianPerformanceScore": 98,
+      "medianMetrics": {
+        "fcpMs": 488.28,
+        "lcpMs": 1158,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 488.28,
+        "inpMs": null
+      },
+      "runs": [
+        {
+          "run": 1,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 530.86,
+            "lcpMs": 1116.51,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 530.86,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 2,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 488.28,
+            "lcpMs": 1158,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 488.28,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 3,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 489.33,
+            "lcpMs": 1152.81,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 489.33,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 4,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 510.09,
+            "lcpMs": 1129.59,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 511.07,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 5,
+          "performanceScore": 97,
+          "metrics": {
+            "fcpMs": 542.16,
+            "lcpMs": 1250.42,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 542.16,
+            "inpMs": null
+          }
+        }
+      ],
+      "versions": {
+        "nuxt": "4.6.2",
+        "vue": "3.5.44",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "execution-context",
+        "reference": "측정 당시 실행 기록",
+        "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+      }
+    },
+    {
+      "name": "react-router-lab",
+      "url": "http://127.0.0.1:3005/scenarios/shopping-detail-ssr",
+      "medianRun": 2,
+      "medianPerformanceScore": 98,
+      "medianMetrics": {
+        "fcpMs": 369.69,
+        "lcpMs": 1171.45,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 473.48,
+        "inpMs": null
+      },
+      "runs": [
+        {
+          "run": 1,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 372.27,
+            "lcpMs": 1139.6,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 372.27,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 2,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 369.69,
+            "lcpMs": 1171.45,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 473.48,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 3,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 374.6,
+            "lcpMs": 1147.08,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 374.6,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 4,
+          "performanceScore": 97,
+          "metrics": {
+            "fcpMs": 382.46,
+            "lcpMs": 1223.36,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 385.31,
+            "inpMs": null
+          }
+        },
+        {
+          "run": 5,
+          "performanceScore": 98,
+          "metrics": {
+            "fcpMs": 381.36,
+            "lcpMs": 1191.58,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 389.55,
+            "inpMs": null
+          }
+        }
+      ],
+      "versions": {
+        "react": "19.3.1",
+        "react-router": "7.18.4",
+        "vite": "8.3.4",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "execution-context",
+        "reference": "측정 당시 실행 기록",
+        "commit": "127ceda55289e323f478acc6608b4e4e026f2bea"
+      }
     }
-  ]
+  ],
+  "source": {
+    "commit": "127ceda55289e323f478acc6608b4e4e026f2bea",
+    "dirty": false
+  }
 }
