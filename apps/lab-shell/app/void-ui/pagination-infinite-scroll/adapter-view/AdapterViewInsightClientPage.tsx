@@ -25,7 +25,7 @@ const TOPIC_DEFINITIONS: TopicDefinition[] = [
   },
   {
     id: 'adapter-factory',
-    title: 'Virtuoso 어댑터 팩토리',
+    title: 'Virtuoso (가상화) 어댑터 팩토리',
     description:
       'react-virtuoso의 rangeChanged, scrollToIndex를 공통 인터페이스로 감싸는 예시입니다. 훅 내부를 수정하지 않고도 virtualization 이벤트를 어댑터에서 흡수할 수 있는 구조를 보여줍니다.',
     anchors: ['adapter-factory'],
@@ -105,7 +105,7 @@ export function AdapterViewInsightClientPage({ code }: { code: string }) {
             href="/void-ui/pagination-infinite-scroll/adapter-live"
             className="rounded-full border border-cyan-700 px-3 py-1.5 text-xs text-cyan-200 hover:border-cyan-500 hover:text-white"
           >
-            Virtuoso 실행 보기
+            Virtuoso (가상화) 실행 보기
           </Link>
           <Link
             href="/void-ui/pagination-infinite-scroll"

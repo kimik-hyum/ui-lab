@@ -15,15 +15,15 @@ export function PreviousContentControl({ canLoadPrevious, autoEnabled, isLoading
             type="button"
             onClick={() => { void onLoad(); }}
             disabled={isLoading || hasError}
-            className="min-h-11 rounded-full border border-zinc-600 bg-zinc-900 px-5 py-2 text-sm text-zinc-200 enabled:hover:border-cyan-400 enabled:hover:text-cyan-200 disabled:cursor-not-allowed disabled:opacity-40"
+            className="min-h-11 rounded-lg border border-border-strong bg-card px-5 py-2 text-sm text-foreground enabled:hover:border-primary enabled:hover:text-primary disabled:cursor-not-allowed disabled:opacity-40"
           >
             {isLoading ? "불러오는 중…" : autoEnabled ? "이전 콘텐츠 더 보기" : "이전 콘텐츠 보기"}
           </button>
-          <p role="status" className="text-xs text-zinc-400">
+          <p role="status" className="text-xs text-muted-foreground">
             {autoEnabled ? "위로 스크롤하면 이전 콘텐츠를 이어서 불러옵니다." : "한 번 누르면 위쪽 스크롤로도 불러올 수 있습니다."}
           </p>
         </>
-      ) : <p role="status" className="text-xs text-zinc-500">첫 페이지까지 불러왔습니다.</p>}
+      ) : <p role="status" className="text-xs text-muted-foreground">첫 페이지까지 불러왔습니다.</p>}
     </div>
   );
 }

@@ -43,7 +43,7 @@ export function PageNumberInput({ currentPage, totalPages, isLoading, onNavigate
         if (event.key === "Enter") event.currentTarget.blur();
       }}
       disabled={isLoading}
-      className="w-14 rounded border border-zinc-700 bg-zinc-900 px-2 py-1 text-right font-semibold text-white focus:border-cyan-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
+      className="w-14 rounded border border-border bg-card px-2 py-1 text-right font-semibold text-foreground focus:border-primary focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
       aria-label="현재 페이지 입력"
     />
   );

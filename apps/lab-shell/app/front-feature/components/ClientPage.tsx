@@ -73,8 +73,8 @@ const TOPIC_DEFINITIONS: TopicDefinition[] = [
                     ‘다음 요청 실패’를 켜고 ‘3개 연속 추가’로 확인할 수 있습니다.
                 </p>
                 <p>
-                    양쪽 모두 부모에 요청 목록과 처리한 ID를 보관합니다. 코드 화면에서 추가한 요청은 UI로 돌아오면
-                    ID순으로 한 번씩 시작하고, 이미 진행 중인 요청의 성공 결과도 보존합니다. 이 요청 관리는 useOptimistic이 대신하지 않습니다.
+                    양쪽 모두 부모에 요청 목록과 처리한 ID를 보관하여 각 요청을 한 번씩 실행하고,
+                    화면을 전환해도 진행 중인 요청의 성공 결과를 보존합니다. 이 요청 관리는 useOptimistic이 대신하지 않습니다.
                 </p>
             </div>
         ),
@@ -204,7 +204,7 @@ export function ClientPage({ traditionalCode, optimisticCode }: { traditionalCod
         footer={
           <div className="space-y-4 p-6 text-sm leading-relaxed text-slate-500">
             <p>‘다음 요청 실패’를 켜고 ‘3개 연속 추가’를 눌러 첫 항목의 롤백과 나머지 두 항목의 확정을 확인하세요.</p>
-            <p>코드 화면에서 추가한 요청은 UI로 돌아오면 시작합니다. 이미 시작한 요청의 성공 결과는 화면을 오가도 유지됩니다.</p>
+            <p>이미 시작한 요청의 성공 결과는 실행·코드 화면을 오가도 유지됩니다.</p>
             <ComparisonTopicNotes topics={comparisonTopics} />
           </div>
         }

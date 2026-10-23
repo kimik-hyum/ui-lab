@@ -67,6 +67,10 @@ export function FrameworkDashboardClientPage({ sources, snapshotCss, initialCond
       <label className="flex flex-col gap-1 text-xs text-slate-500">코드에서 볼 범위<select aria-label="코드에서 볼 범위" value={scope} onChange={(event) => setScope(event.target.value as SourceScopeId)} className="rounded border border-slate-300 bg-white px-2 py-2 text-sm text-slate-700">{Object.entries(SOURCE_SCOPES).map(([id, item]) => <option key={id} value={id}>{item.label}</option>)}</select></label>
       <button type="button" onClick={() => setSelection((previous) => ({ ...previous, run: previous.run + 1 }))} className="rounded border border-violet-600 bg-violet-600 px-3 py-2 text-sm text-white">두 응답 다시 확인</button>
     </div>}
+    codeActions={<div className="flex flex-wrap items-end gap-3">
+      {(["left", "right"] as const).map((side) => <label key={side} className="flex flex-col gap-1 text-xs text-slate-500">{side === "left" ? "왼쪽" : "오른쪽"}<select aria-label={`${side === "left" ? "왼쪽" : "오른쪽"} 프레임워크`} value={selection[side]} onChange={(event) => setSelection((previous) => ({ ...previous, [side]: event.target.value as FrameworkId }))} className="rounded border border-slate-300 bg-white px-2 py-2 text-sm text-slate-700">{FRAMEWORK_IDS.map((id) => <option key={id} value={id} disabled={id === selection[side === "left" ? "right" : "left"]}>{FRAMEWORK_PRESENTATION[id].label}</option>)}</select></label>)}
+      <label className="flex flex-col gap-1 text-xs text-slate-500">코드에서 볼 범위<select aria-label="코드에서 볼 범위" value={scope} onChange={(event) => setScope(event.target.value as SourceScopeId)} className="rounded border border-slate-300 bg-white px-2 py-2 text-sm text-slate-700">{Object.entries(SOURCE_SCOPES).map(([id, item]) => <option key={id} value={id}>{item.label}</option>)}</select></label>
+    </div>}
     leftComponent={<ObservationPanel framework={left} result={current.left} snapshotCss={snapshotCss} />}
     rightComponent={<ObservationPanel framework={right} result={current.right} snapshotCss={snapshotCss} />}
     footer={<div className="space-y-5 p-5 text-sm leading-7 text-slate-600">

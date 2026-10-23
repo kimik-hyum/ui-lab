@@ -1,42 +1,43 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
 @import "pretendard/dist/web/static/pretendard-subset.css";
 
 :root {
-  /* Base */
-  --background: #ffffff;
-  --foreground: #0f172a;
-
-  /* Surface */
-  --surface: #f8fafc;
-  --surface-elevated: #f1f5f9;
-
-  /* Border */
-  --border: #e2e8f0;
-  --border-strong: #cbd5e1;
-
-  /* Text */
-  --muted-foreground: #64748b;
-  --subtle-foreground: #94a3b8;
-
-  /* Accent — Violet */
-  --accent: #7c3aed;
-  --accent-hover: #6d28d9;
-  --accent-foreground: #ffffff;
-  --accent-subtle: #ede9fe;
-  --accent-muted: #ddd6fe;
-
-  /* Verdict accent — left border + badge only, no card background */
-  --verdict-adopt: #34d399;       /* emerald-400 */
-  --verdict-adopt-text: #059669;  /* emerald-600 */
-  --verdict-adopt-badge: #d1fae5; /* emerald-100 */
-  --verdict-watch: #fbbf24;       /* amber-400 */
-  --verdict-watch-text: #d97706;  /* amber-600 */
-  --verdict-watch-badge: #fef3c7; /* amber-100 */
-  --verdict-skip: #cbd5e1;        /* slate-300 */
-  --verdict-skip-text: #94a3b8;   /* slate-400 */
-  --verdict-skip-badge: #f1f5f9;  /* slate-100 */
+  --background: #f3f5f8;
+  --foreground: #18202e;
+  --surface: #f6f7fa;
+  --surface-elevated: #edf1f3;
+  --border: #dfe4ec;
+  --border-strong: #cbd4d9;
+  --muted-foreground: #5f6d77;
+  --subtle-foreground: #64737c;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --primary-foreground: #ffffff;
+  --primary-subtle: #eff6ff;
+  --primary-muted: #bfdbfe;
+  --card: #ffffff;
+  --card-foreground: var(--foreground);
+  --popover: #ffffff;
+  --popover-foreground: var(--foreground);
+  --secondary: #e8edf4;
+  --secondary-foreground: #26364c;
+  --muted: #edf1f6;
+  --accent: #eff6ff;
+  --accent-foreground: #1d4ed8;
+  --destructive: #dc2626;
+  --input: #cbd5e1;
+  --ring: #2563eb;
+  --radius: 0.625rem;
+  --sidebar: #19202e;
+  --sidebar-foreground: #c5cfdd;
+  --sidebar-border: #344054;
+  --sidebar-muted: #98a7bd;
+  --shell-header-height: 64px;
 }
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -46,19 +47,196 @@
   --color-border-strong: var(--border-strong);
   --color-muted-foreground: var(--muted-foreground);
   --color-subtle-foreground: var(--subtle-foreground);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-subtle: var(--primary-subtle);
+  --color-primary-muted: var(--primary-muted);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
   --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
   --color-accent-foreground: var(--accent-foreground);
-  --color-accent-subtle: var(--accent-subtle);
-  --color-accent-muted: var(--accent-muted);
-
-  --font-sans: "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-josefin: var(--font-josefin-sans), "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  --color-destructive: var(--destructive);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --font-sans:
+    "Pretendard", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-josefin: var(--font-sans);
+  --font-mono:
+    ui-monospace, "SFMono-Regular", Menlo, Monaco, Consolas, "Liberation Mono",
+    "Pretendard", monospace;
+}
+@layer base {
+  body {
+    position: relative;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+  }
+  button,
+  a,
+  input {
+    -webkit-tap-highlight-color: transparent;
+  }
+  button:not(:disabled),
+  summary {
+    cursor: pointer;
+  }
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 3px;
+  }
+  ::selection {
+    background: #dbeafe;
+    color: #1e3a8a;
+  }
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd4d9 transparent;
+  }
+  html {
+    scroll-padding-top: 80px;
+  }
+}
+.app-shell {
+  isolation: isolate;
+  --sidebar-width: 0px;
+}
+.shell-sidebar {
+  display: none;
+}
+.shell-topbar {
+  height: var(--shell-header-height);
+  position: fixed;
+  top: 0;
+  left: var(--sidebar-width);
+  right: 0;
+  z-index: 40;
+}
+.shell-content {
+  min-width: 0;
+  min-height: 100dvh;
+  padding-top: var(--shell-header-height);
+  margin-left: var(--sidebar-width);
+}
+.shell-content:focus {
+  outline: none;
+}
+.workspace-page {
+  width: 100%;
+  min-width: 0;
+  padding: 24px 18px 40px;
+}
+.skip-link {
+  position: fixed;
+  left: 16px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: var(--foreground);
+  color: white;
+  font-size: 13px;
+}
+.skip-link:focus {
+  top: 12px;
+}
+@media (min-width: 768px) {
+  .app-shell {
+    --sidebar-width: 72px;
+  }
+  .shell-sidebar {
+    display: block;
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--sidebar-width);
+    border-right: 1px solid var(--sidebar-border);
+    background: var(--sidebar);
+    z-index: 50;
+  }
+  .shell-sidebar .sidebar-label {
+    display: none;
+  }
+  .shell-sidebar .sidebar-brand {
+    justify-content: center;
+    padding-inline: 0;
+  }
+  .shell-sidebar .sidebar-inner {
+    padding-inline: 10px;
+  }
+  .shell-sidebar .sidebar-link,
+  .shell-sidebar .sidebar-search {
+    justify-content: center;
+    padding-inline: 0;
+  }
+  .workspace-page {
+    padding: 30px 28px 48px;
+  }
+}
+@media (min-width: 1280px) {
+  .app-shell {
+    --sidebar-width: 232px;
+  }
+  .app-shell[data-collapsed="true"] {
+    --sidebar-width: 72px;
+  }
+  .app-shell:not([data-collapsed="true"]) .sidebar-label {
+    display: revert;
+  }
+  .app-shell:not([data-collapsed="true"]) .sidebar-brand {
+    justify-content: flex-start;
+    padding-inline: 24px;
+  }
+  .app-shell:not([data-collapsed="true"]) .sidebar-inner {
+    padding-inline: 12px;
+  }
+  .app-shell:not([data-collapsed="true"]) .sidebar-link,
+  .app-shell:not([data-collapsed="true"]) .sidebar-search {
+    justify-content: flex-start;
+    padding-inline: 12px;
+  }
+}
+@media (min-width: 1536px) {
+  .workspace-page {
+    padding: 36px 40px 52px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans);
+/* Existing experiment accents follow the shell without changing their behavior. */
+@theme {
+  --color-violet-50: #eff6ff;
+  --color-violet-100: #dbeafe;
+  --color-violet-200: #bfdbfe;
+  --color-violet-300: #93c5fd;
+  --color-violet-400: #60a5fa;
+  --color-violet-500: #3b82f6;
+  --color-violet-600: #2563eb;
+  --color-violet-700: #1d4ed8;
+  --color-violet-800: #1e40af;
+  --color-violet-900: #1e3a8a;
 }
+.comparison-description .text-red-300 { color: #b91c1c; }
+.comparison-description .text-blue-300 { color: #1d4ed8; }

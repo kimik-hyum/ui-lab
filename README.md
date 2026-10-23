@@ -14,7 +14,6 @@
 ## Docs
 
 - `docs/architecture/react-next-architecture.md`: Next.js App Router 기반 React 앱의 권장 파일 구조와 데이터 흐름
-- `docs/ui-lab-scout-20260329.md`: React/Next.js 기능 검증 리포트
 - `docs/harness/workflow.md`: 프레임워크 비교 시나리오 구현 및 검증 절차
 - `docs/harness/performance-methodology.md`: Lighthouse/SSR 성능 측정 기준
 - `docs/harness/scenarios/shopping-detail-ssr.md`: 쇼핑 상세 SSR 시나리오 정의
@@ -128,8 +127,9 @@ yarn build:lab-shell
 
 ## UI-LAB 화면
 
-`/previews/responsive-layout/index.html`에서 공통 디자인과 메뉴를 확인합니다.
-실험실에는 무한 스크롤, 기능 비교에는 React·Next.js·라이브러리·프레임워크별 하위 페이지를 둡니다.
+홈(`/`)은 프로젝트 개요입니다. 실험실(`/void-ui`)에는 무한스크롤 같은 직접 구상한 아이디어 구현을 둡니다.
+기능 비교(`/front-feature`)에는 React·Next.js·라이브러리·SSR의 실행 결과와 코드 비교를 모읍니다.
+성능 측정(`/performance`)은 저장된 측정 결과와 조건을 별도로 보여줍니다.
 실행 가능한 비교와 준비 중인 항목, 화면 시안을 구분해 표시합니다.
 
 라이브러리 비교의 **전체 목록과 가상 목록**은 같은 100 / 1,000 / 10,000개 작업을 `map`과 설치된 `react-virtuoso`로 표시합니다.
