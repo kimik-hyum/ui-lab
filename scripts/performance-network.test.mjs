@@ -48,3 +48,32 @@ test("gzip 바이트와 콘텐츠 인코딩을 함께 보존하고 고정 upstre
   assert.equal(await response.text(), original);
   assert.equal(path, "/products?slug=test");
 });
+
+test("스트리밍 셸은 upstream 완료를 기다리지 않고 먼저 전달한다", async (t) => {
+  let finished = false;
+  let finish;
+  const gate = new Promise(resolve => { finish = resolve; });
+  t.after(() => finish());
+  const origin = await fixture(t, async (_req, res) => {
+    res.writeHead(200, { "content-type": "text/html" });
+    res.write("shell");
+    await gate;
+    finished = true;
+    res.end("content");
+  });
+  const proxy = await createThrottledProxy(origin, readNetworkProfile("1mbps-100ms"));
+  t.after(proxy.close);
+  const response = await fetch(proxy.url, { signal: AbortSignal.timeout(5000) });
+  const reader = response.body.getReader();
+  const first = await reader.read();
+  assert.equal(new TextDecoder().decode(first.value), "shell");
+  assert.equal(finished, false);
+  finish();
+  let rest = "";
+  for (;;) {
+    const chunk = await reader.read();
+    if (chunk.done) break;
+    rest += new TextDecoder().decode(chunk.value);
+  }
+  assert.equal(rest, "content");
+});

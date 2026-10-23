@@ -41,6 +41,8 @@ export default function PerformancePage() {
         </div>
       </header>
 
+      {(ssr.network || lighthouse.network) && <div className="rounded-lg border border-primary/20 bg-primary-subtle px-5 py-4 text-sm"><p className="font-medium text-primary">SSR: {ssr.network?.label ?? "기존 설정"} · Lighthouse: {lighthouse.network?.label ?? "기존 설정"}</p><p className="mt-1 text-xs leading-5 text-muted-foreground">실제 Supabase 연결을 포함합니다. 제한 설정은 동일해도 외부 서버의 응답 시간은 달라질 수 있습니다.</p></div>}
+
       <section aria-label="측정 개요" className="grid grid-cols-2 gap-3 xl:grid-cols-4">
         <div className="rounded-xl border border-border bg-white p-4 sm:p-5">
           <p className="text-xs text-muted-foreground">비교 프레임워크</p>

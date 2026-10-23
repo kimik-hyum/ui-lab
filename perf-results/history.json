@@ -2,6 +2,810 @@
   "schemaVersion": 1,
   "records": [
     {
+      "id": "lighthouse-2026-10-23T05-12-20-924Z",
+      "kind": "lighthouse",
+      "generatedAt": "2026-10-23T05:12:20.924Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 5,
+      "warmup": 3,
+      "preset": "desktop",
+      "expectedText": null,
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 25.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": {
+        "commit": "7a4bc57833ebe6cb05fef62e359369e61391e2d0",
+        "dirty": false
+      },
+      "network": {
+        "id": "1mbps-100ms",
+        "label": "1 Mbps · 추가 지연 100 ms",
+        "downloadKbps": 1000,
+        "uploadKbps": 1000,
+        "latencyMs": 100,
+        "cpuSlowdownMultiplier": 1,
+        "browserMethod": "devtools",
+        "ssrMethod": "http-body-proxy",
+        "backendMethod": "http-body-proxy",
+        "backend": "live-supabase",
+        "scope": "브라우저→앱·이미지 / SSR 도구→앱 / 앱→Supabase",
+        "limitation": "HTTP 요청별 본문 속도 제한과 추가 지연. 실제 Supabase 처리·인터넷 지연은 포함되며 패킷 단위의 완전한 회선 재현은 아님."
+      },
+      "comparison": {
+        "id": "upgrade-1mbps-20261023T050205Z",
+        "cohort": "before",
+        "harnessSha256": "5a26f040c7d4899de4c1c489afc877ef0e47c59336b42b270c6312260ae58a02"
+      },
+      "measurementTool": {
+        "lighthouseVersion": "13.1.0",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      },
+      "targets": [
+        {
+          "name": "next-lab",
+          "versions": {
+            "next": "16.1.1",
+            "react": "19.2.3",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "fcpMs": 277.2,
+            "lcpMs": 2462.86,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1151,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 86,
+          "medianRun": 5
+        },
+        {
+          "name": "sveltekit-lab",
+          "versions": {
+            "@sveltejs/kit": "2.57.1",
+            "svelte": "5.55.3",
+            "vite": "5.4.21",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "fcpMs": 333.73,
+            "lcpMs": 1819.03,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1393,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 91,
+          "medianRun": 4
+        },
+        {
+          "name": "vue-lab",
+          "versions": {
+            "nuxt": "4.4.5",
+            "vue": "3.5.34",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "fcpMs": 385.48,
+            "lcpMs": 2727.89,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 596,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 85,
+          "medianRun": 3
+        },
+        {
+          "name": "react-router-lab",
+          "versions": {
+            "react": "19.2.3",
+            "react-router": "7.15.0",
+            "vite": "7.3.3",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "fcpMs": 331.11,
+            "lcpMs": 2231.05,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1087,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 88,
+          "medianRun": 3
+        }
+      ]
+    },
+    {
+      "id": "ssr-2026-10-23T05-11-08-245Z",
+      "kind": "ssr",
+      "generatedAt": "2026-10-23T05:11:08.245Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 20,
+      "warmup": 3,
+      "preset": null,
+      "expectedText": "홈으로 이동",
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 25.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": {
+        "commit": "7a4bc57833ebe6cb05fef62e359369e61391e2d0",
+        "dirty": false
+      },
+      "network": {
+        "id": "1mbps-100ms",
+        "label": "1 Mbps · 추가 지연 100 ms",
+        "downloadKbps": 1000,
+        "uploadKbps": 1000,
+        "latencyMs": 100,
+        "cpuSlowdownMultiplier": 1,
+        "browserMethod": "devtools",
+        "ssrMethod": "http-body-proxy",
+        "backendMethod": "http-body-proxy",
+        "backend": "live-supabase",
+        "scope": "브라우저→앱·이미지 / SSR 도구→앱 / 앱→Supabase",
+        "limitation": "HTTP 요청별 본문 속도 제한과 추가 지연. 실제 Supabase 처리·인터넷 지연은 포함되며 패킷 단위의 완전한 회선 재현은 아님."
+      },
+      "comparison": {
+        "id": "upgrade-1mbps-20261023T050205Z",
+        "cohort": "before",
+        "harnessSha256": "5a26f040c7d4899de4c1c489afc877ef0e47c59336b42b270c6312260ae58a02"
+      },
+      "targets": [
+        {
+          "name": "next-lab",
+          "versions": {
+            "next": "16.1.1",
+            "react": "19.2.3",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "responseStartMs": 117.68,
+            "ttfbMs": 124.39,
+            "contentReadyMs": 245.43,
+            "totalMs": 258.09,
+            "htmlBytes": 11715
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 111.57,
+              "median": 117.68,
+              "p95": 120.88
+            },
+            "ttfbMs": {
+              "min": 118.45,
+              "median": 124.39,
+              "p95": 128.57
+            },
+            "contentReadyMs": {
+              "min": 226.42,
+              "median": 245.43,
+              "p95": 265.05
+            },
+            "totalMs": {
+              "min": 239.1,
+              "median": 258.09,
+              "p95": 280.96
+            },
+            "htmlBytes": {
+              "min": 11715,
+              "median": 11715,
+              "p95": 11715
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "sveltekit-lab",
+          "versions": {
+            "@sveltejs/kit": "2.57.1",
+            "svelte": "5.55.3",
+            "vite": "5.4.21",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "responseStartMs": 279.27,
+            "ttfbMs": 290.39,
+            "contentReadyMs": 290.39,
+            "totalMs": 295.79,
+            "htmlBytes": 3493
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 265.1,
+              "median": 279.27,
+              "p95": 308
+            },
+            "ttfbMs": {
+              "min": 275.95,
+              "median": 290.39,
+              "p95": 320.03
+            },
+            "contentReadyMs": {
+              "min": 275.95,
+              "median": 290.39,
+              "p95": 320.03
+            },
+            "totalMs": {
+              "min": 280.31,
+              "median": 295.79,
+              "p95": 324.93
+            },
+            "htmlBytes": {
+              "min": 3493,
+              "median": 3493,
+              "p95": 3493
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "vue-lab",
+          "versions": {
+            "nuxt": "4.4.5",
+            "vue": "3.5.34",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "responseStartMs": 279.13,
+            "ttfbMs": 289.16,
+            "contentReadyMs": 327.87,
+            "totalMs": 334.51,
+            "htmlBytes": 5769
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 269.6,
+              "median": 279.13,
+              "p95": 295.65
+            },
+            "ttfbMs": {
+              "min": 279,
+              "median": 289.16,
+              "p95": 304.01
+            },
+            "contentReadyMs": {
+              "min": 318.83,
+              "median": 327.87,
+              "p95": 343.37
+            },
+            "totalMs": {
+              "min": 326.15,
+              "median": 334.51,
+              "p95": 349.77
+            },
+            "htmlBytes": {
+              "min": 5769,
+              "median": 5769,
+              "p95": 5769
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "react-router-lab",
+          "versions": {
+            "react": "19.2.3",
+            "react-router": "7.15.0",
+            "vite": "7.3.3",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "responseStartMs": 280.34,
+            "ttfbMs": 290.32,
+            "contentReadyMs": 290.32,
+            "totalMs": 309.7,
+            "htmlBytes": 5972
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 269.39,
+              "median": 280.34,
+              "p95": 302.71
+            },
+            "ttfbMs": {
+              "min": 281.18,
+              "median": 290.32,
+              "p95": 313.97
+            },
+            "contentReadyMs": {
+              "min": 281.18,
+              "median": 290.32,
+              "p95": 313.97
+            },
+            "totalMs": {
+              "min": 299.61,
+              "median": 309.7,
+              "p95": 332.89
+            },
+            "htmlBytes": {
+              "min": 5972,
+              "median": 5972,
+              "p95": 5972
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        }
+      ]
+    },
+    {
+      "id": "lighthouse-2026-10-23T05-03-07-003Z",
+      "kind": "lighthouse",
+      "generatedAt": "2026-10-23T05:03:07.003Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 5,
+      "warmup": 3,
+      "preset": "desktop",
+      "expectedText": null,
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 25.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": {
+        "commit": "341f99743cfd94fb987e974f0b6e6fe4d9ca01d8",
+        "dirty": true
+      },
+      "network": {
+        "id": "1mbps-100ms",
+        "label": "1 Mbps · 추가 지연 100 ms",
+        "downloadKbps": 1000,
+        "uploadKbps": 1000,
+        "latencyMs": 100,
+        "cpuSlowdownMultiplier": 1,
+        "browserMethod": "devtools",
+        "ssrMethod": "http-body-proxy",
+        "backendMethod": "http-body-proxy",
+        "backend": "live-supabase",
+        "scope": "브라우저→앱·이미지 / SSR 도구→앱 / 앱→Supabase",
+        "limitation": "HTTP 요청별 본문 속도 제한과 추가 지연. 실제 Supabase 처리·인터넷 지연은 포함되며 패킷 단위의 완전한 회선 재현은 아님."
+      },
+      "comparison": {
+        "id": "upgrade-1mbps-20261023T050205Z",
+        "cohort": "current",
+        "harnessSha256": "5a26f040c7d4899de4c1c489afc877ef0e47c59336b42b270c6312260ae58a02"
+      },
+      "measurementTool": {
+        "lighthouseVersion": "13.1.0",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      },
+      "targets": [
+        {
+          "name": "next-lab",
+          "versions": {
+            "next": "16.4.2",
+            "react": "19.3.1",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "fcpMs": 296.41,
+            "lcpMs": 2516.65,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1109,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 86,
+          "medianRun": 3
+        },
+        {
+          "name": "sveltekit-lab",
+          "versions": {
+            "@sveltejs/kit": "3.1.0",
+            "svelte": "5.57.2",
+            "vite": "8.3.4",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "fcpMs": 375.17,
+            "lcpMs": 1822.16,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1385,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 91,
+          "medianRun": 3
+        },
+        {
+          "name": "vue-lab",
+          "versions": {
+            "nuxt": "4.6.2",
+            "vue": "3.5.44",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "fcpMs": 388.75,
+            "lcpMs": 3335.29,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 619,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 82,
+          "medianRun": 3
+        },
+        {
+          "name": "react-router-lab",
+          "versions": {
+            "react": "19.3.1",
+            "react-router": "7.18.4",
+            "vite": "8.3.4",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "fcpMs": 344.05,
+            "lcpMs": 2285.69,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1094,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 88,
+          "medianRun": 1
+        }
+      ]
+    },
+    {
+      "id": "ssr-2026-10-23T05-02-05-727Z",
+      "kind": "ssr",
+      "generatedAt": "2026-10-23T05:02:05.727Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 20,
+      "warmup": 3,
+      "preset": null,
+      "expectedText": "홈으로 이동",
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 25.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": {
+        "commit": "341f99743cfd94fb987e974f0b6e6fe4d9ca01d8",
+        "dirty": false
+      },
+      "network": {
+        "id": "1mbps-100ms",
+        "label": "1 Mbps · 추가 지연 100 ms",
+        "downloadKbps": 1000,
+        "uploadKbps": 1000,
+        "latencyMs": 100,
+        "cpuSlowdownMultiplier": 1,
+        "browserMethod": "devtools",
+        "ssrMethod": "http-body-proxy",
+        "backendMethod": "http-body-proxy",
+        "backend": "live-supabase",
+        "scope": "브라우저→앱·이미지 / SSR 도구→앱 / 앱→Supabase",
+        "limitation": "HTTP 요청별 본문 속도 제한과 추가 지연. 실제 Supabase 처리·인터넷 지연은 포함되며 패킷 단위의 완전한 회선 재현은 아님."
+      },
+      "comparison": {
+        "id": "upgrade-1mbps-20261023T050205Z",
+        "cohort": "current",
+        "harnessSha256": "5a26f040c7d4899de4c1c489afc877ef0e47c59336b42b270c6312260ae58a02"
+      },
+      "targets": [
+        {
+          "name": "next-lab",
+          "versions": {
+            "next": "16.4.2",
+            "react": "19.3.1",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "responseStartMs": 116.8,
+            "ttfbMs": 125.96,
+            "contentReadyMs": 247.42,
+            "totalMs": 261.82,
+            "htmlBytes": 11736
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 107.21,
+              "median": 116.8,
+              "p95": 119.97
+            },
+            "ttfbMs": {
+              "min": 115.37,
+              "median": 125.96,
+              "p95": 129.27
+            },
+            "contentReadyMs": {
+              "min": 232.68,
+              "median": 247.42,
+              "p95": 265.4
+            },
+            "totalMs": {
+              "min": 244.26,
+              "median": 261.82,
+              "p95": 282.54
+            },
+            "htmlBytes": {
+              "min": 11736,
+              "median": 11736,
+              "p95": 11736
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "sveltekit-lab",
+          "versions": {
+            "@sveltejs/kit": "3.1.0",
+            "svelte": "5.57.2",
+            "vite": "8.3.4",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "responseStartMs": 281.59,
+            "ttfbMs": 293.36,
+            "contentReadyMs": 299.79,
+            "totalMs": 299.83,
+            "htmlBytes": 4353
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 268.25,
+              "median": 281.59,
+              "p95": 304.07
+            },
+            "ttfbMs": {
+              "min": 279.69,
+              "median": 293.36,
+              "p95": 315.97
+            },
+            "contentReadyMs": {
+              "min": 287.35,
+              "median": 299.79,
+              "p95": 323.76
+            },
+            "totalMs": {
+              "min": 287.46,
+              "median": 299.83,
+              "p95": 324.03
+            },
+            "htmlBytes": {
+              "min": 4353,
+              "median": 4353,
+              "p95": 4353
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "vue-lab",
+          "versions": {
+            "nuxt": "4.6.2",
+            "vue": "3.5.44",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "responseStartMs": 283.36,
+            "ttfbMs": 293.03,
+            "contentReadyMs": 331.04,
+            "totalMs": 341.94,
+            "htmlBytes": 6224
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 261.18,
+              "median": 283.36,
+              "p95": 298.69
+            },
+            "ttfbMs": {
+              "min": 272.92,
+              "median": 293.03,
+              "p95": 308.87
+            },
+            "contentReadyMs": {
+              "min": 309.34,
+              "median": 331.04,
+              "p95": 343.81
+            },
+            "totalMs": {
+              "min": 324.95,
+              "median": 341.94,
+              "p95": 355.75
+            },
+            "htmlBytes": {
+              "min": 6224,
+              "median": 6224,
+              "p95": 6224
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        },
+        {
+          "name": "react-router-lab",
+          "versions": {
+            "react": "19.3.1",
+            "react-router": "7.18.4",
+            "vite": "8.3.4",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "responseStartMs": 281.23,
+            "ttfbMs": 290.75,
+            "contentReadyMs": 290.75,
+            "totalMs": 308.93,
+            "htmlBytes": 5951
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 268.26,
+              "median": 281.23,
+              "p95": 330.06
+            },
+            "ttfbMs": {
+              "min": 276.62,
+              "median": 290.75,
+              "p95": 342.01
+            },
+            "contentReadyMs": {
+              "min": 276.62,
+              "median": 290.75,
+              "p95": 342.01
+            },
+            "totalMs": {
+              "min": 294.86,
+              "median": 308.93,
+              "p95": 356.04
+            },
+            "htmlBytes": {
+              "min": 5951,
+              "median": 5951,
+              "p95": 5951
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        }
+      ]
+    },
+    {
       "id": "lighthouse-2026-10-23T03-39-26-376Z",
       "kind": "lighthouse",
       "generatedAt": "2026-10-23T03:39:26.376Z",

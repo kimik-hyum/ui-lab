@@ -5,6 +5,7 @@ import { formatSnapshotDate, getTargetDisplayName } from "../data";
 import { getFrameworkHistory } from "../history-data";
 import MeasurementResults, { metric } from "./MeasurementResults";
 import VersionTabs from "./VersionTabs";
+import VersionDifference from "./VersionDifference";
 
 export const metadata: Metadata = {
   title: "버전별 성능 기록",
@@ -91,6 +92,7 @@ export default async function PerformanceHistoryPage({ searchParams }: {
                 </div>
                 <p className="text-xs text-muted-foreground">{versions.length}개 버전</p>
               </header>
+              <VersionDifference name={name} />
               <VersionTabs framework={name} label={getTargetDisplayName(name)} versions={versions.map((item) => item.version)} selected={selected}>
                 {versions.map(({ version, measurements }) => (
                   <TabsContent key={version} value={version} data-version-panel={version} className="m-0">

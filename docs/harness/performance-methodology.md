@@ -169,3 +169,4 @@ Hydration 전후 DOM 비교는 현재 하네스 기본 성능 축에서 제외�
 - `PERF_COMPARISON_ID`, `PERF_COHORT=before|current`, `PERF_HARNESS_SHA256`로 같은 도구의 버전업 전후 실행을 묶습니다. `PERF_TARGETS_PATH`로 비어 있는 별도 포트의 대상 명령을 지정하고, `LH_CLI_PATH`로 같은 Lighthouse CLI를 사용합니다.
 - 이전 체크아웃에서 현재 runner의 절대 경로를 실행할 수 있습니다. `PERF_OUTPUT_ROOT`를 현재 저장소로 지정하면 과거 체크아웃의 소스·설치 버전을 현재 이력에 누적합니다. `PERF_UPDATE_LATEST=0`은 이전 버전 결과가 최신 스냅샷을 덮어쓰는 것을 방지합니다.
 - 이전 lockfile과 현재 lockfile을 각각 그대로 설치합니다. React·Vue·Vite 등 함께 바뀐 의존성의 영향도 포함하므로 단일 패키지 버전만의 인과 효과로 해석하지 않습니다.
+- 프록시에서는 HTTP 연결을 재사용하지 않습니다. 양쪽 버전에 동일하게 적용하지만, 실제 서비스의 연결 풀·keep-alive 정책을 그대로 재현한 측정은 아닙니다.

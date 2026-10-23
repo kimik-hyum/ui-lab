@@ -44,6 +44,7 @@ export type SsrSnapshot = {
   minRuns: number;
   warmup: number;
   expectedText: string;
+  network?: { label: string; limitation: string } | null;
   environment: MeasurementEnvironment;
   targets: SsrTarget[];
 };
@@ -53,6 +54,7 @@ export type LighthouseSnapshot = {
   path: string;
   runs: number;
   preset: string;
+  network?: { label: string; limitation: string } | null;
   environment: MeasurementEnvironment;
   targets: {
     name: string;
