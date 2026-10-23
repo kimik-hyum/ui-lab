@@ -40,6 +40,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   outputFileTracingRoot: path.join(__dirname, "../../"),
   outputFileTracingIncludes: {
+    "/performance/export": ["../../docs/harness/results/*.md"],
     "/upgrade-logs": ["../../docs/upgrade-logs/*.json"],
     "/upgrade-logs/*": ["../../docs/upgrade-logs/*.json"],
     "/api/upgrade-logs": ["../../docs/upgrade-logs/*.json"],

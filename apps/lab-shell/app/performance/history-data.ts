@@ -24,7 +24,10 @@ export type MeasurementRecord = {
   expectedText: string | null;
   environment: { cpu?: string; platform?: string; arch?: string; node?: string; timeZone?: string };
   source: { commit: string; dirty: boolean } | null;
-  network?: { id: string; label: string; scope: string; limitation: string; backend: string };
+  network?: {
+    id: string; label: string; scope: string; limitation: string; backend: string;
+    downloadKbps?: number; uploadKbps?: number; latencyMs?: number; cpuSlowdownMultiplier?: number;
+  };
   comparison?: { id: string; cohort: string; harnessSha256?: string };
   measurementTool?: { lighthouseVersion: string; userAgent: string };
   targets: HistoryTarget[];

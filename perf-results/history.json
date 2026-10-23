@@ -2,6 +2,173 @@
   "schemaVersion": 1,
   "records": [
     {
+      "id": "lighthouse-2026-10-23T05-49-33-963Z",
+      "kind": "lighthouse",
+      "generatedAt": "2026-10-23T05:49:33.963Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 5,
+      "warmup": 3,
+      "preset": "desktop",
+      "expectedText": null,
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 25.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": {
+        "commit": "08663945f96b47fec4e0219e7b55694000df5a01",
+        "dirty": true
+      },
+      "network": {
+        "id": "1mbps-100ms",
+        "label": "1 Mbps · 추가 지연 100 ms",
+        "downloadKbps": 1000,
+        "uploadKbps": 1000,
+        "latencyMs": 100,
+        "cpuSlowdownMultiplier": 1,
+        "browserMethod": "devtools",
+        "ssrMethod": "http-body-proxy",
+        "backendMethod": "http-body-proxy",
+        "backend": "live-supabase",
+        "scope": "브라우저→앱·이미지 / SSR 도구→앱 / 앱→Supabase",
+        "limitation": "HTTP 요청별 본문 속도 제한과 추가 지연. 실제 Supabase 처리·인터넷 지연은 포함되며 패킷 단위의 완전한 회선 재현은 아님."
+      },
+      "comparison": {
+        "id": "upgrade-1mbps-20261023T050205Z",
+        "cohort": "current",
+        "harnessSha256": "5a26f040c7d4899de4c1c489afc877ef0e47c59336b42b270c6312260ae58a02"
+      },
+      "measurementTool": {
+        "lighthouseVersion": "13.1.0",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+      },
+      "targets": [
+        {
+          "name": "vue-lab",
+          "versions": {
+            "nuxt": "4.6.2",
+            "vue": "3.5.44",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "fcpMs": 335.2,
+            "lcpMs": 3290.14,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 574,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 82,
+          "medianRun": 2
+        }
+      ]
+    },
+    {
+      "id": "ssr-2026-10-23T05-49-08-364Z",
+      "kind": "ssr",
+      "generatedAt": "2026-10-23T05:49:08.364Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 20,
+      "warmup": 3,
+      "preset": null,
+      "expectedText": "홈으로 이동",
+      "environment": {
+        "node": "v24.15.0",
+        "platform": "Darwin 25.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": {
+        "commit": "08663945f96b47fec4e0219e7b55694000df5a01",
+        "dirty": true
+      },
+      "network": {
+        "id": "1mbps-100ms",
+        "label": "1 Mbps · 추가 지연 100 ms",
+        "downloadKbps": 1000,
+        "uploadKbps": 1000,
+        "latencyMs": 100,
+        "cpuSlowdownMultiplier": 1,
+        "browserMethod": "devtools",
+        "ssrMethod": "http-body-proxy",
+        "backendMethod": "http-body-proxy",
+        "backend": "live-supabase",
+        "scope": "브라우저→앱·이미지 / SSR 도구→앱 / 앱→Supabase",
+        "limitation": "HTTP 요청별 본문 속도 제한과 추가 지연. 실제 Supabase 처리·인터넷 지연은 포함되며 패킷 단위의 완전한 회선 재현은 아님."
+      },
+      "comparison": {
+        "id": "upgrade-1mbps-20261023T050205Z",
+        "cohort": "current",
+        "harnessSha256": "5a26f040c7d4899de4c1c489afc877ef0e47c59336b42b270c6312260ae58a02"
+      },
+      "targets": [
+        {
+          "name": "vue-lab",
+          "versions": {
+            "nuxt": "4.6.2",
+            "vue": "3.5.44",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "responseStartMs": 288.87,
+            "ttfbMs": 298.11,
+            "contentReadyMs": 335.6,
+            "totalMs": 347.91,
+            "htmlBytes": 6224
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 276.46,
+              "median": 288.87,
+              "p95": 298.7
+            },
+            "ttfbMs": {
+              "min": 285.12,
+              "median": 298.11,
+              "p95": 309.09
+            },
+            "contentReadyMs": {
+              "min": 325,
+              "median": 335.6,
+              "p95": 348.65
+            },
+            "totalMs": {
+              "min": 334.73,
+              "median": 347.91,
+              "p95": 360.09
+            },
+            "htmlBytes": {
+              "min": 6224,
+              "median": 6224,
+              "p95": 6224
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        }
+      ]
+    },
+    {
       "id": "lighthouse-2026-10-23T05-12-20-924Z",
       "kind": "lighthouse",
       "generatedAt": "2026-10-23T05:12:20.924Z",
