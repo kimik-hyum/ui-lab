@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { ComparisonTemplate } from "../../components/ComparisonTemplate";
-import { ComparisonTopicNotes } from "../../components/ComparisonTopicNotes";
 import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import type { ComparisonTopic } from "../../components/ComparisonTypes";
 import { ApiNameForm } from "./components/ApiNameForm";
@@ -40,7 +39,6 @@ export function ServerActionsClientPage({ apiCode, actionCode }: { apiCode: stri
       <p>① 공백을 섞은 이름으로 정규화·확인번호 확인 ② 한 글자로 검증 오류 확인 ③ 수정 후 다시 제출. 처리 중에는 입력과 중복 제출을 막고, 성공하면 입력을 비웁니다.</p>
       <p>이름 검증 시연이며 영구 저장·인증·공유 데이터 변경은 없습니다. 확인번호는 서버가 성공한 요청마다 생성하며 성능 수치가 아닙니다.</p>
       <p>코드 전환·초기화는 폼과 결과를 제거합니다. API 수신은 취소해도 서버 처리는 계속될 수 있습니다. Server Action은 이 예제에서 취소하지 않습니다.</p>
-      <ComparisonTopicNotes topics={topics} />
       <nav aria-label="공식 문서" className="flex flex-wrap gap-4 text-violet-600 underline">
         <a href="https://nextjs.org/docs/app/guides/forms" target="_blank" rel="noreferrer">Next.js · Server Actions 폼 ↗</a>
         <a href="https://nextjs.org/docs/app/api-reference/file-conventions/route" target="_blank" rel="noreferrer">Next.js · Route Handler ↗</a>

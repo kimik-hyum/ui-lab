@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800" fill="none">
+  <defs>
+    <pattern id="blocks" width="184" height="156" patternUnits="userSpaceOnUse" patternTransform="rotate(-16 600 400)">
+      <path d="M12 12H78V64H12zM94 12H172V64H94zM12 80H60V144H12zM76 80H172V144H76z" fill="#e2e8df"/>
+      <path d="M0 72H184M86 0V72M68 72V156" stroke="#fcfcf7" stroke-width="10"/>
+    </pattern>
+    <filter id="shadow" x="-60%" y="-40%" width="220%" height="220%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#174d46" flood-opacity=".14"/>
+    </filter>
+  </defs>
+  <path fill="#edf1e9" d="M0 0h1200v800H0z"/>
+  <path fill="url(#blocks)" d="M0 0h1200v800H0z"/>
+  <path d="M-20 60 165 6l115 105-55 123-167 27-78-98ZM840 0h226l-35 132-98 48-105-64ZM965 550l172-41 83 110v181H984l-88-124Z" fill="#d0e1cd"/>
+  <path d="M-70 695c200-280 311-174 506-132 236 50 286-245 471-249 131-3 220 106 363 23" stroke="#d7e8e4" stroke-width="120"/>
+  <path d="M-70 695c200-280 311-174 506-132 236 50 286-245 471-249 131-3 220 106 363 23" stroke="#a9d7d5" stroke-width="76"/>
+  <g stroke="#d5dcd2" stroke-width="28">
+    <path d="M-40 366 1240 12M180-40l322 880M735-40 1033 840M-40 778l1280-364"/>
+  </g>
+  <g stroke="#fffef8" stroke-width="20">
+    <path d="M-40 366 1240 12M180-40l322 880M735-40 1033 840M-40 778l1280-364"/>
+  </g>
+  <g stroke="#e8e8dd" stroke-width="2" stroke-dasharray="10 10">
+    <path d="M-40 366 1240 12M180-40l322 880M735-40 1033 840M-40 778l1280-364"/>
+  </g>
+  <circle cx="788" cy="471" r="122" fill="#5bbdb6" fill-opacity=".1" stroke="#55a6a1" stroke-width="2" stroke-dasharray="8 9"/>
+  <path d="m360 277 198-91 183 123-32 192-196 70-169-129Z" fill="#008b7b" fill-opacity=".18" stroke="#087f73" stroke-width="5" stroke-linejoin="round"/>
+  <g fill="#fff" stroke="#087f73" stroke-width="4">
+    <circle cx="360" cy="277" r="9"/>
+    <circle cx="558" cy="186" r="9"/>
+    <circle cx="741" cy="309" r="9"/>
+    <circle cx="709" cy="501" r="9"/>
+    <circle cx="513" cy="571" r="9"/>
+    <circle cx="344" cy="442" r="9"/>
+  </g>
+  <g filter="url(#shadow)">
+    <path d="M551 295c-25 0-45 20-45 45 0 33 45 76 45 76s45-43 45-76c0-25-20-45-45-45Z" fill="#087f73" stroke="#fff" stroke-width="5"/>
+    <circle cx="551" cy="339" r="14" fill="#fff"/>
+  </g>
+  <circle cx="788" cy="471" r="8" fill="#fff" stroke="#55a6a1" stroke-width="4"/>
+  <g transform="translate(711 489) rotate(-10)" filter="url(#shadow)">
+    <path d="m0 0 9 46 13-16 19-5Z" fill="#fff" stroke="#174d46" stroke-width="3.5" stroke-linejoin="round"/>
+  </g>
+</svg>

@@ -1,5 +1,6 @@
-import Link from "next/link";
 import LabIcon from "../../components/LabIcon";
+import { FeatureCatalogCard } from "./FeatureCatalogCard";
+import { FeatureCatalogFilter } from "./FeatureCatalogFilter";
 import type { FeatureCatalogSection } from "./FeatureCatalogTypes";
 
 interface FeatureCatalogProps {
@@ -46,79 +47,51 @@ export function FeatureCatalog({ title, description, sections, purpose = "compar
             </span>
           </div>
         </div>
-        <nav aria-label="카탈로그 섹션" className="flex flex-wrap gap-2 border-b border-border pb-5">
-          {visibleSections.map((section) => (
-            <a
-              key={section.id}
-              href={`#${section.id}`}
-              className="flex min-h-10 items-center gap-2 rounded-lg border border-border bg-white px-3.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:bg-primary-subtle hover:text-primary"
-            >
-              {section.title}
-              <span className="font-mono text-[10px] text-subtle-foreground">{section.features.length}</span>
-            </a>
-          ))}
-        </nav>
+        {!isExperiment && (
+          <nav aria-label="카탈로그 섹션" className="flex flex-wrap gap-2 border-b border-border pb-5">
+            {visibleSections.map((section) => (
+              <a
+                key={section.id}
+                href={`#${section.id}`}
+                className="flex min-h-10 items-center gap-2 rounded-lg border border-border bg-white px-3.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:bg-primary-subtle hover:text-primary"
+              >
+                {section.title}
+                <span className="font-mono text-[10px] text-subtle-foreground">{section.features.length}</span>
+              </a>
+            ))}
+          </nav>
+        )}
       </header>
 
-      <div className="space-y-9">
-        {visibleSections.map((section) => (
-          <section key={section.id} id={section.id} aria-labelledby={`${section.id}-title`} className="scroll-mt-24">
-            <div className="mb-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-              <h2 id={`${section.id}-title`} className="text-[17px] font-semibold tracking-tight text-foreground">
-                {section.title}
-              </h2>
-              <p className="text-xs text-muted-foreground">{section.subtitle}</p>
-            </div>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 min-[1500px]:grid-cols-3">
-              {section.features.map((feature) => {
-                const available = feature.status === "available" && Boolean(feature.href);
-                const className = `group flex min-w-0 flex-col rounded-xl border p-5 transition-colors ${
-                  available
-                    ? "border-border bg-white hover:border-primary/40"
-                    : "border-dashed border-border bg-surface"
-                }`;
-                const content = (
-                  <>
-                    <div className="mb-5 flex flex-wrap items-center justify-between gap-2">
-                      <span className={`rounded-md px-2 py-1 font-mono text-[10px] ${available ? "bg-primary-subtle text-primary" : "bg-surface-elevated text-muted-foreground"}`}>
-                        {feature.badge}
-                      </span>
-                      <span className={`flex items-center gap-1.5 text-[10px] font-medium ${available ? "text-primary" : "text-subtle-foreground"}`}>
-                        <span className={`h-1.5 w-1.5 rounded-full ${available ? "bg-primary" : "bg-slate-400"}`} />
-                        {available ? "실행 가능" : "준비 중"}
-                      </span>
-                    </div>
-                    <h3 className="text-[16px] font-semibold leading-snug tracking-tight text-foreground">
-                      {feature.title}
-                    </h3>
-                    <p className="mt-2 mb-5 text-[13px] leading-relaxed text-muted-foreground">
-                      {feature.description}
-                    </p>
-                    <div className="mt-auto flex flex-wrap items-center justify-between gap-3 border-t border-border pt-4">
-                      <span className="font-mono text-[10px] text-subtle-foreground">{feature.since}</span>
-                      {available && (
-                        <span className="flex items-center gap-1.5 text-[11px] font-semibold text-primary">
-                          {isExperiment ? "실험 열기" : "비교 열기"}<LabIcon name="arrow-right" className="h-3.5 w-3.5" />
-                        </span>
-                      )}
-                    </div>
-                  </>
-                );
-
-                return available && feature.href ? (
-                  <Link key={feature.id} href={feature.href} className={className}>
-                    {content}
-                  </Link>
-                ) : (
-                  <article key={feature.id} className={className}>
-                    {content}
-                  </article>
-                );
-              })}
-            </div>
-          </section>
-        ))}
-      </div>
+      {isExperiment ? (
+        <FeatureCatalogFilter
+          categories={visibleSections.map((section) => ({
+            id: section.id,
+            title: section.title,
+            cards: section.features.map((feature) => (
+              <FeatureCatalogCard key={`${section.id}:${feature.id}`} feature={feature} purpose="experiment" />
+            )),
+          }))}
+        />
+      ) : (
+        <div className="space-y-9">
+          {visibleSections.map((section) => (
+            <section key={section.id} id={section.id} aria-labelledby={`${section.id}-title`} className="scroll-mt-24">
+              <div className="mb-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <h2 id={`${section.id}-title`} className="text-[17px] font-semibold tracking-tight text-foreground">
+                  {section.title}
+                </h2>
+                <p className="text-xs text-muted-foreground">{section.subtitle}</p>
+              </div>
+              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 min-[1500px]:grid-cols-3">
+                {section.features.map((feature) => (
+                  <FeatureCatalogCard key={feature.id} feature={feature} />
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      )}
     </main>
   );
 }

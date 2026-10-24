@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { ComparisonTemplate } from "../../components/ComparisonTemplate";
-import { ComparisonTopicNotes } from "../../components/ComparisonTopicNotes";
 import type { ComparisonTopic } from "../../components/ComparisonTypes";
 import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import { DASHBOARD_DELAY_OPTIONS, DEFAULT_DASHBOARD_DELAY, resolveDashboardDelay } from "./config";
@@ -108,13 +107,12 @@ export default function StreamingClientPage({ blockingCode, streamingCode }: Str
           <div className="grid gap-4 md:grid-cols-3">
             <div><h2 className="font-semibold text-slate-800">1. 헤더가 나타나는 순간</h2><p>스트리밍은 제목과 대기 화면을 먼저 보냅니다. 일괄 SSR은 데이터가 준비될 때까지 대시보드를 보내지 않습니다.</p></div>
             <div><h2 className="font-semibold text-slate-800">2. 각 데이터가 보이는 순간</h2><p>두 요청은 같은 시점에 시작합니다. 스트리밍의 요약 영역과 활동 목록이 서로 다른 시점에 채워지는지 살펴보세요.</p></div>
-            <div><h2 className="font-semibold text-slate-800">3. 코드에서 이유 확인</h2><p>View Code의 강조 줄을 가리키거나 아래 코드 해설을 펼쳐 차이를 확인하세요.</p></div>
+            <div><h2 className="font-semibold text-slate-800">3. 코드에서 이유 확인</h2><p>코드 비교 탭에서 강조된 줄의 툴팁으로 차이를 확인하세요.</p></div>
           </div>
           <p className="rounded-lg border border-amber-200 bg-amber-50 p-4 text-amber-600">
             모든 실행은 새 HTML 문서를 요청합니다. 인공지연은 서버 데이터 함수에서만 발생하며 클라이언트 타이머로 화면을 꾸미지 않습니다.
             iframe을 동시에 실행하는 관찰용 실험이므로 성능 측정 결과로 사용하지 않습니다. 브라우저나 프록시의 버퍼링에 따라 표시 간격이 달라질 수 있습니다.
           </p>
-          <ComparisonTopicNotes topics={topics} />
           <nav aria-label="공식 문서" className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
             <a href="https://nextjs.org/docs/app/getting-started/fetching-data#streaming" target="_blank" rel="noreferrer" className="underline underline-offset-4">Next.js · 데이터와 스트리밍 ↗</a>
             <a href="https://nextjs.org/docs/app/guides/streaming" target="_blank" rel="noreferrer" className="underline underline-offset-4">Next.js · 경계와 HTTP 응답 ↗</a>

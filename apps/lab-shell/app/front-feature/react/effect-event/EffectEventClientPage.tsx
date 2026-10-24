@@ -2,7 +2,6 @@
 
 import { useId, useMemo, useState, useSyncExternalStore } from "react";
 import { ComparisonTemplate } from "../../components/ComparisonTemplate";
-import { ComparisonTopicNotes } from "../../components/ComparisonTopicNotes";
 import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import type { ComparisonTopic } from "../../components/ComparisonTypes";
 import { createConnectionSource } from "./connection-source";
@@ -68,7 +67,7 @@ export function EffectEventClientPage({ reactiveCode, eventCode }: { reactiveCod
       }
       leftComponent={<ReactiveConnection source={leftSource} room={room} theme={theme} />}
       rightComponent={<EffectEventConnection source={rightSource} room={room} theme={theme} />}
-      footer={<div className="space-y-3 p-6 text-sm leading-relaxed text-slate-500"><p>① 테마만 바꾸면 왼쪽의 연결·정리가 증가 ② 새 알림은 양쪽 모두 현재 테마로 표시 ③ 방을 바꾸면 양쪽 모두 재연결. 같은 방에서는 마지막 알림과 받은 당시의 색을 유지하고, 방을 바꾸면 비웁니다.</p><p>코드 화면에서는 연결을 정리하고 전송을 잠시 막습니다. UI로 돌아오면 다시 보낼 수 있습니다. 연결·정리 횟수에는 이 재마운트와 개발 모드 Strict Mode의 초기 재실행도 포함됩니다. 절대값보다 조작 전후의 증가폭을 보세요.</p><ComparisonTopicNotes topics={topics} /><a href="https://react.dev/reference/react/useEffectEvent" target="_blank" rel="noreferrer" className="inline-block text-violet-600 underline">useEffectEvent 공식 문서 ↗</a></div>}
+      footer={<div className="space-y-3 p-6 text-sm leading-relaxed text-slate-500"><p>① 테마만 바꾸면 왼쪽의 연결·정리가 증가 ② 새 알림은 양쪽 모두 현재 테마로 표시 ③ 방을 바꾸면 양쪽 모두 재연결. 같은 방에서는 마지막 알림과 받은 당시의 색을 유지하고, 방을 바꾸면 비웁니다.</p><p>코드 화면에서는 연결을 정리하고 전송을 잠시 막습니다. UI로 돌아오면 다시 보낼 수 있습니다. 연결·정리 횟수에는 이 재마운트와 개발 모드 Strict Mode의 초기 재실행도 포함됩니다. 절대값보다 조작 전후의 증가폭을 보세요.</p><a href="https://react.dev/reference/react/useEffectEvent" target="_blank" rel="noreferrer" className="inline-block text-violet-600 underline">useEffectEvent 공식 문서 ↗</a></div>}
     />
   );
 }

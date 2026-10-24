@@ -5,7 +5,6 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ComparisonTopic } from './ComparisonTypes';
 import { ComparisonCodeBlock } from './ComparisonCodeBlock';
-import { ComparisonInsightPanel } from './ComparisonInsightPanel';
 import { stripAnchorLines } from './codeAnchors';
 import { resolveLineTopic } from './lineTopics';
 
@@ -51,7 +50,7 @@ export function ComparisonTemplate({
     const containerRect = container.getBoundingClientRect();
     const targetRect = target.getBoundingClientRect();
     if (targetRect.top >= containerRect.top + 12 && targetRect.bottom <= containerRect.bottom - 12) return;
-    // Scroll the code pane only; selecting an explanation must not move the page.
+    // Keep matching code in view without moving the page.
     container.scrollTo({ top: container.scrollTop + targetRect.top - containerRect.top - container.clientHeight / 3, behavior: 'instant' });
   }, []);
 
@@ -88,13 +87,9 @@ export function ComparisonTemplate({
     scrollToLine(side === 'left' ? 'right' : 'left', targetLine);
   };
 
-  const selectTopic = (topic: ComparisonTopic, reveal = true) => {
+  const selectTopic = (topic: ComparisonTopic) => {
     setSelectedTopicId(topic.id);
     setHoveredTopicId(null);
-    if (reveal) {
-      scrollToLine('left', topic.leftLines[0]);
-      scrollToLine('right', topic.rightLines[0]);
-    }
   };
 
   const changeSide = (side: 'left' | 'right') => {
@@ -136,23 +131,6 @@ export function ComparisonTemplate({
           ))}
         </div>
 
-        {showCode && (
-          <section aria-label="코드 비교 포인트" className="sticky top-[var(--shell-header-height)] z-20 min-w-0 border-b border-border bg-white px-5 py-3 shadow-sm sm:px-7 lg:px-8">
-            <div className="mb-2 flex min-w-0 items-center gap-4">
-              <span className="shrink-0 text-xs font-semibold">비교 포인트</span>
-              <div className="flex min-w-0 gap-2 overflow-x-auto pb-1">
-                {topics.map((topic, index) => (
-                  <button type="button" key={topic.id} aria-pressed={selectedTopicId === topic.id} onClick={() => selectTopic(topic)}
-                    className={`min-h-9 shrink-0 rounded-md border px-3 text-left text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${selectedTopicId === topic.id ? 'border-primary/20 bg-primary-subtle text-primary' : 'border-border text-muted-foreground hover:bg-surface'}`}>
-                    <span className="mr-2 font-mono text-[10px] opacity-60">0{index + 1}</span>{topic.title}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="comparison-description"><ComparisonInsightPanel topic={activeTopic} /></div>
-          </section>
-        )}
-
         {(['preview', 'code'] as const).map((mode) => <TabsContent key={mode} value={mode} className="m-0">
           <div className="grid min-w-0 grid-cols-1 gap-4 p-5 sm:p-7 lg:grid-cols-2 lg:p-6">
             {(['left', 'right'] as const).map((side) => {
@@ -168,7 +146,7 @@ export function ComparisonTemplate({
                     highlightedLines={(isLeft ? activeTopic?.leftLines : activeTopic?.rightLines) ?? []} interactiveLines={isLeft ? allLeftLines : allRightLines}
                     onLineHover={(line) => handleLineHover(side, line)}
                     getLineHint={(line) => topicForLine(side, line)}
-                    onLineSelect={(line) => { const topic = topicForLine(side, line); if (topic) selectTopic(topic, false); }}
+                    onLineSelect={(line) => { const topic = topicForLine(side, line); if (topic) selectTopic(topic); }}
                     scrollRef={isLeft ? attachLeftCode : attachRightCode} />
                 </div>}
               </section>;

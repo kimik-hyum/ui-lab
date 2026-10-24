@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import LabIcon from "./LabIcon";
+import { useSidebarHover } from "./useSidebarHover";
 import { navigationGroups } from "../lib/lab-navigation";
 
 export default function Sidebar({
@@ -14,6 +16,48 @@ export default function Sidebar({
   onSearch: () => void;
 }) {
   const pathname = usePathname();
+  const { style: hoverStyle, contentStyle, ...hoverEvents } = useSidebarHover();
+
+  function renderGroups(presentation = false) {
+    return navigationGroups.map((group) => (
+      <div key={group.title}>
+        <p className={`sidebar-label mb-2 px-3 text-[10px] font-semibold tracking-[0.06em] ${presentation ? "text-white" : "text-sidebar-muted"}`}>
+          {group.title}
+        </p>
+        <div className="space-y-1">
+          {group.items.map((item) => {
+            const active = item.exact
+              ? pathname === item.href
+              : pathname === item.href || pathname.startsWith(`${item.href}/`) ||
+                item.matchPaths?.some((path) => pathname === path || pathname.startsWith(`${path}/`));
+            const className = `sidebar-link relative flex min-h-11 items-center gap-3 rounded-lg px-3 text-[13px] font-medium ${presentation ? "text-white" : active ? "bg-primary text-white" : "text-sidebar-foreground"}`;
+            const content = <>
+              <LabIcon name={item.icon} className="h-[18px] w-[18px] shrink-0" />
+              <span className="sidebar-label whitespace-nowrap">{item.label}</span>
+              {active && <span className="sidebar-label ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-white/80" />}
+            </>;
+
+            return presentation ? (
+              <div key={item.href} className={className}>{content}</div>
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={onNavigate}
+                title={item.label}
+                aria-current={active ? "page" : undefined}
+                aria-label={item.label}
+                data-sidebar-item=""
+                className={className}
+              >
+                {content}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
+    ));
+  }
   return (
     <div className="flex h-full min-h-0 flex-col">
       <Link
@@ -44,7 +88,7 @@ export default function Sidebar({
           variant="ghost"
           onClick={onSearch}
           title="통합 검색 (⌘K / Ctrl+K)"
-          className="sidebar-search mb-7 flex min-h-10 w-full items-center gap-2.5 rounded-lg border border-sidebar-border bg-white/5 px-3 text-left text-[12px] text-sidebar-foreground transition-colors hover:border-sidebar-border-strong hover:text-white"
+          className="sidebar-search mb-7 flex min-h-10 w-full items-center gap-2.5 rounded-lg border border-sidebar-border bg-white/5 px-3 text-left text-[12px] text-sidebar-foreground hover:bg-white/5 hover:text-sidebar-foreground dark:hover:bg-white/5"
           aria-label="통합 검색"
         >
           <LabIcon name="search" className="h-4 w-4 shrink-0" />
@@ -53,44 +97,24 @@ export default function Sidebar({
             ⌘ K
           </kbd>
         </Button>
-        <nav aria-label="주 메뉴" className="space-y-7">
-          {navigationGroups.map((group) => (
-            <div key={group.title}>
-              <p className="sidebar-label mb-2 px-3 text-[10px] font-semibold tracking-[0.06em] text-sidebar-muted">
-                {group.title}
-              </p>
-              <div className="space-y-1">
-                {group.items.map((item) => {
-                  const active = item.exact
-                    ? pathname === item.href
-                    : pathname === item.href ||
-                      pathname.startsWith(`${item.href}/`) || item.matchPaths?.some((path) => pathname === path || pathname.startsWith(`${path}/`));
-                  return (
-                    <Link
-                      key={item.href}
-                      href={item.href}
-                      onClick={onNavigate}
-                      title={item.label}
-                      aria-current={active ? "page" : undefined}
-                      aria-label={item.label}
-                      className={`sidebar-link relative flex min-h-11 items-center gap-3 rounded-lg px-3 text-[13px] font-medium transition-colors ${active ? "bg-primary text-white" : "text-sidebar-foreground hover:bg-white/5 hover:text-white"}`}
-                    >
-                      <LabIcon
-                        name={item.icon}
-                        className="h-[18px] w-[18px] shrink-0"
-                      />
-                      <span className="sidebar-label whitespace-nowrap">
-                        {item.label}
-                      </span>
-                      {active && (
-                        <span className="sidebar-label ml-auto h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
-                      )}
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
+        <nav
+          {...hoverEvents}
+          aria-label="주 메뉴"
+          className="relative isolate flex flex-col gap-7"
+        >
+          <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-10 overflow-hidden">
+            <motion.div
+              data-sidebar-hover=""
+              className="absolute inset-x-0 top-0 overflow-hidden rounded-lg bg-white/10 ring-1 ring-inset ring-white/10"
+              style={hoverStyle}
+            >
+              {/* Counter-movement keeps the white copy aligned with the clipped surface. */}
+              <motion.div className="flex flex-col gap-7" style={contentStyle}>
+                {renderGroups(true)}
+              </motion.div>
+            </motion.div>
+          </div>
+          {renderGroups()}
         </nav>
         <div className="mt-auto pt-10">
           <div className="sidebar-label rounded-xl border border-sidebar-border bg-white/5 p-3.5">

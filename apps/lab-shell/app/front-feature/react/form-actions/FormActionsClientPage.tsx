@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { ComparisonTemplate } from "../../components/ComparisonTemplate";
-import { ComparisonTopicNotes } from "../../components/ComparisonTopicNotes";
 import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import type { ComparisonTopic } from "../../components/ComparisonTypes";
 import { ActionProfileForm } from "./components/ActionProfileForm";
@@ -37,7 +36,7 @@ export function FormActionsClientPage({ manualCode, actionCode }: { manualCode: 
       headerActions={<div className="flex flex-wrap items-center gap-3 text-xs text-slate-600"><label className="flex items-center gap-2"><input type="checkbox" checked={shouldFail} onChange={(event) => setShouldFail(event.target.checked)} className="accent-violet-600" />저장 실패 모드</label><button className="rounded-full border border-slate-300 px-3 py-2" onClick={() => { setShouldFail(false); setSession((value) => value + 1); }}>두 폼 초기화</button></div>}
       leftComponent={<ManualProfileForm key={`manual-${session}`} shouldFail={shouldFail} />}
       rightComponent={<ActionProfileForm key={`action-${session}`} shouldFail={shouldFail} />}
-      footer={<div className="space-y-3 p-6 text-sm leading-relaxed text-slate-500"><p>① 양쪽에 이름을 입력하고 저장 ② 한 글자 또는 실패 모드로 오류 확인 ③ 옵션을 끄고 재시도. 대기 중 중복 제출, 성공 후 빈 입력, 오류 후 입력 보존을 관찰하세요. 코드 화면을 오가거나 페이지를 벗어나면 폼이 제거되어 입력과 기록이 초기화됩니다.</p><p>두 폼은 동일한 로컬 함수 saveProfile을 사용합니다. 이 예제의 Action은 클라이언트 함수이며 Server Action이 아닙니다.</p><ComparisonTopicNotes topics={topics} /><div className="flex flex-wrap gap-4"><a href="https://react.dev/reference/react/useActionState" target="_blank" rel="noreferrer" className="text-violet-600 underline">useActionState 공식 문서 ↗</a><a href="https://react.dev/reference/react-dom/hooks/useFormStatus" target="_blank" rel="noreferrer" className="text-violet-600 underline">useFormStatus 공식 문서 ↗</a><a href="https://react.dev/reference/react-dom/components/form" target="_blank" rel="noreferrer" className="text-violet-600 underline">form 자동 초기화 ↗</a></div></div>}
+      footer={<div className="space-y-3 p-6 text-sm leading-relaxed text-slate-500"><p>① 양쪽에 이름을 입력하고 저장 ② 한 글자 또는 실패 모드로 오류 확인 ③ 옵션을 끄고 재시도. 대기 중 중복 제출, 성공 후 빈 입력, 오류 후 입력 보존을 관찰하세요. 코드 화면을 오가거나 페이지를 벗어나면 폼이 제거되어 입력과 기록이 초기화됩니다.</p><p>두 폼은 동일한 로컬 함수 saveProfile을 사용합니다. 이 예제의 Action은 클라이언트 함수이며 Server Action이 아닙니다.</p><div className="flex flex-wrap gap-4"><a href="https://react.dev/reference/react/useActionState" target="_blank" rel="noreferrer" className="text-violet-600 underline">useActionState 공식 문서 ↗</a><a href="https://react.dev/reference/react-dom/hooks/useFormStatus" target="_blank" rel="noreferrer" className="text-violet-600 underline">useFormStatus 공식 문서 ↗</a><a href="https://react.dev/reference/react-dom/components/form" target="_blank" rel="noreferrer" className="text-violet-600 underline">form 자동 초기화 ↗</a></div></div>}
     />
   );
 }

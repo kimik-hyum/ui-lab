@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getTargetDisplayName } from "../data";
+import { getTargetDisplayName, sortFrameworks } from "../data";
 import { getFrameworkHistory } from "../history-data";
 import LatestRanking from "./LatestRanking";
 import VersionRows from "./VersionRows";
@@ -12,20 +12,12 @@ export const metadata: Metadata = {
   description: "최신 버전 결과를 한눈에 보고, 프레임워크와 버전별로 SSR·Lighthouse 기록을 확인합니다.",
 };
 
-const frameworkOrder: Readonly<Record<string, number>> = {
-  "next-lab": 0,
-  "react-router-lab": 1,
-  "sveltekit-lab": 2,
-  "vue-lab": 3,
-};
-
 export default async function PerformanceHistoryPage({ searchParams }: {
   searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const query = await searchParams;
   const first = (value: string | string[] | undefined) => Array.isArray(value) ? value[0] : value;
-  const frameworks = getFrameworkHistory().sort((a, b) =>
-    (frameworkOrder[a.name] ?? 4) - (frameworkOrder[b.name] ?? 4));
+  const frameworks = sortFrameworks(getFrameworkHistory());
 
   return (
     <main className="min-w-0 space-y-10 px-4 py-6 sm:px-7 lg:px-9 lg:py-8 2xl:px-12">

@@ -36,7 +36,7 @@ export default function MeasurementEnvironmentBox({ frameworks }: { frameworks: 
         <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-primary" />
         <div>
           <h2 id="measurement-environment-heading" className="text-lg font-semibold">측정 환경과 네트워크 조건</h2>
-          <p className="mt-1 text-sm leading-6 text-muted-foreground">최신 순위에 사용한 기록 기준 · 로컬 프로덕션 서버</p>
+          <p className="mt-1 text-sm leading-6 text-muted-foreground">최신 비교에 사용한 기록 기준 · 로컬 프로덕션 서버</p>
         </div>
       </div>
 

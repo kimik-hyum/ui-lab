@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { ComparisonTemplate } from "../../front-feature/components/ComparisonTemplate";
-import { ComparisonTopicNotes } from "../../front-feature/components/ComparisonTopicNotes";
 import { FRAMEWORK_IDS, type FrameworkId, type ObserverRequest } from "./_lib/types";
 import { FRAMEWORK_PRESENTATION, type Observation } from "./presentation";
 import { SOURCE_SCOPES, type ComparisonSources, type SourceScopeId } from "./source-catalog";
@@ -78,7 +77,6 @@ export function FrameworkDashboardClientPage({ sources, snapshotCss, initialCond
       <p>미리보기는 응답에서 추출한 본문에 공통 스타일을 적용합니다. 스크립트는 실행하지 않습니다. 코드 화면을 오가는 동안에는 같은 관찰 결과를 유지합니다.</p>
       <SourceScopeGuide scope={scope} left={left} right={right} sources={sources} onScopeChange={setScope} />
       {team === "missing" && <p>없는 팀도 같은 서버 지연 후 404로 처리합니다. 이 경로는 오류 처리 방식을 확인하며 성능 수치는 표시하지 않습니다.</p>}
-      <ComparisonTopicNotes topics={topics} />
       <nav aria-label={scope === "errors" ? "공식 오류 처리 문서" : "공식 서버 데이터 문서"} className="flex flex-wrap gap-x-6 gap-y-2 text-xs">{[left, right].map((id) => <a key={id} href={scope === "errors" ? FRAMEWORK_PRESENTATION[id].errorDocs : FRAMEWORK_PRESENTATION[id].docs} target="_blank" rel="noreferrer" className="underline underline-offset-4">{FRAMEWORK_PRESENTATION[id].label} {scope === "errors" ? "오류 처리" : "서버 데이터"} 문서 ↗</a>)}</nav>
     </div>}
   />;

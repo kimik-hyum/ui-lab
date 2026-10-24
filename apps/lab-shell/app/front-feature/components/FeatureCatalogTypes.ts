@@ -6,6 +6,8 @@ export type FeatureCatalogItem = {
   since: string;
   status: "available" | "planned";
   href?: string;
+  image?: { src: string; alt: string; width: number; height: number };
+  actionLabel?: string;
 };
 
 export type FeatureCatalogSection = {

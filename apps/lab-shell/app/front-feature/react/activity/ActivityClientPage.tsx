@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import type { ComparisonTopic } from "../../components/ComparisonTypes";
 import { ComparisonTemplate } from "../../components/ComparisonTemplate";
-import { ComparisonTopicNotes } from "../../components/ComparisonTopicNotes";
 import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import { ActivityHiddenDemo } from "./components/ActivityHiddenDemo";
 import { TraditionalHiddenDemo } from "./components/TraditionalHiddenDemo";
@@ -80,7 +79,6 @@ export function ActivityClientPage({ traditionalCode, activityCode }: {
           <p><strong className="text-slate-800">관찰 순서</strong> · 메모 입력 → 패널 숨기기 → interval 횟수 비교 → 다시 표시해 메모와 Effect 시작 횟수 확인.</p>
           <p>카운터는 실제 Effect·interval 호출 횟수입니다. 숨긴 Activity도 새 props에 반응해 렌더링할 수 있으므로 렌더 횟수나 성능으로 읽지 않습니다.</p>
           <p>코드 화면으로 전환하면 두 데모가 정리되고, UI로 돌아오면 새로 시작합니다. 개발 모드의 Strict Mode도 Effect를 다시 실행하므로 조작 전후의 변화에 주목하세요.</p>
-          <ComparisonTopicNotes topics={topics} />
           <a href="https://react.dev/reference/react/Activity" target="_blank" rel="noreferrer" className="inline-block text-violet-600 underline underline-offset-4">Activity 공식 문서 ↗</a>
         </div>
       }

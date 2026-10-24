@@ -2,7 +2,6 @@
 
 import { useMemo, useRef, useState } from "react";
 import { ComparisonTemplate } from "../../components/ComparisonTemplate";
-import { ComparisonTopicNotes } from "../../components/ComparisonTopicNotes";
 import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import type { ComparisonTopic } from "../../components/ComparisonTypes";
 import { createListItems, formatCount, getJumpOffset, LIST_COUNTS } from "./list-data";
@@ -57,7 +56,7 @@ export function VirtualListClientPage({ mapCode, virtuosoCode, libraryVersion }:
       headerActions={<div className={`${styles.controls} flex flex-wrap items-center gap-2 text-xs`}><label className="flex items-center gap-2 text-slate-600">항목 수<select aria-label="목록 항목 수" value={count} onChange={(event) => changeCount(Number(event.target.value) as ListCount)} className="min-h-11 rounded-lg border border-slate-300 bg-white px-3 text-slate-700">{LIST_COUNTS.map((value) => <option key={value} value={value}>{formatCount(value)}개</option>)}</select></label><div className="flex flex-wrap gap-1" role="group" aria-label="양쪽 목록 위치 이동"><button onClick={() => jumpTo(0)} className="min-h-11 rounded-lg border border-slate-300 px-3 text-slate-600">처음</button><button onClick={() => jumpTo(Math.floor(count / 2))} className="min-h-11 rounded-lg border border-slate-300 px-3 text-slate-600">중간</button><button onClick={() => jumpTo(count - 1)} className="min-h-11 rounded-lg border border-slate-300 px-3 text-slate-600">끝</button></div></div>}
       leftComponent={<MapListDemo key={count} ref={mapHandle} items={items} savedScrollRef={mapScroll} />}
       rightComponent={<VirtuosoListDemo key={count} ref={virtuosoHandle} items={items} savedScrollRef={virtuosoScroll} />}
-      footer={<div className="space-y-3 p-6 text-sm leading-relaxed text-slate-500"><p>동일 데이터 · 행 48px · 스크롤 영역 320px. 현재 DOM 행에는 화면 밖에 남겨둔 행도 포함됩니다.</p><p>관찰기는 목록 DOM이 바뀔 때 실제 행을 세며 별도 컴포넌트만 갱신합니다. 이 조회에도 비용이 있으므로 FPS·메모리·렌더 시간의 벤치마크로 사용하지 않습니다.</p><ComparisonTopicNotes topics={topics} /><a href="https://virtuoso.dev/react-virtuoso/api-reference/virtuoso/" target="_blank" rel="noreferrer" className="inline-block text-violet-600 underline">Virtuoso 공식 문서 ↗</a></div>}
+      footer={<div className="space-y-3 p-6 text-sm leading-relaxed text-slate-500"><p>동일 데이터 · 행 48px · 스크롤 영역 320px. 현재 DOM 행에는 화면 밖에 남겨둔 행도 포함됩니다.</p><p>관찰기는 목록 DOM이 바뀔 때 실제 행을 세며 별도 컴포넌트만 갱신합니다. 이 조회에도 비용이 있으므로 FPS·메모리·렌더 시간의 벤치마크로 사용하지 않습니다.</p><a href="https://virtuoso.dev/react-virtuoso/api-reference/virtuoso/" target="_blank" rel="noreferrer" className="inline-block text-violet-600 underline">Virtuoso 공식 문서 ↗</a></div>}
     />
   );
 }

@@ -86,6 +86,18 @@ const targetNames: Record<string, string> = {
   "react-router-lab": "React Router",
 };
 
+const frameworkOrder: Readonly<Record<string, number>> = {
+  "next-lab": 0,
+  "react-router-lab": 1,
+  "sveltekit-lab": 2,
+  "vue-lab": 3,
+};
+
+export function sortFrameworks<T extends { name: string }>(frameworks: readonly T[]): T[] {
+  return [...frameworks].sort((a, b) =>
+    (frameworkOrder[a.name] ?? 4) - (frameworkOrder[b.name] ?? 4));
+}
+
 export function getTargetDisplayName(name: string) {
   return targetNames[name] ?? name;
 }
@@ -134,7 +146,7 @@ export function getSsrChart(snapshot: SsrSnapshot) {
   return {
     limit,
     ticks: [0, 0.25, 0.5, 0.75, 1].map((fraction) => limit * fraction),
-    targets: snapshot.targets.map((target) => ({
+    targets: sortFrameworks(snapshot.targets).map((target) => ({
       ...target,
       label: getTargetDisplayName(target.name),
       version: getTargetVersion(target.name, target.versions),

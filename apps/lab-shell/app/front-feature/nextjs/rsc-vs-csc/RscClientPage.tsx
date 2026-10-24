@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { ComparisonTemplate } from "../../components/ComparisonTemplate";
-import { ComparisonTopicNotes } from "../../components/ComparisonTopicNotes";
 import type { ComparisonTopic } from "../../components/ComparisonTypes";
 import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import { CscArticleViewer } from "./components/CscArticleViewer";
@@ -103,7 +102,6 @@ export function RscClientPage({ cscCode, rscCode }: { cscCode: string; rscCode: 
           <p>오른쪽의 새 탭 링크에서 서버가 반환한 본문을 따로 확인할 수 있습니다. 오류·시간 초과 후 오른쪽만 재시도하면 지연 조건과 왼쪽 결과·완료 횟수는 유지됩니다. 번들 크기나 렌더링 시간은 측정하지 않습니다.</p>
           <p>코드 보기에서 UI 보기로 돌아오면 양쪽을 새로 요청하고, 왼쪽의 완료 응답 수는 0부터 다시 셉니다.</p>
           <p className="rounded-lg border border-slate-200 bg-slate-50 p-4">Client Component도 첫 페이지 요청에서 서버가 HTML을 미리 렌더링할 수 있습니다. 왼쪽의 대기 화면은 Client Component 전체의 특성이 아니라, 이 예제에서 초기 데이터를 useEffect로 요청하도록 선택한 결과입니다.</p>
-          <ComparisonTopicNotes topics={topics} />
           <nav aria-label="공식 문서" className="flex flex-wrap gap-x-6 gap-y-2 text-xs">
             <a href="https://nextjs.org/docs/app/getting-started/server-and-client-components" target="_blank" rel="noreferrer" className="underline underline-offset-4">Next.js · 서버/클라이언트 경계와 초기 HTML ↗</a>
             <a href="https://nextjs.org/docs/app/getting-started/fetching-data" target="_blank" rel="noreferrer" className="underline underline-offset-4">Next.js · 서버 데이터와 대기 경계 ↗</a>
