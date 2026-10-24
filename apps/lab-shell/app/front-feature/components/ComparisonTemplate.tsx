@@ -1,212 +1,189 @@
 'use client';
 
-import React, { useState, useMemo, useRef } from 'react';
+import { Button } from '@/components/ui/button';
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ComparisonTopic } from './ComparisonTypes';
 import { ComparisonCodeBlock } from './ComparisonCodeBlock';
 import { ComparisonInsightPanel } from './ComparisonInsightPanel';
 import { stripAnchorLines } from './codeAnchors';
+import { resolveLineTopic } from './lineTopics';
 
 export type { ComparisonTopic } from './ComparisonTypes';
 
 interface ComparisonTemplateProps {
-    title: string;
-    description: React.ReactNode;
-    leftTitle: string;
-    rightTitle: string;
-    leftCode: string;
-    rightCode: string;
-    topics: ComparisonTopic[];
-    leftComponent: React.ReactNode;
-    rightComponent: React.ReactNode;
-    headerActions?: React.ReactNode;
-    footer?: React.ReactNode;
+  title: string;
+  description: React.ReactNode;
+  leftTitle: string;
+  rightTitle: string;
+  leftCode: string;
+  rightCode: string;
+  topics: ComparisonTopic[];
+  leftComponent: React.ReactNode;
+  rightComponent: React.ReactNode;
+  headerActions?: React.ReactNode;
+  footer?: React.ReactNode;
+  codeActions?: React.ReactNode;
 }
 
 export function ComparisonTemplate({
-    title,
-    description,
-    leftTitle,
-    rightTitle,
-    leftCode,
-    rightCode,
-    topics,
-    leftComponent,
-    rightComponent,
-    headerActions,
-    footer,
+  title, description, leftTitle, rightTitle, leftCode, rightCode, topics,
+  leftComponent, rightComponent, headerActions, footer, codeActions,
 }: ComparisonTemplateProps) {
   const [showCode, setShowCode] = useState(false);
-
-  const [activeTopicId, setActiveTopicId] = useState<string | null>(null);
-  const [hoverY, setHoverY] = useState<number | null>(null);
+  const [mobileSide, setMobileSide] = useState<'left' | 'right'>('left');
+  const [selectedTopicId, setSelectedTopicId] = useState<string | null>(topics[0]?.id ?? null);
+  const [hoveredTopicId, setHoveredTopicId] = useState<string | null>(null);
   const leftScrollRef = useRef<HTMLDivElement | null>(null);
   const rightScrollRef = useRef<HTMLDivElement | null>(null);
-  const lastSyncRef = useRef<{ side: 'left' | 'right'; line: number; target: number } | null>(null);
+  const activeTopic = useMemo(
+    () => topics.find((topic) => topic.id === (hoveredTopicId ?? selectedTopicId)) ?? null,
+    [hoveredTopicId, selectedTopicId, topics],
+  );
+  const allLeftLines = useMemo(() => topics.flatMap((topic) => topic.leftLines), [topics]);
+  const allRightLines = useMemo(() => topics.flatMap((topic) => topic.rightLines), [topics]);
 
-  const activeTopic = useMemo(() =>
-    topics.find(t => t.id === activeTopicId) || null,
-  [activeTopicId, topics]);
+  const scrollToLine = useCallback((side: 'left' | 'right', lineNumber?: number) => {
+    if (!lineNumber) return;
+    const container = side === 'left' ? leftScrollRef.current : rightScrollRef.current;
+    const target = container?.querySelector<HTMLElement>(`[data-line="${lineNumber}"]`);
+    if (!container || !target || container.clientHeight === 0) return;
+    const containerRect = container.getBoundingClientRect();
+    const targetRect = target.getBoundingClientRect();
+    if (targetRect.top >= containerRect.top + 12 && targetRect.bottom <= containerRect.bottom - 12) return;
+    // Scroll the code pane only; selecting an explanation must not move the page.
+    container.scrollTo({ top: container.scrollTop + targetRect.top - containerRect.top - container.clientHeight / 3, behavior: 'instant' });
+  }, []);
 
-  const allLeftLines = useMemo(() => topics.flatMap(t => t.leftLines), [topics]);
-  const allRightLines = useMemo(() => topics.flatMap(t => t.rightLines), [topics]);
+  const selectedTopic = topics.find((topic) => topic.id === selectedTopicId);
+  const selectedTopicRef = useRef(selectedTopic);
+  useEffect(() => { selectedTopicRef.current = selectedTopic; }, [selectedTopic]);
+  // Base UI mounts the panel after changing tabs; restore its position on mount.
+  // Keep these refs stable so selecting a code line does not remount or scroll its pane.
+  const attachLeftCode = useCallback((node: HTMLDivElement | null) => {
+    leftScrollRef.current = node;
+    if (node) requestAnimationFrame(() => scrollToLine('left', selectedTopicRef.current?.leftLines[0]));
+  }, [scrollToLine]);
+  const attachRightCode = useCallback((node: HTMLDivElement | null) => {
+    rightScrollRef.current = node;
+    if (node) requestAnimationFrame(() => scrollToLine('right', selectedTopicRef.current?.rightLines[0]));
+  }, [scrollToLine]);
 
-  const getLineElement = (side: 'left' | 'right', lineNumber: number) => {
-      const container = side === 'left' ? leftScrollRef.current : rightScrollRef.current;
-      if (!container) return null;
-      const target = container.querySelector(`[data-line="${lineNumber}"]`);
-      return target instanceof HTMLElement ? target : null;
+  const topicForLine = (side: 'left' | 'right', line: number) =>
+    resolveLineTopic(topics, line, (topic) => side === 'left' ? topic.leftLines : topic.rightLines, selectedTopicId);
+
+  const handleLineHover = (side: 'left' | 'right', line: number | null) => {
+    if (line === null) {
+      setHoveredTopicId(null);
+      return;
+    }
+    const topic = topicForLine(side, line);
+    if (!topic) return;
+    setHoveredTopicId(topic.id);
+    const sourceLines = side === 'left' ? topic.leftLines : topic.rightLines;
+    const targetLines = side === 'left' ? topic.rightLines : topic.leftLines;
+    const index = sourceLines.indexOf(line);
+    const fraction = sourceLines.length > 1 ? index / (sourceLines.length - 1) : 0;
+    const targetLine = targetLines[Math.round(fraction * (targetLines.length - 1))];
+    scrollToLine(side === 'left' ? 'right' : 'left', targetLine);
   };
 
-  const isLineVisibleInContainer = (side: 'left' | 'right', lineNumber: number) => {
-      const container = side === 'left' ? leftScrollRef.current : rightScrollRef.current;
-      const target = getLineElement(side, lineNumber);
-      if (!container || !target) return false;
-      const containerRect = container.getBoundingClientRect();
-      const targetRect = target.getBoundingClientRect();
-      const padding = 8;
-      return (
-          targetRect.bottom > containerRect.top + padding &&
-          targetRect.top < containerRect.bottom - padding
-      );
+  const selectTopic = (topic: ComparisonTopic, reveal = true) => {
+    setSelectedTopicId(topic.id);
+    setHoveredTopicId(null);
+    if (reveal) {
+      scrollToLine('left', topic.leftLines[0]);
+      scrollToLine('right', topic.rightLines[0]);
+    }
   };
 
-  const scrollToLine = (side: 'left' | 'right', lineNumber: number) => {
-      const target = getLineElement(side, lineNumber);
-      if (!target) return;
-      target.scrollIntoView({ block: 'center', inline: 'nearest' });
+  const changeSide = (side: 'left' | 'right') => {
+    setMobileSide(side);
+    requestAnimationFrame(() => scrollToLine(side, side === 'left' ? activeTopic?.leftLines[0] : activeTopic?.rightLines[0]));
   };
 
-  const syncScrollToMatch = (side: 'left' | 'right', lineNumber: number, topic: ComparisonTopic) => {
-      if (!showCode) return;
-      const sourceLines = side === 'left' ? topic.leftLines : topic.rightLines;
-      const targetLines = side === 'left' ? topic.rightLines : topic.leftLines;
-      const targetSide = side === 'left' ? 'right' : 'left';
-      const sourceIndex = sourceLines.indexOf(lineNumber);
-      const normalizedIndex = sourceLines.length > 1 && sourceIndex >= 0
-          ? sourceIndex / (sourceLines.length - 1)
-          : 0;
-      const targetIndex = targetLines.length > 1
-          ? Math.round(normalizedIndex * (targetLines.length - 1))
-          : 0;
-      const targetLine = targetLines[targetIndex] ?? targetLines[0];
-      if (!targetLine) return;
-      if (
-          lastSyncRef.current &&
-          lastSyncRef.current.side === side &&
-          lastSyncRef.current.line === lineNumber &&
-          lastSyncRef.current.target === targetLine
-      ) return;
-      if (isLineVisibleInContainer(targetSide, targetLine)) {
-          lastSyncRef.current = { side, line: lineNumber, target: targetLine };
-          return;
-      }
-      lastSyncRef.current = { side, line: lineNumber, target: targetLine };
-      scrollToLine(targetSide, targetLine);
-  };
-
-  const handleLineHover = (side: 'left' | 'right', line: number | null, y?: number) => {
-      if (line === null) {
-          setActiveTopicId(null);
-          setHoverY(null);
-          lastSyncRef.current = null;
-          return;
-      }
-      if (y) setHoverY(y);
-      const topic = topics.find(t => {
-          const lines = side === 'left' ? t.leftLines : t.rightLines;
-          return lines.includes(line);
-      });
-      if (topic) {
-          setActiveTopicId(topic.id);
-          syncScrollToMatch(side, line, topic);
-      }
+  const changeView = (value: unknown) => {
+    setHoveredTopicId(null);
+    setShowCode(value === 'code');
   };
 
   return (
-    <div className="min-h-screen bg-white text-slate-800 font-sans selection:bg-violet-100">
-      <div className={`w-full flex flex-col ${footer ? 'min-h-screen' : 'h-screen'}`}>
-        {/* Header */}
-        <header className="p-6 border-b border-slate-200 flex items-center justify-between shrink-0 bg-white">
-          <div>
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">{title}</h1>
-            <p className="text-slate-500 text-sm mt-1">{description}</p>
+    <div className="min-w-0 bg-background text-foreground">
+      <Tabs value={showCode ? "code" : "preview"} onValueChange={changeView} className="gap-0">
+        <header className="shrink-0 border-b border-border bg-white px-5 py-5 sm:px-7 lg:px-8">
+          <div className="mb-2 flex items-center gap-2.5 text-[10px] font-semibold tracking-[0.16em] text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary" />FEATURE COMPARISON
+            <span className="font-mono font-normal tracking-normal text-subtle-foreground">A / B</span>
           </div>
-          <div className="flex items-center gap-4">
-            <button
-              onClick={() => setShowCode((prev) => !prev)}
-              className="text-xs px-3 py-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors border border-slate-200"
-            >
-              {showCode ? '👁️ View UI' : '📝 View Code'}
-            </button>
-            {headerActions}
-          </div>
+          <h1 className="text-xl font-semibold tracking-tight sm:text-2xl">{title}</h1>
+          <div className="mt-2 max-w-5xl text-[13px] leading-relaxed text-muted-foreground">{description}</div>
         </header>
 
-        {/* Main Content */}
-        <div className="flex flex-1 overflow-hidden">
-          {/* Left Side — Legacy */}
-          <section className="w-1/2 min-w-0 border-r border-slate-200 flex flex-col relative group">
-            <div className="p-4 border-b border-slate-200 bg-slate-50 flex items-center shrink-0">
-              <h2 className="text-base font-semibold text-slate-500 group-hover:text-slate-700 transition-colors">
-                A. {leftTitle}
-              </h2>
-            </div>
-            <div className="flex-1 p-6 overflow-y-auto bg-white relative">
-              {showCode ? (
-                <ComparisonCodeBlock
-                  code={stripAnchorLines(leftCode)}
-                  title="Traditional"
-                  badge="Legacy"
-                  color="red"
-                  highlightedLines={activeTopic ? activeTopic.leftLines : []}
-                  interactiveLines={allLeftLines}
-                  onLineHover={(line, y) => handleLineHover('left', line, y)}
-                  scrollRef={leftScrollRef}
-                />
-              ) : (
-                leftComponent
-              )}
-            </div>
-          </section>
-
-          {/* Right Side — Modern */}
-          <section className="w-1/2 min-w-0 flex flex-col relative group">
-            <div className="p-4 border-b border-slate-200 bg-violet-50 flex items-center shrink-0">
-              <h2 className="text-base font-semibold text-violet-600 group-hover:text-violet-700 transition-colors">
-                B. {rightTitle}
-              </h2>
-            </div>
-            <div className="flex-1 p-6 overflow-y-auto bg-white relative">
-              {showCode ? (
-                <ComparisonCodeBlock
-                  code={stripAnchorLines(rightCode)}
-                  title="Optimized"
-                  badge="Modern"
-                  color="blue"
-                  highlightedLines={activeTopic ? activeTopic.rightLines : []}
-                  interactiveLines={allRightLines}
-                  onLineHover={(line, y) => handleLineHover('right', line, y)}
-                  scrollRef={rightScrollRef}
-                />
-              ) : (
-                rightComponent
-              )}
-            </div>
-          </section>
+        <div className="flex shrink-0 flex-wrap items-center justify-between gap-3 border-b border-border bg-white px-5 py-3 sm:px-7 lg:px-8">
+          <TabsList aria-label="비교 화면" className="h-11">
+            <TabsTrigger value="preview" className="px-4 data-active:text-primary">실행 결과</TabsTrigger>
+            <TabsTrigger value="code" className="px-4 data-active:text-primary">코드 비교</TabsTrigger>
+          </TabsList>
+          {(showCode ? codeActions : headerActions) ? <div className="min-w-0 max-w-full [&>div]:flex-wrap">{showCode ? codeActions : headerActions}</div> : null}
         </div>
 
-        {/* Insight Panel */}
+        <div role="group" aria-label="비교 대상" className="mx-5 mt-4 grid shrink-0 grid-cols-2 gap-1 rounded-lg border border-border bg-white p-1 sm:mx-7 lg:hidden">
+          {(['left', 'right'] as const).map((side) => (
+            <Button variant="ghost" type="button" key={side} aria-label={side === 'left' ? 'A 기존 구현' : 'B 기능 적용'} aria-pressed={mobileSide === side} onClick={() => changeSide(side)}
+              className={`min-h-11 min-w-0 rounded-md px-3 text-xs font-semibold ${mobileSide === side ? 'bg-primary-subtle text-primary' : 'text-muted-foreground'}`}>
+              <span className="mr-2 font-mono">{side === 'left' ? 'A' : 'B'}</span>{side === 'left' ? '기존 구현' : '기능 적용'}
+            </Button>
+          ))}
+        </div>
+
         {showCode && (
-          <ComparisonInsightPanel topic={activeTopic} top={hoverY} />
+          <section aria-label="코드 비교 포인트" className="sticky top-[var(--shell-header-height)] z-20 min-w-0 border-b border-border bg-white px-5 py-3 shadow-sm sm:px-7 lg:px-8">
+            <div className="mb-2 flex min-w-0 items-center gap-4">
+              <span className="shrink-0 text-xs font-semibold">비교 포인트</span>
+              <div className="flex min-w-0 gap-2 overflow-x-auto pb-1">
+                {topics.map((topic, index) => (
+                  <button type="button" key={topic.id} aria-pressed={selectedTopicId === topic.id} onClick={() => selectTopic(topic)}
+                    className={`min-h-9 shrink-0 rounded-md border px-3 text-left text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${selectedTopicId === topic.id ? 'border-primary/20 bg-primary-subtle text-primary' : 'border-border text-muted-foreground hover:bg-surface'}`}>
+                    <span className="mr-2 font-mono text-[10px] opacity-60">0{index + 1}</span>{topic.title}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="comparison-description"><ComparisonInsightPanel topic={activeTopic} /></div>
+          </section>
         )}
-      </div>
 
-      {/* Footer */}
-      {footer && (
-        <div className="border-t border-slate-200 bg-white">
-          {footer}
-        </div>
-      )}
+        {(['preview', 'code'] as const).map((mode) => <TabsContent key={mode} value={mode} className="m-0">
+          <div className="grid min-w-0 grid-cols-1 gap-4 p-5 sm:p-7 lg:grid-cols-2 lg:p-6">
+            {(['left', 'right'] as const).map((side) => {
+              const isLeft = side === 'left';
+              return <section key={side} aria-label={isLeft ? leftTitle : rightTitle} className={`${mobileSide === side ? 'flex' : 'hidden lg:flex'} min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card`}>
+                <div className="flex min-h-16 items-center gap-3 border-b border-border px-5 py-3">
+                  <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg font-mono text-xs font-semibold ${isLeft ? 'bg-surface-elevated text-muted-foreground' : 'bg-primary-subtle text-primary'}`}>{isLeft ? 'A' : 'B'}</span>
+                  <div className="min-w-0"><p className="mb-0.5 text-xs text-muted-foreground">{isLeft ? '기존 구현' : '비교 구현'}</p><h2 className="text-sm font-semibold">{isLeft ? leftTitle : rightTitle}</h2></div>
+                </div>
+                {mode === 'preview' ? <div className="min-h-64 p-4 lg:p-5">{isLeft ? leftComponent : rightComponent}</div> : <div className="h-[clamp(360px,55dvh,640px)] min-w-0 p-2.5">
+                  <ComparisonCodeBlock code={stripAnchorLines(isLeft ? leftCode : rightCode)} title={isLeft ? 'A · 기존 구현' : 'B · 비교 구현'} badge="TSX" color={isLeft ? 'red' : 'blue'}
+                    sourceLabel={isLeft ? leftTitle : rightTitle}
+                    highlightedLines={(isLeft ? activeTopic?.leftLines : activeTopic?.rightLines) ?? []} interactiveLines={isLeft ? allLeftLines : allRightLines}
+                    onLineHover={(line) => handleLineHover(side, line)}
+                    getLineHint={(line) => topicForLine(side, line)}
+                    onLineSelect={(line) => { const topic = topicForLine(side, line); if (topic) selectTopic(topic, false); }}
+                    scrollRef={isLeft ? attachLeftCode : attachRightCode} />
+                </div>}
+              </section>;
+            })}
+          </div>
+        </TabsContent>)}
+
+        {!showCode && (
+          <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-t border-border bg-white px-5 py-3 text-[11px] text-muted-foreground sm:px-7 lg:px-8">
+            <span>같은 조건에서 두 구현을 실행하고 동작을 비교하세요.</span>
+            <button type="button" onClick={() => changeView('code')} className="min-h-7 font-medium text-primary hover:underline">구현 코드와 {topics.length}개 비교 포인트 보기 <span aria-hidden="true">↗</span></button>
+          </div>
+        )}
+      </Tabs>
+      {footer ? <div className="border-t border-border bg-white">{footer}</div> : null}
     </div>
   );
 }

@@ -2,6 +2,9 @@
   "name": "vue-lab",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "type": "module",
   "scripts": {
     "dev": "NUXT_TELEMETRY_DISABLED=1 nuxt dev --host 127.0.0.1 --port 3004",
@@ -13,11 +16,12 @@
     "@supabase/supabase-js": "^2.53.0",
     "@tanstack/vue-query": "^5.100.14",
     "@ui-lab/api-types": "workspace:*",
-    "nuxt": "4.4.5",
-    "vue": "3.5.34"
+    "nuxt": "4.6.2",
+    "vue": "3.5.44"
   },
   "devDependencies": {
+    "rolldown": "~1.2.14",
     "typescript": "^5.0.0",
-    "vue-tsc": "^3.1.5"
+    "vue-tsc": "^3.3.13"
   }
 }

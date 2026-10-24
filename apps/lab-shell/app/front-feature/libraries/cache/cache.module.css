@@ -1,0 +1,4 @@
+/* Keep fetch / Query titles without implying a measured performance winner. */
+:global(.min-h-screen.bg-white):has(.controls) :global(.bg-gray-950) > :global(.bg-gray-900):first-child {
+  display: none;
+}

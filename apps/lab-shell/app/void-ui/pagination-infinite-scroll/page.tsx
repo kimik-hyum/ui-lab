@@ -24,7 +24,7 @@ type SearchParamValue = string | string[] | undefined;
 type PageSearchParams = Record<string, SearchParamValue>;
 
 type PaginationInfiniteScrollPageProps = {
-  searchParams?: Promise<PageSearchParams> | PageSearchParams;
+  searchParams: Promise<PageSearchParams>;
 };
 
 const parsePage = (value: SearchParamValue): number => {
@@ -55,7 +55,7 @@ async function fetchInitialProducts(page: number): Promise<ProductsResponse> {
 export default async function PaginationInfiniteScrollPage({
   searchParams,
 }: PaginationInfiniteScrollPageProps) {
-  const resolvedSearchParams = await Promise.resolve(searchParams ?? {});
+  const resolvedSearchParams = await searchParams;
   const initialPage = parsePage(resolvedSearchParams[PAGE_PARAM_KEY]);
   const initialData = await fetchInitialProducts(initialPage);
 
@@ -64,7 +64,7 @@ export default async function PaginationInfiniteScrollPage({
       initialPage={initialPage}
       initialProducts={initialData.products}
       initialTotal={initialData.total}
-      pageSize={initialData.limit}
+      pageSize={PAGE_SIZE}
       syncUrl
       restoreFromUrl
       pageParamKey={PAGE_PARAM_KEY}

@@ -1,0 +1,111 @@
+{
+  "schemaVersion": 1,
+  "comments": [
+    {
+      "id": "nuxt-4-4-5-to-4-6-2",
+      "framework": "vue-lab",
+      "packageName": "nuxt",
+      "fromVersion": "4.4.5",
+      "toVersion": "4.6.2",
+      "comparisonId": "upgrade-1mbps-20261023T050205Z",
+      "scenarioPath": "/scenarios/shopping-detail-ssr",
+      "recordedOn": "2026-10-23",
+      "status": "investigating",
+      "versionChanges": "Nuxt 4.5에서 Vite 8·Rolldown으로 전환됐고, 4.6에서 미리받기 스케줄러가 바뀌었습니다. 함께 설치된 리소스 힌트 생성 도구도 갱신됐습니다.",
+      "code": {
+        "kind": "unchanged",
+        "description": "Node·의존성을 갱신하고 상품 상세의 await useFetch·SSR·이미지 코드는 유지했습니다. 공식 점검 항목을 대조했을 때 이 시나리오에서 필수 수정할 사용처는 발견되지 않았습니다."
+      },
+      "observation": "기본 구현을 유지한 상태에서 LCP가 약 2.73초 → 3.29초(+20.6%)로 늘었습니다. 재측정에서도 같은 경향이며, 차이는 이미지 리소스 로딩 구간에 집중됐습니다.",
+      "conclusion": "번들 구성과 리소스 경합을 우선 조사 중입니다. 오류 페이지 미리받기 4개를 막아도 약 0.08초만 줄어 전체 차이는 설명되지 않았습니다. 단일 원인은 아직 확정하지 않았습니다.",
+      "sources": [
+        { "title": "Nuxt 4.5 공식 변경 사항", "url": "https://github.com/nuxt/nuxt/releases/tag/v4.5.0" },
+        { "title": "Nuxt 4.6 공식 변경 사항", "url": "https://github.com/nuxt/nuxt/releases/tag/v4.6.0" },
+        { "title": "vue-bundle-renderer 2.4 변경 사항", "url": "https://github.com/nuxt-contrib/vue-bundle-renderer/releases/tag/v2.4.0" }
+      ],
+      "reportPath": "docs/harness/results/nuxt-4.6.2-retest.md",
+      "measurements": [
+        { "kind": "ssr", "before": "ssr-2026-10-23T05-11-08-245Z", "after": "ssr-2026-10-23T05-49-08-364Z" },
+        { "kind": "lighthouse", "before": "lighthouse-2026-10-23T05-12-20-924Z", "after": "lighthouse-2026-10-23T05-49-33-963Z" }
+      ]
+    },
+    {
+      "id": "next-16-1-1-to-16-4-2",
+      "framework": "next-lab",
+      "packageName": "next",
+      "fromVersion": "16.1.1",
+      "toVersion": "16.4.2",
+      "comparisonId": "upgrade-1mbps-20261023T050205Z",
+      "scenarioPath": "/scenarios/shopping-detail-ssr",
+      "recordedOn": "2026-10-23",
+      "status": "observed",
+      "versionChanges": "Next.js 16.4에는 production 번들 개선과 React 19.3 지원이 포함됩니다. 이번 측정에서는 Next.js·React 의존성을 함께 갱신했습니다.",
+      "code": {
+        "kind": "unchanged",
+        "description": "상품 상세의 서버 조회·스트리밍·화면 구현을 유지했고, 별도 성능 최적화는 적용하지 않았습니다."
+      },
+      "observation": "SSR 콘텐츠 도착은 +0.8%, LCP는 +2.2%로 측정됐습니다. 이 상품 상세 시나리오에서 큰 시간 차이는 관찰되지 않았습니다.",
+      "conclusion": "SSR 측정 범위가 겹칩니다. 이번 기록만으로 버전업의 성능 향상이나 저하를 단정하지 않습니다.",
+      "sources": [
+        { "title": "Next.js 16.4 공식 변경 사항", "url": "https://nextjs.org/blog/next-16-4" }
+      ],
+      "reportPath": "docs/harness/results/network-1mbps-upgrade.md",
+      "measurements": [
+        { "kind": "ssr", "before": "ssr-2026-10-23T05-11-08-245Z", "after": "ssr-2026-10-23T05-02-05-727Z" },
+        { "kind": "lighthouse", "before": "lighthouse-2026-10-23T05-12-20-924Z", "after": "lighthouse-2026-10-23T05-03-07-003Z" }
+      ]
+    },
+    {
+      "id": "sveltekit-2-57-1-to-3-1-0",
+      "framework": "sveltekit-lab",
+      "packageName": "@sveltejs/kit",
+      "fromVersion": "2.57.1",
+      "toVersion": "3.1.0",
+      "comparisonId": "upgrade-1mbps-20261023T050205Z",
+      "scenarioPath": "/scenarios/shopping-detail-ssr",
+      "recordedOn": "2026-10-23",
+      "status": "observed",
+      "versionChanges": "SvelteKit 3의 설정·import·환경변수 규칙에 맞춰 이전했고 Svelte·Vite도 함께 갱신했습니다.",
+      "code": {
+        "kind": "migration",
+        "description": "#lib import, $app/env/private, error API와 빌드 설정을 이전했습니다. 같은 상품 조회·SSR 기능을 유지했으며 별도 성능 최적화는 적용하지 않았습니다."
+      },
+      "observation": "호환성 이전을 적용한 상태에서 SSR 콘텐츠 도착은 +3.2%, LCP는 +0.2%로 측정됐습니다. 큰 시간 차이는 관찰되지 않았습니다.",
+      "conclusion": "코드 이전이 포함된 비교입니다. 이번 수치를 의존성 버전만 바꾼 효과로 해석하지 않습니다.",
+      "sources": [
+        { "title": "SvelteKit 3 공식 이전 가이드", "url": "https://svelte.dev/docs/kit/migrating-to-sveltekit-3" }
+      ],
+      "reportPath": "docs/harness/results/network-1mbps-upgrade.md",
+      "measurements": [
+        { "kind": "ssr", "before": "ssr-2026-10-23T05-11-08-245Z", "after": "ssr-2026-10-23T05-02-05-727Z" },
+        { "kind": "lighthouse", "before": "lighthouse-2026-10-23T05-12-20-924Z", "after": "lighthouse-2026-10-23T05-03-07-003Z" }
+      ]
+    },
+    {
+      "id": "react-router-7-15-0-to-7-18-4",
+      "framework": "react-router-lab",
+      "packageName": "react-router",
+      "fromVersion": "7.15.0",
+      "toVersion": "7.18.4",
+      "comparisonId": "upgrade-1mbps-20261023T050205Z",
+      "scenarioPath": "/scenarios/shopping-detail-ssr",
+      "recordedOn": "2026-10-23",
+      "status": "observed",
+      "versionChanges": "React Router·React를 갱신하고 Vite 7에서 Vite 8·Rolldown 빌드로 전환했습니다.",
+      "code": {
+        "kind": "unchanged",
+        "description": "상품 상세의 loader 조회·SSR·화면 구현을 유지했고, 별도 성능 최적화는 적용하지 않았습니다."
+      },
+      "observation": "SSR 콘텐츠 도착은 +0.1%, LCP는 +2.4%로 측정됐습니다. 이 시나리오에서 큰 시간 차이는 관찰되지 않았습니다.",
+      "conclusion": "Vite 전환을 포함한 의존성 조합의 관찰값입니다. 같은 빌드 도구를 사용해도 다른 프레임워크의 결과까지 일반화하지 않습니다.",
+      "sources": [
+        { "title": "Vite 8 공식 이전 가이드", "url": "https://vite.dev/guide/migration" }
+      ],
+      "reportPath": "docs/harness/results/network-1mbps-upgrade.md",
+      "measurements": [
+        { "kind": "ssr", "before": "ssr-2026-10-23T05-11-08-245Z", "after": "ssr-2026-10-23T05-02-05-727Z" },
+        { "kind": "lighthouse", "before": "lighthouse-2026-10-23T05-12-20-924Z", "after": "lighthouse-2026-10-23T05-03-07-003Z" }
+      ]
+    }
+  ]
+}

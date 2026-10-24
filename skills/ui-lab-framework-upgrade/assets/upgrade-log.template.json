@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 2,
+  "id": "",
+  "title": "",
+  "summary": "",
+  "startedAt": "",
+  "updatedAt": "",
+  "status": "in-progress",
+  "packages": [],
+  "sources": [
+    {
+      "id": "",
+      "title": "",
+      "url": "",
+      "checkedOn": ""
+    }
+  ],
+  "changes": [
+    {
+      "paths": [""],
+      "reason": "",
+      "before": "",
+      "after": "",
+      "recommendation": null,
+      "sourceIds": [],
+      "files": [
+        {
+          "path": "",
+          "excerpts": [
+            {
+              "before": { "startLine": 1, "code": "" },
+              "after": { "startLine": 1, "code": "" }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

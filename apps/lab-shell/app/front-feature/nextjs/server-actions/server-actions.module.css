@@ -1,0 +1,4 @@
+/* 전송 책임을 비교하며 성능 우열을 표시하지 않습니다. */
+:global(.min-h-screen.bg-white):has(.controls) :global(.bg-gray-950) > :global(.bg-gray-900):first-child {
+  display: none;
+}

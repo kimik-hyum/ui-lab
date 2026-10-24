@@ -1,0 +1,487 @@
+{
+  "schemaVersion": 2,
+  "id": "2026-10-21-next-16-4",
+  "title": "Next.js 16.4.2로 업그레이드",
+  "summary": "Next.js를 16.4.2로 올리고 요청 API 타입·상태 동기화·standalone 파일 구성을 정리했습니다.",
+  "startedAt": "2026-10-21T11:57:10.215+09:00",
+  "updatedAt": "2026-10-21T14:48:58.873+09:00",
+  "status": "completed",
+  "packages": [
+    {
+      "workspace": "lab-shell",
+      "name": "next",
+      "declaredBefore": "16.1.1",
+      "declaredAfter": "16.4.2",
+      "installedBefore": "16.1.1",
+      "target": "16.4.2",
+      "installedAfter": "16.4.2"
+    },
+    {
+      "workspace": "lab-shell",
+      "name": "eslint-config-next",
+      "declaredBefore": "16.1.1",
+      "declaredAfter": "16.4.2",
+      "installedBefore": "16.1.1",
+      "target": "16.4.2",
+      "installedAfter": "16.4.2"
+    },
+    {
+      "workspace": "next-lab",
+      "name": "next",
+      "declaredBefore": "16.1.1",
+      "declaredAfter": "16.4.2",
+      "installedBefore": "16.1.1",
+      "target": "16.4.2",
+      "installedAfter": "16.4.2"
+    },
+    {
+      "workspace": "next-lab",
+      "name": "eslint-config-next",
+      "declaredBefore": "16.1.1",
+      "declaredAfter": "16.4.2",
+      "installedBefore": "16.1.1",
+      "target": "16.4.2",
+      "installedAfter": "16.4.2"
+    }
+  ],
+  "sources": [
+    {
+      "id": "next-16-guide",
+      "title": "Next.js 16 업그레이드 가이드",
+      "url": "https://nextjs.org/docs/app/guides/upgrading/version-16",
+      "checkedOn": "2026-10-21"
+    },
+    {
+      "id": "next-16-4",
+      "title": "Next.js 16.4 릴리스 노트",
+      "url": "https://nextjs.org/blog/next-16-4",
+      "checkedOn": "2026-10-21"
+    },
+    {
+      "id": "next-registry",
+      "title": "Next.js 16.4.2 런타임·peer dependency 명세",
+      "url": "https://registry.npmjs.org/next/16.4.2",
+      "checkedOn": "2026-10-21"
+    },
+    {
+      "id": "next-output",
+      "title": "Next.js standalone 및 Output File Tracing",
+      "url": "https://nextjs.org/docs/app/api-reference/config/next-config-js/output",
+      "checkedOn": "2026-10-21"
+    },
+    {
+      "id": "react-effects",
+      "title": "React: Effect 없이 상태를 계산·초기화하기",
+      "url": "https://react.dev/learn/you-might-not-need-an-effect",
+      "checkedOn": "2026-10-21"
+    },
+    {
+      "id": "react-effect-lint",
+      "title": "React Hooks ESLint: set-state-in-effect",
+      "url": "https://react.dev/reference/eslint-plugin-react-hooks/lints/set-state-in-effect",
+      "checkedOn": "2026-10-21"
+    }
+  ],
+  "changes": [
+    {
+      "paths": [
+        "apps/lab-shell/package.json",
+        "apps/next-lab/package.json",
+        "yarn.lock"
+      ],
+      "reason": "Next.js와 ESLint 설정, 명시한 SWC 버전을 함께 맞췄습니다.",
+      "before": "next: 16.1.1\neslint-config-next: 16.1.1\noptional SWC (Linux x64): 16.1.1",
+      "after": "next: 16.4.2\neslint-config-next: 16.4.2\noptional SWC (Linux x64): 16.4.2",
+      "sourceIds": [
+        "next-registry",
+        "next-16-4"
+      ],
+      "recommendation": "프레임워크와 관련 패키지의 지원 버전을 함께 맞춥니다.",
+      "files": [
+        {
+          "path": "apps/lab-shell/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 14,
+                "code": "    \"next\": \"16.1.1\","
+              },
+              "after": {
+                "startLine": 15,
+                "code": "    \"next\": \"16.4.2\","
+              }
+            },
+            {
+              "before": {
+                "startLine": 27,
+                "code": "    \"eslint-config-next\": \"16.1.1\","
+              },
+              "after": {
+                "startLine": 28,
+                "code": "    \"eslint-config-next\": \"16.4.2\","
+              }
+            },
+            {
+              "before": {
+                "startLine": 32,
+                "code": "    \"@next/swc-linux-x64-gnu\": \"16.1.1\""
+              },
+              "after": {
+                "startLine": 33,
+                "code": "    \"@next/swc-linux-x64-gnu\": \"16.4.2\""
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/next-lab/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 15,
+                "code": "    \"next\": \"16.1.1\","
+              },
+              "after": {
+                "startLine": 15,
+                "code": "    \"next\": \"16.4.2\","
+              }
+            },
+            {
+              "before": {
+                "startLine": 24,
+                "code": "    \"eslint-config-next\": \"16.1.1\","
+              },
+              "after": {
+                "startLine": 24,
+                "code": "    \"eslint-config-next\": \"16.4.2\","
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paths": [
+        "apps/lab-shell/app/void-ui/pagination-infinite-scroll/page.tsx",
+        "apps/lab-shell/app/void-ui/pagination-infinite-scroll/adapter-live/page.tsx"
+      ],
+      "reason": "searchParams의 동기 객체 타입을 없애 Next.js 16의 비동기 요청 API와 맞췄습니다.",
+      "before": "searchParams?: Promise<PageSearchParams> | PageSearchParams;\n\nconst resolvedSearchParams =\n  await Promise.resolve(searchParams ?? {});",
+      "after": "searchParams: Promise<PageSearchParams>;\n\nconst resolvedSearchParams =\n  await searchParams;",
+      "sourceIds": [
+        "next-16-guide"
+      ],
+      "recommendation": "Next.js 16에서는 searchParams를 Promise로 받아 await로 읽어야 합니다.",
+      "files": [
+        {
+          "path": "apps/lab-shell/app/void-ui/pagination-infinite-scroll/page.tsx",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 24,
+                "code": "type PageSearchParams = Record<string, SearchParamValue>;\n\ntype PaginationInfiniteScrollPageProps = {\n  searchParams?: Promise<PageSearchParams> | PageSearchParams;\n};\n\nconst parsePage = (value: SearchParamValue): number => {"
+              },
+              "after": {
+                "startLine": 24,
+                "code": "type PageSearchParams = Record<string, SearchParamValue>;\n\ntype PaginationInfiniteScrollPageProps = {\n  searchParams: Promise<PageSearchParams>;\n};\n\nconst parsePage = (value: SearchParamValue): number => {"
+              }
+            },
+            {
+              "before": {
+                "startLine": 55,
+                "code": "export default async function PaginationInfiniteScrollPage({\n  searchParams,\n}: PaginationInfiniteScrollPageProps) {\n  const resolvedSearchParams = await Promise.resolve(searchParams ?? {});\n  const initialPage = parsePage(resolvedSearchParams[PAGE_PARAM_KEY]);\n  const initialData = await fetchInitialProducts(initialPage);\n"
+              },
+              "after": {
+                "startLine": 55,
+                "code": "export default async function PaginationInfiniteScrollPage({\n  searchParams,\n}: PaginationInfiniteScrollPageProps) {\n  const resolvedSearchParams = await searchParams;\n  const initialPage = parsePage(resolvedSearchParams[PAGE_PARAM_KEY]);\n  const initialData = await fetchInitialProducts(initialPage);\n"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/lab-shell/app/void-ui/pagination-infinite-scroll/adapter-live/page.tsx",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 26,
+                "code": "type PageSearchParams = Record<string, SearchParamValue>;\n\ntype AdapterLivePageProps = {\n  searchParams?: Promise<PageSearchParams> | PageSearchParams;\n};\n\nconst parsePage = (value: SearchParamValue): number => {"
+              },
+              "after": {
+                "startLine": 26,
+                "code": "type PageSearchParams = Record<string, SearchParamValue>;\n\ntype AdapterLivePageProps = {\n  searchParams: Promise<PageSearchParams>;\n};\n\nconst parsePage = (value: SearchParamValue): number => {"
+              }
+            },
+            {
+              "before": {
+                "startLine": 50,
+                "code": "}\n\nexport default async function AdapterLivePage({ searchParams }: AdapterLivePageProps) {\n  const resolvedSearchParams = await Promise.resolve(searchParams ?? {});\n  const initialPage = parsePage(resolvedSearchParams[PAGE_PARAM_KEY]);\n  const initialData = await fetchInitialProducts(initialPage);\n"
+              },
+              "after": {
+                "startLine": 50,
+                "code": "}\n\nexport default async function AdapterLivePage({ searchParams }: AdapterLivePageProps) {\n  const resolvedSearchParams = await searchParams;\n  const initialPage = parsePage(resolvedSearchParams[PAGE_PARAM_KEY]);\n  const initialData = await fetchInitialProducts(initialPage);\n"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paths": [
+        "apps/lab-shell/app/void-ui/pagination-infinite-scroll/PageNumberInput.tsx",
+        "apps/lab-shell/app/void-ui/pagination-infinite-scroll/PaginationInfiniteClient.tsx",
+        "apps/lab-shell/app/void-ui/pagination-infinite-scroll/examples/virtuoso-view-example.tsx",
+        "apps/lab-shell/app/void-ui/pagination-infinite-scroll/useHybridInfinite.ts",
+        "apps/lab-shell/app/front-feature/react/optimistic/components/TraditionalList.tsx",
+        "apps/lab-shell/app/front-feature/components/ClientPage.tsx"
+      ],
+      "reason": "Effect에서 상태를 즉시 복제하던 구조를 바꿔 불필요한 추가 렌더를 줄였습니다.",
+      "before": "useEffect(() => setPageInput(String(currentPage)), [currentPage]);\nuseEffect(() => setLocalItems(items), [items]);\nURL 복원이 없어도 Effect에서 준비 상태를 갱신",
+      "after": "<PageNumberInput key={currentPage} currentPage={currentPage} … />\nprops 변경은 렌더 중 조건부 반영\nURL 복원 요청이 있을 때만 동기화 대기\n네트워크 복원의 loading 표시를 위해 goToPage 한 줄만 린트 예외",
+      "sourceIds": [
+        "react-effects",
+        "react-effect-lint"
+      ],
+      "recommendation": "React는 props로 인한 초기화에 key를 사용하고 불필요한 Effect를 피하도록 권합니다.",
+      "files": [
+        {
+          "path": "apps/lab-shell/app/front-feature/react/optimistic/components/TraditionalList.tsx",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 12,
+                "code": "  // [cmp:state-mirroring:start]\n  // Manual State Mirroring\n  const [localItems, setLocalItems] = useState(items);\n  const [error, setError] = useState<string | null>(null);\n  const processedActionIdRef = useRef(0);\n  const dismissTimerRef = useRef<number | null>(null);\n\n  useEffect(() => {\n    setLocalItems(items);\n  }, [items]);\n  // [cmp:state-mirroring:end]\n\n  useEffect(() => {"
+              },
+              "after": {
+                "startLine": 12,
+                "code": "  // [cmp:state-mirroring:start]\n  // Manual State Mirroring\n  const [localItems, setLocalItems] = useState(items);\n  const [previousItems, setPreviousItems] = useState(items);\n  const [error, setError] = useState<string | null>(null);\n  const processedActionIdRef = useRef(0);\n  const dismissTimerRef = useRef<number | null>(null);\n\n  // 비교 데모의 수동 복제는 유지하되, props 변경을 다음 Effect까지 미루지 않습니다.\n  if (items !== previousItems) {\n    setPreviousItems(items);\n    setLocalItems(items);\n  }\n  // [cmp:state-mirroring:end]\n\n  useEffect(() => {"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/lab-shell/app/void-ui/pagination-infinite-scroll/PageNumberInput.tsx",
+          "excerpts": [
+            {
+              "before": null,
+              "after": {
+                "startLine": 1,
+                "code": "'use client';\n\nimport { useState } from \"react\";\n\ninterface PageNumberInputProps {\n  currentPage: number;\n  totalPages: number;\n  isLoading: boolean;\n  onNavigate: (page: number) => void;\n}\n\n// 부모에서 key={currentPage}를 지정해 페이지가 바뀌면 입력 초안을 초기화합니다.\nexport function PageNumberInput({ currentPage, totalPages, isLoading, onNavigate }: PageNumberInputProps) {\n  const [draft, setDraft] = useState(String(currentPage));\n\n  const commit = () => {\n    const page = Number(draft);\n    if (!Number.isInteger(page) || page < 1 || page > totalPages) {\n      setDraft(String(currentPage));\n      return;\n    }\n    if (!isLoading && page !== currentPage) onNavigate(page);\n  };\n\n  return (\n    <input\n      type=\"number\"\n      min={1}\n      max={totalPages}\n      step={1}\n      inputMode=\"numeric\"\n      value={draft}\n      onChange={(event) => setDraft(event.target.value)}\n      onBlur={commit}\n      onKeyDown={(event) => {\n        if (event.key === \"Enter\") event.currentTarget.blur();\n      }}\n      disabled={isLoading}\n      className=\"w-14 rounded border border-zinc-700 bg-zinc-900 px-2 py-1 text-right font-semibold text-white focus:border-cyan-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40\"\n      aria-label=\"현재 페이지 입력\"\n    />\n  );\n}"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/lab-shell/app/void-ui/pagination-infinite-scroll/PaginationInfiniteClient.tsx",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 1,
+                "code": "'use client';\n\nimport Link from \"next/link\";\nimport { useCallback, useEffect, useState } from \"react\";\nimport { useHybridInfinite } from \"./useHybridInfinite\";\n\ntype Product = {"
+              },
+              "after": {
+                "startLine": 1,
+                "code": "'use client';\n\nimport Link from \"next/link\";\nimport { useCallback } from \"react\";\nimport { PageNumberInput } from \"./PageNumberInput\";\nimport { useHybridInfinite } from \"./useHybridInfinite\";\n\ntype Product = {"
+              }
+            },
+            {
+              "before": {
+                "startLine": 94,
+                "code": "    loadMoreRootMargin: \"0px 0px 420px 0px\",\n    preserveExistingParams,\n  });\n  const [pageInput, setPageInput] = useState(String(currentPage));\n\n  useEffect(() => {\n    setPageInput(String(currentPage));\n  }, [currentPage]);\n\n  const handleGoToFirst = useCallback(() => {\n    if (isLoading || currentPage === 1) return;\n    void goToPage(1);"
+              },
+              "after": {
+                "startLine": 95,
+                "code": "    loadMoreRootMargin: \"0px 0px 420px 0px\",\n    preserveExistingParams,\n  });\n\n  const handleGoToFirst = useCallback(() => {\n    if (isLoading || currentPage === 1) return;\n    void goToPage(1);"
+              }
+            },
+            {
+              "before": {
+                "startLine": 127,
+                "code": "    });\n  }, [currentPage, ensurePageLoaded, isLoading, isPageLoaded, scrollToPage]);\n\n  const handlePageInputMove = useCallback(async () => {\n    const parsed = Number(pageInput);\n\n    if (!Number.isInteger(parsed) || parsed < 1 || parsed > totalPages) {\n      setPageInput(String(currentPage));\n      return;\n    }\n\n    if (parsed === currentPage || isLoading) return;\n    void goToPage(parsed);\n  }, [currentPage, goToPage, isLoading, pageInput, totalPages]);\n\n  return (\n    <main className=\"min-h-screen bg-black px-5 py-10 text-white md:px-10\">\n      <div className=\"mx-auto max-w-4xl\">"
+              },
+              "after": {
+                "startLine": 123,
+                "code": "    });\n  }, [currentPage, ensurePageLoaded, isLoading, isPageLoaded, scrollToPage]);\n\n\n  return (\n    <main className=\"min-h-screen bg-black px-5 py-10 text-white md:px-10\">\n      <div className=\"mx-auto max-w-4xl\">"
+              }
+            },
+            {
+              "before": {
+                "startLine": 196,
+                "code": "\n            <div className=\"inline-flex items-center gap-3 rounded-full bg-zinc-800/80 px-3 py-1.5\">\n              <span className=\"text-zinc-400\">현재페이지</span>\n              <input\n                type=\"number\"\n                min={1}\n                max={totalPages}\n                step={1}\n                inputMode=\"numeric\"\n                value={pageInput}\n                onChange={(event) => setPageInput(event.target.value)}\n                onBlur={() => {\n                  handlePageInputMove();\n                }}\n                onKeyDown={(event) => {\n                  if (event.key !== \"Enter\") return;\n                  event.currentTarget.blur();\n                }}\n                disabled={isLoading}\n                className=\"w-14 rounded border border-zinc-700 bg-zinc-900 px-2 py-1 text-right font-semibold text-white focus:border-cyan-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40\"\n                aria-label=\"현재 페이지 입력\"\n              />\n              <span className=\"text-zinc-600\">/</span>\n              <span className=\"text-zinc-400\">전체페이지</span>"
+              },
+              "after": {
+                "startLine": 181,
+                "code": "\n            <div className=\"inline-flex items-center gap-3 rounded-full bg-zinc-800/80 px-3 py-1.5\">\n              <span className=\"text-zinc-400\">현재페이지</span>\n              <PageNumberInput\n                key={currentPage}\n                currentPage={currentPage}\n                totalPages={totalPages}\n                isLoading={isLoading}\n                onNavigate={(page) => { void goToPage(page); }}\n              />\n              <span className=\"text-zinc-600\">/</span>\n              <span className=\"text-zinc-400\">전체페이지</span>"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/lab-shell/app/void-ui/pagination-infinite-scroll/examples/virtuoso-view-example.tsx",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 3,
+                "code": "import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from \"react\";\nimport { Virtuoso, VirtuosoHandle, ListRange } from \"react-virtuoso\";\nimport { useHybridInfinite } from \"../useHybridInfinite\";\nimport { createVirtuosoAdapter, VirtuosoHybridAdapter } from \"./virtuoso-adapter-example\";\n\ntype Product = {"
+              },
+              "after": {
+                "startLine": 3,
+                "code": "import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from \"react\";\nimport { Virtuoso, VirtuosoHandle, ListRange } from \"react-virtuoso\";\nimport { useHybridInfinite } from \"../useHybridInfinite\";\nimport { PageNumberInput } from \"../PageNumberInput\";\nimport { createVirtuosoAdapter, VirtuosoHybridAdapter } from \"./virtuoso-adapter-example\";\n\ntype Product = {"
+              }
+            },
+            {
+              "before": {
+                "startLine": 100,
+                "code": "    adapter: adapter ?? undefined,\n  });\n\n  const [pageInput, setPageInput] = useState(String(currentPage));\n\n  useEffect(() => {\n    setPageInput(String(currentPage));\n  }, [currentPage]);\n\n  const flattenedProducts = useMemo(() => pages.flatMap((pageItem) => pageItem.items), [pages]);\n\n  useEffect(() => {"
+              },
+              "after": {
+                "startLine": 101,
+                "code": "    adapter: adapter ?? undefined,\n  });\n\n\n  const flattenedProducts = useMemo(() => pages.flatMap((pageItem) => pageItem.items), [pages]);\n\n  useEffect(() => {"
+              }
+            },
+            {
+              "before": {
+                "startLine": 132,
+                "code": "    [currentPage, goToPage, isLoading, totalPages],\n  );\n\n  const handleInputMove = useCallback(() => {\n    const parsed = Number(pageInput);\n    if (!Number.isInteger(parsed) || parsed < 1 || parsed > totalPages) {\n      setPageInput(String(currentPage));\n      return;\n    }\n    handleMove(parsed);\n  }, [currentPage, handleMove, pageInput, totalPages]);\n\n  const handleGoToPrevious = useCallback(async () => {\n    if (isLoading || currentPage <= 1) return;"
+              },
+              "after": {
+                "startLine": 128,
+                "code": "    [currentPage, goToPage, isLoading, totalPages],\n  );\n\n\n  const handleGoToPrevious = useCallback(async () => {\n    if (isLoading || currentPage <= 1) return;"
+              }
+            },
+            {
+              "before": {
+                "startLine": 191,
+                "code": "            </button>\n            <div className=\"inline-flex items-center gap-3 rounded-full bg-zinc-800/80 px-3 py-1.5\">\n              <span className=\"text-zinc-400\">현재페이지</span>\n              <input\n                type=\"number\"\n                min={1}\n                max={totalPages}\n                step={1}\n                inputMode=\"numeric\"\n                value={pageInput}\n                onChange={(event) => setPageInput(event.target.value)}\n                onBlur={handleInputMove}\n                onKeyDown={(event) => {\n                  if (event.key !== \"Enter\") return;\n                  event.currentTarget.blur();\n                }}\n                disabled={isLoading}\n                className=\"w-14 rounded border border-zinc-700 bg-zinc-900 px-2 py-1 text-right font-semibold text-white focus:border-cyan-400 focus:outline-none disabled:cursor-not-allowed disabled:opacity-40\"\n                aria-label=\"현재 페이지 입력\"\n              />\n              <span className=\"text-zinc-600\">/</span>\n              <span className=\"text-zinc-400\">전체페이지</span>"
+              },
+              "after": {
+                "startLine": 179,
+                "code": "            </button>\n            <div className=\"inline-flex items-center gap-3 rounded-full bg-zinc-800/80 px-3 py-1.5\">\n              <span className=\"text-zinc-400\">현재페이지</span>\n              <PageNumberInput\n                key={currentPage}\n                currentPage={currentPage}\n                totalPages={totalPages}\n                isLoading={isLoading}\n                onNavigate={handleMove}\n              />\n              <span className=\"text-zinc-600\">/</span>\n              <span className=\"text-zinc-400\">전체페이지</span>"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/lab-shell/app/void-ui/pagination-infinite-scroll/useHybridInfinite.ts",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 75,
+                "code": "  const sentinelRef = useRef<HTMLElement | null>(null);\n  const abortControllerRef = useRef<AbortController | null>(null);\n  const didRestoreFromUrlRef = useRef(false);\n\n  const totalPages = Math.max(1, Math.ceil(total / pageSize));\n  const maxLoadedPage = useMemo(() => pages.reduce((max, item) => Math.max(max, item.page), 1), [pages]);"
+              },
+              "after": {
+                "startLine": 75,
+                "code": "  const sentinelRef = useRef<HTMLElement | null>(null);\n  const abortControllerRef = useRef<AbortController | null>(null);\n  const didRestoreFromUrlRef = useRef(false);\n  const requiresUrlRestoreRef = useRef(false);\n\n  const totalPages = Math.max(1, Math.ceil(total / pageSize));\n  const maxLoadedPage = useMemo(() => pages.reduce((max, item) => Math.max(max, item.page), 1), [pages]);"
+              }
+            },
+            {
+              "before": {
+                "startLine": 271,
+                "code": "\n    const pageFromUrl = parsePageFromSearch(new URL(window.location.href).searchParams.get(pageParamKey));\n    if (!pageFromUrl || pageFromUrl === initialPage.page) {\n      setIsRestoreReady(true);\n      return;\n    }\n\n    void goToPage(pageFromUrl).finally(() => {\n      setIsRestoreReady(true);\n    });"
+              },
+              "after": {
+                "startLine": 272,
+                "code": "\n    const pageFromUrl = parsePageFromSearch(new URL(window.location.href).searchParams.get(pageParamKey));\n    if (!pageFromUrl || pageFromUrl === initialPage.page) {\n      return;\n    }\n\n    // 실제 복원 요청이 있는 동안에만 URL 덮어쓰기를 막습니다.\n    requiresUrlRestoreRef.current = true;\n    // 브라우저 URL에서 복원하는 네트워크 요청은 시작 즉시 loading을 표시해야 합니다.\n    // eslint-disable-next-line react-hooks/set-state-in-effect\n    void goToPage(pageFromUrl).finally(() => {\n      setIsRestoreReady(true);\n    });"
+              }
+            },
+            {
+              "before": {
+                "startLine": 283,
+                "code": "\n  // [cmp:url-sync:start]\n  useEffect(() => {\n    if (!syncUrl || !isRestoreReady) return;\n\n    const url = new URL(window.location.href);\n    if (!preserveExistingParams) {"
+              },
+              "after": {
+                "startLine": 287,
+                "code": "\n  // [cmp:url-sync:start]\n  useEffect(() => {\n    if (!syncUrl || (requiresUrlRestoreRef.current && !isRestoreReady)) return;\n\n    const url = new URL(window.location.href);\n    if (!preserveExistingParams) {"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/lab-shell/app/front-feature/components/ClientPage.tsx",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 25,
+                "code": "            <div className=\"space-y-2\">\n                <p>\n                    <span className=\"text-red-300 font-bold\">Traditional:</span> 부모 상태(`items`)를 로컬 `useState`로 복제한 뒤\n                    `useEffect` 동기화까지 직접 유지해야 합니다. 상태 소유권이 분산되어 유지보수 비용이 커집니다.\n                </p>\n                <p>\n                    <span className=\"text-blue-300 font-bold\">Optimistic:</span> `useOptimistic(state, updateFn)`으로 원본 상태를"
+              },
+              "after": {
+                "startLine": 25,
+                "code": "            <div className=\"space-y-2\">\n                <p>\n                    <span className=\"text-red-300 font-bold\">Traditional:</span> 부모 상태(`items`)를 로컬 `useState`로 복제한 뒤\n                    props 변경 감지와 수동 동기화까지 직접 유지해야 합니다. 상태 소유권이 분산되어 유지보수 비용이 커집니다.\n                </p>\n                <p>\n                    <span className=\"text-blue-300 font-bold\">Optimistic:</span> `useOptimistic(state, updateFn)`으로 원본 상태를"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paths": [
+        "apps/lab-shell/next.config.ts",
+        "apps/lab-shell/app/upgrade-logs/_lib/logs.server.ts"
+      ],
+      "reason": "앱 밖의 로그 JSON이 standalone 배포에 포함되도록 파일 추적 범위를 지정했습니다.",
+      "before": "const nextConfig = {\n  output: \"standalone\",\n};",
+      "after": "outputFileTracingRoot: 저장소 루트\noutputFileTracingIncludes: ../../docs/upgrade-logs/*.json\n로더 경로: docs/upgrade-logs로 한정",
+      "sourceIds": [
+        "next-output"
+      ],
+      "recommendation": "모노레포에서 앱 밖의 파일이 필요하면 tracing root를 넓히고, 누락될 파일은 includes로 지정합니다.",
+      "files": [
+        {
+          "path": "apps/lab-shell/next.config.ts",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 1,
+                "code": "import type { NextConfig } from \"next\";\n\nconst nextConfig: NextConfig = {\n  output: \"standalone\",\n  /* config options here */\n};\n\nexport default nextConfig;"
+              },
+              "after": {
+                "startLine": 1,
+                "code": "import type { NextConfig } from \"next\";\nimport path from \"node:path\";\n\nconst nextConfig: NextConfig = {\n  output: \"standalone\",\n  outputFileTracingRoot: path.join(__dirname, \"../../\"),\n  outputFileTracingIncludes: {\n    \"/upgrade-logs\": [\"../../docs/upgrade-logs/*.json\"],\n    \"/upgrade-logs/*\": [\"../../docs/upgrade-logs/*.json\"],\n  },\n};\n\nexport default nextConfig;"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/lab-shell/app/upgrade-logs/_lib/logs.server.ts",
+          "excerpts": [
+            {
+              "before": null,
+              "after": {
+                "startLine": 1,
+                "code": "import { promises as fs } from \"node:fs\";\nimport path from \"node:path\";\nimport { cache } from \"react\";\nimport { parseUpgradeLog } from \"./parse-upgrade-log\";\n\nexport const getUpgradeLogs = cache(async () => {\n  // Yarn workspace와 standalone 서버 모두 apps/lab-shell을 작업 경로로 사용합니다.\n  // 정적으로 한 디렉터리만 지정해야 Turbopack이 저장소 전체를 추적하지 않습니다.\n  const directory = path.join(process.cwd(), \"../../docs/upgrade-logs\");\n  let filenames: string[];\n  try {\n    filenames = await fs.readdir(directory);\n  } catch (error) {\n    if (error instanceof Error && \"code\" in error && error.code === \"ENOENT\") return [];\n    throw error;\n  }\n  const logs = await Promise.all(filenames.filter((file) => file.endsWith(\".json\")).map(async (filename) => {\n    let raw: unknown;\n    try { raw = JSON.parse(await fs.readFile(path.join(directory, filename), \"utf8\")); }\n    catch (error) { throw new Error(`${filename}: 버전업 로그를 읽을 수 없습니다.`, { cause: error }); }\n    return parseUpgradeLog(raw, filename);\n  }));\n  return logs.sort((a, b) => Date.parse(b.startedAt) - Date.parse(a.startedAt) || b.id.localeCompare(a.id));\n});"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paths": [
+        "apps/lab-shell/app/components/Sidebar.tsx",
+        "apps/lab-shell/app/upgrade-logs",
+        "docs/upgrade-logs"
+      ],
+      "reason": "버전업 때 바꾼 코드와 근거를 한곳에서 읽을 수 있도록 로그 메뉴를 추가했습니다.",
+      "before": "별도의 버전업 이력 메뉴 없음",
+      "after": "/upgrade-logs 목록 · /upgrade-logs/[slug] 상세\nJSON 원본 → Server Component로 표시",
+      "sourceIds": [],
+      "recommendation": null,
+      "files": [
+        {
+          "path": "apps/lab-shell/app/components/Sidebar.tsx",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 55,
+                "code": "            </Link>\n\n            <Link\n              href=\"/about\"\n              className=\"rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-violet-50 hover:text-violet-600\"\n            >"
+              },
+              "after": {
+                "startLine": 55,
+                "code": "            </Link>\n\n            <Link\n              href=\"/upgrade-logs\"\n              className=\"rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-violet-50 hover:text-violet-600\"\n            >\n              버전업 로그\n            </Link>\n\n            <Link\n              href=\"/about\"\n              className=\"rounded-lg px-3 py-2 text-sm font-medium transition-colors hover:bg-violet-50 hover:text-violet-600\"\n            >"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

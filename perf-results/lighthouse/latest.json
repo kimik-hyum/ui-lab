@@ -1,13 +1,37 @@
 {
-  "generatedAt": "2026-05-31T09:30:06.749Z",
+  "generatedAt": "2026-10-23T05:03:07.003Z",
+  "source": {
+    "commit": "341f99743cfd94fb987e974f0b6e6fe4d9ca01d8",
+    "dirty": true
+  },
   "path": "/scenarios/shopping-detail-ssr",
-  "runs": 1,
-  "minRuns": 1,
+  "runs": 5,
+  "minRuns": 5,
   "preset": "desktop",
+  "warmup": 3,
+  "network": {
+    "id": "1mbps-100ms",
+    "label": "1 Mbps · 추가 지연 100 ms",
+    "downloadKbps": 1000,
+    "uploadKbps": 1000,
+    "latencyMs": 100,
+    "cpuSlowdownMultiplier": 1,
+    "browserMethod": "devtools",
+    "ssrMethod": "http-body-proxy",
+    "backendMethod": "http-body-proxy",
+    "backend": "live-supabase",
+    "scope": "브라우저→앱·이미지 / SSR 도구→앱 / 앱→Supabase",
+    "limitation": "HTTP 요청별 본문 속도 제한과 추가 지연. 실제 Supabase 처리·인터넷 지연은 포함되며 패킷 단위의 완전한 회선 재현은 아님."
+  },
+  "comparison": {
+    "id": "upgrade-1mbps-20261023T050205Z",
+    "cohort": "current",
+    "harnessSha256": "5a26f040c7d4899de4c1c489afc877ef0e47c59336b42b270c6312260ae58a02"
+  },
   "chromeFlags": "--headless=new --no-sandbox",
   "environment": {
     "node": "v24.15.0",
-    "platform": "Darwin 24.5.0",
+    "platform": "Darwin 25.5.0",
     "arch": "arm64",
     "cpu": "Apple M1 Pro",
     "timeZone": "Asia/Seoul"
@@ -15,31 +39,1763 @@
   "targets": [
     {
       "name": "next-lab",
-      "url": "http://127.0.0.1:3001/scenarios/shopping-detail-ssr",
-      "medianRun": 1,
-      "medianPerformanceScore": 94,
+      "versions": {
+        "next": "16.4.2",
+        "react": "19.3.1",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "installed",
+        "reference": "측정 시 설치 패키지"
+      },
+      "url": "http://127.0.0.1:13001/scenarios/shopping-detail-ssr",
+      "medianRun": 3,
+      "medianPerformanceScore": 86,
       "medianMetrics": {
-        "fcpMs": 213.66,
-        "lcpMs": 1591.5,
+        "fcpMs": 296.41,
+        "lcpMs": 2516.65,
         "tbtMs": 0,
         "cls": 0,
-        "speedIndexMs": 630.18,
+        "speedIndexMs": 1109,
         "inpMs": null
       },
       "runs": [
         {
           "run": 1,
-          "performanceScore": 94,
+          "performanceScore": 86,
           "metrics": {
-            "fcpMs": 213.66,
-            "lcpMs": 1591.5,
+            "fcpMs": 268.15,
+            "lcpMs": 2483.25,
             "tbtMs": 0,
             "cls": 0,
-            "speedIndexMs": 630.18,
+            "speedIndexMs": 1087,
             "inpMs": null
-          }
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2981.5
+        },
+        {
+          "run": 2,
+          "performanceScore": 86,
+          "metrics": {
+            "fcpMs": 272.06,
+            "lcpMs": 2487.22,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1088,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 3012
+        },
+        {
+          "run": 3,
+          "performanceScore": 86,
+          "metrics": {
+            "fcpMs": 296.41,
+            "lcpMs": 2516.65,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1109,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 3025
+        },
+        {
+          "run": 4,
+          "performanceScore": 86,
+          "metrics": {
+            "fcpMs": 272.09,
+            "lcpMs": 2488.56,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1096,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2975
+        },
+        {
+          "run": 5,
+          "performanceScore": 86,
+          "metrics": {
+            "fcpMs": 281.09,
+            "lcpMs": 2512.34,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1088,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2999
+        }
+      ],
+      "backendRequests": [
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 176.84
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 164.02
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 155.04
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 173.5
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 158.16
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 169.52
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 163.87
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 172.36
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 167.39
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 164.75
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 165.97
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 167.07
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 159.35
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 158.1
+        }
+      ]
+    },
+    {
+      "name": "sveltekit-lab",
+      "versions": {
+        "@sveltejs/kit": "3.1.0",
+        "svelte": "5.57.2",
+        "vite": "8.3.4",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "installed",
+        "reference": "측정 시 설치 패키지"
+      },
+      "url": "http://127.0.0.1:13002/scenarios/shopping-detail-ssr",
+      "medianRun": 3,
+      "medianPerformanceScore": 91,
+      "medianMetrics": {
+        "fcpMs": 375.17,
+        "lcpMs": 1822.16,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1385,
+        "inpMs": null
+      },
+      "runs": [
+        {
+          "run": 1,
+          "performanceScore": 91,
+          "metrics": {
+            "fcpMs": 431.44,
+            "lcpMs": 1855.54,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1440,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2979
+        },
+        {
+          "run": 2,
+          "performanceScore": 90,
+          "metrics": {
+            "fcpMs": 347.35,
+            "lcpMs": 1914.46,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1467,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2970
+        },
+        {
+          "run": 3,
+          "performanceScore": 91,
+          "metrics": {
+            "fcpMs": 375.17,
+            "lcpMs": 1822.16,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1385,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2980
+        },
+        {
+          "run": 4,
+          "performanceScore": 91,
+          "metrics": {
+            "fcpMs": 369.82,
+            "lcpMs": 1819.88,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1391,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2973.5
+        },
+        {
+          "run": 5,
+          "performanceScore": 91,
+          "metrics": {
+            "fcpMs": 343.77,
+            "lcpMs": 1849.82,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1401,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2992.5
+        }
+      ],
+      "backendRequests": [
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 175.58
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 175.06
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 170.97
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 167.17
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 218.38
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 162.08
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 165.27
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 174.25
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 157.91
+        }
+      ]
+    },
+    {
+      "name": "vue-lab",
+      "versions": {
+        "nuxt": "4.6.2",
+        "vue": "3.5.44",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "installed",
+        "reference": "측정 시 설치 패키지"
+      },
+      "url": "http://127.0.0.1:13004/scenarios/shopping-detail-ssr",
+      "medianRun": 3,
+      "medianPerformanceScore": 82,
+      "medianMetrics": {
+        "fcpMs": 388.75,
+        "lcpMs": 3335.29,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 619,
+        "inpMs": null
+      },
+      "runs": [
+        {
+          "run": 1,
+          "performanceScore": 82,
+          "metrics": {
+            "fcpMs": 341.54,
+            "lcpMs": 3308.08,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 574,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2986
+        },
+        {
+          "run": 2,
+          "performanceScore": 80,
+          "metrics": {
+            "fcpMs": 645.2,
+            "lcpMs": 3588.58,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 875,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2981.5
+        },
+        {
+          "run": 3,
+          "performanceScore": 82,
+          "metrics": {
+            "fcpMs": 388.75,
+            "lcpMs": 3335.29,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 619,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2998.5
+        },
+        {
+          "run": 4,
+          "performanceScore": 82,
+          "metrics": {
+            "fcpMs": 349.58,
+            "lcpMs": 3310.78,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 583,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 3002.5
+        },
+        {
+          "run": 5,
+          "performanceScore": 82,
+          "metrics": {
+            "fcpMs": 346.02,
+            "lcpMs": 3316.36,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 577,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2973.5
+        }
+      ],
+      "backendRequests": [
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 169.26
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 167.37
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 174.33
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 170.13
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 153.18
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 443.91
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 176.96
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 162.37
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 161.36
+        }
+      ]
+    },
+    {
+      "name": "react-router-lab",
+      "versions": {
+        "react": "19.3.1",
+        "react-router": "7.18.4",
+        "vite": "8.3.4",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "installed",
+        "reference": "측정 시 설치 패키지"
+      },
+      "url": "http://127.0.0.1:13005/scenarios/shopping-detail-ssr",
+      "medianRun": 1,
+      "medianPerformanceScore": 88,
+      "medianMetrics": {
+        "fcpMs": 344.05,
+        "lcpMs": 2285.69,
+        "tbtMs": 0,
+        "cls": 0,
+        "speedIndexMs": 1094,
+        "inpMs": null
+      },
+      "runs": [
+        {
+          "run": 1,
+          "performanceScore": 88,
+          "metrics": {
+            "fcpMs": 344.05,
+            "lcpMs": 2285.69,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1094,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2982.5
+        },
+        {
+          "run": 2,
+          "performanceScore": 85,
+          "metrics": {
+            "fcpMs": 617.55,
+            "lcpMs": 2567.27,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1373,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2992
+        },
+        {
+          "run": 3,
+          "performanceScore": 88,
+          "metrics": {
+            "fcpMs": 351.11,
+            "lcpMs": 2284.99,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1105,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2982.5
+        },
+        {
+          "run": 4,
+          "performanceScore": 88,
+          "metrics": {
+            "fcpMs": 338.18,
+            "lcpMs": 2280.8,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1091,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2994.5
+        },
+        {
+          "run": 5,
+          "performanceScore": 87,
+          "metrics": {
+            "fcpMs": 341.87,
+            "lcpMs": 2294.18,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1254,
+            "inpMs": null
+          },
+          "lighthouseVersion": "13.1.0",
+          "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36",
+          "settings": {
+            "output": [
+              "json"
+            ],
+            "maxWaitForFcp": 30000,
+            "maxWaitForLoad": 45000,
+            "pauseAfterFcpMs": 5250,
+            "pauseAfterLoadMs": 5250,
+            "networkQuietThresholdMs": 5250,
+            "cpuQuietThresholdMs": 5250,
+            "formFactor": "desktop",
+            "throttling": {
+              "rttMs": 40,
+              "throughputKbps": 10240,
+              "requestLatencyMs": 100,
+              "downloadThroughputKbps": 1000,
+              "uploadThroughputKbps": 1000,
+              "cpuSlowdownMultiplier": 1
+            },
+            "throttlingMethod": "devtools",
+            "screenEmulation": {
+              "mobile": false,
+              "width": 1350,
+              "height": 940,
+              "deviceScaleFactor": 1,
+              "disabled": false
+            },
+            "emulatedUserAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "auditMode": false,
+            "gatherMode": false,
+            "clearStorageTypes": [
+              "file_systems",
+              "shader_cache",
+              "service_workers",
+              "cache_storage"
+            ],
+            "disableStorageReset": false,
+            "debugNavigation": false,
+            "channel": "cli",
+            "usePassiveGathering": false,
+            "disableFullPageScreenshot": false,
+            "skipAboutBlank": false,
+            "blankPage": "about:blank",
+            "ignoreStatusCode": false,
+            "locale": "en-US",
+            "blockedUrlPatterns": null,
+            "additionalTraceCategories": null,
+            "extraHeaders": null,
+            "precomputedLanternData": null,
+            "onlyAudits": null,
+            "onlyCategories": [
+              "performance"
+            ],
+            "skipAudits": null
+          },
+          "benchmarkIndex": 2999
+        }
+      ],
+      "backendRequests": [
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 157.28
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 163.03
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 166.23
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 167.53
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 160.81
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 445.2
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 158.27
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 166.47
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 171.77
         }
       ]
     }
-  ]
+  ],
+  "measurementTool": {
+    "lighthouseVersion": "13.1.0",
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/155.0.0.0 Safari/537.36"
+  }
 }

@@ -1,0 +1,4 @@
+interface:
+  display_name: "UI-LAB 프레임워크 버전업"
+  short_description: "공식 문서에 따라 버전업하고 바뀐 코드·이유·문서 지침만 기록"
+  default_prompt: "$ui-lab-framework-upgrade 스킬로 요청한 프레임워크를 공식 마이그레이션 문서에 따라 업그레이드하고 UI-LAB에 변경 로그를 남겨줘."

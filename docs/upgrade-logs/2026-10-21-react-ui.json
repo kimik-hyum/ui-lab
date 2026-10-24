@@ -1,0 +1,310 @@
+{
+  "schemaVersion": 2,
+  "id": "2026-10-21-react-ui",
+  "title": "React 19.3.1 · Tailwind 4.3.3",
+  "summary": "React·Tailwind와 관련 타입을 갱신하고, 로그를 코드 변경과 문서 근거 중심으로 정리했습니다.",
+  "startedAt": "2026-10-21T14:12:31.553+09:00",
+  "updatedAt": "2026-10-21T14:48:58.882+09:00",
+  "status": "completed",
+  "packages": [
+    {
+      "workspace": "lab-shell",
+      "name": "react",
+      "declaredBefore": "19.2.3",
+      "declaredAfter": "19.3.1",
+      "installedBefore": "19.2.3",
+      "target": "19.3.1",
+      "installedAfter": "19.3.1"
+    },
+    {
+      "workspace": "lab-shell",
+      "name": "react-dom",
+      "declaredBefore": "19.2.3",
+      "declaredAfter": "19.3.1",
+      "installedBefore": "19.2.3",
+      "target": "19.3.1",
+      "installedAfter": "19.3.1"
+    },
+    {
+      "workspace": "lab-shell",
+      "name": "@types/react",
+      "declaredBefore": "^19",
+      "declaredAfter": "^19.3.0",
+      "installedBefore": "19.2.7",
+      "target": "19.3.0",
+      "installedAfter": "19.3.0"
+    },
+    {
+      "workspace": "lab-shell",
+      "name": "@types/react-dom",
+      "declaredBefore": "^19",
+      "declaredAfter": "^19.3.0",
+      "installedBefore": "19.2.3",
+      "target": "19.3.0",
+      "installedAfter": "19.3.0"
+    },
+    {
+      "workspace": "lab-shell",
+      "name": "tailwindcss",
+      "declaredBefore": "^4",
+      "declaredAfter": "^4.3.3",
+      "installedBefore": "4.1.18",
+      "target": "4.3.3",
+      "installedAfter": "4.3.3"
+    },
+    {
+      "workspace": "lab-shell",
+      "name": "@tailwindcss/postcss",
+      "declaredBefore": "^4",
+      "declaredAfter": "^4.3.3",
+      "installedBefore": "4.1.18",
+      "target": "4.3.3",
+      "installedAfter": "4.3.3"
+    },
+    {
+      "workspace": "next-lab",
+      "name": "react",
+      "declaredBefore": "19.2.3",
+      "declaredAfter": "19.3.1",
+      "installedBefore": "19.2.3",
+      "target": "19.3.1",
+      "installedAfter": "19.3.1"
+    },
+    {
+      "workspace": "next-lab",
+      "name": "react-dom",
+      "declaredBefore": "19.2.3",
+      "declaredAfter": "19.3.1",
+      "installedBefore": "19.2.3",
+      "target": "19.3.1",
+      "installedAfter": "19.3.1"
+    },
+    {
+      "workspace": "next-lab",
+      "name": "@types/react",
+      "declaredBefore": "^19",
+      "declaredAfter": "^19.3.0",
+      "installedBefore": "19.2.7",
+      "target": "19.3.0",
+      "installedAfter": "19.3.0"
+    },
+    {
+      "workspace": "next-lab",
+      "name": "@types/react-dom",
+      "declaredBefore": "^19",
+      "declaredAfter": "^19.3.0",
+      "installedBefore": "19.2.3",
+      "target": "19.3.0",
+      "installedAfter": "19.3.0"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "react",
+      "declaredBefore": "19.2.3",
+      "declaredAfter": "19.3.1",
+      "installedBefore": "19.2.3",
+      "target": "19.3.1",
+      "installedAfter": "19.3.1"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "react-dom",
+      "declaredBefore": "19.2.3",
+      "declaredAfter": "19.3.1",
+      "installedBefore": "19.2.3",
+      "target": "19.3.1",
+      "installedAfter": "19.3.1"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "@types/react",
+      "declaredBefore": "^19",
+      "declaredAfter": "^19.3.0",
+      "installedBefore": "19.2.7",
+      "target": "19.3.0",
+      "installedAfter": "19.3.0"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "@types/react-dom",
+      "declaredBefore": "^19",
+      "declaredAfter": "^19.3.0",
+      "installedBefore": "19.2.3",
+      "target": "19.3.0",
+      "installedAfter": "19.3.0"
+    }
+  ],
+  "sources": [
+    {
+      "id": "react",
+      "title": "React 19.3",
+      "url": "https://react.dev/blog/2026/09/09/react-19-3",
+      "checkedOn": "2026-10-21"
+    },
+    {
+      "id": "tailwind",
+      "title": "Tailwind 4.3.3",
+      "url": "https://github.com/tailwindlabs/tailwindcss/releases/tag/v4.3.3",
+      "checkedOn": "2026-10-21"
+    }
+  ],
+  "changes": [
+    {
+      "paths": [
+        "apps/lab-shell/package.json",
+        "apps/next-lab/package.json",
+        "apps/react-router-lab/package.json",
+        "yarn.lock"
+      ],
+      "reason": "React 앱 3곳의 런타임·타입을 맞추고 Tailwind와 PostCSS 플러그인을 함께 갱신했습니다.",
+      "before": "React 19.2 · Tailwind 4.1",
+      "after": "React 19.3 · Tailwind 4.3, 사용처 변경 없음",
+      "sourceIds": [
+        "react",
+        "tailwind"
+      ],
+      "recommendation": null,
+      "files": [
+        {
+          "path": "apps/lab-shell/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 16,
+                "code": "    \"react\": \"19.2.3\",\n    \"react-dom\": \"19.2.3\","
+              },
+              "after": {
+                "startLine": 17,
+                "code": "    \"react\": \"19.3.1\",\n    \"react-dom\": \"19.3.1\","
+              }
+            },
+            {
+              "before": {
+                "startLine": 22,
+                "code": "    \"@tailwindcss/postcss\": \"^4\","
+              },
+              "after": {
+                "startLine": 23,
+                "code": "    \"@tailwindcss/postcss\": \"^4.3.3\","
+              }
+            },
+            {
+              "before": {
+                "startLine": 24,
+                "code": "    \"@types/react\": \"^19\",\n    \"@types/react-dom\": \"^19\","
+              },
+              "after": {
+                "startLine": 25,
+                "code": "    \"@types/react\": \"^19.3.0\",\n    \"@types/react-dom\": \"^19.3.0\","
+              }
+            },
+            {
+              "before": {
+                "startLine": 28,
+                "code": "    \"tailwindcss\": \"^4\","
+              },
+              "after": {
+                "startLine": 29,
+                "code": "    \"tailwindcss\": \"^4.3.3\","
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/next-lab/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 16,
+                "code": "    \"react\": \"19.2.3\",\n    \"react-dom\": \"19.2.3\""
+              },
+              "after": {
+                "startLine": 16,
+                "code": "    \"react\": \"19.3.1\",\n    \"react-dom\": \"19.3.1\""
+              }
+            },
+            {
+              "before": {
+                "startLine": 21,
+                "code": "    \"@types/react\": \"^19\",\n    \"@types/react-dom\": \"^19\","
+              },
+              "after": {
+                "startLine": 21,
+                "code": "    \"@types/react\": \"^19.3.0\",\n    \"@types/react-dom\": \"^19.3.0\","
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/react-router-lab/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 21,
+                "code": "    \"react\": \"19.2.3\",\n    \"react-dom\": \"19.2.3\","
+              },
+              "after": {
+                "startLine": 21,
+                "code": "    \"react\": \"19.3.1\",\n    \"react-dom\": \"19.3.1\","
+              }
+            },
+            {
+              "before": {
+                "startLine": 28,
+                "code": "    \"@types/react\": \"^19\",\n    \"@types/react-dom\": \"^19\","
+              },
+              "after": {
+                "startLine": 28,
+                "code": "    \"@types/react\": \"^19.3.0\",\n    \"@types/react-dom\": \"^19.3.0\","
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paths": [
+        "apps/lab-shell/app/upgrade-logs/_components/UpgradeLogDetail.tsx",
+        "apps/lab-shell/app/upgrade-logs/_components/UpgradePackageTable.tsx",
+        "apps/lab-shell/app/upgrade-logs/_components/UpgradeChangeCard.tsx",
+        "skills/ui-lab-framework-upgrade/SKILL.md",
+        "skills/ui-lab-framework-upgrade/references/upgrade-log-format.md",
+        "apps/lab-shell/app/upgrade-logs/_components/UpgradeFileDiff.tsx"
+      ],
+      "reason": "기존 코드 비교 블록을 재사용해, 파일별 전후 코드와 변경 줄을 바로 비교할 수 있도록 로그 화면을 개선했습니다.",
+      "before": "전체 버전표·코드·파일 목록을 항상 표시",
+      "after": "파일 선택 → 실제 변경 구간 비교\n삭제·추가 줄 강조 및 대응 구간 hover",
+      "sourceIds": [],
+      "recommendation": null,
+      "files": [
+        {
+          "path": "apps/lab-shell/app/upgrade-logs/_components/UpgradeChangeCard.tsx",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 1,
+                "code": "import type { UpgradeSource, UsageChange } from \"../_lib/types\";\n\nexport default function UpgradeChangeCard({ change, sources }: { change: UsageChange; sources: UpgradeSource[] }) {\n  return (\n    <article className=\"overflow-hidden rounded-xl border border-slate-200\">\n      <h3 className=\"px-5 pt-5 text-sm font-medium leading-6 text-slate-800\">{change.reason}</h3>\n      {change.recommendation && <p className=\"mx-5 mt-3 border-l-2 border-violet-200 pl-3 text-xs leading-6 text-slate-500\"><span className=\"mr-2 font-medium text-violet-700\">문서 지침</span>{change.recommendation}</p>}\n      <details className=\"mt-2\">\n        <summary className=\"cursor-pointer px-5 py-3 text-xs text-slate-500 hover:text-violet-700\">변경 전후·파일 보기</summary>\n        <div className=\"flex flex-wrap gap-1.5 px-5 pb-4\">{change.paths.map((file) => <code key={file} className=\"break-all rounded bg-slate-100 px-2 py-1 text-[10px] text-slate-500\">{file}</code>)}</div>\n        <div className=\"grid border-y border-slate-200 lg:grid-cols-2\">\n          <div className=\"min-w-0 bg-slate-50 p-5\"><p className=\"mb-3 font-mono text-[10px] tracking-wider text-slate-400\">BEFORE</p><pre className=\"whitespace-pre-wrap break-words font-mono text-xs leading-6 text-slate-600\">{change.before}</pre></div>\n          <div className=\"min-w-0 border-t border-slate-200 bg-violet-50/40 p-5 lg:border-t-0 lg:border-l\"><p className=\"mb-3 font-mono text-[10px] tracking-wider text-violet-500\">AFTER</p><pre className=\"whitespace-pre-wrap break-words font-mono text-xs leading-6 text-slate-800\">{change.after}</pre></div>\n        </div>\n      </details>\n      <div className=\"flex flex-wrap gap-3 px-5 py-3\">{change.sourceIds.map((id) => {\n        const source = sources.find((item) => item.id === id)!;\n        return <a key={id} href={source.url} target=\"_blank\" rel=\"noreferrer\" className=\"text-xs text-violet-600 hover:underline\">{source.title} ↗</a>;"
+              },
+              "after": {
+                "startLine": 1,
+                "code": "import type { UpgradeSource, UsageChange } from \"../_lib/types\";\nimport { buildFileDiff } from \"../_lib/code-diff\";\nimport UpgradeCodeDiff from \"./UpgradeCodeDiff\";\n\nexport default function UpgradeChangeCard({ change, sources }: { change: UsageChange; sources: UpgradeSource[] }) {\n  return (\n    <article className=\"overflow-hidden rounded-xl border border-slate-200\">\n      <h3 className=\"px-5 pt-5 text-sm font-medium leading-6 text-slate-800\">{change.reason}</h3>\n      {change.recommendation && <p className=\"mx-5 mt-3 border-l-2 border-violet-200 pl-3 text-xs leading-6 text-slate-500\"><span className=\"mr-2 font-medium text-violet-700\">문서 지침</span>{change.recommendation}</p>}\n      {change.files.length ? <UpgradeCodeDiff files={change.files.map(buildFileDiff)} /> : <details className=\"mt-2\">\n        <summary className=\"cursor-pointer px-5 py-3 text-xs text-slate-500 hover:text-violet-700\">변경 전후·파일 보기</summary>\n        <div className=\"flex flex-wrap gap-1.5 px-5 pb-4\">{change.paths.map((file) => <code key={file} className=\"break-all rounded bg-slate-100 px-2 py-1 text-[10px] text-slate-500\">{file}</code>)}</div>\n        <div className=\"grid border-y border-slate-200 lg:grid-cols-2\">\n          <div className=\"min-w-0 bg-slate-50 p-5\"><p className=\"mb-3 font-mono text-[10px] tracking-wider text-slate-400\">BEFORE</p><pre className=\"whitespace-pre-wrap break-words font-mono text-xs leading-6 text-slate-600\">{change.before}</pre></div>\n          <div className=\"min-w-0 border-t border-slate-200 bg-violet-50/40 p-5 lg:border-t-0 lg:border-l\"><p className=\"mb-3 font-mono text-[10px] tracking-wider text-violet-500\">AFTER</p><pre className=\"whitespace-pre-wrap break-words font-mono text-xs leading-6 text-slate-800\">{change.after}</pre></div>\n        </div>\n      </details>}\n      <div className=\"flex flex-wrap gap-3 px-5 py-3\">{change.sourceIds.map((id) => {\n        const source = sources.find((item) => item.id === id)!;\n        return <a key={id} href={source.url} target=\"_blank\" rel=\"noreferrer\" className=\"text-xs text-violet-600 hover:underline\">{source.title} ↗</a>;"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/lab-shell/app/upgrade-logs/_components/UpgradeFileDiff.tsx",
+          "excerpts": [
+            {
+              "before": null,
+              "after": {
+                "startLine": 1,
+                "code": "\"use client\";\n\nimport { useState } from \"react\";\nimport { ComparisonCodeBlock } from \"../../front-feature/components/ComparisonCodeBlock\";\nimport type { FileDiff } from \"../_lib/code-diff\";\nimport { formatCodeRange } from \"../_lib/format\";\n\nexport default function UpgradeFileDiff({ file }: { file: FileDiff }) {\n  const [active, setActive] = useState<{ excerpt: number; group: number } | null>(null);\n  return (\n    <div className=\"space-y-5 px-3 pb-4 sm:px-5\" data-file-diff={file.path}>\n      {file.excerpts.map((excerpt, index) => {\n        const group = active?.excerpt === index ? excerpt.groups[active.group] : null;\n        const onHover = (side: \"before\" | \"after\", line: number | null) => {\n          const group = line === null ? -1 : excerpt.groups.findIndex((item) => item[side].includes(line));\n          setActive(group < 0 ? null : { excerpt: index, group });\n        };\n        return <div key={index}>\n          {file.excerpts.length > 1 && <p className=\"mb-2 text-[11px] text-slate-400\">변경 구간 {index + 1} / {file.excerpts.length}</p>}\n          <div className=\"grid items-stretch gap-3 xl:grid-cols-2\" data-diff-excerpt={index}>\n            <div className=\"min-w-0 [&>div]:max-h-[28rem] [&>div>div:last-child]:min-h-0\" data-diff-side=\"before\">\n              {excerpt.before ? <ComparisonCodeBlock\n                code={excerpt.before.code}\n                title={`변경 전 · ${formatCodeRange(excerpt.before)}`}\n                badge={`−${excerpt.removedLines.length}`}\n                color=\"red\"\n                highlightedLines={group?.before ?? excerpt.removedLines}\n                interactiveLines={excerpt.removedLines}\n                onLineHover={(line) => onHover(\"before\", line)}\n              /> : <div className=\"grid h-full min-h-28 place-items-center rounded-xl border border-dashed border-slate-300 p-8 text-xs text-slate-500\">새 파일 · 이전 코드 없음</div>}\n            </div>\n            <div className=\"min-w-0 [&>div]:max-h-[28rem] [&>div>div:last-child]:min-h-0\" data-diff-side=\"after\">\n              {excerpt.after ? <ComparisonCodeBlock\n                code={excerpt.after.code}\n                title={`변경 후 · ${formatCodeRange(excerpt.after)}`}\n                badge={`+${excerpt.addedLines.length}`}\n                color=\"blue\"\n                highlightedLines={group?.after ?? excerpt.addedLines}\n                interactiveLines={excerpt.addedLines}\n                onLineHover={(line) => onHover(\"after\", line)}\n              /> : <div className=\"grid h-full min-h-28 place-items-center rounded-xl border border-dashed border-slate-300 p-8 text-xs text-slate-500\">삭제된 파일 · 이후 코드 없음</div>}\n            </div>\n          </div>\n        </div>;\n      })}\n    </div>\n  );\n}"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

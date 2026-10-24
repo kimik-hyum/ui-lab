@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="UI-LAB의 실험실, 기능 비교, 리포트와 버전업 로그를 하나의 디자인으로 살펴보는 반응형 시안입니다.">
+  <title>UI-LAB — 통합 디자인 데모</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./catalog-styles.css">
+  <link rel="stylesheet" href="./upgrade-styles.css">
+  <link rel="stylesheet" href="./feature-styles.css">
+  <link rel="stylesheet" href="./report-styles.css">
+  <link rel="stylesheet" href="./report-distribution.css">
+  <script src="./comparison-manifest.js" defer></script>
+  <script src="./upgrade-pages.js" defer></script>
+  <script src="./catalog-pages.js" defer></script>
+  <script src="./condition-links.js" defer></script>
+  <script src="./feature-pages.js" defer></script>
+  <script src="./ssr-preview.js" defer></script>
+  <script src="./infinite-scroll-pages.js" defer></script>
+  <script src="./report-data.js" defer></script>
+  <script src="./report-distribution.js" defer></script>
+  <script src="./report-pages.js" defer></script>
+  <script src="./routes.js" defer></script>
+  <script src="./preview.js" defer></script>
+</head>
+<body>
+  <svg class="svg-definitions" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <symbol id="icon-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+      <symbol id="icon-code" viewBox="0 0 24 24"><path d="m8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 20"/></symbol>
+      <symbol id="icon-chart" viewBox="0 0 24 24"><path d="M4 3v17h17M8 15v-4m5 4V6m5 9V9"/></symbol>
+      <symbol id="icon-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+      <symbol id="icon-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+      <symbol id="icon-arrow" viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></symbol>
+      <symbol id="icon-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></symbol>
+      <symbol id="icon-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+      <symbol id="headphones" viewBox="0 0 300 280"><path d="M63 156V112a87 87 0 0 1 174 0v44" fill="none" stroke="currentColor" stroke-width="20"/><path d="M76 124v-12a74 74 0 0 1 148 0v12" fill="none" stroke="#cecdc0" stroke-width="5"/><rect x="48" y="132" width="43" height="100" rx="21" fill="currentColor" transform="rotate(-8 70 182)"/><rect x="209" y="132" width="43" height="100" rx="21" fill="currentColor" transform="rotate(8 230 182)"/><rect x="78" y="141" width="22" height="83" rx="11" fill="#6b6a5e" transform="rotate(-8 89 182)"/><rect x="200" y="141" width="22" height="83" rx="11" fill="#6b6a5e" transform="rotate(8 211 182)"/></symbol>
+    </defs>
+  </svg>
+
+  <a class="skip-link" href="#main">본문으로 이동</a>
+  <aside id="navigation" class="sidebar" aria-label="주 메뉴">
+    <a class="brand" href="#/lab" aria-label="UI-LAB 실험실"><span class="brand-symbol" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>ui-lab<span class="brand-dot">.</span></span></a>
+    <div class="workspace-name"><span class="workspace-avatar">P</span><div>Personal workspace<small>프론트엔드 실험실</small></div></div>
+    <p class="nav-label">WORKSPACE</p>
+    <nav class="nav-items" aria-label="워크스페이스">
+      <a href="#/lab" class="nav-item" data-nav="lab"><svg aria-hidden="true"><use href="#icon-grid"/></svg>실험실<span class="nav-count">01</span></a>
+      <a href="#/features" class="nav-item" data-nav="features"><svg aria-hidden="true"><use href="#icon-code"/></svg>기능 비교<span class="nav-count">04</span></a>
+      <a href="#/reports" class="nav-item" data-nav="reports"><svg aria-hidden="true"><use href="#icon-chart"/></svg>리포트</a>
+      <a href="#/upgrades" class="nav-item" data-nav="upgrades"><svg aria-hidden="true"><use href="#icon-clock"/></svg>버전업 로그</a>
+    </nav>
+    <div class="sidebar-divider"></div>
+    <p class="nav-label">DESIGN SYSTEM</p>
+    <a href="#/guide" class="nav-item" data-nav="guide"><svg aria-hidden="true"><use href="#icon-settings"/></svg>공통 디자인</a>
+    <div class="sidebar-bottom"><div>LAYOUT STUDY<small>03 / Warm charcoal</small></div><span class="version-label">시안</span></div>
+  </aside>
+  <div class="app">
+    <header class="topbar">
+      <div class="breadcrumb"><button id="menu-toggle" class="icon-button menu-toggle" aria-controls="menu-dialog" aria-expanded="false" aria-label="메뉴 열기"><svg aria-hidden="true"><use href="#icon-menu"/></svg></button><span class="breadcrumb-parent" id="breadcrumb-parent">워크스페이스</span><span class="breadcrumb-divider">/</span><span id="breadcrumb-current">실험실</span></div>
+      <div class="topbar-right"><span class="preview-badge"><span></span>디자인 데모</span><span class="avatar" aria-hidden="true">UI</span></div>
+    </header>
+    <main id="main" tabindex="-1"></main>
+  </div>
+  <dialog id="menu-dialog" class="drawer" aria-labelledby="menu-title">
+    <header class="drawer-header"><h2 id="menu-title">ui-lab<span class="brand-dot">.</span></h2><button class="icon-button" id="menu-close" aria-label="메뉴 닫기"><svg aria-hidden="true"><use href="#icon-close"/></svg></button></header>
+    <nav id="mobile-nav" class="nav-items" aria-label="모바일 워크스페이스"></nav>
+    <p class="drawer-note">같은 공간에서 비교하고, 이해하고, 선택하기.</p>
+  </dialog>
+  <noscript><p>디자인 데모를 보려면 JavaScript를 켜주세요.</p></noscript>
+</body>
+</html>

@@ -7,8 +7,13 @@ import { createServer } from "node:net";
 import os from "node:os";
 import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
+import { captureSource, captureTargetVersions, savePerformanceHistory } from "./performance-history.mjs";
+import { lighthouseNetworkArgs, prepareBackendNetwork, readNetworkProfile } from "./performance-network.mjs";
 
 const ROOT_DIR = process.cwd();
+const OUTPUT_ROOT = process.env.PERF_OUTPUT_ROOT ?? ROOT_DIR;
+const NETWORK = readNetworkProfile();
+const WARMUP = toInt(process.env.LH_WARMUP, 3);
 const MIN_RUNS = toInt(process.env.LH_MIN_RUNS, 5);
 const RUNS = Math.max(toInt(process.env.LH_RUNS, 5), MIN_RUNS);
 const TARGET_PATH = normalizePath(process.env.LH_PATH ?? "/");
@@ -17,9 +22,9 @@ const CHROME_FLAGS = process.env.LH_CHROME_FLAGS ?? "--headless=new --no-sandbox
 const TARGET_FILTER = parseTargetFilter(process.env.LH_TARGETS);
 
 const TIMESTAMP = new Date().toISOString().replace(/[:.]/g, "-");
-const OUTPUT_DIR = resolve(ROOT_DIR, "perf-results", "lighthouse", TIMESTAMP);
-const LATEST_PATH = resolve(ROOT_DIR, "perf-results", "lighthouse", "latest.json");
-const TARGETS_PATH = resolve(ROOT_DIR, "perf-results", "lighthouse", "targets.json");
+const OUTPUT_DIR = resolve(OUTPUT_ROOT, "perf-results", "lighthouse", TIMESTAMP);
+const LATEST_PATH = resolve(OUTPUT_ROOT, "perf-results", "lighthouse", "latest.json");
+const TARGETS_PATH = process.env.PERF_TARGETS_PATH ?? resolve(ROOT_DIR, "perf-results", "lighthouse", "targets.json");
 
 const fallbackTargets = [
   {
@@ -65,10 +70,14 @@ async function main() {
 
   const summary = {
     generatedAt: new Date().toISOString(),
+    source: captureSource(ROOT_DIR),
     path: TARGET_PATH,
     runs: RUNS,
     minRuns: MIN_RUNS,
     preset: PRESET,
+    warmup: WARMUP,
+    network: NETWORK,
+    comparison: process.env.PERF_COMPARISON_ID ? { id: process.env.PERF_COMPARISON_ID, cohort: process.env.PERF_COHORT ?? "current", harnessSha256: process.env.PERF_HARNESS_SHA256 ?? null } : null,
     chromeFlags: CHROME_FLAGS,
     environment: buildEnvironmentSummary(),
     targets: [],
@@ -76,26 +85,33 @@ async function main() {
 
   for (const target of selectedTargets) {
     const url = `${target.baseUrl}${TARGET_PATH}`;
-    console.log(`\n[${target.name}] build`);
-    await runCommand(target.build, { env: buildTargetEnv(target) });
-
-    console.log(`[${target.name}] start server`);
-    const server = spawnCommand(target.start, {
-      cwd: ROOT_DIR,
-      stdio: "inherit",
-      env: buildTargetEnv(target),
-    });
-
+    const versionInfo = captureTargetVersions(ROOT_DIR, target.name);
+    const backend = await prepareBackendNetwork(buildTargetEnv(target), NETWORK);
+    let server;
     try {
+      console.log(`\n[${target.name}] build`);
+      await runCommand(target.build, { env: backend.env });
+
+      console.log(`[${target.name}] start server`);
+      server = spawnCommand(target.start, {
+        cwd: ROOT_DIR,
+        stdio: "inherit",
+        env: backend.env,
+      });
+
       await waitForHttp(url);
+      for (let i = 0; i < WARMUP; i += 1) {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Warmup HTTP ${response.status}`);
+        await response.arrayBuffer();
+      }
       console.log(`[${target.name}] lighthouse x${RUNS} -> ${url}`);
 
       const runResults = [];
       for (let i = 1; i <= RUNS; i += 1) {
         const reportPath = resolve(OUTPUT_DIR, `${target.name}.run-${i}.json`);
         await runCommand([
-          "yarn",
-          "lighthouse",
+          ...(process.env.LH_CLI_PATH ? [process.execPath, process.env.LH_CLI_PATH] : ["yarn", "lighthouse"]),
           url,
           "--quiet",
           "--output=json",
@@ -104,6 +120,7 @@ async function main() {
           "--only-categories=performance",
           `--preset=${PRESET}`,
           `--chrome-flags=${CHROME_FLAGS}`,
+          ...lighthouseNetworkArgs(NETWORK),
         ]);
         runResults.push(readReport(reportPath, i));
       }
@@ -111,22 +128,28 @@ async function main() {
       const median = pickMedianRun(runResults);
       summary.targets.push({
         name: target.name,
+        ...versionInfo,
         url,
         medianRun: median.run,
         medianPerformanceScore: median.performanceScore,
         medianMetrics: median.metrics,
         runs: runResults,
+        backendRequests: backend.stats,
       });
     } finally {
-      await stopProcess(server);
+      if (server) await stopProcess(server);
+      await backend.close();
     }
   }
 
+  const firstRun = summary.targets[0].runs[0];
+  summary.measurementTool = { lighthouseVersion: firstRun.lighthouseVersion, userAgent: firstRun.userAgent };
   writeFileSync(resolve(OUTPUT_DIR, "summary.json"), JSON.stringify(summary, null, 2));
-  writeFileSync(LATEST_PATH, JSON.stringify(summary, null, 2));
+  if (process.env.PERF_UPDATE_LATEST !== "0") writeFileSync(LATEST_PATH, JSON.stringify(summary, null, 2));
+  savePerformanceHistory(OUTPUT_ROOT, "lighthouse", summary);
 
   console.log(`\nSaved summary: ${resolve(OUTPUT_DIR, "summary.json")}`);
-  console.log(`Updated latest: ${LATEST_PATH}`);
+  if (process.env.PERF_UPDATE_LATEST !== "0") console.log(`Updated latest: ${LATEST_PATH}`);
 }
 
 function readTargets() {
@@ -141,6 +164,9 @@ function readTargets() {
 
 function readReport(reportPath, run) {
   const report = JSON.parse(readFileSync(reportPath, "utf8"));
+  if (report.runtimeError || typeof report.categories?.performance?.score !== "number") {
+    throw new Error(`Lighthouse failed: ${report.runtimeError?.message ?? "missing performance score"}`);
+  }
   const performanceScore = round2((report.categories?.performance?.score ?? 0) * 100);
   const metrics = {
     fcpMs: metric(report, "first-contentful-paint"),
@@ -155,6 +181,10 @@ function readReport(reportPath, run) {
     run,
     performanceScore,
     metrics,
+    lighthouseVersion: report.lighthouseVersion,
+    userAgent: report.userAgent,
+    settings: report.configSettings,
+    benchmarkIndex: report.environment?.benchmarkIndex,
   };
 }
 
@@ -175,7 +205,7 @@ async function waitForHttp(url, timeoutMs = 90_000) {
   while (Date.now() - startedAt < timeoutMs) {
     try {
       const response = await fetch(url, { redirect: "manual" });
-      if (response.status >= 200 && response.status < 500) return;
+      if (response.ok) { await response.arrayBuffer(); return; }
     } catch {
       // ignore until timeout
     }

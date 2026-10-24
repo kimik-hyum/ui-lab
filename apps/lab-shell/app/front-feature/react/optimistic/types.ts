@@ -3,3 +3,8 @@ export interface Todo {
   text: string;
   createdAt: number;
 }
+
+export interface OptimisticAction {
+  id: number;
+  shouldFail: boolean;
+}

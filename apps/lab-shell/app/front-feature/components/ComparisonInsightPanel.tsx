@@ -1,32 +1,25 @@
-import React from 'react';
 import type { ComparisonTopic } from './ComparisonTypes';
 
 interface InsightPanelProps {
-    topic: ComparisonTopic | null;
-    top: number | null;
+  topic: ComparisonTopic | null;
 }
 
-export function ComparisonInsightPanel({ topic, top }: InsightPanelProps) {
-    if (!topic || top === null) return null;
-
-    return (
-        <div
-            className="fixed left-1/2 z-50 w-[min(calc(100vw-3rem),42rem)] -translate-x-1/2 rounded-lg border border-slate-200 bg-white px-6 py-5"
-            style={{ top: `${top + 40}px` }}
-        >
-            <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 mt-1 p-2 bg-violet-50 rounded-lg border border-violet-100">
-                    <span className="text-xl">💡</span>
-                </div>
-                <div>
-                    <h3 className="text-slate-900 font-bold text-base mb-2">
-                        {topic.title}
-                    </h3>
-                    <div className="text-sm text-slate-500 leading-relaxed">
-                        {topic.description}
-                    </div>
-                </div>
+export function ComparisonInsightPanel({ topic }: InsightPanelProps) {
+  return (
+    <div className="h-28 overflow-y-auto rounded-lg border border-border bg-surface px-4 py-3 sm:h-32" tabIndex={0} role="region" aria-label="비교 포인트 설명">
+      {topic ? (
+        <div className="flex items-start gap-3">
+          <span aria-hidden="true" className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-primary/25 font-mono text-[11px] text-primary">i</span>
+          <div className="min-w-0">
+            <h3 className="mb-1.5 text-xs font-semibold text-foreground">{topic.title}</h3>
+            <div className="text-xs leading-relaxed text-muted-foreground [&_.text-red-300]:text-amber-700 [&_.text-blue-300]:text-primary [&_code]:rounded [&_code]:bg-white [&_code]:px-1 [&_code]:text-foreground">
+              {topic.description}
             </div>
+          </div>
         </div>
-    );
+      ) : (
+        <p className="text-xs leading-relaxed text-muted-foreground">비교 포인트를 선택하거나 강조된 코드 줄에 마우스를 올리면 양쪽 구현의 차이를 확인할 수 있습니다.</p>
+      )}
+    </div>
+  );
 }

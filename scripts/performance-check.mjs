@@ -8,6 +8,7 @@ import os from "node:os";
 import { resolve } from "node:path";
 import { performance } from "node:perf_hooks";
 import { setTimeout as delay } from "node:timers/promises";
+import { captureSource, captureTargetVersions, savePerformanceHistory } from "./performance-history.mjs";
 
 const ROOT_DIR = process.cwd();
 const MIN_RUNS = toInt(process.env.PERF_MIN_RUNS, 5);
@@ -81,6 +82,7 @@ async function main() {
 
   const summary = {
     generatedAt: new Date().toISOString(),
+    source: captureSource(ROOT_DIR),
     mode: MODE,
     minRuns: MIN_RUNS,
     lighthouse: {
@@ -101,6 +103,7 @@ async function main() {
 
   for (const target of selectedTargets) {
     const targetEnv = buildTargetEnv(target);
+    const versionInfo = captureTargetVersions(ROOT_DIR, target.name);
     const lighthouseUrl = `${target.baseUrl}${LH_PATH}`;
     const ssrUrl = `${target.baseUrl}${SSR_PATH}`;
 
@@ -133,6 +136,7 @@ async function main() {
 
       const targetSummary = {
         name: target.name,
+        ...versionInfo,
         baseUrl: target.baseUrl,
         lighthouse,
         ssr,
@@ -150,6 +154,8 @@ async function main() {
 
   writeFileSync(resolve(OUTPUT_DIR, "summary.json"), JSON.stringify(summary, null, 2));
   writeFileSync(LATEST_PATH, JSON.stringify(summary, null, 2));
+  savePerformanceHistory(ROOT_DIR, "ssr", summary);
+  savePerformanceHistory(ROOT_DIR, "lighthouse", summary);
 
   console.log(`\nSaved summary: ${resolve(OUTPUT_DIR, "summary.json")}`);
   console.log(`Updated latest: ${LATEST_PATH}`);

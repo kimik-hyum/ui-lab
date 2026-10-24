@@ -17,25 +17,33 @@ const ANCHOR_MARKER_PATTERN = /^\s*\/\/\s*\[cmp:([a-z0-9-]+):(start|end)\]\s*$/i
 const TOPIC_DEFINITIONS: TopicDefinition[] = [
   {
     id: 'load-page-core',
-    title: '페이지 로딩 코어',
+    title: '요청과 재시도',
     description:
-      'loadPage는 중복 요청/범위 검증/abort를 한곳에서 처리합니다. 요청 경로가 단일화되어 유지보수가 쉬워지고, 경쟁 상태로 인한 불필요한 네트워크 요청을 줄일 수 있습니다.',
+      '진행 중인 요청은 하나로 제한합니다. 실패하면 기존 목록을 유지하고 같은 페이지를 다시 요청하며, 화면을 떠난 뒤 도착한 응답은 무시합니다.',
     anchors: ['load-page-core'],
     fallbackLines: [73, 74, 75, 76, 80, 89, 95, 99, 104, 117],
   },
   {
     id: 'observer-strategy',
-    title: 'Observer 기반 페이지 추적',
+    title: '현재 페이지와 자동 로딩',
     description:
-      '페이지 영역 관찰과 하단 sentinel 관찰을 분리해 현재 페이지 계산과 자동 로드를 독립적으로 제어합니다. 옵션(rootMargin/threshold) 튜닝으로 UX와 성능 균형을 맞추기 쉽습니다.',
+      '현재 페이지 추적과 다음 페이지 로딩을 따로 관찰합니다. 요청 실패 시 자동 로딩을 멈춰 불필요한 재요청을 막고, 재시도가 성공하면 다시 이어갑니다.',
     anchors: ['page-observer', 'load-more-observer'],
     fallbackLines: [180, 193, 197, 202, 211, 216, 222],
+  },
+  {
+    id: 'previous-content',
+    title: '이전 콘텐츠와 읽던 위치',
+    description:
+      '첫 클릭 이후에만 위쪽 스크롤로 이전 페이지를 가져옵니다. DOM 목록은 기존 요소의 위치 차이를 보정하고, 가상 목록은 어댑터와 firstItemIndex로 위치를 유지합니다. 페이지 이동 시 자동 로딩을 다시 잠급니다.',
+    anchors: ['load-previous'],
+    fallbackLines: [190, 191, 192],
   },
   {
     id: 'url-state-sync',
     title: 'URL 복원/동기화',
     description:
-      'restore effect와 sync effect를 분리해 초기 진입 복원과 런타임 상태 반영을 명확히 나눴습니다. 쿼리 파라미터를 보존하거나 키 이름을 바꿀 수 있어 다른 화면 상태와 충돌을 줄입니다.',
+      '처음 열 때 주소의 페이지를 복원하고, 스크롤할 때 현재 페이지를 주소에 반영합니다. 다른 쿼리 조건은 보존해 새로고침과 링크 공유에 사용합니다.',
     anchors: ['url-restore', 'url-sync'],
     fallbackLines: [231, 236, 242, 247, 251, 254, 260],
   },
@@ -102,7 +110,7 @@ export function HookInsightClientPage({ hookCode }: { hookCode: string }) {
   return (
     <CodeInsightTemplate
       title="useHybridInfinite 코드 해설"
-      description="하이브리드 인피니티 스크롤의 핵심 훅 구현을 단일 코드 관점에서 분석합니다."
+      description="추가 로딩, 실패 복구, 페이지 복원을 실제 훅 코드에서 확인합니다."
       code={hookCode}
       topics={topics}
       codeTitle="useHybridInfinite.ts"

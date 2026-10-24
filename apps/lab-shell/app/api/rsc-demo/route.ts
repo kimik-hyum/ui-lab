@@ -1,15 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
-import { DEMO_ARTICLE } from "../../front-feature/nextjs/rsc-vs-csc/article";
+import { loadArticle } from "../../front-feature/nextjs/rsc-vs-csc/article.server";
+import { resolveArticleDelay } from "../../front-feature/nextjs/rsc-vs-csc/config";
+
+export const dynamic = "force-dynamic";
+export const runtime = "nodejs";
 
 export async function GET(req: NextRequest) {
-  const delay = Math.min(
-    Number(req.nextUrl.searchParams.get("delay") ?? "0"),
-    5000,
-  );
-
-  if (delay > 0) {
-    await new Promise((resolve) => setTimeout(resolve, delay));
+  const articleId = req.nextUrl.searchParams.get("article");
+  if (articleId && articleId !== "rendering-guide") {
+    return NextResponse.json({ error: "아티클을 찾을 수 없습니다." }, { status: 404 });
   }
-
-  return NextResponse.json(DEMO_ARTICLE);
+  const delay = resolveArticleDelay(req.nextUrl.searchParams.get("delay"));
+  const article = await loadArticle(delay);
+  return NextResponse.json(article, { headers: { "Cache-Control": "no-store" } });
 }

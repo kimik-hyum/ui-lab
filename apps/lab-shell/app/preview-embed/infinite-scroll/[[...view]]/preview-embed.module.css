@@ -1,0 +1,197 @@
+.embed {
+  min-width: 0;
+  min-height: 100vh;
+  background: #181816;
+  color: #e8e6df;
+  color-scheme: dark;
+}
+
+/* Only the embedded presentation changes; the original demonstrations remain shared. */
+.live {
+  min-height: 0;
+}
+
+.live > main {
+  min-height: 0;
+  background: #181816;
+  color: #e8e6df;
+  padding: 24px;
+}
+
+.live > main > div {
+  min-width: 0;
+  max-width: none;
+}
+
+.live [data-infinite-heading] {
+  display: none;
+}
+
+.live :global(.sticky) > div {
+  max-width: 100%;
+  flex-wrap: wrap;
+  border-radius: 16px;
+}
+
+.live button,
+.live input,
+.code header a,
+.code header button {
+  min-height: 44px;
+}
+
+.code header a,
+.code header button {
+  display: inline-flex;
+  align-items: center;
+}
+
+.live :global(.bg-zinc-950\/60),
+.live :global(.bg-zinc-900\/60),
+.live :global(.bg-zinc-900\/90) {
+  background: #1c1c1a;
+}
+
+.live :global(.border-zinc-800),
+.live :global(.border-zinc-700) {
+  border-color: #34342f;
+}
+
+.live :global(.text-zinc-400) {
+  color: #aaa89f;
+}
+
+.code :global(.bg-white),
+.code :global(.bg-slate-50\/60) {
+  background: #1c1c1a;
+}
+
+.code :global(.border-slate-200) {
+  border-color: #34342f;
+}
+
+.code :global(.text-slate-900),
+.code :global(.text-slate-800),
+.code :global(.text-slate-700) {
+  color: #e8e6df;
+}
+
+.code :global(.text-slate-600),
+.code :global(.text-slate-500),
+.code :global(.text-slate-400) {
+  color: #aaa89f;
+}
+
+.code :global(.bg-violet-50) {
+  background: #2a3025;
+}
+
+.code :global(.text-violet-700) {
+  color: #ced8bb;
+}
+
+.code :global(.border-violet-400) {
+  border-color: #b8c5a1;
+}
+
+.live :global(.text-cyan-300),
+.embed :global(.text-cyan-200),
+.embed :global(.hover\:text-cyan-200):hover,
+.embed :global(.enabled\:hover\:text-cyan-200):enabled:hover {
+  color: #b8c5a1;
+}
+
+.embed :global(.border-cyan-700) {
+  border-color: #626f50;
+}
+
+.embed :global(.hover\:border-cyan-400):hover,
+.embed :global(.hover\:border-cyan-500):hover,
+.embed :global(.enabled\:hover\:border-cyan-400):enabled:hover,
+.embed :global(.focus\:border-cyan-400):focus {
+  border-color: #b8c5a1;
+}
+
+.code header {
+  padding: 20px;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.code header h1 {
+  font-size: 20px;
+  line-height: 1.4;
+}
+
+.code header div {
+  min-width: 0;
+}
+
+.code header > div:last-child,
+.code header > div:last-child > div {
+  flex-wrap: wrap;
+}
+
+.code :global(.hover\:bg-slate-50):hover {
+  background: #2a2a26;
+}
+
+@media (max-width: 767px) {
+  .live > main {
+    padding: 16px;
+  }
+
+  .live h1,
+  .code h1 {
+    font-size: 22px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .live :global(.sticky) > div > div {
+    flex-basis: 100%;
+    justify-content: center;
+    order: -1;
+    gap: 8px;
+  }
+
+  .live [data-page] {
+    scroll-margin-top: 160px;
+  }
+
+  .code > div > div {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .code header {
+    padding: 16px;
+  }
+
+  .code header + div {
+    flex-direction: column-reverse;
+    overflow: visible;
+  }
+
+  .code section,
+  .code aside {
+    width: 100%;
+  }
+
+  .code section {
+    height: 70vh;
+    min-height: 360px;
+  }
+
+  .code section > div {
+    padding: 12px;
+  }
+
+  .code aside {
+    border-bottom: 1px solid #34342f;
+  }
+
+  .code aside > div {
+    overflow: visible;
+  }
+}

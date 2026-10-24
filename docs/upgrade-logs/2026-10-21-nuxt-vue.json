@@ -1,0 +1,147 @@
+{
+  "schemaVersion": 2,
+  "id": "2026-10-21-nuxt-vue",
+  "title": "Nuxt 4.6.2 · Vue 3.5.44",
+  "summary": "Nuxt·Vue를 갱신하고 Node 24.15 이상 실행 조건을 맞췄습니다.",
+  "startedAt": "2026-10-21T14:12:31.553+09:00",
+  "updatedAt": "2026-10-21T14:48:58.883+09:00",
+  "status": "completed",
+  "packages": [
+    {
+      "workspace": "vue-lab",
+      "name": "nuxt",
+      "declaredBefore": "4.4.5",
+      "declaredAfter": "4.6.2",
+      "installedBefore": "4.4.5",
+      "target": "4.6.2",
+      "installedAfter": "4.6.2"
+    },
+    {
+      "workspace": "vue-lab",
+      "name": "vue",
+      "declaredBefore": "3.5.34",
+      "declaredAfter": "3.5.44",
+      "installedBefore": "3.5.34",
+      "target": "3.5.44",
+      "installedAfter": "3.5.44"
+    },
+    {
+      "workspace": "vue-lab",
+      "name": "vue-tsc",
+      "declaredBefore": "^3.1.5",
+      "declaredAfter": "^3.3.13",
+      "installedBefore": "3.2.8",
+      "target": "3.3.13",
+      "installedAfter": "3.3.13"
+    },
+    {
+      "workspace": "vue-lab",
+      "name": "rolldown",
+      "declaredBefore": "직접 의존성 없음",
+      "declaredAfter": "~1.2.14",
+      "installedBefore": "직접 의존성 없음",
+      "target": "1.2.14",
+      "installedAfter": "1.2.14"
+    }
+  ],
+  "sources": [
+    {
+      "id": "nuxt",
+      "title": "Nuxt 4.6 릴리스",
+      "url": "https://nuxt.com/blog/v4-6",
+      "checkedOn": "2026-10-21"
+    },
+    {
+      "id": "vue",
+      "title": "Vue 변경 이력",
+      "url": "https://github.com/vuejs/core/blob/main/CHANGELOG.md",
+      "checkedOn": "2026-10-21"
+    },
+    {
+      "id": "nuxt-runtime",
+      "title": "Nuxt 4.6.2 실행·의존성 요구사항",
+      "url": "https://registry.npmjs.org/nuxt/4.6.2",
+      "checkedOn": "2026-10-21"
+    }
+  ],
+  "changes": [
+    {
+      "paths": [
+        "apps/vue-lab/package.json",
+        "yarn.lock"
+      ],
+      "reason": "Nuxt·Vue를 갱신하고 Nuxt가 요구하는 Rolldown을 추가했습니다. 기존 SSR API는 그대로 호환됩니다.",
+      "before": "Nuxt 4.4 · Vue 3.5.34 · Rolldown 직접 의존성 없음",
+      "after": "Nuxt 4.6 · Vue 3.5.44 · Rolldown 1.2.14\nuseFetch·server/api 구조 유지",
+      "sourceIds": [
+        "nuxt",
+        "vue",
+        "nuxt-runtime"
+      ],
+      "recommendation": "Nuxt 4.6.2가 요구하는 Rolldown ~1.2.1 범위에 맞춥니다. 기존 useFetch·server/api 구성은 유지할 수 있습니다.",
+      "files": [
+        {
+          "path": "apps/vue-lab/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 13,
+                "code": "    \"@supabase/supabase-js\": \"^2.53.0\",\n    \"@tanstack/vue-query\": \"^5.100.14\",\n    \"@ui-lab/api-types\": \"workspace:*\",\n    \"nuxt\": \"4.4.5\",\n    \"vue\": \"3.5.34\"\n  },\n  \"devDependencies\": {\n    \"typescript\": \"^5.0.0\",\n    \"vue-tsc\": \"^3.1.5\"\n  }\n}"
+              },
+              "after": {
+                "startLine": 13,
+                "code": "    \"@supabase/supabase-js\": \"^2.53.0\",\n    \"@tanstack/vue-query\": \"^5.100.14\",\n    \"@ui-lab/api-types\": \"workspace:*\",\n    \"nuxt\": \"4.6.2\",\n    \"vue\": \"3.5.44\"\n  },\n  \"devDependencies\": {\n    \"rolldown\": \"~1.2.14\",\n    \"typescript\": \"^5.0.0\",\n    \"vue-tsc\": \"^3.3.13\"\n  }\n}"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paths": [
+        ".nvmrc",
+        "package.json",
+        "README.md"
+      ],
+      "reason": "Nuxt의 실행 조건에 맞춰 Node 최소 버전을 24.15로 명시했습니다.",
+      "before": "Node 24.x",
+      "after": "Node >=24.15.0 <25 · .nvmrc 24.15.0",
+      "sourceIds": [
+        "nuxt-runtime"
+      ],
+      "recommendation": "Nuxt 4.6.2의 Node 24 지원 범위는 ^24.15.0이므로 프로젝트의 최소 버전도 이에 맞춥니다.",
+      "files": [
+        {
+          "path": ".nvmrc",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 1,
+                "code": "24"
+              },
+              "after": {
+                "startLine": 1,
+                "code": "24.15.0"
+              }
+            }
+          ]
+        },
+        {
+          "path": "package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 3,
+                "code": "  \"private\": true,\n  \"packageManager\": \"yarn@4.6.0\",\n  \"engines\": {\n    \"node\": \"24.x\"\n  },\n  \"workspaces\": [\n    \"apps/*\","
+              },
+              "after": {
+                "startLine": 3,
+                "code": "  \"private\": true,\n  \"packageManager\": \"yarn@4.6.0\",\n  \"engines\": {\n    \"node\": \">=24.15.0 <25\"\n  },\n  \"workspaces\": [\n    \"apps/*\","
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,184 +1,88 @@
 'use client';
 
-import { ReactNode, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import type { ComparisonTopic } from "../../components/ComparisonTypes";
 import { ComparisonTemplate } from "../../components/ComparisonTemplate";
+import { ComparisonTopicNotes } from "../../components/ComparisonTopicNotes";
 import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import { ActivityHiddenDemo } from "./components/ActivityHiddenDemo";
-import { TraditionalHiddenDemo, WorkerStats } from "./components/TraditionalHiddenDemo";
+import { TraditionalHiddenDemo } from "./components/TraditionalHiddenDemo";
 
-type TopicDefinition = {
-  id: string;
-  title: string;
-  description: ReactNode;
-  leftAnchors: string[];
-  rightAnchors: string[];
-  fallbackLeftLines: number[];
-  fallbackRightLines: number[];
-};
-
-const INITIAL_STATS: WorkerStats = {
-  renders: 0,
-  effectTicks: 0,
-  workUnits: 0,
-};
-
-const TOPIC_DEFINITIONS: TopicDefinition[] = [
+const TOPICS = [
   {
     id: "hidden-strategy",
-    title: "Hidden 전략 차이",
-    description: (
-      <div className="space-y-2">
-        <p>
-          <span className="text-red-300 font-bold">Traditional:</span> <code>display: none</code>으로 숨기면 DOM만 가려지고,
-          컴포넌트 자체는 마운트된 상태로 남습니다.
-        </p>
-        <p>
-          <span className="text-blue-300 font-bold">Activity:</span> <code>&lt;Activity mode=&quot;hidden&quot; /&gt;</code> 경계 내에서
-          숨김 상태를 관리해 백그라운드 업데이트 부담을 줄일 수 있습니다.
-        </p>
-      </div>
-    ),
-    leftAnchors: ["hidden-strategy"],
-    rightAnchors: ["hidden-strategy"],
-    fallbackLeftLines: [94, 95, 96],
-    fallbackRightLines: [91, 92, 93, 94],
+    title: "화면을 가리는 방법과 Effect의 수명",
+    description: "CSS는 화면만 가리고 Effect를 유지합니다. Activity는 화면을 숨길 때 Effect도 정리합니다. 숨겨진 탭의 구독이나 타이머를 멈출 때 별도 조건 처리를 줄일 수 있습니다.",
+    left: [14, 15, 16], right: [14, 15, 16],
   },
   {
     id: "background-effects",
-    title: "Background Effect 비용",
-    description: (
-      <div className="space-y-2">
-        <p>
-          두 구현 모두 interval 기반 effect를 갖고 있지만, 숨김 처리 전략에 따라 실제로 effect가 살아있는 시간이 달라집니다.
-        </p>
-        <p>
-          숨김 상태를 길게 유지해보면 <code>effect ticks</code> 증가폭 차이로 백그라운드 작업량을 쉽게 비교할 수 있습니다.
-        </p>
-      </div>
-    ),
-    leftAnchors: ["background-effects"],
-    rightAnchors: ["background-effects"],
-    fallbackLeftLines: [43, 44, 45, 46, 47, 48, 49],
-    fallbackRightLines: [40, 41, 42, 43, 44, 45, 46],
+    title: "같은 정리 함수, 다른 실행 시점",
+    description: "양쪽 모두 같은 interval과 clearInterval을 사용합니다. 숨기면 CSS 쪽 호출은 계속 늘고 Activity 쪽은 멈춥니다. 다시 표시하면 Activity의 Effect가 새로 시작하므로 구독과 정리는 반복 실행해도 안전해야 합니다.",
+    left: [35, 36, 37, 38, 39, 40, 41, 42], right: [35, 36, 37, 38, 39, 40, 41, 42],
   },
   {
-    id: "work-tracking",
-    title: "렌더/작업량 지표",
-    description: (
-      <div className="space-y-2">
-        <p>
-          <code>renders</code>는 다시 렌더된 횟수, <code>work units</code>는 렌더마다 수행한 계산량(데모용)을 누적한 값입니다.
-        </p>
-        <p>
-          숨김 상태에서 좌측 값이 빠르게 증가하면, 화면에 안 보여도 계산이 계속 일어나고 있음을 의미합니다.
-        </p>
-      </div>
-    ),
-    leftAnchors: ["work-tracking"],
-    rightAnchors: ["work-tracking"],
-    fallbackLeftLines: [35, 36, 37, 38, 39],
-    fallbackRightLines: [32, 33, 34, 35, 36],
+    id: "state-preservation",
+    title: "Effect를 정리해도 입력 상태는 보존",
+    description: "두 방식 모두 숨기기 전에 적은 메모를 유지합니다. Activity는 컴포넌트를 제거하는 조건부 렌더링과 달리 내부 상태를 보존하면서 Effect를 정리합니다. 화면을 다시 열 때 입력 복원 코드를 따로 만들지 않아도 됩니다.",
+    left: [33, 46, 47, 48, 49, 50, 51, 52, 53, 54], right: [33, 46, 47, 48, 49, 50, 51, 52, 53, 54],
   },
 ];
 
-export function ActivityClientPage({
-  traditionalCode,
-  activityCode,
-}: {
+export function ActivityClientPage({ traditionalCode, activityCode }: {
   traditionalCode: string;
   activityCode: string;
 }) {
   const [hidden, setHidden] = useState(false);
-  const [sessionId, setSessionId] = useState(0);
-  const [tick, setTick] = useState(0);
-  const [traditionalStats, setTraditionalStats] = useState<WorkerStats>(INITIAL_STATS);
-  const [activityStats, setActivityStats] = useState<WorkerStats>(INITIAL_STATS);
-
-  const traditionalStatsRef = useRef<WorkerStats>({ ...INITIAL_STATS });
-  const activityStatsRef = useRef<WorkerStats>({ ...INITIAL_STATS });
-
+  const [session, setSession] = useState(0);
   const topics = useMemo<ComparisonTopic[]>(() => {
-    const leftAnchorLines = collectAnchorLines(traditionalCode);
-    const rightAnchorLines = collectAnchorLines(activityCode);
-
-    return TOPIC_DEFINITIONS.map((topic) => ({
-      id: topic.id,
-      title: topic.title,
-      description: topic.description,
-      leftLines: resolveTopicLines(topic.leftAnchors, leftAnchorLines, topic.fallbackLeftLines),
-      rightLines: resolveTopicLines(topic.rightAnchors, rightAnchorLines, topic.fallbackRightLines),
+    const left = collectAnchorLines(traditionalCode);
+    const right = collectAnchorLines(activityCode);
+    return TOPICS.map((topic) => ({
+      id: topic.id, title: topic.title, description: <p>{topic.description}</p>,
+      leftLines: resolveTopicLines([topic.id], left, topic.left),
+      rightLines: resolveTopicLines([topic.id], right, topic.right),
     }));
   }, [traditionalCode, activityCode]);
 
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setTick((prev) => prev + 1);
-    }, 120);
-
-    return () => window.clearInterval(id);
-  }, []);
-
-  useEffect(() => {
-    const id = window.setInterval(() => {
-      setTraditionalStats({ ...traditionalStatsRef.current });
-      setActivityStats({ ...activityStatsRef.current });
-    }, 240);
-
-    return () => window.clearInterval(id);
-  }, []);
-
-  const resetStats = useCallback(() => {
-    traditionalStatsRef.current = { ...INITIAL_STATS };
-    activityStatsRef.current = { ...INITIAL_STATS };
-    setTraditionalStats({ ...INITIAL_STATS });
-    setActivityStats({ ...INITIAL_STATS });
-    setTick(0);
-    setSessionId((prev) => prev + 1);
-  }, []);
-
   return (
     <ComparisonTemplate
-      title="Activity vs display:none 비교"
-      description="숨김 상태에서 백그라운드 렌더/이펙트 비용이 어떻게 달라지는지 코드와 지표를 함께 확인합니다."
-      leftTitle="Traditional Hidden (display:none)"
-      rightTitle="Activity Hidden (mode=hidden)"
+      title="Activity · 숨김과 Effect 정리"
+      description="양쪽에 메모를 적고 패널을 숨겼다가 다시 표시하세요. 입력 보존과 interval의 정리·재시작을 함께 확인합니다."
+      leftTitle="CSS · 화면만 숨기기"
+      rightTitle="Activity · Effect도 정리하기"
       leftCode={traditionalCode}
       rightCode={activityCode}
       topics={topics}
       headerActions={
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
-            onClick={() => setHidden((prev) => !prev)}
-            className="rounded-full border border-slate-300 bg-white px-4 py-2 text-xs text-slate-700 hover:bg-slate-50 transition-colors"
+            type="button"
+            aria-pressed={hidden}
+            onClick={() => setHidden((value) => !value)}
+            className="min-h-11 rounded-full border border-slate-300 bg-white px-4 text-xs text-slate-700 hover:bg-slate-50"
           >
             {hidden ? "패널 표시" : "패널 숨기기"}
           </button>
           <button
-            onClick={resetStats}
-            className="rounded-full border border-slate-300 px-4 py-2 text-xs text-slate-500 hover:border-slate-400 hover:text-slate-700 transition-colors"
+            type="button"
+            onClick={() => { setHidden(false); setSession((value) => value + 1); }}
+            className="min-h-11 rounded-full border border-slate-300 px-4 text-xs text-slate-600 hover:bg-slate-50"
           >
-            지표 초기화
+            양쪽 처음부터
           </button>
         </div>
       }
-      leftComponent={
-        <TraditionalHiddenDemo
-          key={`traditional-${sessionId}`}
-          hidden={hidden}
-          tick={tick}
-          stats={traditionalStats}
-          statsRef={traditionalStatsRef}
-        />
-      }
-      rightComponent={
-        <ActivityHiddenDemo
-          key={`activity-${sessionId}`}
-          hidden={hidden}
-          tick={tick}
-          stats={activityStats}
-          statsRef={activityStatsRef}
-        />
+      leftComponent={<TraditionalHiddenDemo key={`css-${session}`} hidden={hidden} />}
+      rightComponent={<ActivityHiddenDemo key={`activity-${session}`} hidden={hidden} />}
+      footer={
+        <div className="space-y-4 p-6 text-sm leading-relaxed text-slate-600">
+          <p><strong className="text-slate-800">관찰 순서</strong> · 메모 입력 → 패널 숨기기 → interval 횟수 비교 → 다시 표시해 메모와 Effect 시작 횟수 확인.</p>
+          <p>카운터는 실제 Effect·interval 호출 횟수입니다. 숨긴 Activity도 새 props에 반응해 렌더링할 수 있으므로 렌더 횟수나 성능으로 읽지 않습니다.</p>
+          <p>코드 화면으로 전환하면 두 데모가 정리되고, UI로 돌아오면 새로 시작합니다. 개발 모드의 Strict Mode도 Effect를 다시 실행하므로 조작 전후의 변화에 주목하세요.</p>
+          <ComparisonTopicNotes topics={topics} />
+          <a href="https://react.dev/reference/react/Activity" target="_blank" rel="noreferrer" className="inline-block text-violet-600 underline underline-offset-4">Activity 공식 문서 ↗</a>
+        </div>
       }
     />
   );
