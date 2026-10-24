@@ -10,10 +10,10 @@ import { ServerActionNameForm } from "./components/ServerActionNameForm";
 import styles from "./server-actions.module.css";
 
 const TOPICS = [
-  { id: "transport", title: "요청을 전달하는 책임", description: "왼쪽은 URL·POST·JSON과 Route Handler를 직접 연결합니다. 오른쪽은 실제 Server Action 호출을 Next.js가 전달해 요청 연결 코드의 관리 범위를 줄입니다. 네트워크 요청 자체가 없어지지는 않습니다.", left: [30, 71, 72, 73, 96, 108, 109], right: [18, 45, 50, 51, 52] },
+  { id: "transport", title: "요청을 전달하는 책임", description: "fetch + Route Handler는 URL·POST·JSON과 Route Handler를 직접 연결합니다. Server Action · useActionState는 실제 Server Action 호출을 Next.js가 전달해 요청 연결 코드의 관리 범위를 줄입니다. 네트워크 요청 자체가 없어지지는 않습니다.", left: [30, 71, 72, 73, 96, 108, 109], right: [18, 45, 50, 51, 52] },
   { id: "server-validation", title: "같은 서버에서 다시 검증", description: "양쪽은 같은 server-only 함수로 공백 정리·길이 검증과 확인번호 생성을 수행합니다. 처리 조건을 같게 유지해 전송 경로의 차이에 집중합니다. 데이터를 영구 저장하지 않습니다.", left: [116, 123, 124, 125, 126, 136], right: [56, 63, 64, 65, 66, 76] },
-  { id: "pending-error", title: "대기와 오류를 화면으로 연결", description: "왼쪽은 pending·응답·취소를 직접 관리합니다. 오른쪽은 useActionState로 결과와 대기를 연결해 상태 동기화 부담을 줄이고, 클라이언트 래퍼에서 전송 예외를 처리합니다. 검증 오류는 양쪽 모두 값으로 반환합니다.", left: [13, 14, 17, 69, 81, 82, 83, 85, 86], right: [14, 19, 20, 21, 22, 24] },
-  { id: "input-policy", title: "오류 입력 보존과 성공 초기화", description: "왼쪽은 성공일 때만 form.reset을 호출합니다. 오른쪽은 React의 초기화에 맞춰 오류 때 원문을 defaultValue로 돌려줍니다. 두 방식 모두 실패 후 재입력 부담을 줄입니다.", left: [33, 34], right: [35, 36] },
+  { id: "pending-error", title: "대기와 오류를 화면으로 연결", description: "fetch + Route Handler는 pending·응답·취소를 직접 관리합니다. Server Action · useActionState는 useActionState로 결과와 대기를 연결해 상태 동기화 부담을 줄이고, 클라이언트 래퍼에서 전송 예외를 처리합니다. 검증 오류는 양쪽 모두 값으로 반환합니다.", left: [13, 14, 17, 69, 81, 82, 83, 85, 86], right: [14, 19, 20, 21, 22, 24] },
+  { id: "input-policy", title: "오류 입력 보존과 성공 초기화", description: "fetch + Route Handler는 성공일 때만 form.reset을 호출합니다. Server Action · useActionState는 React의 초기화에 맞춰 오류 때 원문을 defaultValue로 돌려줍니다. 두 방식 모두 실패 후 재입력 부담을 줄입니다.", left: [33, 34], right: [35, 36] },
 ];
 
 export function ServerActionsClientPage({ apiCode, actionCode }: { apiCode: string; actionCode: string }) {

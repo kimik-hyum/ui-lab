@@ -9,10 +9,10 @@ import { ActionProfileForm } from "./components/ActionProfileForm";
 import { ManualProfileForm } from "./components/ManualProfileForm";
 
 const TOPICS = [
-  { id: "form-state", title: "결과와 진행 상태를 한 흐름으로", description: "수동 구현은 결과·pending을 각각 갱신합니다. useActionState는 Action의 반환값과 진행 여부를 연결해 상태 전환 누락을 줄입니다.", left: [11, 12, 13], right: [10] },
-  { id: "form-submit", title: "제출 이벤트 대신 Action 연결", description: "왼쪽은 preventDefault와 FormData 수집을 직접 처리합니다. 오른쪽은 form action으로 전달해 React의 Transition 안에서 실행하므로 제출 연결 코드가 간단해집니다.", left: [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 27, 28, 29, 30, 31], right: [16, 17, 18, 19] },
-  { id: "form-pending", title: "가장 가까운 폼의 대기 상태", description: "왼쪽 버튼은 부모가 만든 pending 값을 받습니다. useFormStatus는 자식에서 소속 폼의 상태를 읽어 공통 제출 버튼의 props 전달을 줄입니다. 같은 컴포넌트가 만든 폼의 상태는 읽지 못합니다.", left: [41], right: [33, 34, 41] },
-  { id: "form-reset", title: "초기화와 입력 복원 정책", description: "왼쪽은 성공 후 직접 reset하고, 오른쪽은 React의 자동 초기화와 defaultValue를 연결합니다. 공통 함수는 오류일 때 공백까지 원문을 돌려줘 재입력을 줄이고, 성공일 때 앞뒤 공백을 뺀 이름을 저장하고 입력을 비웁니다.", left: [25, 26, 70, 71, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88], right: [39, 40, 68, 69, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86] },
+  { id: "form-state", title: "결과와 진행 상태를 한 흐름으로", description: "onSubmit + 직접 상태 관리 구현은 결과·pending을 각각 갱신합니다. useActionState는 Action의 반환값과 진행 여부를 연결해 상태 전환 누락을 줄입니다.", left: [11, 12, 13], right: [10] },
+  { id: "form-submit", title: "제출 이벤트 대신 Action 연결", description: "onSubmit 구현은 preventDefault와 FormData 수집을 직접 처리합니다. useActionState 구현은 form action으로 전달해 React의 Transition 안에서 실행하므로 제출 연결 코드가 간단해집니다.", left: [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 27, 28, 29, 30, 31], right: [16, 17, 18, 19] },
+  { id: "form-pending", title: "가장 가까운 폼의 대기 상태", description: "onSubmit 구현의 제출 버튼은 부모가 만든 pending 값을 받습니다. useFormStatus는 자식에서 소속 폼의 상태를 읽어 공통 제출 버튼의 props 전달을 줄입니다. 같은 컴포넌트가 만든 폼의 상태는 읽지 못합니다.", left: [41], right: [33, 34, 41] },
+  { id: "form-reset", title: "초기화와 입력 복원 정책", description: "onSubmit 구현은 성공 후 직접 reset하고, useActionState 구현은 React의 자동 초기화와 defaultValue를 연결합니다. 공통 함수는 오류일 때 공백까지 원문을 돌려줘 재입력을 줄이고, 성공일 때 앞뒤 공백을 뺀 이름을 저장하고 입력을 비웁니다.", left: [25, 26, 70, 71, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88], right: [39, 40, 68, 69, 74, 75, 76, 77, 78, 79, 80, 81, 82, 83, 84, 85, 86] },
 ];
 
 export function FormActionsClientPage({ manualCode, actionCode }: { manualCode: string; actionCode: string }) {

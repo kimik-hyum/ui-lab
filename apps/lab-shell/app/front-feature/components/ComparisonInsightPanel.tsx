@@ -6,7 +6,7 @@ interface InsightPanelProps {
 
 export function ComparisonInsightPanel({ topic }: InsightPanelProps) {
   return (
-    <div className="max-h-44 overflow-y-auto rounded-lg border border-border bg-surface px-4 py-3 lg:max-h-36">
+    <div className="h-28 overflow-y-auto rounded-lg border border-border bg-surface px-4 py-3 sm:h-32" tabIndex={0} role="region" aria-label="비교 포인트 설명">
       {topic ? (
         <div className="flex items-start gap-3">
           <span aria-hidden="true" className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border border-primary/25 font-mono text-[11px] text-primary">i</span>

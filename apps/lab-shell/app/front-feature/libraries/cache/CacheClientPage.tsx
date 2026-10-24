@@ -15,9 +15,9 @@ import { QueryCacheDemo } from "./components/QueryCacheDemo";
 import styles from "./cache.module.css";
 
 const TOPICS = [
-  { id: "cache-reuse", title: "다시 열 때 캐시 재사용", description: "왼쪽의 로컬 결과는 닫으면 사라져 다시 요청합니다. 오른쪽은 페이지의 QueryClient에 성공 데이터를 보관하며, 같은 항목을 60초 안에 다시 열면 요청 없이 재사용합니다. 재요청 정책을 직접 관리하는 코드를 줄입니다.", left: [10, 11], right: [12, 13, 14, 15, 16] },
-  { id: "cache-key", title: "항목별로 결과 분리", description: "왼쪽은 항목 변경 때 다시 요청하고 이전 항목의 결과를 가립니다. 오른쪽은 queryKey에 항목 ID를 넣어 프로젝트별 데이터를 따로 저장합니다. 항목을 오갈 때 다른 데이터가 섞이는 것을 막습니다.", left: [24, 25], right: [10] },
-  { id: "cancellation", title: "닫거나 바꾸면 요청 취소", description: "왼쪽은 AbortController와 active 가드로 취소·늦은 응답을 직접 관리합니다. 오른쪽은 Query가 제공하는 signal을 fetch에 전달합니다. 양쪽 모두 사용하지 않는 요청을 중단하고 지난 결과가 새 화면을 덮지 않도록 합니다.", left: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], right: [11] },
+  { id: "cache-reuse", title: "다시 열 때 캐시 재사용", description: "React fetch의 로컬 결과는 닫으면 사라져 다시 요청합니다. TanStack Query는 페이지의 QueryClient에 성공 데이터를 보관하며, 같은 항목을 60초 안에 다시 열면 요청 없이 재사용합니다. 재요청 정책을 직접 관리하는 코드를 줄입니다.", left: [10, 11], right: [12, 13, 14, 15, 16] },
+  { id: "cache-key", title: "항목별로 결과 분리", description: "React fetch는 항목 변경 때 다시 요청하고 이전 항목의 결과를 가립니다. TanStack Query는 queryKey에 항목 ID를 넣어 프로젝트별 데이터를 따로 저장합니다. 항목을 오갈 때 다른 데이터가 섞이는 것을 막습니다.", left: [24, 25], right: [10] },
+  { id: "cancellation", title: "닫거나 바꾸면 요청 취소", description: "React fetch는 AbortController와 active 가드로 취소·늦은 응답을 직접 관리합니다. TanStack Query는 Query가 제공하는 signal을 fetch에 전달합니다. 양쪽 모두 사용하지 않는 요청을 중단하고 지난 결과가 새 화면을 덮지 않도록 합니다.", left: [13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23], right: [11] },
 ];
 
 export function CacheClientPage({ manualCode, queryCode, libraryVersion }: { manualCode: string; queryCode: string; libraryVersion: string }) {

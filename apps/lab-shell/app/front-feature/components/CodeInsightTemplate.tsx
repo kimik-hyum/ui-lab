@@ -2,6 +2,7 @@
 
 import React, { useMemo, useRef, useState } from 'react';
 import { ComparisonCodeBlock } from './ComparisonCodeBlock';
+import { resolveLineTopic } from './lineTopics';
 
 export type CodeInsightTopic = {
   id: string;
@@ -25,18 +26,19 @@ export function CodeInsightTemplate({
   title, description, code, topics, codeTitle = 'Core Hook', codeBadge = 'Single Source', headerActions, preview,
 }: CodeInsightTemplateProps) {
   const [activeTopicId, setActiveTopicId] = useState<string | null>(topics[0]?.id ?? null);
+  const [hoveredTopicId, setHoveredTopicId] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
-  const activeTopic = useMemo(() => topics.find((topic) => topic.id === activeTopicId) ?? null, [activeTopicId, topics]);
+  const activeTopic = useMemo(() => topics.find((topic) => topic.id === (hoveredTopicId ?? activeTopicId)) ?? null, [activeTopicId, hoveredTopicId, topics]);
   const interactiveLines = useMemo(() => [...new Set(topics.flatMap((topic) => topic.lines))], [topics]);
 
+  const topicForLine = (line: number) => resolveLineTopic(topics, line, (topic) => topic.lines, activeTopicId);
   const handleLineHover = (line: number | null) => {
-    if (line === null) return;
-    const topic = topics.find((candidate) => candidate.lines.includes(line));
-    if (topic) setActiveTopicId(topic.id);
+    setHoveredTopicId(line === null ? null : topicForLine(line)?.id ?? null);
   };
 
   const selectTopic = (topic: CodeInsightTopic) => {
     setActiveTopicId(topic.id);
+    setHoveredTopicId(null);
     const container = scrollRef.current;
     const target = container?.querySelector<HTMLElement>(`[data-line="${topic.lines[0]}"]`);
     if (!container || !target) return;
@@ -62,7 +64,9 @@ export function CodeInsightTemplate({
       <div className="grid min-h-0 flex-1 grid-cols-1 gap-5 p-5 sm:p-7 lg:grid-cols-[minmax(0,1fr)_300px] lg:p-6 2xl:grid-cols-[minmax(0,1fr)_340px]">
         <section aria-label="소스 코드" className="order-2 h-[65svh] min-h-96 min-w-0 lg:order-1 lg:h-full lg:min-h-0">
           <ComparisonCodeBlock code={code} title={codeTitle} badge={codeBadge} color="blue" highlightedLines={activeTopic?.lines ?? []}
-            interactiveLines={interactiveLines} onLineHover={handleLineHover} scrollRef={scrollRef} />
+            interactiveLines={interactiveLines} onLineHover={handleLineHover} scrollRef={scrollRef}
+            getLineHint={topicForLine}
+            onLineSelect={(line) => { const topic = topicForLine(line); if (topic) { setActiveTopicId(topic.id); setHoveredTopicId(null); } }} />
         </section>
 
         <aside aria-label="코드 해설" className="order-1 flex min-h-0 min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-white lg:order-2">

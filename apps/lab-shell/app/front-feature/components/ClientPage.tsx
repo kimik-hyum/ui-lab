@@ -25,11 +25,11 @@ const TOPIC_DEFINITIONS: TopicDefinition[] = [
         description: (
             <div className="space-y-2">
                 <p>
-                    <span className="text-red-300 font-bold">Traditional:</span> 부모 상태(`items`)를 로컬 `useState`로 복제한 뒤
+                    <span className="text-red-300 font-bold">수동 상태 관리 + 롤백:</span> 부모 상태(`items`)를 로컬 `useState`로 복제한 뒤
                     props 변경 감지와 수동 동기화까지 직접 유지해야 합니다. 상태 소유권이 분산되어 유지보수 비용이 커집니다.
                 </p>
                 <p>
-                    <span className="text-blue-300 font-bold">Optimistic:</span> `useOptimistic(state, updateFn)`으로 원본 상태를
+                    <span className="text-blue-300 font-bold">useOptimistic + 자동 복원:</span> `useOptimistic(state, updateFn)`으로 원본 상태를
                     기준으로 낙관 상태를 계산합니다. React 공식 문서처럼 `updateFn`만 순수하게 유지하면 됩니다.
                 </p>
             </div>
@@ -45,11 +45,11 @@ const TOPIC_DEFINITIONS: TopicDefinition[] = [
         description: (
             <div className="space-y-2">
                 <p>
-                    <span className="text-red-300 font-bold">Traditional:</span> 새 항목 생성, 이전 상태 백업, 실패 시 롤백, 에러 UI 처리까지
+                    <span className="text-red-300 font-bold">수동 상태 관리 + 롤백:</span> 새 항목 생성, 이전 상태 백업, 실패 시 롤백, 에러 UI 처리까지
                     한 흐름에 직접 작성해야 합니다.
                 </p>
                 <p>
-                    <span className="text-blue-300 font-bold">Optimistic:</span> `startTransition` 안에서 `addOptimisticItem`으로 의도를 먼저 반영하고,
+                    <span className="text-blue-300 font-bold">useOptimistic + 자동 복원:</span> `startTransition` 안에서 `addOptimisticItem`으로 의도를 먼저 반영하고,
                     성공 시 확정 상태만 커밋합니다. 실패 시 낙관 상태는 자동으로 사라집니다.
                 </p>
             </div>
@@ -65,11 +65,11 @@ const TOPIC_DEFINITIONS: TopicDefinition[] = [
         description: (
             <div className="space-y-2">
                 <p>
-                    <span className="text-red-300 font-bold">Traditional:</span> 빠른 연속 클릭 시 각 요청의 롤백 시점과 백업 상태를
+                    <span className="text-red-300 font-bold">수동 상태 관리 + 롤백:</span> 빠른 연속 클릭 시 각 요청의 롤백 시점과 백업 상태를
                     사람이 맞춰야 해서 코드가 빠르게 복잡해집니다.
                 </p>
                 <p>
-                    <span className="text-blue-300 font-bold">Optimistic:</span> 낙관 상태는 pending 동안만 유지되고 실패 시 자동 폐기됩니다.
+                    <span className="text-blue-300 font-bold">useOptimistic + 자동 복원:</span> 낙관 상태는 pending 동안만 유지되고 실패 시 자동 폐기됩니다.
                     ‘다음 요청 실패’를 켜고 ‘3개 연속 추가’로 확인할 수 있습니다.
                 </p>
                 <p>

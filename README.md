@@ -74,7 +74,8 @@ $ui-lab-framework-upgrade 스킬로 next-lab과 lab-shell의 Next.js를 최신 �
 
 ## Requirements
 
-- Node.js 24.15 이상, 24.x (`.nvmrc`, `package.json` 및 Docker 이미지 기준)
+- Node.js 24.x (로컬은 `.nvmrc`의 24.22.1, Vercel은 각 앱 `engines.node`의 `24.x`, Docker는 `node:24-alpine`)
+- Vercel의 Node 패치 버전은 플랫폼에서 자동 관리합니다.
 - Yarn 4.6.0 (`packageManager` 기준)
 
 Lighthouse 13은 Node.js 22.19 이상이 필요하므로 앱 실행과 성능 측정은 모두 Node.js 24에서 수행합니다.

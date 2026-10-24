@@ -1,0 +1,311 @@
+{
+  "schemaVersion": 2,
+  "id": "2026-10-24-node-24",
+  "title": "Node 24 실행 환경 통일",
+  "summary": "로컬 Node와 타입을 24 계열로 맞추고 모든 앱에 Vercel 런타임 버전을 명시했습니다.",
+  "startedAt": "2026-10-24T07:59:17+00:00",
+  "updatedAt": "2026-10-24T08:02:12+00:00",
+  "status": "completed",
+  "packages": [
+    {
+      "workspace": "공통 환경",
+      "name": "node",
+      "declaredBefore": "24.15.0",
+      "declaredAfter": "24.22.1",
+      "installedBefore": "24.15.0",
+      "target": "24.22.1",
+      "installedAfter": "24.22.1"
+    },
+    {
+      "workspace": "lab-shell",
+      "name": "@types/node",
+      "declaredBefore": "^20",
+      "declaredAfter": "^24.19.2",
+      "installedBefore": "20.19.27",
+      "target": "24.19.2",
+      "installedAfter": "24.19.2"
+    },
+    {
+      "workspace": "next-lab",
+      "name": "@types/node",
+      "declaredBefore": "^20",
+      "declaredAfter": "^24.19.2",
+      "installedBefore": "20.19.27",
+      "target": "24.19.2",
+      "installedAfter": "24.19.2"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "@types/node",
+      "declaredBefore": "^20",
+      "declaredAfter": "^24.19.2",
+      "installedBefore": "20.19.27",
+      "target": "24.19.2",
+      "installedAfter": "24.19.2"
+    }
+  ],
+  "sources": [
+    {
+      "id": "node-24-lts",
+      "title": "Node.js 24.22.1 LTS 릴리스",
+      "url": "https://nodejs.org/en/blog/release/v24.22.1",
+      "checkedOn": "2026-10-24"
+    },
+    {
+      "id": "vercel-node",
+      "title": "Vercel Node.js 버전 지정",
+      "url": "https://vercel.com/docs/functions/runtimes/node-js/node-js-versions",
+      "checkedOn": "2026-10-24"
+    },
+    {
+      "id": "node-types",
+      "title": "DefinitelyTyped 타입 패키지 버전 정책",
+      "url": "https://github.com/DefinitelyTyped/DefinitelyTyped#versioning",
+      "checkedOn": "2026-10-24"
+    }
+  ],
+  "changes": [
+    {
+      "paths": [
+        ".nvmrc",
+        "README.md"
+      ],
+      "reason": "로컬 개발에 사용할 Node 24 LTS 패치를 고정하고 배포 환경의 버전 관리 방식도 안내합니다.",
+      "before": "로컬 기준은 Node 24.15.0이었습니다.",
+      "after": "로컬 기준을 24.22.1로 올렸습니다. Vercel과 Docker는 24 계열을 따릅니다.",
+      "recommendation": "Node 24.22.1은 보안 수정이 포함된 LTS 릴리스입니다. Vercel의 마이너·패치 버전은 플랫폼에서 관리합니다.",
+      "sourceIds": [
+        "node-24-lts",
+        "vercel-node"
+      ],
+      "files": [
+        {
+          "path": ".nvmrc",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 1,
+                "code": "24.15.0"
+              },
+              "after": {
+                "startLine": 1,
+                "code": "24.22.1"
+              }
+            }
+          ]
+        },
+        {
+          "path": "README.md",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 76,
+                "code": "\n- Node.js 24.15 이상, 24.x (`.nvmrc`, `package.json` 및 Docker 이미지 기준)\n- Yarn 4.6.0 (`packageManager` 기준)"
+              },
+              "after": {
+                "startLine": 76,
+                "code": "\n- Node.js 24.x (로컬은 `.nvmrc`의 24.22.1, Vercel은 각 앱 `engines.node`의 `24.x`, Docker는 `node:24-alpine`)\n- Vercel의 Node 패치 버전은 플랫폼에서 자동 관리합니다.\n- Yarn 4.6.0 (`packageManager` 기준)"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paths": [
+        "package.json",
+        "apps/lab-shell/package.json",
+        "apps/next-lab/package.json",
+        "apps/react-router-lab/package.json",
+        "apps/sveltekit-lab/package.json",
+        "apps/vue-lab/package.json",
+        "yarn.lock"
+      ],
+      "reason": "앱을 개별 Vercel 프로젝트로 빌드할 때도 Node 24를 선택하고, 타입 정의를 실제 런타임 계열과 맞춥니다.",
+      "before": "루트에만 Node 24 범위가 있고 세 앱의 Node 타입은 20 계열이었습니다.",
+      "after": "루트와 다섯 앱에 engines.node: 24.x를 선언하고 명시된 Node 타입을 24.19.2로 올렸습니다.",
+      "recommendation": "Vercel은 package.json의 engines.node를 프로젝트 설정보다 우선합니다. 타입을 실행 환경과 맞추는 것은 프로젝트의 선택입니다.",
+      "sourceIds": [
+        "vercel-node",
+        "node-types"
+      ],
+      "files": [
+        {
+          "path": "package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 5,
+                "code": "  \"engines\": {\n    \"node\": \">=24.15.0 <25\"\n  },"
+              },
+              "after": {
+                "startLine": 5,
+                "code": "  \"engines\": {\n    \"node\": \"24.x\"\n  },"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/lab-shell/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 4,
+                "code": "  \"private\": true,\n  \"scripts\": {"
+              },
+              "after": {
+                "startLine": 4,
+                "code": "  \"private\": true,\n  \"engines\": {\n    \"node\": \"24.x\"\n  },\n  \"scripts\": {"
+              }
+            },
+            {
+              "before": {
+                "startLine": 29,
+                "code": "    \"@tailwindcss/postcss\": \"^4.3.3\",\n    \"@types/node\": \"^20\",\n    \"@types/react\": \"^19.3.0\","
+              },
+              "after": {
+                "startLine": 32,
+                "code": "    \"@tailwindcss/postcss\": \"^4.3.3\",\n    \"@types/node\": \"^24.19.2\",\n    \"@types/react\": \"^19.3.0\","
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/next-lab/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 4,
+                "code": "  \"private\": true,\n  \"scripts\": {"
+              },
+              "after": {
+                "startLine": 4,
+                "code": "  \"private\": true,\n  \"engines\": {\n    \"node\": \"24.x\"\n  },\n  \"scripts\": {"
+              }
+            },
+            {
+              "before": {
+                "startLine": 19,
+                "code": "  \"devDependencies\": {\n    \"@types/node\": \"^20\",\n    \"@types/react\": \"^19.3.0\","
+              },
+              "after": {
+                "startLine": 22,
+                "code": "  \"devDependencies\": {\n    \"@types/node\": \"^24.19.2\",\n    \"@types/react\": \"^19.3.0\","
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/react-router-lab/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 4,
+                "code": "  \"private\": true,\n  \"type\": \"module\","
+              },
+              "after": {
+                "startLine": 4,
+                "code": "  \"private\": true,\n  \"engines\": {\n    \"node\": \"24.x\"\n  },\n  \"type\": \"module\","
+              }
+            },
+            {
+              "before": {
+                "startLine": 26,
+                "code": "    \"@react-router/dev\": \"7.18.4\",\n    \"@types/node\": \"^20\",\n    \"@types/react\": \"^19.3.0\","
+              },
+              "after": {
+                "startLine": 29,
+                "code": "    \"@react-router/dev\": \"7.18.4\",\n    \"@types/node\": \"^24.19.2\",\n    \"@types/react\": \"^19.3.0\","
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/sveltekit-lab/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 4,
+                "code": "  \"private\": true,\n  \"type\": \"module\","
+              },
+              "after": {
+                "startLine": 4,
+                "code": "  \"private\": true,\n  \"engines\": {\n    \"node\": \"24.x\"\n  },\n  \"type\": \"module\","
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/vue-lab/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 4,
+                "code": "  \"private\": true,\n  \"type\": \"module\","
+              },
+              "after": {
+                "startLine": 4,
+                "code": "  \"private\": true,\n  \"engines\": {\n    \"node\": \"24.x\"\n  },\n  \"type\": \"module\","
+              }
+            }
+          ]
+        },
+        {
+          "path": "yarn.lock",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 4499,
+                "code": "\n\"@types/node@npm:^20\":\n  version: 20.19.27\n  resolution: \"@types/node@npm:20.19.27\"\n  dependencies:\n    undici-types: \"npm:~6.21.0\"\n  checksum: 10c0/7599c24d80465c1aa6e29b53581fc20ad8862ff33e6eef31d05c1c706868476ee57319c89b802ea972dd4d64ce86d18020aa5344f851fb59b730ea509a63300f\n  languageName: node"
+              },
+              "after": {
+                "startLine": 4499,
+                "code": "\n\"@types/node@npm:^24.19.2\":\n  version: 24.19.2\n  resolution: \"@types/node@npm:24.19.2\"\n  dependencies:\n    undici-types: \"npm:>=7.24.0 <7.24.7\"\n  checksum: 10c0/b51a7f8854007ad579dffdd0633d8addbfeb2c97cceb380f2eba0ed163638ec52e17565385a6cc04d54ac4ff99c70c64aee68a4ca45b6128c035e828794e29c5\n  languageName: node"
+              }
+            },
+            {
+              "before": {
+                "startLine": 10460,
+                "code": "    \"@tanstack/react-query\": \"npm:^5.100.14\"\n    \"@types/node\": \"npm:^20\"\n    \"@types/react\": \"npm:^19.3.0\""
+              },
+              "after": {
+                "startLine": 10460,
+                "code": "    \"@tanstack/react-query\": \"npm:^5.100.14\"\n    \"@types/node\": \"npm:^24.19.2\"\n    \"@types/react\": \"npm:^19.3.0\""
+              }
+            },
+            {
+              "before": {
+                "startLine": 11644,
+                "code": "    \"@tanstack/react-query\": \"npm:^5.100.14\"\n    \"@types/node\": \"npm:^20\"\n    \"@types/react\": \"npm:^19.3.0\""
+              },
+              "after": {
+                "startLine": 11644,
+                "code": "    \"@tanstack/react-query\": \"npm:^5.100.14\"\n    \"@types/node\": \"npm:^24.19.2\"\n    \"@types/react\": \"npm:^19.3.0\""
+              }
+            },
+            {
+              "before": {
+                "startLine": 13315,
+                "code": "    \"@tanstack/react-query\": \"npm:^5.100.14\"\n    \"@types/node\": \"npm:^20\"\n    \"@types/react\": \"npm:^19.3.0\""
+              },
+              "after": {
+                "startLine": 13315,
+                "code": "    \"@tanstack/react-query\": \"npm:^5.100.14\"\n    \"@types/node\": \"npm:^24.19.2\"\n    \"@types/react\": \"npm:^19.3.0\""
+              }
+            },
+            {
+              "before": {
+                "startLine": 15641,
+                "code": "\n\"undici-types@npm:~6.21.0\":\n  version: 6.21.0\n  resolution: \"undici-types@npm:6.21.0\"\n  checksum: 10c0/c01ed51829b10aa72fc3ce64b747f8e74ae9b60eafa19a7b46ef624403508a54c526ffab06a14a26b3120d055e1104d7abe7c9017e83ced038ea5cf52f8d5e04\n  languageName: node"
+              },
+              "after": {
+                "startLine": 15641,
+                "code": "\n\"undici-types@npm:>=7.24.0 <7.24.7\":\n  version: 7.24.6\n  resolution: \"undici-types@npm:7.24.6\"\n  checksum: 10c0/d9cd8befb643ac904615c280a095ba4240531f6bb4a5e75a22a7483630ca8d3f1016d2ab6ace6ceda1f63b3a2db2fe037fafe121d6917a0187573aa548ff78ca\n  languageName: node"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

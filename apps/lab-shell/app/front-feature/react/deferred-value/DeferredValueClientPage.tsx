@@ -12,9 +12,9 @@ import { DeferredPreview } from "./components/DeferredPreview";
 import styles from "./deferred-value.module.css";
 
 const TOPICS = [
-  { id: "input", title: "입력값은 바로 갱신", description: "양쪽 모두 입력 상태를 즉시 바꿉니다. 오른쪽도 input에는 최신 text를 연결하므로 타이핑 자체를 지연하지 않습니다.", left: [15, 16], right: [16, 17] },
-  { id: "priority", title: "느린 목록만 뒤따라 갱신", description: "왼쪽은 입력과 목록이 함께 갱신됩니다. 오른쪽은 목록에 deferredText를 전달해 새 입력이 느린 렌더링보다 우선하도록 합니다. 고정 대기 시간이나 debounce가 아닙니다.", left: [11, 22, 23, 24], right: [11, 23, 24, 25] },
-  { id: "memo", title: "같은 목록은 건너뛰기", description: "공통 목록의 memo는 props가 같으면 느린 행 렌더링을 건너뛸 수 있게 합니다. 오른쪽은 이전 목록을 유지한 채 입력을 먼저 보여주고, 두 값이 다른 동안 갱신 중임을 표시합니다. 목록 렌더 자체가 빨라지거나 전체 작업이 줄어든다는 보장은 없습니다.", left: [38, 39, 40, 41, 42, 43, 44], right: [12, 22, 39, 40, 41, 42, 43, 44, 45] },
+  { id: "input", title: "입력값은 바로 갱신", description: "양쪽 모두 입력 상태를 즉시 바꿉니다. useDeferredValue 구현도 input에는 최신 text를 연결하므로 타이핑 자체를 지연하지 않습니다.", left: [15, 16], right: [16, 17] },
+  { id: "priority", title: "느린 목록만 뒤따라 갱신", description: "즉시 반영 구현은 입력과 목록이 함께 갱신됩니다. useDeferredValue 구현은 목록에 deferredText를 전달해 새 입력이 느린 렌더링보다 우선하도록 합니다. 고정 대기 시간이나 debounce가 아닙니다.", left: [11, 22, 23, 24], right: [11, 23, 24, 25] },
+  { id: "memo", title: "같은 목록은 건너뛰기", description: "공통 목록의 memo는 props가 같으면 느린 행 렌더링을 건너뛸 수 있게 합니다. useDeferredValue 구현은 이전 목록을 유지한 채 입력을 먼저 보여주고, 두 값이 다른 동안 갱신 중임을 표시합니다. 목록 렌더 자체가 빨라지거나 전체 작업이 줄어든다는 보장은 없습니다.", left: [38, 39, 40, 41, 42, 43, 44], right: [12, 22, 39, 40, 41, 42, 43, 44, 45] },
 ];
 
 export function DeferredValueClientPage({ immediateCode, deferredCode }: { immediateCode: string; deferredCode: string }) {

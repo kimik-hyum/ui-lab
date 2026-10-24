@@ -2,6 +2,9 @@
   "name": "vue-lab",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "24.x"
+  },
   "type": "module",
   "scripts": {
     "dev": "NUXT_TELEMETRY_DISABLED=1 nuxt dev --host 127.0.0.1 --port 3004",

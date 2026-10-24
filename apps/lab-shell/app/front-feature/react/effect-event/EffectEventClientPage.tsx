@@ -11,7 +11,7 @@ import { ReactiveConnection } from "./components/ReactiveConnection";
 import { EffectEventConnection } from "./components/EffectEventConnection";
 
 const TOPICS = [
-  { id: "connection", title: "연결 조건과 표시 설정을 구분", description: "왼쪽은 theme를 읽는 Effect가 테마 변경마다 정리·재연결됩니다. 오른쪽은 room만 연결 조건으로 남깁니다. 알림 표현을 바꿀 때 불필요한 연결 교체를 줄입니다.", left: [13, 16, 17], right: [16, 17, 19, 20] },
+  { id: "connection", title: "연결 조건과 표시 설정을 구분", description: "theme를 의존성에 포함한 Effect는 테마 변경마다 정리·재연결됩니다. Effect Event 구현은 room만 연결 조건으로 남깁니다. 알림 표현을 바꿀 때 불필요한 연결 교체를 줄입니다.", left: [13, 16, 17], right: [16, 17, 19, 20] },
   { id: "latest-value", title: "재연결 없이 최신 값 읽기", description: "useEffectEvent는 이벤트가 도착할 때 최신 렌더의 theme를 읽습니다. 테마를 바꿔도 구독을 유지하면서 새 알림에는 현재 테마가 적용됩니다. 오래된 클로저 문제를 피하기 위한 ref 동기화를 따로 두지 않아도 됩니다.", left: [14], right: [13, 14] },
   { id: "cleanup", title: "필요한 정리는 두 방식 모두 유지", description: "방이 바뀌거나 화면이 사라질 때는 두 구현 모두 구독을 정리합니다. useEffectEvent는 Effect 내부 이벤트용이며, 의존성을 임의로 숨기거나 클릭 핸들러에 직접 쓰는 도구가 아닙니다.", left: [15], right: [18] },
   { id: "notification-policy", title: "받은 알림은 공통 정책으로 보존", description: "두 방식 모두 같은 방에 재연결하면 마지막 알림을 유지하고, 다른 방에 연결하면 비웁니다. 알림 보존은 공통 source의 정책이며 useEffectEvent가 자동으로 제공하는 기능은 아닙니다.", left: [65, 66, 67], right: [68, 69, 70] },

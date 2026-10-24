@@ -19,14 +19,14 @@ const TOPICS = [
   {
     id: "initial-output",
     title: "첫 HTML의 카운터와 대체 표시",
-    description: "왼쪽은 카운터를 서버에서 HTML로 만듭니다. 오른쪽은 Client wrapper에서 ssr: false로 카운터를 제외하고 loading을 보냅니다. JS가 실행되지 않으면 오른쪽 카운터는 나타나지 않습니다.",
+    description: "기본 사전 렌더링은 카운터를 서버에서 HTML로 만듭니다. next/dynamic · ssr: false는 Client wrapper에서 ssr: false로 카운터를 제외하고 loading을 보냅니다. JS가 실행되지 않으면 ssr: false로 불러온 카운터는 나타나지 않습니다.",
     left: [2, 5],
     right: [7, 8, 9, 10],
   },
   {
     id: "interaction",
     title: "동작은 같은 코드, 시작 방식은 다르게",
-    description: "같은 useState·클릭 함수를 공유합니다. 브라우저에서 왼쪽은 기존 HTML을 hydrate하고 오른쪽은 카운터를 새로 렌더링합니다. HTML 표시만으로 이벤트 연결을 판단할 수 없어 실제 버튼 동작을 확인해야 합니다.",
+    description: "같은 useState·클릭 함수를 공유합니다. 브라우저에서 기본 사전 렌더링은 기존 HTML을 hydrate하고 next/dynamic · ssr: false는 카운터를 새로 렌더링합니다. HTML 표시만으로 이벤트 연결을 판단할 수 없어 실제 버튼 동작을 확인해야 합니다.",
     left: [14, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29],
     right: [22, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37],
   },

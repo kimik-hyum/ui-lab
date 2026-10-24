@@ -2,11 +2,12 @@
 
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import React, { useCallback, useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ComparisonTopic } from './ComparisonTypes';
 import { ComparisonCodeBlock } from './ComparisonCodeBlock';
 import { ComparisonInsightPanel } from './ComparisonInsightPanel';
 import { stripAnchorLines } from './codeAnchors';
+import { resolveLineTopic } from './lineTopics';
 
 export type { ComparisonTopic } from './ComparisonTypes';
 
@@ -55,22 +56,28 @@ export function ComparisonTemplate({
   }, []);
 
   const selectedTopic = topics.find((topic) => topic.id === selectedTopicId);
+  const selectedTopicRef = useRef(selectedTopic);
+  useEffect(() => { selectedTopicRef.current = selectedTopic; }, [selectedTopic]);
   // Base UI mounts the panel after changing tabs; restore its position on mount.
+  // Keep these refs stable so selecting a code line does not remount or scroll its pane.
   const attachLeftCode = useCallback((node: HTMLDivElement | null) => {
     leftScrollRef.current = node;
-    if (node) requestAnimationFrame(() => scrollToLine('left', selectedTopic?.leftLines[0]));
-  }, [scrollToLine, selectedTopic]);
+    if (node) requestAnimationFrame(() => scrollToLine('left', selectedTopicRef.current?.leftLines[0]));
+  }, [scrollToLine]);
   const attachRightCode = useCallback((node: HTMLDivElement | null) => {
     rightScrollRef.current = node;
-    if (node) requestAnimationFrame(() => scrollToLine('right', selectedTopic?.rightLines[0]));
-  }, [scrollToLine, selectedTopic]);
+    if (node) requestAnimationFrame(() => scrollToLine('right', selectedTopicRef.current?.rightLines[0]));
+  }, [scrollToLine]);
+
+  const topicForLine = (side: 'left' | 'right', line: number) =>
+    resolveLineTopic(topics, line, (topic) => side === 'left' ? topic.leftLines : topic.rightLines, selectedTopicId);
 
   const handleLineHover = (side: 'left' | 'right', line: number | null) => {
     if (line === null) {
       setHoveredTopicId(null);
       return;
     }
-    const topic = topics.find((candidate) => (side === 'left' ? candidate.leftLines : candidate.rightLines).includes(line));
+    const topic = topicForLine(side, line);
     if (!topic) return;
     setHoveredTopicId(topic.id);
     const sourceLines = side === 'left' ? topic.leftLines : topic.rightLines;
@@ -81,11 +88,13 @@ export function ComparisonTemplate({
     scrollToLine(side === 'left' ? 'right' : 'left', targetLine);
   };
 
-  const selectTopic = (topic: ComparisonTopic) => {
+  const selectTopic = (topic: ComparisonTopic, reveal = true) => {
     setSelectedTopicId(topic.id);
     setHoveredTopicId(null);
-    scrollToLine('left', topic.leftLines[0]);
-    scrollToLine('right', topic.rightLines[0]);
+    if (reveal) {
+      scrollToLine('left', topic.leftLines[0]);
+      scrollToLine('right', topic.rightLines[0]);
+    }
   };
 
   const changeSide = (side: 'left' | 'right') => {
@@ -127,6 +136,23 @@ export function ComparisonTemplate({
           ))}
         </div>
 
+        {showCode && (
+          <section aria-label="코드 비교 포인트" className="sticky top-[var(--shell-header-height)] z-20 min-w-0 border-b border-border bg-white px-5 py-3 shadow-sm sm:px-7 lg:px-8">
+            <div className="mb-2 flex min-w-0 items-center gap-4">
+              <span className="shrink-0 text-xs font-semibold">비교 포인트</span>
+              <div className="flex min-w-0 gap-2 overflow-x-auto pb-1">
+                {topics.map((topic, index) => (
+                  <button type="button" key={topic.id} aria-pressed={selectedTopicId === topic.id} onClick={() => selectTopic(topic)}
+                    className={`min-h-9 shrink-0 rounded-md border px-3 text-left text-xs transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary ${selectedTopicId === topic.id ? 'border-primary/20 bg-primary-subtle text-primary' : 'border-border text-muted-foreground hover:bg-surface'}`}>
+                    <span className="mr-2 font-mono text-[10px] opacity-60">0{index + 1}</span>{topic.title}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="comparison-description"><ComparisonInsightPanel topic={activeTopic} /></div>
+          </section>
+        )}
+
         {(['preview', 'code'] as const).map((mode) => <TabsContent key={mode} value={mode} className="m-0">
           <div className="grid min-w-0 grid-cols-1 gap-4 p-5 sm:p-7 lg:grid-cols-2 lg:p-6">
             {(['left', 'right'] as const).map((side) => {
@@ -138,30 +164,19 @@ export function ComparisonTemplate({
                 </div>
                 {mode === 'preview' ? <div className="min-h-64 p-4 lg:p-5">{isLeft ? leftComponent : rightComponent}</div> : <div className="h-[clamp(360px,55dvh,640px)] min-w-0 p-2.5">
                   <ComparisonCodeBlock code={stripAnchorLines(isLeft ? leftCode : rightCode)} title={isLeft ? 'A · 기존 구현' : 'B · 비교 구현'} badge="TSX" color={isLeft ? 'red' : 'blue'}
+                    sourceLabel={isLeft ? leftTitle : rightTitle}
                     highlightedLines={(isLeft ? activeTopic?.leftLines : activeTopic?.rightLines) ?? []} interactiveLines={isLeft ? allLeftLines : allRightLines}
-                    onLineHover={(line) => handleLineHover(side, line)} scrollRef={isLeft ? attachLeftCode : attachRightCode} />
+                    onLineHover={(line) => handleLineHover(side, line)}
+                    getLineHint={(line) => topicForLine(side, line)}
+                    onLineSelect={(line) => { const topic = topicForLine(side, line); if (topic) selectTopic(topic, false); }}
+                    scrollRef={isLeft ? attachLeftCode : attachRightCode} />
                 </div>}
               </section>;
             })}
           </div>
         </TabsContent>)}
 
-        {showCode ? (
-          <section aria-label="코드 비교 포인트" className="min-w-0 shrink-0 border-t border-border bg-white px-5 py-4 sm:px-7 lg:px-8">
-            <div className="mb-3 flex min-w-0 items-center gap-4">
-              <span className="shrink-0 text-xs font-semibold text-foreground">비교 포인트</span>
-              <div className="flex min-w-0 gap-2 overflow-x-auto pb-1">
-                {topics.map((topic, index) => (
-                  <button type="button" key={topic.id} aria-pressed={activeTopic?.id === topic.id} onClick={() => selectTopic(topic)} onMouseEnter={() => selectTopic(topic)} onFocus={() => selectTopic(topic)}
-                    className={`min-h-9 shrink-0 rounded-md border px-3 text-left text-xs transition-colors ${activeTopic?.id === topic.id ? 'border-primary/20 bg-primary-subtle text-primary' : 'border-border text-muted-foreground hover:bg-surface'}`}>
-                    <span className="mr-2 font-mono text-[10px] opacity-60">0{index + 1}</span>{topic.title}
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="comparison-description"><ComparisonInsightPanel topic={activeTopic} /></div>
-          </section>
-        ) : (
+        {!showCode && (
           <div className="flex shrink-0 flex-wrap items-center justify-between gap-2 border-t border-border bg-white px-5 py-3 text-[11px] text-muted-foreground sm:px-7 lg:px-8">
             <span>같은 조건에서 두 구현을 실행하고 동작을 비교하세요.</span>
             <button type="button" onClick={() => changeView('code')} className="min-h-7 font-medium text-primary hover:underline">구현 코드와 {topics.length}개 비교 포인트 보기 <span aria-hidden="true">↗</span></button>
