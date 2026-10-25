@@ -4,25 +4,37 @@
       "name": "next-lab",
       "baseUrl": "http://127.0.0.1:3001",
       "build": ["yarn", "workspace", "next-lab", "build"],
-      "start": ["yarn", "workspace", "next-lab", "start"]
+      "start": ["yarn", "workspace", "next-lab", "start"],
+      "renderingModes": {
+        "/scenarios/shopping-detail-ssr": "blocking"
+      }
     },
     {
       "name": "sveltekit-lab",
       "baseUrl": "http://127.0.0.1:3002",
       "build": ["yarn", "workspace", "sveltekit-lab", "build"],
-      "start": ["yarn", "workspace", "sveltekit-lab", "preview"]
+      "start": ["yarn", "workspace", "sveltekit-lab", "preview"],
+      "renderingModes": {
+        "/scenarios/shopping-detail-ssr": "blocking"
+      }
     },
     {
       "name": "vue-lab",
       "baseUrl": "http://127.0.0.1:3004",
       "build": ["yarn", "workspace", "vue-lab", "build"],
-      "start": ["yarn", "workspace", "vue-lab", "preview"]
+      "start": ["yarn", "workspace", "vue-lab", "preview"],
+      "renderingModes": {
+        "/scenarios/shopping-detail-ssr": "blocking"
+      }
     },
     {
       "name": "react-router-lab",
       "baseUrl": "http://127.0.0.1:3005",
       "build": ["yarn", "workspace", "react-router-lab", "build"],
-      "start": ["yarn", "workspace", "react-router-lab", "preview"]
+      "start": ["yarn", "workspace", "react-router-lab", "preview"],
+      "renderingModes": {
+        "/scenarios/shopping-detail-ssr": "blocking"
+      }
     }
   ]
 }

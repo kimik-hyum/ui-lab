@@ -8,7 +8,7 @@ import os from "node:os";
 import { resolve } from "node:path";
 import { performance } from "node:perf_hooks";
 import { setTimeout as delay } from "node:timers/promises";
-import { captureSource, captureTargetVersions, savePerformanceHistory } from "./performance-history.mjs";
+import { captureRenderingMode, captureSource, captureTargetVersions, savePerformanceHistory } from "./performance-history.mjs";
 import { createThrottledProxy, prepareBackendNetwork, readNetworkProfile } from "./performance-network.mjs";
 
 const ROOT_DIR = process.cwd();
@@ -19,43 +19,21 @@ const RUNS = Math.max(toInt(process.env.SSR_RUNS, 5), MIN_RUNS);
 const WARMUP = toInt(process.env.SSR_WARMUP, 3);
 const TARGET_PATH = normalizePath(process.env.SSR_PATH ?? "/");
 const EXPECT_TEXT = process.env.SSR_EXPECT_TEXT ?? "";
+const USER_AGENT = process.env.SSR_USER_AGENT ?? "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36";
 const TARGET_FILTER = parseTargetFilter(process.env.SSR_TARGETS);
 
 const TIMESTAMP = new Date().toISOString().replace(/[:.]/g, "-");
 const OUTPUT_DIR = resolve(OUTPUT_ROOT, "perf-results", "ssr", TIMESTAMP);
 const LATEST_PATH = resolve(OUTPUT_ROOT, "perf-results", "ssr", "latest.json");
 
-const targets = [
-  {
-    name: "next-lab",
-    baseUrl: "http://127.0.0.1:3001",
-    buildArgs: ["workspace", "next-lab", "build"],
-    startArgs: ["workspace", "next-lab", "start"],
-  },
-  {
-    name: "sveltekit-lab",
-    baseUrl: "http://127.0.0.1:3002",
-    buildArgs: ["workspace", "sveltekit-lab", "build"],
-    startArgs: ["workspace", "sveltekit-lab", "preview"],
-  },
-  {
-    name: "vue-lab",
-    baseUrl: "http://127.0.0.1:3004",
-    buildArgs: ["workspace", "vue-lab", "build"],
-    startArgs: ["workspace", "vue-lab", "preview"],
-  },
-  {
-    name: "react-router-lab",
-    baseUrl: "http://127.0.0.1:3005",
-    buildArgs: ["workspace", "react-router-lab", "build"],
-    startArgs: ["workspace", "react-router-lab", "preview"],
-  },
-];
+const TARGETS_PATH = process.env.PERF_TARGETS_PATH ?? resolve(ROOT_DIR, "perf-results/lighthouse/targets.json");
 
 async function main() {
-  const configuredTargets = process.env.PERF_TARGETS_PATH
-    ? JSON.parse(readFileSync(process.env.PERF_TARGETS_PATH, "utf8")).targets.map((target) => ({ ...target, buildArgs: target.build.slice(1), startCommand: target.start }))
-    : targets;
+  const configuredTargets = JSON.parse(readFileSync(TARGETS_PATH, "utf8")).targets.map((target) => ({
+    ...target,
+    buildArgs: target.build.slice(1),
+    startCommand: target.start,
+  }));
   const selectedTargets = configuredTargets.filter((target) => {
     return TARGET_FILTER.size === 0 || TARGET_FILTER.has(target.name);
   });
@@ -78,6 +56,7 @@ async function main() {
     minRuns: MIN_RUNS,
     warmup: WARMUP,
     expectedText: EXPECT_TEXT || null,
+    userAgent: USER_AGENT,
     network: NETWORK,
     comparison: process.env.PERF_COMPARISON_ID ? { id: process.env.PERF_COMPARISON_ID, cohort: process.env.PERF_COHORT ?? "current", harnessSha256: process.env.PERF_HARNESS_SHA256 ?? null } : null,
     environment: {
@@ -157,6 +136,7 @@ async function main() {
 
       const targetSummary = {
         name: target.name,
+        renderingMode: captureRenderingMode(target, TARGET_PATH),
         ...versionInfo,
         url,
         checklist,
@@ -194,7 +174,7 @@ async function measureSsrResponse(url, run) {
     redirect: "manual",
     headers: {
       accept: "text/html",
-      "user-agent": "ui-lab-ssr-compare",
+      "user-agent": USER_AGENT,
     },
   });
   const responseStartMs = performance.now() - startedAt;

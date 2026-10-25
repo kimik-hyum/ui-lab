@@ -8,7 +8,7 @@ legacy `/shop/[slug]` 쇼핑몰 상세를 대체하는 하네스 route에서 각
 
 ## Measurement Target
 
-- [ ] Lighthouse performance
+- [x] Lighthouse performance
 - [x] SSR response
 - [x] DX score
 
@@ -87,4 +87,4 @@ React/Next 기준으로 사용할 기능:
 - content-ready 측정용 `SSR_EXPECT_TEXT`는 실제 조회 결과인 `Wireless Headphones X1`을 사용합니다. 제목이나 오류 화면의 링크만으로 정상 상품 도착을 판정하지 않습니다.
 - Next의 route-local `loading.tsx`를 제거했고, 상위 layout에도 상품 조회를 감싸는 Suspense 경계가 없습니다. React Router/SvelteKit의 server loader는 상품을 `await`하고, Nuxt의 SSR streaming은 활성화하지 않습니다.
 - blocking은 상품 조회가 끝나기 전에 로딩 셸을 보내지 않는다는 의미입니다. HTML·RSC payload의 전송은 여러 네트워크 청크로 나뉠 수 있으므로 청크 개수나 TTFB와 total의 일치 여부만으로 판정하지 않습니다.
-- 기존 저장된 성능 기록은 변경 당시의 방식(Next 스트리밍, 나머지 blocking)을 유지합니다. 새 blocking 구현의 성능값으로 재해석하지 않으며, 다음 정식 측정은 별도 `PERF_COMPARISON_ID`로 기록합니다.
+- 변경 전 성능 기록은 당시의 방식(Next 스트리밍, 나머지 blocking)을 유지합니다. blocking 통일 후 측정은 별도 `PERF_COMPARISON_ID`와 각 대상의 `renderingMode`로 기록하며, 과거 기록을 새 구현의 성능값으로 재해석하지 않습니다.

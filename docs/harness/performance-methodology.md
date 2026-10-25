@@ -95,13 +95,14 @@ yarn perf:ssr:quick
 - `SSR_MIN_RUNS`: 최소 반복 횟수, 기본값 `5`
 - `SSR_WARMUP`: 측정 전 버리는 워밍업 요청 수, 기본값 `3`
 - `SSR_TARGETS`: 쉼표로 구분한 대상 이름
+- `SSR_USER_AGENT`: SSR 요청 User-Agent. 일반 브라우저 값을 사용하며 summary와 이력에 기록합니다. 봇 판정으로 응답 방식이 바뀌지 않도록 Lighthouse의 `configSettings.emulatedUserAgent`와 맞춥니다.
 - `SSR_EXPECT_TEXT`: content-ready 측정과 필수 콘텐츠 체크에 쓰는 텍스트. **resolved 콘텐츠에만 존재하는 문자열로 지정합니다.** loading/shell에도 있는 텍스트(예: Next `loading.tsx`의 제목)를 쓰면 스트리밍 프레임워크의 셸을 콘텐츠로 오인합니다.
 
 예:
 
 ```sh
 SSR_PATH=/scenarios/shopping-detail-ssr \
-SSR_EXPECT_TEXT="홈으로 이동" \
+SSR_EXPECT_TEXT="Wireless Headphones X1" \
 SSR_RUNS=20 yarn perf:ssr
 ```
 
@@ -153,7 +154,8 @@ Hydration 전후 DOM 비교는 현재 하네스 기본 성능 축에서 제외�
 
 ## 웹에서 버전별 기록 보기
 
-- `/performance`는 마지막 전체 비교 스냅샷을 상세 표시합니다. `/performance/history`는 상단 정보 박스에 최신 순위의 측정 장비·네트워크 속도·추가 지연·반복 횟수를 기록에서 읽어 표시하고, SSR·LCP를 낮은 시간순으로 정렬합니다. 하단은 **프레임워크 → 최신순 버전별 행 → SSR·LCP·Lighthouse**를 나란히 보여줍니다. 증감은 같은 조건의 바로 이전 버전과 비교하며, 각 버전의 과거 측정과 상세 조건은 펼쳐서 확인합니다. 부분 대상 재측정은 이력에 추가하고 전체 비교 스냅샷을 대체하지 않습니다.
+- `/performance`는 마지막 전체 비교 스냅샷을 상세 표시합니다. `/performance/history`는 측정 장비·네트워크·반복 횟수를 기록에서 읽습니다. 그래프와 버전별 목록은 **Next.js → React Router → SvelteKit → Nuxt** 순서를 유지하며, 같은 조건에서 가장 짧은 결과를 강조합니다. 증감은 같은 조건의 바로 이전 버전과 비교하며, 각 버전의 과거 측정과 상세 조건은 펼쳐서 확인합니다. 부분 대상 재측정은 이력에 추가하고 전체 비교 스냅샷을 대체하지 않습니다.
+- `perf-results/lighthouse/targets.json`의 `renderingModes`에 경로별 응답 방식을 선언하고, 세 runner가 summary와 이력에 복사합니다. 현재 상품 상세는 모두 `blocking`입니다. 응답 방식·SSR User-Agent가 다른 기록은 같은 조건의 자동 비교에 넣지 않습니다. 메타데이터가 없는 기존 상품 기록만 당시의 Next streaming/나머지 blocking 표시를 유지합니다.
 - `perf:ssr`, `perf:lighthouse`, `perf:check`는 대상 workspace의 **실제 설치 버전**, 코드 커밋과 미커밋 변경 여부, 측정 조건과 요약을 `perf-results/history.json`에 자동 누적합니다. 버전 범위만 있는 `package.json` 값을 설치 버전으로 사용하지 않습니다.
 - `history.json`은 Git에 보관합니다. 큰 원본 보고서는 기존 timestamp 폴더에 남기고 웹용 기록에는 요약만 담습니다. 웹에 새 기록을 반영하려면 lab-shell을 재빌드합니다.
 - 같은 실행 ID는 덮어쓰지 않으며, 부분 대상 측정·빠른 점검·병렬 점검도 원래 조건으로 기록합니다. 날짜가 가깝다는 이유로 서로 다른 SSR·Lighthouse 실행을 하나로 합치지 않습니다.
@@ -181,7 +183,7 @@ Hydration 전후 DOM 비교는 현재 하네스 기본 성능 축에서 제외�
 코멘트에는 다음 핵심만 작성합니다.
 
 - **버전 변경:** `fromVersion → toVersion`, 공식 변경 중 현재 앱에 실제 해당하는 항목과 문서 링크.
-- **코드 대응:** 시나리오 코드 유지(`unchanged`), 호환성 이전(`migration`), 성능 최적화(`optimized`) 중 실제 조치. 의존성·실행 환경 갱신과 시나리오 구현 변경을 구분합니다.
+- **코드 대응:** 시나리오 코드 유지(`unchanged`), 호환성 이전(`migration`), 성능 최적화(`optimized`), 응답 방식 변경(`rendering`) 중 실제 조치. 의존성·실행 환경 갱신과 시나리오 구현 변경을 구분합니다.
 - **관찰 결과:** 같은 조건에서 달라진 시간·비율과 구간. 코드 유지 상태에서 관찰된 결과도 명시합니다.
 - **현재 판단:** 확인된 사실·원인 후보·미확정 사항. 공식 필수 수정, 선택 기능, 우리 앱의 판단을 구분합니다. “필수 수정 사용처를 찾지 못했다”를 “공식적으로 모든 앱에 변경이 불필요하다”로 확대하지 않습니다.
 
@@ -191,6 +193,7 @@ Hydration 전후 DOM 비교는 현재 하네스 기본 성능 축에서 제외�
 
 - `framework`는 workspace 이름, `packageName`은 그 프레임워크의 버전 키입니다. `scenarioPath`, `comparisonId`로 비교 범위를 명시합니다.
 - `measurements`에 검사별 `kind`, `before`, `after`를 적습니다. `before`/`after`는 `perf-results/history.json`의 **정확한 실행 ID**입니다. 버전·시나리오·환경·측정 도구·네트워크·반복 횟수 등 비교 조건을 확인하고 연결합니다.
+- 변경 후의 새 기준만 측정했다면 `before: null`과 실제 `after` 실행 ID를 사용합니다. 이때 `fromVersion`/`toVersion`은 같아야 하며 화면에는 단일 측정값을 표시합니다. 비교할 이전 값을 임의로 만들거나 다른 환경의 과거 결과로 증감률을 계산하지 않습니다.
 - 본문 수치는 연결한 실행을 기준으로 작성합니다. Lighthouse 수치는 점수 중앙 실행의 지표임을 유지합니다. 새 측정이 추가돼도 기존 코멘트의 근거 ID를 자동으로 최신 실행으로 바꾸지 않습니다.
 - 같은 버전 쌍의 재분석은 검토한 근거·본문·`recordedOn`을 함께 갱신합니다. 다른 버전 쌍은 새 `id`로 추가해 과거 코멘트를 보존합니다. 재측정만 있고 분석을 갱신하지 않으면 웹에서 “이후 새 측정이 있습니다”로 표시됩니다.
 - `status`는 `observed`(관찰 기록), `investigating`(원인 조사 중), `resolved`(원인 확인)입니다. 원인이 확인되지 않은 상태를 해결로 표시하지 않습니다.

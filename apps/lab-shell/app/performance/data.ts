@@ -25,6 +25,7 @@ export type MeasurementEnvironment = {
 
 export type SsrTarget = {
   name: string;
+  renderingMode?: string | null;
   versions?: Partial<Record<string, string>>;
   url: string;
   checklist: {
@@ -113,8 +114,12 @@ export function getTargetVersion(name: string, versions: Partial<Record<string, 
   return versions[frameworkPackages[name]] ?? "미기록";
 }
 
-/** Legacy snapshots were measured before Next.js switched to blocking; never relabel their timings. */
-export function getTargetMode(name: string, scenarioPath: string) {
+/** Prefer the measured mode; only legacy snapshots without metadata use the historical fallback. */
+export function getTargetMode(name: string, scenarioPath: string, renderingMode?: string | null) {
+  if (renderingMode === "blocking") return "Blocking";
+  if (renderingMode === "html-streaming") return "HTML Streaming";
+  if (renderingMode === "data-streaming") return "Data Streaming";
+  if (renderingMode !== undefined) return "미기록";
   if (scenarioPath !== "/scenarios/shopping-detail-ssr") return "미기록";
   if (name === "next-lab") return "Streaming";
   if (name in targetNames) return "Blocking";
@@ -150,7 +155,7 @@ export function getSsrChart(snapshot: SsrSnapshot) {
       ...target,
       label: getTargetDisplayName(target.name),
       version: getTargetVersion(target.name, target.versions),
-      mode: getTargetMode(target.name, snapshot.path),
+      mode: getTargetMode(target.name, snapshot.path, target.renderingMode),
       width: (target.medianMetrics.contentReadyMs / limit) * 100,
     })),
   };

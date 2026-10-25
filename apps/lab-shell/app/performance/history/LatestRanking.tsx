@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { formatMetric, formatSnapshotDate, getTargetDisplayName, sortFrameworks } from "../data";
+import { formatMetric, formatSnapshotDate, getTargetDisplayName, getTargetMode, sortFrameworks } from "../data";
 import type { FrameworkHistory } from "../history-data";
 import { rankLatest } from "../history-comparison";
 import TimeBar from "./TimeBar";
@@ -28,12 +28,13 @@ export default function LatestRanking({ frameworks }: { frameworks: FrameworkHis
                 </div>
               </div>
               <ul className="space-y-5">
-                {sortFrameworks(rows).map(({ name, version, value }) => (
+                {sortFrameworks(rows).map(({ name, version, value, entry }) => (
                   <li key={name} data-ranked-framework={name} data-time={value}>
                     <div className="mb-2 flex items-center justify-between gap-2">
                       <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
                         <Link href={`#${name}`} className="text-sm font-semibold hover:text-primary">{getTargetDisplayName(name)}</Link>
                         <span className="font-mono text-[11px] text-muted-foreground">{version}</span>
+                        <span className="text-[10px] text-muted-foreground">{getTargetMode(name, entry.record.path, entry.target.renderingMode)}</span>
                       </div>
                       <p className="shrink-0 font-mono text-sm font-semibold tabular-nums">{formatMetric(value)} <span className="text-[10px] font-normal text-muted-foreground">ms</span></p>
                     </div>
@@ -53,7 +54,7 @@ export default function LatestRanking({ frameworks }: { frameworks: FrameworkHis
           );
         })}
       </div>
-      <p className="mt-3 text-xs leading-5 text-muted-foreground">저장된 상품 상세 측정 당시 Next.js는 스트리밍, 나머지는 블로킹 응답이었습니다. 현재 코드는 네 앱 모두 블로킹으로 통일했으며, 위 수치는 변경 전 기록입니다. 외부 서버의 응답 변동도 포함됩니다.</p>
+      <p className="mt-3 text-xs leading-5 text-muted-foreground">같은 측정 조건과 응답 방식의 상품 상세 결과를 비교합니다. 실제 Supabase와 외부 이미지 서버의 응답 변동도 포함됩니다.</p>
     </section>
   );
 }
