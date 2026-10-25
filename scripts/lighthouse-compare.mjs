@@ -7,7 +7,7 @@ import { createServer } from "node:net";
 import os from "node:os";
 import { resolve } from "node:path";
 import { setTimeout as delay } from "node:timers/promises";
-import { captureSource, captureTargetVersions, savePerformanceHistory } from "./performance-history.mjs";
+import { captureRenderingMode, captureSource, captureTargetVersions, savePerformanceHistory } from "./performance-history.mjs";
 import { lighthouseNetworkArgs, prepareBackendNetwork, readNetworkProfile } from "./performance-network.mjs";
 
 const ROOT_DIR = process.cwd();
@@ -128,6 +128,7 @@ async function main() {
       const median = pickMedianRun(runResults);
       summary.targets.push({
         name: target.name,
+        renderingMode: captureRenderingMode(target, TARGET_PATH),
         ...versionInfo,
         url,
         medianRun: median.run,

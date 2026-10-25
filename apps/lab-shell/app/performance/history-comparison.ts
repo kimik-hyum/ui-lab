@@ -18,6 +18,7 @@ function isValid(entry: MeasurementEntry) {
 /** Cross-run comparisons require the recorded, matching experiment conditions. */
 export function sameConditions(a: MeasurementEntry, b: MeasurementEntry) {
   if (!isValid(a) || !isValid(b)) return false;
+  if (a.target.renderingMode !== b.target.renderingMode) return false;
   const left = a.record;
   const right = b.record;
   if (left.kind !== right.kind) return false;
@@ -26,7 +27,7 @@ export function sameConditions(a: MeasurementEntry, b: MeasurementEntry) {
   return left.comparison.id === right.comparison.id &&
     left.comparison.harnessSha256 === right.comparison.harnessSha256 &&
     left.path === right.path && left.mode === right.mode && left.runs === right.runs &&
-    left.warmup === right.warmup && left.preset === right.preset && left.expectedText === right.expectedText &&
+    left.warmup === right.warmup && left.preset === right.preset && left.expectedText === right.expectedText && left.userAgent === right.userAgent &&
     JSON.stringify(left.network) === JSON.stringify(right.network) &&
     JSON.stringify(left.environment) === JSON.stringify(right.environment) &&
     JSON.stringify(left.measurementTool) === JSON.stringify(right.measurementTool);

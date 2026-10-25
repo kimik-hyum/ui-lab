@@ -2,6 +2,43 @@
   "schemaVersion": 1,
   "comments": [
     {
+      "id": "next-blocking-baseline-2026-10-25",
+      "framework": "next-lab",
+      "packageName": "next",
+      "fromVersion": "16.4.2",
+      "toVersion": "16.4.2",
+      "comparisonId": "shopping-detail-blocking-2026-10-25",
+      "scenarioPath": "/scenarios/shopping-detail-ssr",
+      "recordedOn": "2026-10-25",
+      "status": "observed",
+      "versionChanges": "Next.js 16.4.2·React 19.3.1을 유지한 blocking SSR의 새 기준 측정입니다. 의존성 버전업은 포함하지 않았습니다.",
+      "code": {
+        "kind": "rendering",
+        "description": "상품 상세의 loading.tsx를 제거하고 서버에서 상품 조회를 기다린 뒤 HTML을 보냅니다. 데이터 조회·상품 화면·이미지 코드는 유지했습니다."
+      },
+      "observation": "SSR 20회 콘텐츠 도착 중앙값은 297.66ms(p95 312.13ms)입니다. Lighthouse 5회 중 점수 중앙 실행은 86점·LCP 2.55초이며, 상품 이미지는 초기 HTML에서 발견됩니다.",
+      "conclusion": "변경 후 기준값입니다. 이전 기록과 응답 방식·Node·요청 User-Agent 조건이 달라 개선율을 계산하지 않습니다. 이번 LCP에서는 외부 이미지 로딩이 대부분을 차지했습니다.",
+      "sources": [
+        {
+          "title": "Next.js loading.js와 자동 Suspense 경계",
+          "url": "https://nextjs.org/docs/app/api-reference/file-conventions/loading"
+        }
+      ],
+      "reportPath": "docs/harness/results/next-blocking-2026-10-25.md",
+      "measurements": [
+        {
+          "kind": "ssr",
+          "before": null,
+          "after": "ssr-2026-10-25T00-48-37-788Z"
+        },
+        {
+          "kind": "lighthouse",
+          "before": null,
+          "after": "lighthouse-2026-10-25T00-51-30-127Z"
+        }
+      ]
+    },
+    {
       "id": "nuxt-4-4-5-to-4-6-2",
       "framework": "vue-lab",
       "packageName": "nuxt",

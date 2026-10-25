@@ -146,7 +146,7 @@ export default function PerformancePage() {
               {sortFrameworks(ssr.targets).map((target) => (
                 <tr key={target.name} className="border-t border-border transition-colors hover:bg-surface/60">
                   <th scope="row" className="sticky left-0 z-10 bg-white px-6 py-4 font-semibold text-foreground">{getTargetDisplayName(target.name)}<span className="mt-1 block font-mono text-[10px] font-normal text-muted-foreground">{getTargetVersion(target.name, target.versions)}</span></th>
-                  <td className="px-4 py-4 font-mono text-[10px] text-muted-foreground">{getTargetMode(target.name, ssr.path)}</td>
+                  <td className="px-4 py-4 font-mono text-[10px] text-muted-foreground">{getTargetMode(target.name, ssr.path, target.renderingMode)}</td>
                   <td className="px-4 py-4 text-right font-mono text-primary">
                     <p className="font-semibold">{formatMetric(target.medianMetrics.contentReadyMs)} ms</p>
                     <p className="mt-1 whitespace-nowrap text-[9px] font-normal text-muted-foreground">min {formatMetric(target.distribution.contentReadyMs.min)} · p95 {formatMetric(target.distribution.contentReadyMs.p95)}</p>
@@ -161,7 +161,7 @@ export default function PerformancePage() {
           </table>
         </div>
         <div className="border-t border-border px-5 py-4 text-xs leading-6 text-muted-foreground sm:px-6">
-          Streaming의 TTFB는 셸 도착 시간입니다. Blocking 응답과 TTFB만으로 비교하지 않습니다. HTML 크기는 각 프레임워크의 전송 구조 차이도 반영합니다.
+          응답 방식은 측정 당시의 기록입니다. Blocking은 상품 조회 완료 후 HTML을 응답하며, Streaming의 TTFB는 셸 도착 시간일 수 있습니다. 서로 다른 방식의 TTFB만으로 성능을 비교하지 않습니다.
         </div>
       </section>
 

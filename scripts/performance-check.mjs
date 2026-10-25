@@ -8,7 +8,7 @@ import os from "node:os";
 import { resolve } from "node:path";
 import { performance } from "node:perf_hooks";
 import { setTimeout as delay } from "node:timers/promises";
-import { captureSource, captureTargetVersions, savePerformanceHistory } from "./performance-history.mjs";
+import { captureRenderingMode, captureSource, captureTargetVersions, savePerformanceHistory } from "./performance-history.mjs";
 
 const ROOT_DIR = process.cwd();
 const MIN_RUNS = toInt(process.env.PERF_MIN_RUNS, 5);
@@ -22,6 +22,7 @@ const SSR_WARMUP = toInt(process.env.SSR_WARMUP, 3);
 const LH_PATH = normalizePath(process.env.LH_PATH ?? process.env.PERF_PATH ?? "/");
 const SSR_PATH = normalizePath(process.env.SSR_PATH ?? process.env.PERF_PATH ?? "/");
 const SSR_EXPECT_TEXT = process.env.SSR_EXPECT_TEXT ?? "";
+const SSR_USER_AGENT = process.env.SSR_USER_AGENT ?? "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36";
 const LH_PRESET = process.env.LH_PRESET ?? "desktop";
 const LH_CHROME_FLAGS = process.env.LH_CHROME_FLAGS ?? "--headless=new --no-sandbox";
 const MODE = process.env.PERF_MODE ?? "parallel";
@@ -96,6 +97,7 @@ async function main() {
       runs: SSR_RUNS,
       warmup: SSR_WARMUP,
       expectedText: SSR_EXPECT_TEXT || null,
+      userAgent: SSR_USER_AGENT,
     },
     environment: buildEnvironmentSummary(),
     targets: [],
@@ -138,8 +140,8 @@ async function main() {
         name: target.name,
         ...versionInfo,
         baseUrl: target.baseUrl,
-        lighthouse,
-        ssr,
+        lighthouse: { ...lighthouse, renderingMode: captureRenderingMode(target, LH_PATH) },
+        ssr: { ...ssr, renderingMode: captureRenderingMode(target, SSR_PATH) },
       };
 
       writeFileSync(
@@ -279,7 +281,7 @@ async function measureSsrResponse(url, run) {
     redirect: "manual",
     headers: {
       accept: "text/html",
-      "user-agent": "ui-lab-performance-check",
+      "user-agent": SSR_USER_AGENT,
     },
   });
   const responseStartMs = performance.now() - startedAt;

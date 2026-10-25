@@ -31,6 +31,7 @@ test("네트워크·환경·시나리오·도구·실행 조건이 다른 기록
     { comparison: { id: "another", harnessSha256: "same-harness" } },
     { comparison: { id: "upgrade", harnessSha256: "another" } },
     { measurementTool: { lighthouseVersion: "another" } },
+    { userAgent: "different-request-agent" },
   ]) {
     const before = entry("next", 200, "before");
     Object.assign(before.record, change);
@@ -57,4 +58,17 @@ test("최신 버전만 낮은 시간순으로 정렬하고 미측정·다른 조
   assert.equal(ranking.excluded, 2);
   assert.equal(list[0].name, "nuxt");
   assert.deepEqual(rankLatest(list, "lighthouse", "lcpMs").rows, []);
+});
+
+test("같은 실행이어도 응답 방식이 다르면 같은 조건으로 취급하지 않는다", () => {
+  const blocking = entry("next", 250);
+  blocking.target.renderingMode = "blocking";
+  const streaming = structuredClone(blocking);
+  streaming.target.renderingMode = "html-streaming";
+  assert.equal(sameConditions(blocking, streaming), false);
+  assert.equal(timeDifference(blocking, streaming, "contentReadyMs"), null);
+  streaming.target.renderingMode = "blocking";
+  assert.equal(sameConditions(blocking, streaming), true);
+  delete streaming.target.renderingMode;
+  assert.equal(sameConditions(blocking, streaming), false);
 });
