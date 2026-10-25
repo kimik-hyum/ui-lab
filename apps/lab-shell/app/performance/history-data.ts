@@ -3,6 +3,7 @@ import { getTargetVersion } from "./data";
 
 export type HistoryTarget = {
   name: string;
+  renderingMode?: string | null;
   versions: Partial<Record<string, string>>;
   versionEvidence: { kind: string; reference: string; commit?: string } | null;
   medianMetrics: Partial<Record<string, number | null>>;
@@ -22,6 +23,7 @@ export type MeasurementRecord = {
   warmup: number | null;
   preset: string | null;
   expectedText: string | null;
+  userAgent?: string;
   environment: { cpu?: string; platform?: string; arch?: string; node?: string; timeZone?: string };
   source: { commit: string; dirty: boolean } | null;
   network?: {

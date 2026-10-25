@@ -24,13 +24,15 @@ function MeasurementDetails({ entry }: { entry: MeasurementEntry }) {
         </dl>
         <div className="space-y-1 border-t border-border pt-3">
           {record.network && <><p className="font-medium text-foreground">{record.network.label} · 실제 Supabase 연결</p><p>적용 구간: {record.network.scope}</p><p>{record.network.limitation}</p></>}
-          {record.comparison && <p>동일 조건 비교: {record.comparison.id} · {record.comparison.cohort === "before" ? "버전업 전" : "버전업 후"}</p>}
+          {record.comparison && <p>동일 조건 비교: {record.comparison.id} · {record.comparison.cohort === "before" ? "변경 전" : "변경 후"}</p>}
           {record.measurementTool && <p>Lighthouse {record.measurementTool.lighthouseVersion} · {record.measurementTool.userAgent}</p>}
           <p className="break-all font-mono text-[11px]">{record.path}</p>
           <p>{record.environment.cpu} · {record.environment.platform} · Node {record.environment.node}</p>
           {record.warmup !== null && <p>예열 {record.warmup}회 제외</p>}
           {record.expectedText && <p>확인 콘텐츠: {record.expectedText}</p>}
-          {record.kind === "ssr" && <p>응답 방식: {getTargetMode(target.name, record.path)}</p>}
+          {record.userAgent && <p className="break-words">SSR User-Agent: {record.userAgent}</p>}
+          {record.kind === "ssr" && <p>응답 방식: {getTargetMode(target.name, record.path, target.renderingMode)}</p>}
+          {target.renderingMode === "data-streaming" && <p>응답의 데이터 도착 시점입니다. HTML 생성과 화면 표시는 브라우저에서 이어지므로 LCP도 함께 확인하세요.</p>}
           {record.kind === "lighthouse" && <p>지표는 점수 기준 중앙 실행의 값입니다. INP는 상호작용 기록이 없으면 미측정입니다.</p>}
         </div>
         <div className="space-y-1 border-t border-border pt-3">

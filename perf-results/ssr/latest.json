@@ -1,14 +1,15 @@
 {
-  "generatedAt": "2026-10-23T05:02:05.727Z",
+  "generatedAt": "2026-10-25T00:48:37.788Z",
   "source": {
-    "commit": "341f99743cfd94fb987e974f0b6e6fe4d9ca01d8",
-    "dirty": false
+    "commit": "f9286bc2500c9e6575d2bcfad9c5f795a8889c97",
+    "dirty": true
   },
   "path": "/scenarios/shopping-detail-ssr",
   "runs": 20,
-  "minRuns": 20,
+  "minRuns": 5,
   "warmup": 3,
-  "expectedText": "홈으로 이동",
+  "expectedText": "Wireless Headphones X1",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
   "network": {
     "id": "1mbps-100ms",
     "label": "1 Mbps · 추가 지연 100 ms",
@@ -24,12 +25,12 @@
     "limitation": "HTTP 요청별 본문 속도 제한과 추가 지연. 실제 Supabase 처리·인터넷 지연은 포함되며 패킷 단위의 완전한 회선 재현은 아님."
   },
   "comparison": {
-    "id": "upgrade-1mbps-20261023T050205Z",
+    "id": "shopping-detail-blocking-2026-10-25",
     "cohort": "current",
-    "harnessSha256": "5a26f040c7d4899de4c1c489afc877ef0e47c59336b42b270c6312260ae58a02"
+    "harnessSha256": "093fe7311860eb442a7f925324e147df0f4a2cb355da2734b3ab284450e11d94"
   },
   "environment": {
-    "node": "v24.15.0",
+    "node": "v24.22.1",
     "platform": "Darwin 25.5.0",
     "arch": "arm64",
     "cpu": "Apple M1 Pro",
@@ -38,6 +39,7 @@
   "targets": [
     {
       "name": "next-lab",
+      "renderingMode": "blocking",
       "versions": {
         "next": "16.4.2",
         "react": "19.3.1",
@@ -47,266 +49,266 @@
         "kind": "installed",
         "reference": "측정 시 설치 패키지"
       },
-      "url": "http://127.0.0.1:13001/scenarios/shopping-detail-ssr",
+      "url": "http://127.0.0.1:3501/scenarios/shopping-detail-ssr",
       "checklist": {
         "statusOk": true,
         "expectedTextOk": true,
         "contentReadyOk": true
       },
       "medianMetrics": {
-        "responseStartMs": 116.8,
-        "ttfbMs": 125.96,
-        "contentReadyMs": 247.42,
-        "totalMs": 261.82,
-        "htmlBytes": 11736
+        "responseStartMs": 286.64,
+        "ttfbMs": 297.66,
+        "contentReadyMs": 297.66,
+        "totalMs": 320.88,
+        "htmlBytes": 9949
       },
       "distribution": {
         "responseStartMs": {
-          "min": 107.21,
-          "median": 116.8,
-          "p95": 119.97
+          "min": 262.66,
+          "median": 286.64,
+          "p95": 301.56
         },
         "ttfbMs": {
-          "min": 115.37,
-          "median": 125.96,
-          "p95": 129.27
+          "min": 276.22,
+          "median": 297.66,
+          "p95": 312.13
         },
         "contentReadyMs": {
-          "min": 232.68,
-          "median": 247.42,
-          "p95": 265.4
+          "min": 276.22,
+          "median": 297.66,
+          "p95": 312.13
         },
         "totalMs": {
-          "min": 244.26,
-          "median": 261.82,
-          "p95": 282.54
+          "min": 298.83,
+          "median": 320.88,
+          "p95": 338.78
         },
         "htmlBytes": {
-          "min": 11736,
-          "median": 11736,
-          "p95": 11736
+          "min": 9949,
+          "median": 9949,
+          "p95": 9949
         }
       },
-      "streamingDeltaMs": 121.46,
+      "streamingDeltaMs": 0,
       "runs": [
         {
           "run": 1,
           "status": 200,
           "ok": true,
-          "responseStartMs": 118.23,
-          "ttfbMs": 127.85,
-          "contentReadyMs": 248.59,
-          "totalMs": 261.82,
-          "htmlBytes": 11736,
+          "responseStartMs": 300.7,
+          "ttfbMs": 310.95,
+          "contentReadyMs": 310.95,
+          "totalMs": 338.78,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 2,
           "status": 200,
           "ok": true,
-          "responseStartMs": 116.8,
-          "ttfbMs": 124.77,
-          "contentReadyMs": 245.97,
-          "totalMs": 258.72,
-          "htmlBytes": 11736,
+          "responseStartMs": 293.88,
+          "ttfbMs": 305.65,
+          "contentReadyMs": 305.65,
+          "totalMs": 329.45,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 3,
           "status": 200,
           "ok": true,
-          "responseStartMs": 118.13,
-          "ttfbMs": 125.96,
-          "contentReadyMs": 248.81,
-          "totalMs": 262.11,
-          "htmlBytes": 11736,
+          "responseStartMs": 294.86,
+          "ttfbMs": 304.69,
+          "contentReadyMs": 304.69,
+          "totalMs": 329.44,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 4,
           "status": 200,
           "ok": true,
-          "responseStartMs": 116.49,
-          "ttfbMs": 126.73,
-          "contentReadyMs": 239.09,
-          "totalMs": 252.85,
-          "htmlBytes": 11736,
+          "responseStartMs": 294.76,
+          "ttfbMs": 307.1,
+          "contentReadyMs": 307.1,
+          "totalMs": 331.07,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 5,
           "status": 200,
           "ok": true,
-          "responseStartMs": 118.02,
-          "ttfbMs": 128.65,
-          "contentReadyMs": 255.12,
-          "totalMs": 275.42,
-          "htmlBytes": 11736,
+          "responseStartMs": 286.64,
+          "ttfbMs": 297.66,
+          "contentReadyMs": 297.66,
+          "totalMs": 320.88,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 6,
           "status": 200,
           "ok": true,
-          "responseStartMs": 117.21,
-          "ttfbMs": 123.74,
-          "contentReadyMs": 247.42,
-          "totalMs": 265.34,
-          "htmlBytes": 11736,
+          "responseStartMs": 290.13,
+          "ttfbMs": 302.48,
+          "contentReadyMs": 302.48,
+          "totalMs": 325.6,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 7,
           "status": 200,
           "ok": true,
-          "responseStartMs": 118.37,
-          "ttfbMs": 126.01,
-          "contentReadyMs": 248.99,
-          "totalMs": 264.08,
-          "htmlBytes": 11736,
+          "responseStartMs": 297.46,
+          "ttfbMs": 309.05,
+          "contentReadyMs": 309.05,
+          "totalMs": 333.41,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 8,
           "status": 200,
           "ok": true,
-          "responseStartMs": 119.97,
-          "ttfbMs": 129.27,
-          "contentReadyMs": 252.27,
-          "totalMs": 266.31,
-          "htmlBytes": 11736,
+          "responseStartMs": 298.58,
+          "ttfbMs": 309.98,
+          "contentReadyMs": 309.98,
+          "totalMs": 333.85,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 9,
           "status": 200,
           "ok": true,
-          "responseStartMs": 116.74,
-          "ttfbMs": 125.3,
-          "contentReadyMs": 247.21,
-          "totalMs": 259.79,
-          "htmlBytes": 11736,
+          "responseStartMs": 272.48,
+          "ttfbMs": 281.9,
+          "contentReadyMs": 281.9,
+          "totalMs": 305.81,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 10,
           "status": 200,
           "ok": true,
-          "responseStartMs": 116.94,
-          "ttfbMs": 124.38,
-          "contentReadyMs": 265.4,
-          "totalMs": 292.36,
-          "htmlBytes": 11736,
+          "responseStartMs": 317.87,
+          "ttfbMs": 329.47,
+          "contentReadyMs": 329.47,
+          "totalMs": 353.82,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 11,
           "status": 200,
           "ok": true,
-          "responseStartMs": 121.37,
-          "ttfbMs": 132.51,
-          "contentReadyMs": 250.32,
-          "totalMs": 263.08,
-          "htmlBytes": 11736,
+          "responseStartMs": 282.08,
+          "ttfbMs": 293.76,
+          "contentReadyMs": 293.76,
+          "totalMs": 318.25,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 12,
           "status": 200,
           "ok": true,
-          "responseStartMs": 111.64,
-          "ttfbMs": 119.29,
-          "contentReadyMs": 232.68,
-          "totalMs": 244.26,
-          "htmlBytes": 11736,
+          "responseStartMs": 283.13,
+          "ttfbMs": 294.5,
+          "contentReadyMs": 294.5,
+          "totalMs": 318.41,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 13,
           "status": 200,
           "ok": true,
-          "responseStartMs": 107.21,
-          "ttfbMs": 115.37,
-          "contentReadyMs": 237.02,
-          "totalMs": 251.22,
-          "htmlBytes": 11736,
+          "responseStartMs": 292.59,
+          "ttfbMs": 303.74,
+          "contentReadyMs": 303.74,
+          "totalMs": 325.32,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 14,
           "status": 200,
           "ok": true,
-          "responseStartMs": 117.47,
-          "ttfbMs": 127.46,
-          "contentReadyMs": 265.12,
-          "totalMs": 278.04,
-          "htmlBytes": 11736,
+          "responseStartMs": 272.8,
+          "ttfbMs": 285.01,
+          "contentReadyMs": 285.01,
+          "totalMs": 310.07,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 15,
           "status": 200,
           "ok": true,
-          "responseStartMs": 117.52,
-          "ttfbMs": 126.37,
-          "contentReadyMs": 266.38,
-          "totalMs": 282.54,
-          "htmlBytes": 11736,
+          "responseStartMs": 262.66,
+          "ttfbMs": 276.22,
+          "contentReadyMs": 276.22,
+          "totalMs": 298.83,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 16,
           "status": 200,
           "ok": true,
-          "responseStartMs": 115.81,
-          "ttfbMs": 126.37,
-          "contentReadyMs": 240.6,
-          "totalMs": 253.32,
-          "htmlBytes": 11736,
+          "responseStartMs": 282.31,
+          "ttfbMs": 293.24,
+          "contentReadyMs": 293.24,
+          "totalMs": 317.09,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 17,
           "status": 200,
           "ok": true,
-          "responseStartMs": 116.78,
-          "ttfbMs": 126.44,
-          "contentReadyMs": 242.07,
-          "totalMs": 261.4,
-          "htmlBytes": 11736,
+          "responseStartMs": 274.09,
+          "ttfbMs": 288.85,
+          "contentReadyMs": 288.85,
+          "totalMs": 310.83,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 18,
           "status": 200,
           "ok": true,
-          "responseStartMs": 116.53,
-          "ttfbMs": 125.79,
-          "contentReadyMs": 248.96,
-          "totalMs": 264.97,
-          "htmlBytes": 11736,
+          "responseStartMs": 301.56,
+          "ttfbMs": 312.13,
+          "contentReadyMs": 312.13,
+          "totalMs": 334.61,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 19,
           "status": 200,
           "ok": true,
-          "responseStartMs": 115.24,
-          "ttfbMs": 123.19,
-          "contentReadyMs": 240.03,
-          "totalMs": 256.09,
-          "htmlBytes": 11736,
+          "responseStartMs": 280,
+          "ttfbMs": 291.39,
+          "contentReadyMs": 291.39,
+          "totalMs": 310.6,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         },
         {
           "run": 20,
           "status": 200,
           "ok": true,
-          "responseStartMs": 115.19,
-          "ttfbMs": 123.16,
-          "contentReadyMs": 235.92,
-          "totalMs": 249.67,
-          "htmlBytes": 11736,
+          "responseStartMs": 266.51,
+          "ttfbMs": 276.54,
+          "contentReadyMs": 276.54,
+          "totalMs": 302.3,
+          "htmlBytes": 9949,
           "containsExpectedText": true
         }
       ],
@@ -315,1413 +317,291 @@
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 986.57
+          "elapsedMs": 1008.46
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 184.63
+          "elapsedMs": 167.21
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 192.43
+          "elapsedMs": 191.83
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 192.28
+          "elapsedMs": 170.27
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 171.03
+          "elapsedMs": 177.9
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 176.28
+          "elapsedMs": 172.76
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 175.84
+          "elapsedMs": 175.56
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 164.6
+          "elapsedMs": 171.99
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 180.16
+          "elapsedMs": 161.65
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 173.35
+          "elapsedMs": 173.56
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 174.75
+          "elapsedMs": 178.94
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 176.77
+          "elapsedMs": 173.29
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 175.95
+          "elapsedMs": 156.88
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 194.55
+          "elapsedMs": 191.02
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 174.31
+          "elapsedMs": 163.26
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 164.65
+          "elapsedMs": 167.49
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 172.89
+          "elapsedMs": 175.54
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 190.21
+          "elapsedMs": 158.43
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 188.12
+          "elapsedMs": 151.96
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 166.44
+          "elapsedMs": 165.51
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 169.54
+          "elapsedMs": 157.34
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 178.38
+          "elapsedMs": 182.09
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 169.97
+          "elapsedMs": 164.35
         },
         {
           "status": 200,
           "bytes": 378,
           "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 161.44
+          "elapsedMs": 152.39
         }
       ],
       "proxyRequests": [
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 266.86
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 319.67
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 275.19
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 349.95
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 272.19
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 326.27
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 258.28
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 333.93
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 256.29
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 326.59
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 259.23
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 326.81
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 249.93
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 327.79
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 269.58
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 317.4
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 262.95
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 323.19
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 259.95
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 330.69
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 262.11
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 330.37
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 258
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 301.16
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 278.13
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 351.9
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 260.9
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 315.25
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 242.49
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 315.59
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 248.78
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 323.06
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 275.46
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 308.01
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 279.01
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 296.17
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 250.33
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 315.48
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 252.32
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 308.04
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 262.82
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 332.46
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 252.8
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 309.21
         },
         {
           "status": 200,
-          "bytes": 4518,
-          "sha256": "ad6a974aaf35010b3d195dadab68a787313078f01bfdb6cae543836b954130ff",
-          "elapsedMs": 247.39
-        }
-      ]
-    },
-    {
-      "name": "sveltekit-lab",
-      "versions": {
-        "@sveltejs/kit": "3.1.0",
-        "svelte": "5.57.2",
-        "vite": "8.3.4",
-        "@supabase/supabase-js": "2.103.0"
-      },
-      "versionEvidence": {
-        "kind": "installed",
-        "reference": "측정 시 설치 패키지"
-      },
-      "url": "http://127.0.0.1:13002/scenarios/shopping-detail-ssr",
-      "checklist": {
-        "statusOk": true,
-        "expectedTextOk": true,
-        "contentReadyOk": true
-      },
-      "medianMetrics": {
-        "responseStartMs": 281.59,
-        "ttfbMs": 293.36,
-        "contentReadyMs": 299.79,
-        "totalMs": 299.83,
-        "htmlBytes": 4353
-      },
-      "distribution": {
-        "responseStartMs": {
-          "min": 268.25,
-          "median": 281.59,
-          "p95": 304.07
-        },
-        "ttfbMs": {
-          "min": 279.69,
-          "median": 293.36,
-          "p95": 315.97
-        },
-        "contentReadyMs": {
-          "min": 287.35,
-          "median": 299.79,
-          "p95": 323.76
-        },
-        "totalMs": {
-          "min": 287.46,
-          "median": 299.83,
-          "p95": 324.03
-        },
-        "htmlBytes": {
-          "min": 4353,
-          "median": 4353,
-          "p95": 4353
-        }
-      },
-      "streamingDeltaMs": 6.43,
-      "runs": [
-        {
-          "run": 1,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 280.76,
-          "ttfbMs": 291.19,
-          "contentReadyMs": 297.98,
-          "totalMs": 298.08,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 2,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 297.53,
-          "ttfbMs": 307.96,
-          "contentReadyMs": 315.83,
-          "totalMs": 315.94,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 3,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 278.71,
-          "ttfbMs": 287.83,
-          "contentReadyMs": 297.38,
-          "totalMs": 297.43,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 4,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 280.89,
-          "ttfbMs": 290.07,
-          "contentReadyMs": 298.97,
-          "totalMs": 299.07,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 5,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 304.07,
-          "ttfbMs": 315.97,
-          "contentReadyMs": 323.76,
-          "totalMs": 324.03,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 6,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 278.86,
-          "ttfbMs": 290.72,
-          "contentReadyMs": 296.86,
-          "totalMs": 297.01,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 7,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 294,
-          "ttfbMs": 303.35,
-          "contentReadyMs": 313.19,
-          "totalMs": 313.24,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 8,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 281.59,
-          "ttfbMs": 295.1,
-          "contentReadyMs": 299.79,
-          "totalMs": 299.83,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 9,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 282.23,
-          "ttfbMs": 293.36,
-          "contentReadyMs": 300.26,
-          "totalMs": 300.39,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 10,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 287.73,
-          "ttfbMs": 298.28,
-          "contentReadyMs": 306.77,
-          "totalMs": 306.87,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 11,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 275.2,
-          "ttfbMs": 287.06,
-          "contentReadyMs": 293.73,
-          "totalMs": 293.88,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 12,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 268.25,
-          "ttfbMs": 279.69,
-          "contentReadyMs": 287.35,
-          "totalMs": 287.46,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 13,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 278.14,
-          "ttfbMs": 290.95,
-          "contentReadyMs": 298.63,
-          "totalMs": 298.82,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 14,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 331.1,
-          "ttfbMs": 343.13,
-          "contentReadyMs": 351.04,
-          "totalMs": 351.17,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 15,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 285.15,
-          "ttfbMs": 296.25,
-          "contentReadyMs": 302.14,
-          "totalMs": 302.18,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 16,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 284.35,
-          "ttfbMs": 293.96,
-          "contentReadyMs": 300.94,
-          "totalMs": 301.05,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 17,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 272.53,
-          "ttfbMs": 281.07,
-          "contentReadyMs": 287.75,
-          "totalMs": 287.85,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 18,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 285.14,
-          "ttfbMs": 293.95,
-          "contentReadyMs": 300.45,
-          "totalMs": 300.66,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 19,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 272.88,
-          "ttfbMs": 282.49,
-          "contentReadyMs": 289.07,
-          "totalMs": 289.25,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        },
-        {
-          "run": 20,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 291.47,
-          "ttfbMs": 303.17,
-          "contentReadyMs": 310.58,
-          "totalMs": 310.67,
-          "htmlBytes": 4353,
-          "containsExpectedText": true
-        }
-      ],
-      "backendRequests": [
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 173.87
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 175.32
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 162.38
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 167.17
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 166.25
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 181.39
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 160.08
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 164.52
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 188.89
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 161.02
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 174.12
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 165.52
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 166.06
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 173.37
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 161.91
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 153.52
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 163.04
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 214.49
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 165.72
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 168.13
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 156.43
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 169.67
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 162.64
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 174.33
-        }
-      ],
-      "proxyRequests": [
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 304.17
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 291.85
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 299.05
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 294.79
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 312.71
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 293.88
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 296.01
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 321.53
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 293.99
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 310.64
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 298.38
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 298.35
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 303.74
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 290.91
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 284.67
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 294.97
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 347.5
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 298.12
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 298.15
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 284.86
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 297.87
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 286.75
-        },
-        {
-          "status": 200,
-          "bytes": 1666,
-          "sha256": "f81275d66cbb6bf552847a8a89ca2d8c6b4f414f3754cd0ae89a175b29aa9625",
-          "elapsedMs": 307.19
-        }
-      ]
-    },
-    {
-      "name": "vue-lab",
-      "versions": {
-        "nuxt": "4.6.2",
-        "vue": "3.5.44",
-        "@supabase/supabase-js": "2.103.0"
-      },
-      "versionEvidence": {
-        "kind": "installed",
-        "reference": "측정 시 설치 패키지"
-      },
-      "url": "http://127.0.0.1:13004/scenarios/shopping-detail-ssr",
-      "checklist": {
-        "statusOk": true,
-        "expectedTextOk": true,
-        "contentReadyOk": true
-      },
-      "medianMetrics": {
-        "responseStartMs": 283.36,
-        "ttfbMs": 293.03,
-        "contentReadyMs": 331.04,
-        "totalMs": 341.94,
-        "htmlBytes": 6224
-      },
-      "distribution": {
-        "responseStartMs": {
-          "min": 261.18,
-          "median": 283.36,
-          "p95": 298.69
-        },
-        "ttfbMs": {
-          "min": 272.92,
-          "median": 293.03,
-          "p95": 308.87
-        },
-        "contentReadyMs": {
-          "min": 309.34,
-          "median": 331.04,
-          "p95": 343.81
-        },
-        "totalMs": {
-          "min": 324.95,
-          "median": 341.94,
-          "p95": 355.75
-        },
-        "htmlBytes": {
-          "min": 6224,
-          "median": 6224,
-          "p95": 6224
-        }
-      },
-      "streamingDeltaMs": 38.01,
-      "runs": [
-        {
-          "run": 1,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 316.41,
-          "ttfbMs": 326.71,
-          "contentReadyMs": 366.23,
-          "totalMs": 377.99,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 2,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 287.61,
-          "ttfbMs": 296.49,
-          "contentReadyMs": 334.01,
-          "totalMs": 346.55,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 3,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 272.63,
-          "ttfbMs": 281.37,
-          "contentReadyMs": 316.63,
-          "totalMs": 327.06,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 4,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 273.92,
-          "ttfbMs": 283.62,
-          "contentReadyMs": 322.01,
-          "totalMs": 332.79,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 5,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 298.69,
-          "ttfbMs": 308.87,
-          "contentReadyMs": 343.81,
-          "totalMs": 353.3,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 6,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 274.03,
-          "ttfbMs": 285.94,
-          "contentReadyMs": 331.04,
-          "totalMs": 341.18,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 7,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 276.55,
-          "ttfbMs": 286.08,
-          "contentReadyMs": 328.78,
-          "totalMs": 340.3,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 8,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 261.18,
-          "ttfbMs": 272.92,
-          "contentReadyMs": 309.34,
-          "totalMs": 324.95,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 9,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 269.55,
-          "ttfbMs": 281.01,
-          "contentReadyMs": 319.11,
-          "totalMs": 330.14,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 10,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 285.58,
-          "ttfbMs": 296.79,
-          "contentReadyMs": 335.89,
-          "totalMs": 346.27,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 11,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 267.09,
-          "ttfbMs": 275.63,
-          "contentReadyMs": 315.6,
-          "totalMs": 326.86,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 12,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 293.75,
-          "ttfbMs": 303.87,
-          "contentReadyMs": 341.78,
-          "totalMs": 353.25,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 13,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 289.8,
-          "ttfbMs": 299.29,
-          "contentReadyMs": 341.35,
-          "totalMs": 348.82,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 14,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 286.16,
-          "ttfbMs": 296.38,
-          "contentReadyMs": 335.88,
-          "totalMs": 347.58,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 15,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 274.3,
-          "ttfbMs": 285.65,
-          "contentReadyMs": 322.43,
-          "totalMs": 336.23,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 16,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 295.62,
-          "ttfbMs": 304.25,
-          "contentReadyMs": 341.17,
-          "totalMs": 355.75,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 17,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 273.03,
-          "ttfbMs": 282.81,
-          "contentReadyMs": 320.95,
-          "totalMs": 332.4,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 18,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 287.63,
-          "ttfbMs": 296.36,
-          "contentReadyMs": 332.78,
-          "totalMs": 344.46,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 19,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 283.36,
-          "ttfbMs": 293.03,
-          "contentReadyMs": 327.61,
-          "totalMs": 341.94,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        },
-        {
-          "run": 20,
-          "status": 200,
-          "ok": true,
-          "responseStartMs": 287.68,
-          "ttfbMs": 298,
-          "contentReadyMs": 337.05,
-          "totalMs": 351.2,
-          "htmlBytes": 6224,
-          "containsExpectedText": true
-        }
-      ],
-      "backendRequests": [
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 236.11
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 179.06
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 162.11
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 160.74
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 199.03
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 168.75
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 156.25
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 154.05
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 181.48
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 156.69
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 156.84
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 146.18
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 154.77
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 169.68
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 152.38
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 178.3
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 171.3
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 173.42
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 161.07
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 175.47
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 154.29
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 169.24
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 160.88
-        },
-        {
-          "status": 200,
-          "bytes": 378,
-          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
-          "elapsedMs": 172.31
-        }
-      ],
-      "proxyRequests": [
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 354.63
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 337.99
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 332.63
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 375.31
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 344.01
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 324.44
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 330.26
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 350.87
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 338.81
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 336.85
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 321.91
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 328.59
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 344.05
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 324.73
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 350.62
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 346.48
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 345.86
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 333.01
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 352.29
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 330.05
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 341.01
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 337.37
-        },
-        {
-          "status": 200,
-          "bytes": 6224,
-          "sha256": "e64d74afc9735538c7ac67da2adb5dea60199382bf4e5f0f89dbff0446b40049",
-          "elapsedMs": 345.59
+          "bytes": 3372,
+          "sha256": "403e741e583a0c3c36c17fd604409eead5c68abfca667bc86b8b607c849e082f",
+          "elapsedMs": 299.89
         }
       ]
     },
     {
       "name": "react-router-lab",
+      "renderingMode": "blocking",
       "versions": {
         "react": "19.3.1",
         "react-router": "7.18.4",
@@ -1732,44 +612,44 @@
         "kind": "installed",
         "reference": "측정 시 설치 패키지"
       },
-      "url": "http://127.0.0.1:13005/scenarios/shopping-detail-ssr",
+      "url": "http://127.0.0.1:3505/scenarios/shopping-detail-ssr",
       "checklist": {
         "statusOk": true,
         "expectedTextOk": true,
         "contentReadyOk": true
       },
       "medianMetrics": {
-        "responseStartMs": 281.23,
-        "ttfbMs": 290.75,
-        "contentReadyMs": 290.75,
-        "totalMs": 308.93,
-        "htmlBytes": 5951
+        "responseStartMs": 277.77,
+        "ttfbMs": 287.15,
+        "contentReadyMs": 287.15,
+        "totalMs": 312.35,
+        "htmlBytes": 7049
       },
       "distribution": {
         "responseStartMs": {
-          "min": 268.26,
-          "median": 281.23,
-          "p95": 330.06
+          "min": 253.59,
+          "median": 277.77,
+          "p95": 290.86
         },
         "ttfbMs": {
-          "min": 276.62,
-          "median": 290.75,
-          "p95": 342.01
+          "min": 264.7,
+          "median": 287.15,
+          "p95": 302.16
         },
         "contentReadyMs": {
-          "min": 276.62,
-          "median": 290.75,
-          "p95": 342.01
+          "min": 264.7,
+          "median": 287.15,
+          "p95": 302.16
         },
         "totalMs": {
-          "min": 294.86,
-          "median": 308.93,
-          "p95": 356.04
+          "min": 289.98,
+          "median": 312.35,
+          "p95": 326.26
         },
         "htmlBytes": {
-          "min": 5951,
-          "median": 5951,
-          "p95": 5951
+          "min": 7049,
+          "median": 7049,
+          "p95": 7049
         }
       },
       "streamingDeltaMs": 0,
@@ -1778,220 +658,220 @@
           "run": 1,
           "status": 200,
           "ok": true,
-          "responseStartMs": 276.88,
-          "ttfbMs": 287.67,
-          "contentReadyMs": 287.67,
-          "totalMs": 304.57,
-          "htmlBytes": 5951,
+          "responseStartMs": 290.31,
+          "ttfbMs": 302.16,
+          "contentReadyMs": 302.16,
+          "totalMs": 326.26,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 2,
           "status": 200,
           "ok": true,
-          "responseStartMs": 277.19,
-          "ttfbMs": 287.83,
-          "contentReadyMs": 287.83,
-          "totalMs": 302.85,
-          "htmlBytes": 5951,
+          "responseStartMs": 275.91,
+          "ttfbMs": 287.08,
+          "contentReadyMs": 287.08,
+          "totalMs": 312.59,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 3,
           "status": 200,
           "ok": true,
-          "responseStartMs": 273.99,
-          "ttfbMs": 287.46,
-          "contentReadyMs": 287.46,
-          "totalMs": 309.5,
-          "htmlBytes": 5951,
+          "responseStartMs": 284.26,
+          "ttfbMs": 297.21,
+          "contentReadyMs": 297.21,
+          "totalMs": 322.35,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 4,
           "status": 200,
           "ok": true,
-          "responseStartMs": 274.05,
-          "ttfbMs": 284.59,
-          "contentReadyMs": 284.59,
-          "totalMs": 300.87,
-          "htmlBytes": 5951,
+          "responseStartMs": 278.99,
+          "ttfbMs": 289.72,
+          "contentReadyMs": 289.72,
+          "totalMs": 312.35,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 5,
           "status": 200,
           "ok": true,
-          "responseStartMs": 289.33,
-          "ttfbMs": 301.59,
-          "contentReadyMs": 301.59,
-          "totalMs": 318.96,
-          "htmlBytes": 5951,
+          "responseStartMs": 273.01,
+          "ttfbMs": 284.21,
+          "contentReadyMs": 284.21,
+          "totalMs": 306.54,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 6,
           "status": 200,
           "ok": true,
-          "responseStartMs": 271.36,
-          "ttfbMs": 283.33,
-          "contentReadyMs": 283.33,
-          "totalMs": 301.72,
-          "htmlBytes": 5951,
+          "responseStartMs": 269.6,
+          "ttfbMs": 281.3,
+          "contentReadyMs": 281.3,
+          "totalMs": 303.91,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 7,
           "status": 200,
           "ok": true,
-          "responseStartMs": 281.78,
-          "ttfbMs": 300.95,
-          "contentReadyMs": 300.95,
-          "totalMs": 314.83,
-          "htmlBytes": 5951,
+          "responseStartMs": 277.91,
+          "ttfbMs": 289.43,
+          "contentReadyMs": 289.43,
+          "totalMs": 313.71,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 8,
           "status": 200,
           "ok": true,
-          "responseStartMs": 289,
-          "ttfbMs": 299.93,
-          "contentReadyMs": 299.93,
-          "totalMs": 317.07,
-          "htmlBytes": 5951,
+          "responseStartMs": 272.35,
+          "ttfbMs": 283.06,
+          "contentReadyMs": 283.06,
+          "totalMs": 307.19,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 9,
           "status": 200,
           "ok": true,
-          "responseStartMs": 273.76,
-          "ttfbMs": 285.52,
-          "contentReadyMs": 285.52,
-          "totalMs": 301.25,
-          "htmlBytes": 5951,
+          "responseStartMs": 288.29,
+          "ttfbMs": 301.08,
+          "contentReadyMs": 301.08,
+          "totalMs": 324.58,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 10,
           "status": 200,
           "ok": true,
-          "responseStartMs": 277.52,
-          "ttfbMs": 288.44,
-          "contentReadyMs": 288.44,
-          "totalMs": 302.44,
-          "htmlBytes": 5951,
+          "responseStartMs": 285.19,
+          "ttfbMs": 296.1,
+          "contentReadyMs": 296.1,
+          "totalMs": 319.52,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 11,
           "status": 200,
           "ok": true,
-          "responseStartMs": 283.66,
-          "ttfbMs": 293.48,
-          "contentReadyMs": 293.48,
-          "totalMs": 308.93,
-          "htmlBytes": 5951,
+          "responseStartMs": 295.75,
+          "ttfbMs": 306.98,
+          "contentReadyMs": 306.98,
+          "totalMs": 330.72,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 12,
           "status": 200,
           "ok": true,
-          "responseStartMs": 300.55,
-          "ttfbMs": 310.67,
-          "contentReadyMs": 310.67,
-          "totalMs": 329.07,
-          "htmlBytes": 5951,
+          "responseStartMs": 278.22,
+          "ttfbMs": 287.15,
+          "contentReadyMs": 287.15,
+          "totalMs": 313.9,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 13,
           "status": 200,
           "ok": true,
-          "responseStartMs": 284.69,
-          "ttfbMs": 296.01,
-          "contentReadyMs": 296.01,
-          "totalMs": 311.18,
-          "htmlBytes": 5951,
+          "responseStartMs": 274.57,
+          "ttfbMs": 285.69,
+          "contentReadyMs": 285.69,
+          "totalMs": 308.7,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 14,
           "status": 200,
           "ok": true,
-          "responseStartMs": 330.06,
-          "ttfbMs": 342.01,
-          "contentReadyMs": 342.01,
-          "totalMs": 356.04,
-          "htmlBytes": 5951,
+          "responseStartMs": 280.14,
+          "ttfbMs": 297.98,
+          "contentReadyMs": 297.98,
+          "totalMs": 323.13,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 15,
           "status": 200,
           "ok": true,
-          "responseStartMs": 268.26,
-          "ttfbMs": 276.62,
-          "contentReadyMs": 276.62,
-          "totalMs": 294.86,
-          "htmlBytes": 5951,
+          "responseStartMs": 277.77,
+          "ttfbMs": 288.68,
+          "contentReadyMs": 288.68,
+          "totalMs": 309.97,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 16,
           "status": 200,
           "ok": true,
-          "responseStartMs": 294.35,
-          "ttfbMs": 307.71,
-          "contentReadyMs": 307.71,
-          "totalMs": 324.3,
-          "htmlBytes": 5951,
+          "responseStartMs": 253.59,
+          "ttfbMs": 264.7,
+          "contentReadyMs": 264.7,
+          "totalMs": 289.98,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 17,
           "status": 200,
           "ok": true,
-          "responseStartMs": 480.19,
-          "ttfbMs": 490.69,
-          "contentReadyMs": 490.69,
-          "totalMs": 507.44,
-          "htmlBytes": 5951,
+          "responseStartMs": 290.86,
+          "ttfbMs": 301.88,
+          "contentReadyMs": 301.88,
+          "totalMs": 325.48,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 18,
           "status": 200,
           "ok": true,
-          "responseStartMs": 281.23,
-          "ttfbMs": 290.75,
-          "contentReadyMs": 290.75,
-          "totalMs": 306.49,
-          "htmlBytes": 5951,
+          "responseStartMs": 264,
+          "ttfbMs": 274.8,
+          "contentReadyMs": 274.8,
+          "totalMs": 296.29,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 19,
           "status": 200,
           "ok": true,
-          "responseStartMs": 278.47,
-          "ttfbMs": 287.86,
-          "contentReadyMs": 287.86,
-          "totalMs": 306.53,
-          "htmlBytes": 5951,
+          "responseStartMs": 275.89,
+          "ttfbMs": 286.22,
+          "contentReadyMs": 286.22,
+          "totalMs": 309.36,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         },
         {
           "run": 20,
           "status": 200,
           "ok": true,
-          "responseStartMs": 287.98,
-          "ttfbMs": 298.15,
-          "contentReadyMs": 298.15,
-          "totalMs": 315.42,
-          "htmlBytes": 5951,
+          "responseStartMs": 275.72,
+          "ttfbMs": 286.53,
+          "contentReadyMs": 286.53,
+          "totalMs": 310.03,
+          "htmlBytes": 7049,
           "containsExpectedText": true
         }
       ],
@@ -2000,109 +880,67 @@
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 171.14
+          "elapsedMs": 377.84
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 166.9
+          "elapsedMs": 167.67
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 156.36
+          "elapsedMs": 163.11
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 165.1
+          "elapsedMs": 172.16
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 158.66
+          "elapsedMs": 174.46
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 159.47
+          "elapsedMs": 158.84
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 161.12
+          "elapsedMs": 169.02
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 156
+          "elapsedMs": 164.62
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 173.28
+          "elapsedMs": 162.18
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 157.79
+          "elapsedMs": 155.55
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 160.73
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 168.56
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 162.22
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 161.48
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 169.05
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 185.46
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 170.74
-        },
-        {
-          "status": 200,
-          "bytes": 381,
-          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 213.83
+          "elapsedMs": 163.72
         },
         {
           "status": 200,
@@ -2114,171 +952,1338 @@
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 177.04
+          "elapsedMs": 174.62
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 368.44
+          "elapsedMs": 168.03
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 171.23
+          "elapsedMs": 181.79
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 166.92
+          "elapsedMs": 164.79
         },
         {
           "status": 200,
           "bytes": 381,
           "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
-          "elapsedMs": 172.37
+          "elapsedMs": 155.94
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 161.28
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 164.76
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 143.15
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 171.09
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 152.58
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 159.18
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 163.11
         }
       ],
       "proxyRequests": [
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 305.16
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 329.63
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 296.16
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 310.02
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 311.75
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 327.99
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 301.7
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 324.73
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 300.4
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 309.64
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 304.73
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 317.44
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 297.83
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 310.73
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 316.37
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 304.99
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 298.99
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 301.8
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 313.32
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 311.31
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 313.09
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 304.43
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 299.44
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 323.29
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 317.92
+        },
+        {
+          "status": 200,
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 328.65
+        },
+        {
+          "status": 200,
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 310.9
+        },
+        {
+          "status": 200,
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 305.5
+        },
+        {
+          "status": 200,
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 320.3
+        },
+        {
+          "status": 200,
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 308.45
+        },
+        {
+          "status": 200,
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 287.41
+        },
+        {
+          "status": 200,
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 320.69
+        },
+        {
+          "status": 200,
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 294.29
+        },
+        {
+          "status": 200,
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 307.63
+        },
+        {
+          "status": 200,
+          "bytes": 3349,
+          "sha256": "3e1049c694e1eb979734af6a1d9402a1c6bfc7f64b3913fb25d2e4745a9be793",
+          "elapsedMs": 308.08
+        }
+      ]
+    },
+    {
+      "name": "sveltekit-lab",
+      "renderingMode": "blocking",
+      "versions": {
+        "@sveltejs/kit": "3.1.0",
+        "svelte": "5.57.2",
+        "vite": "8.3.4",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "installed",
+        "reference": "측정 시 설치 패키지"
+      },
+      "url": "http://127.0.0.1:3502/scenarios/shopping-detail-ssr",
+      "checklist": {
+        "statusOk": true,
+        "expectedTextOk": true,
+        "contentReadyOk": true
+      },
+      "medianMetrics": {
+        "responseStartMs": 276.9,
+        "ttfbMs": 289.27,
+        "contentReadyMs": 289.27,
+        "totalMs": 297.03,
+        "htmlBytes": 4357
+      },
+      "distribution": {
+        "responseStartMs": {
+          "min": 264.66,
+          "median": 276.9,
+          "p95": 284.88
+        },
+        "ttfbMs": {
+          "min": 275.83,
+          "median": 289.27,
+          "p95": 297.5
+        },
+        "contentReadyMs": {
+          "min": 275.83,
+          "median": 289.27,
+          "p95": 297.5
+        },
+        "totalMs": {
+          "min": 282.99,
+          "median": 297.03,
+          "p95": 305.13
+        },
+        "htmlBytes": {
+          "min": 4357,
+          "median": 4357,
+          "p95": 4357
+        }
+      },
+      "streamingDeltaMs": 0,
+      "runs": [
+        {
+          "run": 1,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 264.66,
+          "ttfbMs": 275.83,
+          "contentReadyMs": 275.83,
+          "totalMs": 282.99,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 2,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 276.62,
+          "ttfbMs": 287.58,
+          "contentReadyMs": 287.58,
+          "totalMs": 296.7,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 3,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 275.78,
+          "ttfbMs": 286.38,
+          "contentReadyMs": 286.38,
+          "totalMs": 293.51,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 4,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 290.92,
+          "ttfbMs": 302.7,
+          "contentReadyMs": 302.7,
+          "totalMs": 309.88,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 5,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 276.9,
+          "ttfbMs": 289.39,
+          "contentReadyMs": 289.39,
+          "totalMs": 296.17,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 6,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 274.45,
+          "ttfbMs": 286.77,
+          "contentReadyMs": 286.77,
+          "totalMs": 292.61,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 7,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 281.54,
+          "ttfbMs": 292.5,
+          "contentReadyMs": 292.5,
+          "totalMs": 298.34,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 8,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 273.63,
+          "ttfbMs": 286.1,
+          "contentReadyMs": 286.1,
+          "totalMs": 292.45,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 9,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 275.95,
+          "ttfbMs": 288.88,
+          "contentReadyMs": 288.88,
+          "totalMs": 296.33,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 10,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 280.92,
+          "ttfbMs": 292.21,
+          "contentReadyMs": 292.21,
+          "totalMs": 301.19,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 11,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 284.88,
+          "ttfbMs": 296.42,
+          "contentReadyMs": 296.42,
+          "totalMs": 305.13,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 12,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 283.16,
+          "ttfbMs": 294.05,
+          "contentReadyMs": 294.05,
+          "totalMs": 301.91,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 13,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 280.87,
+          "ttfbMs": 297.5,
+          "contentReadyMs": 297.5,
+          "totalMs": 304.51,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 14,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 280.5,
+          "ttfbMs": 291.16,
+          "contentReadyMs": 291.16,
+          "totalMs": 297.03,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 15,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 277.81,
+          "ttfbMs": 289.6,
+          "contentReadyMs": 289.6,
+          "totalMs": 297.28,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 16,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 269.61,
+          "ttfbMs": 278.58,
+          "contentReadyMs": 278.58,
+          "totalMs": 284.3,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 17,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 276.96,
+          "ttfbMs": 288.32,
+          "contentReadyMs": 288.32,
+          "totalMs": 297.08,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 18,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 282.48,
+          "ttfbMs": 294.7,
+          "contentReadyMs": 294.7,
+          "totalMs": 303.14,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 19,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 276.54,
+          "ttfbMs": 289.27,
+          "contentReadyMs": 289.27,
+          "totalMs": 297.91,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        },
+        {
+          "run": 20,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 273.34,
+          "ttfbMs": 282.36,
+          "contentReadyMs": 282.36,
+          "totalMs": 289.66,
+          "htmlBytes": 4357,
+          "containsExpectedText": true
+        }
+      ],
+      "backendRequests": [
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 171.21
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 151.88
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 156.58
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 157.47
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 151.65
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 164.55
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 159.77
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 175.47
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 163.52
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 159.74
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 167.93
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 157.3
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 157.87
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 168.01
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 166.71
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 170.63
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 166.7
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 171.82
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 166.45
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 155.83
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 159.9
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 165.02
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 156.73
+        },
+        {
+          "status": 200,
+          "bytes": 381,
+          "sha256": "2b31e2a80f15dd7071786f38296ff796d25141dc63a47791402303829b92e251",
+          "elapsedMs": 159.93
+        }
+      ],
+      "proxyRequests": [
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 280.29
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 284.55
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 285.24
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 280.52
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 294.23
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 291.47
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 307.95
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 292.24
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 288.76
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 296.77
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 290.42
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 293.76
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 298.85
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 301.79
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 299.43
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 301.62
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 295.51
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 295.51
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 282.21
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 294.02
+        },
+        {
+          "status": 200,
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
           "elapsedMs": 299.67
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 306.09
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 293.8
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 325.64
+          "bytes": 1671,
+          "sha256": "e2503934790ea3ee3e1deb1a1e4123e16c6b884ec67b14420d10fbc86d284467",
+          "elapsedMs": 285.74
+        }
+      ]
+    },
+    {
+      "name": "vue-lab",
+      "renderingMode": "blocking",
+      "versions": {
+        "nuxt": "4.6.2",
+        "vue": "3.5.44",
+        "@supabase/supabase-js": "2.103.0"
+      },
+      "versionEvidence": {
+        "kind": "installed",
+        "reference": "측정 시 설치 패키지"
+      },
+      "url": "http://127.0.0.1:3504/scenarios/shopping-detail-ssr",
+      "checklist": {
+        "statusOk": true,
+        "expectedTextOk": true,
+        "contentReadyOk": true
+      },
+      "medianMetrics": {
+        "responseStartMs": 273.23,
+        "ttfbMs": 282.92,
+        "contentReadyMs": 282.92,
+        "totalMs": 332.92,
+        "htmlBytes": 6228
+      },
+      "distribution": {
+        "responseStartMs": {
+          "min": 261.94,
+          "median": 273.23,
+          "p95": 287.46
+        },
+        "ttfbMs": {
+          "min": 271.55,
+          "median": 282.92,
+          "p95": 297.12
+        },
+        "contentReadyMs": {
+          "min": 271.55,
+          "median": 282.92,
+          "p95": 297.12
+        },
+        "totalMs": {
+          "min": 321.66,
+          "median": 332.92,
+          "p95": 347.58
+        },
+        "htmlBytes": {
+          "min": 6228,
+          "median": 6228,
+          "p95": 6228
+        }
+      },
+      "streamingDeltaMs": 0,
+      "runs": [
+        {
+          "run": 1,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 270.69,
+          "ttfbMs": 281.1,
+          "contentReadyMs": 281.1,
+          "totalMs": 331.47,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 2,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 285.02,
+          "ttfbMs": 295.57,
+          "contentReadyMs": 295.57,
+          "totalMs": 343.47,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 3,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 281.23,
+          "ttfbMs": 291.84,
+          "contentReadyMs": 291.84,
+          "totalMs": 340.81,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 4,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 261.99,
+          "ttfbMs": 271.55,
+          "contentReadyMs": 271.55,
+          "totalMs": 321.66,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 5,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 266.73,
+          "ttfbMs": 277.76,
+          "contentReadyMs": 277.76,
+          "totalMs": 326.92,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 6,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 280.2,
+          "ttfbMs": 290.37,
+          "contentReadyMs": 290.37,
+          "totalMs": 337.01,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 7,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 261.94,
+          "ttfbMs": 272.33,
+          "contentReadyMs": 272.33,
+          "totalMs": 324.07,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 8,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 273.23,
+          "ttfbMs": 281.85,
+          "contentReadyMs": 281.85,
+          "totalMs": 330.64,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 9,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 271.85,
+          "ttfbMs": 281.59,
+          "contentReadyMs": 281.59,
+          "totalMs": 330.91,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 10,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 264.42,
+          "ttfbMs": 274.89,
+          "contentReadyMs": 274.89,
+          "totalMs": 324.18,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 11,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 287.46,
+          "ttfbMs": 296.63,
+          "contentReadyMs": 296.63,
+          "totalMs": 344.15,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 12,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 277.81,
+          "ttfbMs": 288.36,
+          "contentReadyMs": 288.36,
+          "totalMs": 340.26,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 13,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 283.25,
+          "ttfbMs": 293.79,
+          "contentReadyMs": 293.79,
+          "totalMs": 340.58,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 14,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 266.7,
+          "ttfbMs": 275.55,
+          "contentReadyMs": 275.55,
+          "totalMs": 326.27,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 15,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 288.42,
+          "ttfbMs": 299.11,
+          "contentReadyMs": 299.11,
+          "totalMs": 350.8,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 16,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 287.17,
+          "ttfbMs": 297.12,
+          "contentReadyMs": 297.12,
+          "totalMs": 347.58,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 17,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 279.38,
+          "ttfbMs": 287.15,
+          "contentReadyMs": 287.15,
+          "totalMs": 335.76,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 18,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 272.17,
+          "ttfbMs": 282.92,
+          "contentReadyMs": 282.92,
+          "totalMs": 332.92,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 19,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 281.36,
+          "ttfbMs": 291.18,
+          "contentReadyMs": 291.18,
+          "totalMs": 341.9,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        },
+        {
+          "run": 20,
+          "status": 200,
+          "ok": true,
+          "responseStartMs": 271.38,
+          "ttfbMs": 279.81,
+          "contentReadyMs": 279.81,
+          "totalMs": 327.31,
+          "htmlBytes": 6228,
+          "containsExpectedText": true
+        }
+      ],
+      "backendRequests": [
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 163.55
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 308.17
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 148.64
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 352.75
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 165.34
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 292.12
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 162.63
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 320.05
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 158
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 505.61
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 163.69
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 305.03
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 168.46
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 302.5
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 149.76
         },
         {
           "status": 200,
-          "bytes": 2612,
-          "sha256": "8d58d9599ba0ae331a716a5d5dbedfd7e4aef3b699f14ce0ce88acd6656ab04b",
-          "elapsedMs": 312.31
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 153.68
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 157.57
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 150.11
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 154.48
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 156.24
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 152.69
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 167.86
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 163.34
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 163.74
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 149.75
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 170.57
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 170.48
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 167.24
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 158.03
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 166.78
+        },
+        {
+          "status": 200,
+          "bytes": 378,
+          "sha256": "211fd4c5bae5629f5ce400d4ddbf21a026a12cbb7a12fd0a6aa2513e260df07f",
+          "elapsedMs": 156.61
+        }
+      ],
+      "proxyRequests": [
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 321.81
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 343.52
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 330.93
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 329.7
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 340.85
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 338.61
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 320.18
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 325.11
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 334.97
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 322.15
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 328.31
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 329.52
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 322.79
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 342.28
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 338.58
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 338.76
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 322.49
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 348.51
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 343.94
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 332.74
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 331.71
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 339.22
+        },
+        {
+          "status": 200,
+          "bytes": 6228,
+          "sha256": "376166134c838a48ebf26afbac27f7a8fa722e5c79c21945ae3b2fdbe8370123",
+          "elapsedMs": 325.05
         }
       ]
     }
