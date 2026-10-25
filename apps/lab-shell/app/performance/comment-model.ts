@@ -11,7 +11,7 @@ export type PerformanceComment = {
   recordedOn: string;
   status: "observed" | "investigating" | "resolved";
   versionChanges: string;
-  code: { kind: "unchanged" | "migration" | "optimized"; description: string };
+  code: { kind: "unchanged" | "migration" | "optimized" | "rendering"; description: string };
   observation: string;
   conclusion: string;
   sources: { title: string; url: string }[];

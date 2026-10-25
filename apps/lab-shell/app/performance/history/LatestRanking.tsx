@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { formatMetric, formatSnapshotDate, getTargetDisplayName, sortFrameworks } from "../data";
+import { formatMetric, formatSnapshotDate, getTargetDisplayName, getTargetMode, sortFrameworks } from "../data";
 import type { FrameworkHistory } from "../history-data";
 import { rankLatest } from "../history-comparison";
 import TimeBar from "./TimeBar";
 
 export default function LatestRanking({ frameworks }: { frameworks: FrameworkHistory[] }) {
   const charts = [
-    { key: "ssr", title: "SSR · 콘텐츠 도착", description: "서버에서 핵심 콘텐츠가 도착하기까지", ...rankLatest(frameworks, "ssr", "contentReadyMs"), step: 50 },
+    { key: "ssr", title: "SSR · 콘텐츠 도착", description: "응답에서 핵심 콘텐츠·데이터를 확인하기까지", ...rankLatest(frameworks, "ssr", "contentReadyMs"), step: 50 },
     { key: "lighthouse", title: "LCP · 화면 표시", description: "화면의 가장 큰 콘텐츠가 표시되기까지", ...rankLatest(frameworks, "lighthouse", "lcpMs"), step: 500 },
   ];
   return (
@@ -28,12 +28,13 @@ export default function LatestRanking({ frameworks }: { frameworks: FrameworkHis
                 </div>
               </div>
               <ul className="space-y-5">
-                {sortFrameworks(rows).map(({ name, version, value }) => (
+                {sortFrameworks(rows).map(({ name, version, value, entry }) => (
                   <li key={name} data-ranked-framework={name} data-time={value}>
                     <div className="mb-2 flex items-center justify-between gap-2">
                       <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-1">
                         <Link href={`#${name}`} className="text-sm font-semibold hover:text-primary">{getTargetDisplayName(name)}</Link>
                         <span className="font-mono text-[11px] text-muted-foreground">{version}</span>
+                        {key === "ssr" && <span className="text-[10px] text-muted-foreground">{getTargetMode(name, entry.record.path, entry.target.renderingMode)}</span>}
                       </div>
                       <p className="shrink-0 font-mono text-sm font-semibold tabular-nums">{formatMetric(value)} <span className="text-[10px] font-normal text-muted-foreground">ms</span></p>
                     </div>
@@ -53,7 +54,7 @@ export default function LatestRanking({ frameworks }: { frameworks: FrameworkHis
           );
         })}
       </div>
-      <p className="mt-3 text-xs leading-5 text-muted-foreground">이 상품 상세 시나리오에서의 측정 결과입니다. Next.js는 스트리밍, 나머지는 블로킹 응답이며 외부 서버의 응답 변동도 포함됩니다.</p>
+      <p className="mt-3 text-xs leading-5 text-muted-foreground">상품 상세 시나리오의 측정 결과이며 외부 서버의 응답 변동도 포함됩니다. Data Streaming의 데이터 도착과 HTML Streaming의 콘텐츠 도착은 서로 다릅니다. 실제 화면 표시는 LCP를 함께 확인하세요.</p>
     </section>
   );
 }

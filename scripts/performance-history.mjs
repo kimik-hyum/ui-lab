@@ -5,6 +5,10 @@ import { dirname, resolve } from "node:path";
 
 const VERSION_PACKAGES = ["next", "react", "react-router", "@sveltejs/kit", "svelte", "nuxt", "vue", "vite", "@supabase/supabase-js"];
 
+export function captureRenderingMode(target, path) {
+  return target.renderingModes?.[path] ?? null;
+}
+
 export function captureTargetVersions(root, workspace) {
   const manifestPath = resolve(root, "apps", workspace, "package.json");
   const manifest = JSON.parse(readFileSync(manifestPath, "utf8"));
@@ -46,6 +50,7 @@ export function toHistoryRecord(kind, summary) {
     warmup: settings.warmup ?? null,
     preset: settings.preset ?? null,
     expectedText: settings.expectedText ?? null,
+    ...(settings.userAgent ? { userAgent: settings.userAgent } : {}),
     environment: summary.environment,
     source: summary.source ?? null,
     ...(summary.network ? { network: summary.network } : {}),
@@ -53,8 +58,10 @@ export function toHistoryRecord(kind, summary) {
     ...(summary.measurementTool ? { measurementTool: summary.measurementTool } : {}),
     targets: summary.targets.map((target) => {
       const result = combined ? target[kind] : target;
+      const renderingMode = result.renderingMode ?? target.renderingMode;
       return {
         name: target.name,
+        ...(renderingMode ? { renderingMode } : {}),
         versions: target.versions ?? {},
         versionEvidence: target.versionEvidence ?? null,
         medianMetrics: result.medianMetrics,

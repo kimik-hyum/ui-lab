@@ -1,4 +1,5 @@
-import { isRouteErrorResponse, Link, useRouteError } from "react-router";
+import { Suspense } from "react";
+import { Await, isRouteErrorResponse, Link, useRouteError } from "react-router";
 import type { Route } from "./+types/scenarios.shopping-detail-ssr";
 import ShoppingDetailSsrView from "../scenarios/shopping-detail-ssr/components/ShoppingDetailSsrView";
 import {
@@ -7,12 +8,10 @@ import {
 } from "../scenarios/shopping-detail-ssr/lib/shopping-detail-ssr-data.server";
 import type { ShoppingDetailSsrLoaderData } from "../scenarios/shopping-detail-ssr/lib/shopping-detail-ssr-types";
 
-export function meta({ data }: Route.MetaArgs) {
+export function meta() {
   return [
     {
-      title: data?.product
-        ? `${data.product.name} | React Router Shopping Detail SSR`
-        : "Shopping Detail SSR | React Router Lab",
+      title: "Shopping Detail SSR | React Router Lab",
     },
     {
       name: "description",
@@ -21,24 +20,45 @@ export function meta({ data }: Route.MetaArgs) {
   ];
 }
 
-export async function loader({ request }: Route.LoaderArgs) {
+export function loader({ request }: Route.LoaderArgs) {
   const url = new URL(request.url);
   const slug = resolveProductSlug(url.searchParams.get("slug"));
-  const product = await getShoppingDetailSsrProduct(slug);
-
-  if (!product) {
-    throw new Response(`상품을 찾을 수 없습니다: ${slug}`, { status: 404 });
-  }
+  const product = getShoppingDetailSsrProduct(slug);
+  // Keep early rejections handled until React Router attaches its stream handlers.
+  void product.catch(() => {});
 
   return {
     product,
     requestedSlug: slug,
     source: "react-router-loader-direct-supabase",
-  } satisfies ShoppingDetailSsrLoaderData;
+  } satisfies Omit<ShoppingDetailSsrLoaderData, "product"> & {
+    product: Promise<ShoppingDetailSsrLoaderData["product"] | null>;
+  };
 }
 
 export default function ShoppingDetailSsrRoute({ loaderData }: Route.ComponentProps) {
-  return <ShoppingDetailSsrView data={loaderData} />;
+  return (
+    <Suspense
+      fallback={
+        <main>
+          <h1>Scenario: Shopping Detail SSR</h1>
+          <p role="status">상품 상세 SSR 데이터를 준비하는 중입니다.</p>
+        </main>
+      }
+    >
+      <Await resolve={loaderData.product}>
+        {(product) => product ? (
+          <ShoppingDetailSsrView data={{ ...loaderData, product }} />
+        ) : (
+          <main>
+            <h1>상품을 찾을 수 없습니다.</h1>
+            <p>요청한 상품이 없거나 삭제되었습니다.</p>
+            <Link to="/">홈으로 이동</Link>
+          </main>
+        )}
+      </Await>
+    </Suspense>
+  );
 }
 
 export function ErrorBoundary() {

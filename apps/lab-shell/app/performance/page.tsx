@@ -72,7 +72,7 @@ export default function PerformancePage() {
                 <h2 id="content-ready-heading" className="text-base font-semibold text-foreground">콘텐츠 도착 시간</h2>
                 <span className="rounded-md bg-primary-subtle px-2 py-0.5 font-mono text-[10px] font-medium text-primary">PRIMARY METRIC</span>
               </div>
-              <p className="mt-1 text-xs leading-5 text-muted-foreground">핵심 콘텐츠가 HTML에 처음 포함된 시점 · Content-ready</p>
+              <p className="mt-1 text-xs leading-5 text-muted-foreground">핵심 콘텐츠·데이터가 응답에 처음 포함된 시점 · Content-ready</p>
             </div>
             <span className="rounded-md border border-border px-2 py-1 font-mono text-[11px] text-muted-foreground">median / ms</span>
           </div>
@@ -146,7 +146,7 @@ export default function PerformancePage() {
               {sortFrameworks(ssr.targets).map((target) => (
                 <tr key={target.name} className="border-t border-border transition-colors hover:bg-surface/60">
                   <th scope="row" className="sticky left-0 z-10 bg-white px-6 py-4 font-semibold text-foreground">{getTargetDisplayName(target.name)}<span className="mt-1 block font-mono text-[10px] font-normal text-muted-foreground">{getTargetVersion(target.name, target.versions)}</span></th>
-                  <td className="px-4 py-4 font-mono text-[10px] text-muted-foreground">{getTargetMode(target.name, ssr.path)}</td>
+                  <td className="px-4 py-4 font-mono text-[10px] text-muted-foreground">{getTargetMode(target.name, ssr.path, target.renderingMode)}</td>
                   <td className="px-4 py-4 text-right font-mono text-primary">
                     <p className="font-semibold">{formatMetric(target.medianMetrics.contentReadyMs)} ms</p>
                     <p className="mt-1 whitespace-nowrap text-[9px] font-normal text-muted-foreground">min {formatMetric(target.distribution.contentReadyMs.min)} · p95 {formatMetric(target.distribution.contentReadyMs.p95)}</p>
@@ -161,7 +161,7 @@ export default function PerformancePage() {
           </table>
         </div>
         <div className="border-t border-border px-5 py-4 text-xs leading-6 text-muted-foreground sm:px-6">
-          Streaming의 TTFB는 셸 도착 시간입니다. Blocking 응답과 TTFB만으로 비교하지 않습니다. HTML 크기는 각 프레임워크의 전송 구조 차이도 반영합니다.
+          Streaming의 TTFB는 셸 도착 시간입니다. Data Streaming은 데이터 도착 후 브라우저에서 화면을 완성하므로 HTML Streaming과 구분하고, 실제 화면 표시 시간은 LCP로 비교합니다. 응답 크기에는 HTML과 hydration 데이터가 포함됩니다.
         </div>
       </section>
 

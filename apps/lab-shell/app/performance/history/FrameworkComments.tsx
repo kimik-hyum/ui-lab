@@ -5,7 +5,7 @@ import { getPerformanceComments } from "../comments-data";
 import { timeDifference, timeValue } from "../history-comparison";
 import { getMeasurementHistory } from "../history-data";
 
-const codeLabels = { unchanged: "시나리오 코드 유지", migration: "호환성 이전 적용", optimized: "성능 최적화 적용" };
+const codeLabels = { unchanged: "시나리오 코드 유지", migration: "호환성 이전 적용", optimized: "성능 최적화 적용", rendering: "응답 방식 변경" };
 const statusLabels = { observed: "관찰 기록", investigating: "원인 조사 중", resolved: "원인 확인" };
 
 function Comment({ comment }: { comment: PerformanceComment }) {
@@ -16,8 +16,8 @@ function Comment({ comment }: { comment: PerformanceComment }) {
       <header className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <h4 className="text-sm font-semibold">버전 변경 코멘트</h4>
-            <span className="font-mono text-xs text-muted-foreground">{comment.fromVersion} → {comment.toVersion}</span>
+            <h4 className="text-sm font-semibold">{comment.fromVersion === comment.toVersion ? "구현 비교 코멘트" : "버전 변경 코멘트"}</h4>
+            <span className="font-mono text-xs text-muted-foreground">{comment.fromVersion === comment.toVersion ? `${comment.toVersion} 유지` : `${comment.fromVersion} → ${comment.toVersion}`}</span>
           </div>
           <p className="mt-1.5 text-[11px] text-muted-foreground">{codeLabels[comment.code.kind]} · <time dateTime={comment.recordedOn}>{comment.recordedOn}</time></p>
         </div>

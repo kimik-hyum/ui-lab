@@ -1,4 +1,3 @@
-import { error } from '@sveltejs/kit';
 import { getShoppingDetailSsrProduct } from '#lib/server/scenarios/shopping-detail-ssr.ts';
 import type { PageServerLoad } from './$types';
 
@@ -9,13 +8,11 @@ const getScenarioSlug = (value: string | null) => {
   return slug || DEFAULT_PRODUCT_SLUG;
 };
 
-export const load: PageServerLoad = async ({ url }) => {
+export const load: PageServerLoad = ({ url }) => {
   const requestedSlug = getScenarioSlug(url.searchParams.get('slug'));
-  const product = await getShoppingDetailSsrProduct(requestedSlug);
-
-  if (!product) {
-    error(404, `상품을 찾을 수 없습니다: ${requestedSlug}`);
-  }
+  const product = getShoppingDetailSsrProduct(requestedSlug);
+  // The database helper does not use SvelteKit fetch; acknowledge early rejections.
+  void product.catch(() => {});
 
   return {
     product,

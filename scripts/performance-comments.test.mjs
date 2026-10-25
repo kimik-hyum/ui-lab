@@ -50,7 +50,7 @@ test("문서의 모든 분석 코멘트가 실측 이력·버전·동일 조건�
     for (const key of ["id", "framework", "packageName", "fromVersion", "toVersion", "comparisonId", "scenarioPath", "versionChanges", "observation", "conclusion"]) assert.ok(comment[key]?.trim(), `${comment.id}: ${key}`);
     assert.ok(Number.isFinite(Date.parse(comment.recordedOn)));
     assert.ok(["observed", "investigating", "resolved"].includes(comment.status));
-    assert.ok(["unchanged", "migration", "optimized"].includes(comment.code.kind));
+    assert.ok(["unchanged", "migration", "optimized", "rendering"].includes(comment.code.kind));
     assert.ok(comment.code.description.trim());
     assert.ok(comment.measurements.length > 0);
     assert.equal(new Set(comment.measurements.map((reference) => reference.kind)).size, comment.measurements.length);

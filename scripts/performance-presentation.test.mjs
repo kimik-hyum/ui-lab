@@ -31,6 +31,7 @@ test("네트워크·환경·시나리오·도구·실행 조건이 다른 기록
     { comparison: { id: "another", harnessSha256: "same-harness" } },
     { comparison: { id: "upgrade", harnessSha256: "another" } },
     { measurementTool: { lighthouseVersion: "another" } },
+    { userAgent: "crawler" },
   ]) {
     const before = entry("next", 200, "before");
     Object.assign(before.record, change);

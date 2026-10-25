@@ -68,12 +68,12 @@ Lighthouse와 달리 브라우저 렌더링, hydration, interaction 비용은 �
 
 주요 지표:
 
-- `contentReadyMs`: 핵심 콘텐츠(`SSR_EXPECT_TEXT`)가 byte stream에 처음 등장한 시각. **프레임워크 간 비교의 1차 지표입니다.**
+- `contentReadyMs`: 핵심 콘텐츠(`SSR_EXPECT_TEXT`)가 byte stream에 처음 등장한 시각. HTML 스트리밍에서는 콘텐츠 도착, 데이터 스트리밍에서는 직렬화된 데이터 도착입니다. **실제 화면 표시와 구분하고 LCP를 함께 확인합니다.**
 - `responseStartMs`: response header 수신까지 걸린 시간
 - `ttfbMs`: 첫 body chunk 수신까지 걸린 시간. ⚠️ 스트리밍 프레임워크(예: Next App Router + `loading.tsx`)에서는 "셸 도착 시간"이므로 blocking 프레임워크의 ttfb와 직접 비교하지 않습니다.
 - `totalMs`: HTML body 수신 완료까지 걸린 시간. 스트리밍에서는 flush 비용을 포함합니다.
 - `htmlBytes`: HTML 응답 크기. 성능 저하가 아니라 아키텍처 차이(RSC payload, hydration 전략 등)를 반영합니다.
-- `streamingDeltaMs`: `contentReadyMs - ttfbMs`. 0에 가까우면 blocking, 크면 스트리밍 셸을 먼저 보낸 것입니다.
+- `streamingDeltaMs`: `contentReadyMs - ttfbMs`. 크면 셸이 콘텐츠보다 먼저 도착한 것입니다. 압축·프록시 버퍼링으로 청크가 합쳐질 수 있으므로 0에 가깝다는 이유만으로 blocking 구현이라고 단정하지 않습니다.
 - `status`: HTTP status
 
 명령:
@@ -95,6 +95,7 @@ yarn perf:ssr:quick
 - `SSR_MIN_RUNS`: 최소 반복 횟수, 기본값 `5`
 - `SSR_WARMUP`: 측정 전 버리는 워밍업 요청 수, 기본값 `3`
 - `SSR_TARGETS`: 쉼표로 구분한 대상 이름
+- `SSR_USER_AGENT`: SSR 요청 User-Agent. 기본값은 Chrome 브라우저 형식입니다. 봇으로 분류되는 짧은 도구 이름은 프레임워크가 스트리밍을 중단할 수 있으므로 사용하지 않으며, 전후 값도 일치시킵니다.
 - `SSR_EXPECT_TEXT`: content-ready 측정과 필수 콘텐츠 체크에 쓰는 텍스트. **resolved 콘텐츠에만 존재하는 문자열로 지정합니다.** loading/shell에도 있는 텍스트(예: Next `loading.tsx`의 제목)를 쓰면 스트리밍 프레임워크의 셸을 콘텐츠로 오인합니다.
 
 예:
@@ -109,7 +110,7 @@ SSR_RUNS=20 yarn perf:ssr
 
 아래 항목은 점수화하지 않고 통과/실패로 봅니다.
 
-- 서버 HTML에 핵심 콘텐츠가 포함됩니다.
+- HTML 응답 또는 스트리밍 데이터에 핵심 콘텐츠가 포함됩니다. `renderingMode`가 `data-streaming`이면 HTML에 완성된 화면이 있다는 뜻이 아니며, 브라우저에서 콘텐츠 표시까지 별도로 확인합니다.
 - 서버 응답 status가 기대값입니다.
 - SSR, API round trip, TanStack Query cache 비용이 섞이지 않습니다.
 
@@ -152,7 +153,17 @@ Hydration 전후 DOM 비교는 현재 하네스 기본 성능 축에서 제외�
 
 ## 웹에서 버전별 기록 보기
 
-- `/performance`는 마지막 전체 비교 스냅샷을 상세 표시합니다. `/performance/history`는 상단 정보 박스에 최신 순위의 측정 장비·네트워크 속도·추가 지연·반복 횟수를 기록에서 읽어 표시하고, SSR·LCP를 낮은 시간순으로 정렬합니다. 하단은 **프레임워크 → 최신순 버전별 행 → SSR·LCP·Lighthouse**를 나란히 보여줍니다. 증감은 같은 조건의 바로 이전 버전과 비교하며, 각 버전의 과거 측정과 상세 조건은 펼쳐서 확인합니다. 부분 대상 재측정은 이력에 추가하고 전체 비교 스냅샷을 대체하지 않습니다.
+- `/performance`는 마지막 전체 비교 스냅샷을 상세 표시합니다. `/performance/history`는 상단 정보 박스에 최신 비교의 측정 장비·네트워크 속도·추가 지연·반복 횟수를 기록에서 읽어 표시합니다. 그래프·표·프레임워크별 기록은 **Next.js → React Router → SvelteKit → Nuxt** 순서를 유지하고 가장 짧은 시간을 강조합니다. 하단은 **프레임워크 → 최신순 버전별 행 → SSR·LCP·Lighthouse**를 나란히 보여줍니다. 증감은 같은 조건의 바로 이전 버전과 비교하며, 각 버전의 과거 측정과 상세 조건은 펼쳐서 확인합니다. 부분 대상 재측정은 이력에 추가하고 전체 비교 스냅샷을 대체하지 않습니다.
+- 대상 설정의 `renderingModes`에 경로별 응답 방식(`blocking`, `html-streaming`, `data-streaming`)을 선언하고, 해당 경로의 값을 summary와 이력의 `renderingMode`에 보관합니다. 이후 구현이 바뀌어도 과거 기록의 응답 방식을 다시 해석하지 않습니다. 미등록 경로는 추정하지 않습니다.
+
+### 상품 상세 스트리밍 비교
+
+- Next.js는 기존 `loading.tsx`를 유지합니다. React Router는 loader의 Promise와 `Suspense`/`Await`, SvelteKit은 server load의 Promise와 `{#await}`를 사용합니다. Nuxt는 실험적 `ssrStreaming`을 상품 상세 경로에만 활성화합니다.
+- Nuxt는 `app.vue`의 동기 wrapper에서 첫 HTML 청크를 만듭니다. `NuxtPage`만 루트로 두면 비동기 페이지의 첫 청크를 기다려 실제 응답이 blocking처럼 합쳐질 수 있습니다. 상품 조회는 기존 `useFetch`를 유지하며 다른 경로는 streaming을 끕니다.
+- SvelteKit은 데이터 스트리밍이며 상품 HTML은 브라우저에서 완성됩니다. 따라서 `홈으로 이동` 같은 UI 문자열 대신 실제 조회 결과의 상품명 `Wireless Headphones X1`을 전후 측정 모두의 `SSR_EXPECT_TEXT`로 사용합니다. 이는 데이터 도착 지표이며 브라우저 표시 시점은 Lighthouse로 확인합니다.
+- 이 비교의 `PERF_COMPARISON_ID`는 버전업 비교와 별도로 지정합니다. 변경 전후 같은 설치 버전·Node·네트워크 제한·도구·실행 횟수·상품 입력을 사용하고, 기존 스냅샷의 수치를 덮어 고치지 않습니다.
+- SSR·Lighthouse는 `perf-results/lighthouse/targets.json`의 대상 설정을 공유합니다. 빈 포트를 사용할 때는 같은 형식의 `PERF_TARGETS_PATH`를 지정합니다. 각 검사 축 안에서 전후 runner 파일과 User-Agent를 고정합니다.
+- 스트리밍이 시작된 뒤 확인된 없는 상품·조회 오류는 페이지의 오류 UI로 처리합니다. HTTP 상태는 이미 전송돼 200으로 남을 수 있습니다. 인증·권한·정확한 404 상태가 필요한 실제 서비스는 해당 검사를 응답 시작 전에 끝내야 합니다.
 - `perf:ssr`, `perf:lighthouse`, `perf:check`는 대상 workspace의 **실제 설치 버전**, 코드 커밋과 미커밋 변경 여부, 측정 조건과 요약을 `perf-results/history.json`에 자동 누적합니다. 버전 범위만 있는 `package.json` 값을 설치 버전으로 사용하지 않습니다.
 - `history.json`은 Git에 보관합니다. 큰 원본 보고서는 기존 timestamp 폴더에 남기고 웹용 기록에는 요약만 담습니다. 웹에 새 기록을 반영하려면 lab-shell을 재빌드합니다.
 - 같은 실행 ID는 덮어쓰지 않으며, 부분 대상 측정·빠른 점검·병렬 점검도 원래 조건으로 기록합니다. 날짜가 가깝다는 이유로 서로 다른 SSR·Lighthouse 실행을 하나로 합치지 않습니다.
@@ -180,7 +191,7 @@ Hydration 전후 DOM 비교는 현재 하네스 기본 성능 축에서 제외�
 코멘트에는 다음 핵심만 작성합니다.
 
 - **버전 변경:** `fromVersion → toVersion`, 공식 변경 중 현재 앱에 실제 해당하는 항목과 문서 링크.
-- **코드 대응:** 시나리오 코드 유지(`unchanged`), 호환성 이전(`migration`), 성능 최적화(`optimized`) 중 실제 조치. 의존성·실행 환경 갱신과 시나리오 구현 변경을 구분합니다.
+- **코드 대응:** 시나리오 코드 유지(`unchanged`), 호환성 이전(`migration`), 성능 최적화(`optimized`), 응답 방식 변경(`rendering`) 중 실제 조치. 의존성·실행 환경 갱신과 시나리오 구현 변경을 구분합니다. 같은 버전에서 응답 방식만 바꾸는 비교는 `fromVersion`과 `toVersion`을 동일하게 기록합니다.
 - **관찰 결과:** 같은 조건에서 달라진 시간·비율과 구간. 코드 유지 상태에서 관찰된 결과도 명시합니다.
 - **현재 판단:** 확인된 사실·원인 후보·미확정 사항. 공식 필수 수정, 선택 기능, 우리 앱의 판단을 구분합니다. “필수 수정 사용처를 찾지 못했다”를 “공식적으로 모든 앱에 변경이 불필요하다”로 확대하지 않습니다.
 

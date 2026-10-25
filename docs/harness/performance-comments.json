@@ -106,6 +106,154 @@
         { "kind": "ssr", "before": "ssr-2026-10-23T05-11-08-245Z", "after": "ssr-2026-10-23T05-02-05-727Z" },
         { "kind": "lighthouse", "before": "lighthouse-2026-10-23T05-12-20-924Z", "after": "lighthouse-2026-10-23T05-03-07-003Z" }
       ]
+    },
+    {
+      "id": "next-lab-streaming-2026-10-25",
+      "framework": "next-lab",
+      "packageName": "next",
+      "fromVersion": "16.4.2",
+      "toVersion": "16.4.2",
+      "comparisonId": "shopping-detail-streaming-2026-10-25",
+      "scenarioPath": "/scenarios/shopping-detail-ssr",
+      "recordedOn": "2026-10-25",
+      "status": "observed",
+      "versionChanges": "Next.js 16.4.2와 관련 의존성 버전을 유지한 구현 비교입니다. 버전업은 하지 않았습니다.",
+      "code": {
+        "kind": "unchanged",
+        "description": "기존 loading.tsx와 서버 조회를 유지했습니다."
+      },
+      "observation": "TTFB 125.74 → 122.88 ms, 상품 HTML·데이터 도착 237.92 → 240.73 ms입니다. LCP는 2,493.83 → 2,496.07 ms(+0.1%)로 측정됐습니다.",
+      "conclusion": "기존 스트리밍 코드를 유지한 기준 대상입니다. 브라우저 LCP는 거의 같고 초기 SSR 변동은 전체 재측정으로 확인했습니다. 다른 앱의 변경 효과로 해석하지 않습니다.",
+      "sources": [
+        {
+          "title": "Next.js loading 공식 문서",
+          "url": "https://nextjs.org/docs/app/api-reference/file-conventions/loading"
+        }
+      ],
+      "reportPath": "docs/harness/results/shopping-detail-streaming-2026-10-25.md",
+      "measurements": [
+        {
+          "kind": "ssr",
+          "before": "ssr-2026-10-25T00-07-27-098Z",
+          "after": "ssr-2026-10-25T00-19-13-063Z"
+        },
+        {
+          "kind": "lighthouse",
+          "before": "lighthouse-2026-10-24T23-52-47-146Z",
+          "after": "lighthouse-2026-10-25T00-09-58-369Z"
+        }
+      ]
+    },
+    {
+      "id": "react-router-lab-streaming-2026-10-25",
+      "framework": "react-router-lab",
+      "packageName": "react-router",
+      "fromVersion": "7.18.4",
+      "toVersion": "7.18.4",
+      "comparisonId": "shopping-detail-streaming-2026-10-25",
+      "scenarioPath": "/scenarios/shopping-detail-ssr",
+      "recordedOn": "2026-10-25",
+      "status": "observed",
+      "versionChanges": "React Router 7.18.4와 관련 의존성 버전을 유지한 구현 비교입니다. 버전업은 하지 않았습니다.",
+      "code": {
+        "kind": "rendering",
+        "description": "loader에서 조회 Promise를 반환하고 Suspense/Await로 상품 HTML을 스트리밍합니다. 조회 전에는 로딩 안내를 표시합니다."
+      },
+      "observation": "TTFB 288.82 → 124.49 ms, 상품 HTML·데이터 도착 288.82 → 230.42 ms입니다. LCP는 2,305.36 → 2,217.39 ms(-3.8%)로 측정됐습니다.",
+      "conclusion": "이번 시나리오에서는 첫 응답과 LCP가 줄었습니다. 초기 안내 화면을 먼저 보내는 이점과 상품 이미지 표시 이점을 구분해야 하며 외부 서버 변동도 포함됩니다.",
+      "sources": [
+        {
+          "title": "React Router Suspense 공식 문서",
+          "url": "https://reactrouter.com/7.18.4/how-to/suspense"
+        }
+      ],
+      "reportPath": "docs/harness/results/shopping-detail-streaming-2026-10-25.md",
+      "measurements": [
+        {
+          "kind": "ssr",
+          "before": "ssr-2026-10-25T00-07-27-098Z",
+          "after": "ssr-2026-10-25T00-19-13-063Z"
+        },
+        {
+          "kind": "lighthouse",
+          "before": "lighthouse-2026-10-24T23-52-47-146Z",
+          "after": "lighthouse-2026-10-25T00-09-58-369Z"
+        }
+      ]
+    },
+    {
+      "id": "sveltekit-lab-streaming-2026-10-25",
+      "framework": "sveltekit-lab",
+      "packageName": "@sveltejs/kit",
+      "fromVersion": "3.1.0",
+      "toVersion": "3.1.0",
+      "comparisonId": "shopping-detail-streaming-2026-10-25",
+      "scenarioPath": "/scenarios/shopping-detail-ssr",
+      "recordedOn": "2026-10-25",
+      "status": "observed",
+      "versionChanges": "SvelteKit 3.1.0와 관련 의존성 버전을 유지한 구현 비교입니다. 버전업은 하지 않았습니다.",
+      "code": {
+        "kind": "rendering",
+        "description": "server load에서 Promise를 반환하고 {#await}로 처리합니다. 직렬화된 상품 데이터를 스트리밍하고 상품 HTML은 브라우저에서 완성합니다."
+      },
+      "observation": "TTFB 288.76 → 234.56 ms, 상품 HTML·데이터 도착 288.76 → 239.51 ms입니다. LCP는 1,816.94 → 2,527.27 ms(+39.1%)로 측정됐습니다.",
+      "conclusion": "Lighthouse에서 이미지가 초기 문서에서 발견되지 않고 요청 시작 대기가 늘었습니다. 핵심 상품까지 데이터 스트리밍으로 전환한 이 조건에서는 LCP가 악화됐습니다. 주요 상품은 초기 HTML에 두고 보조 데이터만 스트리밍하는 구성을 검토할 만합니다. 현재 preview 서버의 gzip 응답에서는 초기 본문 청크가 상품 데이터와 합쳐져 도착하는 현상도 확인했습니다.",
+      "sources": [
+        {
+          "title": "SvelteKit Promise streaming 공식 문서",
+          "url": "https://svelte.dev/docs/kit/load#Streaming-with-promises"
+        }
+      ],
+      "reportPath": "docs/harness/results/shopping-detail-streaming-2026-10-25.md",
+      "measurements": [
+        {
+          "kind": "ssr",
+          "before": "ssr-2026-10-25T00-07-27-098Z",
+          "after": "ssr-2026-10-25T00-19-13-063Z"
+        },
+        {
+          "kind": "lighthouse",
+          "before": "lighthouse-2026-10-24T23-52-47-146Z",
+          "after": "lighthouse-2026-10-25T00-09-58-369Z"
+        }
+      ]
+    },
+    {
+      "id": "vue-lab-streaming-2026-10-25",
+      "framework": "vue-lab",
+      "packageName": "nuxt",
+      "fromVersion": "4.6.2",
+      "toVersion": "4.6.2",
+      "comparisonId": "shopping-detail-streaming-2026-10-25",
+      "scenarioPath": "/scenarios/shopping-detail-ssr",
+      "recordedOn": "2026-10-25",
+      "status": "observed",
+      "versionChanges": "Nuxt 4.6.2와 관련 의존성 버전을 유지한 구현 비교입니다. 버전업은 하지 않았습니다.",
+      "code": {
+        "kind": "rendering",
+        "description": "상품 상세 경로에 experimental.ssrStreaming을 활성화했습니다. app.vue의 동기 wrapper가 첫 청크를 만들며 기존 await useFetch 조회는 유지합니다. 다른 경로는 blocking을 유지합니다."
+      },
+      "observation": "TTFB 286.28 → 122.47 ms, 상품 HTML·데이터 도착 286.28 → 238.86 ms입니다. LCP는 3,318.50 → 3,401.27 ms(+2.5%)로 측정됐습니다.",
+      "conclusion": "초기 응답과 FCP는 빨라졌지만 LCP는 비슷한 수준입니다. 이미지 로딩 구간이 여전히 크며 experimental 옵션만으로 화면 전체가 빨라지는 것은 아닙니다.",
+      "sources": [
+        {
+          "title": "Nuxt experimental ssrStreaming 공식 문서",
+          "url": "https://nuxt.com/docs/4.x/guide/going-further/experimental-features#ssrstreaming"
+        }
+      ],
+      "reportPath": "docs/harness/results/shopping-detail-streaming-2026-10-25.md",
+      "measurements": [
+        {
+          "kind": "ssr",
+          "before": "ssr-2026-10-25T00-07-27-098Z",
+          "after": "ssr-2026-10-25T00-19-13-063Z"
+        },
+        {
+          "kind": "lighthouse",
+          "before": "lighthouse-2026-10-24T23-52-47-146Z",
+          "after": "lighthouse-2026-10-25T00-09-58-369Z"
+        }
+      ]
     }
   ]
 }

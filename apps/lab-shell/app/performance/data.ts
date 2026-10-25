@@ -25,6 +25,7 @@ export type MeasurementEnvironment = {
 
 export type SsrTarget = {
   name: string;
+  renderingMode?: string | null;
   versions?: Partial<Record<string, string>>;
   url: string;
   checklist: {
@@ -113,8 +114,11 @@ export function getTargetVersion(name: string, versions: Partial<Record<string, 
   return versions[frameworkPackages[name]] ?? "미기록";
 }
 
-/** Modes describe the checked-in shopping-detail scenario, not timing heuristics. */
-export function getTargetMode(name: string, scenarioPath: string) {
+/** Use recorded modes; the fallback describes historical snapshots before mode recording. */
+export function getTargetMode(name: string, scenarioPath: string, renderingMode?: string | null) {
+  if (renderingMode === "html-streaming") return "HTML Streaming";
+  if (renderingMode === "data-streaming") return "Data Streaming";
+  if (renderingMode === "blocking") return "Blocking";
   if (scenarioPath !== "/scenarios/shopping-detail-ssr") return "미기록";
   if (name === "next-lab") return "Streaming";
   if (name in targetNames) return "Blocking";
@@ -150,7 +154,7 @@ export function getSsrChart(snapshot: SsrSnapshot) {
       ...target,
       label: getTargetDisplayName(target.name),
       version: getTargetVersion(target.name, target.versions),
-      mode: getTargetMode(target.name, snapshot.path),
+      mode: getTargetMode(target.name, snapshot.path, target.renderingMode),
       width: (target.medianMetrics.contentReadyMs / limit) * 100,
     })),
   };

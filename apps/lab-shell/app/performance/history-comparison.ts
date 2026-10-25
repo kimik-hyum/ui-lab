@@ -26,7 +26,7 @@ export function sameConditions(a: MeasurementEntry, b: MeasurementEntry) {
   return left.comparison.id === right.comparison.id &&
     left.comparison.harnessSha256 === right.comparison.harnessSha256 &&
     left.path === right.path && left.mode === right.mode && left.runs === right.runs &&
-    left.warmup === right.warmup && left.preset === right.preset && left.expectedText === right.expectedText &&
+    left.warmup === right.warmup && left.preset === right.preset && left.expectedText === right.expectedText && left.userAgent === right.userAgent &&
     JSON.stringify(left.network) === JSON.stringify(right.network) &&
     JSON.stringify(left.environment) === JSON.stringify(right.environment) &&
     JSON.stringify(left.measurementTool) === JSON.stringify(right.measurementTool);

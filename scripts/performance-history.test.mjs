@@ -30,13 +30,21 @@ test("다른 버전의 새 측정을 누적하고 동일 실행의 결과 변경
   t.after(() => rmSync(root, { recursive: true, force: true }));
   const older = fixture("2026-05-31T09:59:08.775Z");
   older.targets[0].versions.next = "16.1.1";
+  older.targets[0].renderingMode = "blocking";
   savePerformanceHistory(root, "ssr", older);
-  savePerformanceHistory(root, "ssr", fixture());
-  savePerformanceHistory(root, "ssr", fixture());
+  const current = fixture();
+  current.targets[0].renderingMode = "html-streaming";
+  current.userAgent = "browser-request-agent";
+  savePerformanceHistory(root, "ssr", current);
+  savePerformanceHistory(root, "ssr", current);
   const archive = JSON.parse(readFileSync(join(root, "perf-results", "history.json")));
   assert.equal(archive.records.length, 2);
   assert.equal(archive.records[0].targets[0].versions.next, "16.4.2");
   assert.equal(archive.records[1].targets[0].versions.next, "16.1.1");
+  assert.equal(archive.records[0].targets[0].renderingMode, "html-streaming");
+  assert.equal(archive.records[1].targets[0].renderingMode, "blocking");
+  assert.equal(archive.records[0].userAgent, "browser-request-agent");
+  assert.equal(archive.records[1].userAgent, undefined);
   assert.equal(archive.records[0].targets[0].runs, undefined);
   const changed = fixture();
   changed.targets[0].medianMetrics.contentReadyMs = 1;
@@ -47,9 +55,13 @@ test("다른 버전의 새 측정을 누적하고 동일 실행의 결과 변경
 test("병렬 통합 측정의 SSR·Lighthouse 조건과 실행 선택을 섞지 않는다", () => {
   const source = fixture();
   const combined = { generatedAt: source.generatedAt, environment: source.environment, mode: "parallel", ssr: { path: source.path, runs: 20, warmup: 3, expectedText: "홈으로 이동" }, lighthouse: { path: "/another-scenario", runs: 5, preset: "desktop" }, targets: [{ name: "next-lab", versions: source.targets[0].versions, ssr: source.targets[0], lighthouse: { medianPerformanceScore: 96, medianRun: 3, medianMetrics: { lcpMs: 1403.2, inpMs: null } } }] };
+  combined.targets[0].ssr.renderingMode = "html-streaming";
+  combined.targets[0].lighthouse.renderingMode = "blocking";
   const ssr = toHistoryRecord("ssr", combined);
   const lh = toHistoryRecord("lighthouse", combined);
   assert.notEqual(ssr.id, lh.id);
+  assert.equal(ssr.targets[0].renderingMode, "html-streaming");
+  assert.equal(lh.targets[0].renderingMode, "blocking");
   assert.equal(ssr.mode, "parallel");
   assert.equal(ssr.path, source.path);
   assert.equal(ssr.runs, 20);
