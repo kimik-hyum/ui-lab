@@ -30,6 +30,7 @@ export default async function ShoppingDetailSsrPage({
 }: PageProps) {
   const resolvedSearchParams = await searchParams;
   const slug = resolveSlug(resolvedSearchParams?.slug);
+  // Keep the product outside a loading/Suspense boundary for the blocking SSR comparison.
   const product = await loadShoppingDetailSsrProduct(slug);
 
   if (!product) {

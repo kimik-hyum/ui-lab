@@ -113,7 +113,7 @@ export function getTargetVersion(name: string, versions: Partial<Record<string, 
   return versions[frameworkPackages[name]] ?? "미기록";
 }
 
-/** Modes describe the checked-in shopping-detail scenario, not timing heuristics. */
+/** Legacy snapshots were measured before Next.js switched to blocking; never relabel their timings. */
 export function getTargetMode(name: string, scenarioPath: string) {
   if (scenarioPath !== "/scenarios/shopping-detail-ssr") return "미기록";
   if (name === "next-lab") return "Streaming";

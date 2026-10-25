@@ -161,7 +161,7 @@ export default function PerformancePage() {
           </table>
         </div>
         <div className="border-t border-border px-5 py-4 text-xs leading-6 text-muted-foreground sm:px-6">
-          Streaming의 TTFB는 셸 도착 시간입니다. Blocking 응답과 TTFB만으로 비교하지 않습니다. HTML 크기는 각 프레임워크의 전송 구조 차이도 반영합니다.
+          이 표는 변경 전 측정 기록입니다. 당시 Next.js는 Streaming, 나머지는 Blocking이었으며, 현재 코드는 네 앱 모두 Blocking으로 통일했습니다. 과거 Streaming의 TTFB는 셸 도착 시간이므로 Blocking과 TTFB만으로 비교하지 않습니다.
         </div>
       </section>
 

@@ -73,7 +73,7 @@ Lighthouse와 달리 브라우저 렌더링, hydration, interaction 비용은 �
 - `ttfbMs`: 첫 body chunk 수신까지 걸린 시간. ⚠️ 스트리밍 프레임워크(예: Next App Router + `loading.tsx`)에서는 "셸 도착 시간"이므로 blocking 프레임워크의 ttfb와 직접 비교하지 않습니다.
 - `totalMs`: HTML body 수신 완료까지 걸린 시간. 스트리밍에서는 flush 비용을 포함합니다.
 - `htmlBytes`: HTML 응답 크기. 성능 저하가 아니라 아키텍처 차이(RSC payload, hydration 전략 등)를 반영합니다.
-- `streamingDeltaMs`: `contentReadyMs - ttfbMs`. 0에 가까우면 blocking, 크면 스트리밍 셸을 먼저 보낸 것입니다.
+- `streamingDeltaMs`: `contentReadyMs - ttfbMs`. 셸 선행 전송의 참고값입니다. 압축·프록시 버퍼링이나 HTML 크기에 따라 달라지므로 이 값만으로 streaming/blocking을 판정하지 않습니다.
 - `status`: HTTP status
 
 명령:
@@ -131,6 +131,7 @@ Hydration 전후 DOM 비교는 현재 하네스 기본 성능 축에서 제외�
 - 측정 순서로 인한 cold-first 편향에 주의합니다. `ssr-compare`는 타깃을 순차 기동하므로 첫 타깃이 cold 비용을 떠안습니다. 워밍업으로 보정하고, 의심되면 순서를 바꿔 재현합니다.
 - SSR response 결과와 Lighthouse 결과를 합산하지 않습니다.
 - 시나리오 목적이 다르면 ID를 분리합니다. (예: blocking SSR 비교와 streaming 비교)
+- 현재 상품 상세 시나리오는 네 앱 모두 상품 조회를 기다리는 blocking SSR입니다. Next의 `loading.tsx`를 제거하기 전 기록과는 별도 `PERF_COMPARISON_ID`로 측정하며, 기존 수치와 응답 방식 표시는 당시 조건을 유지합니다.
 - 데이터 fetch 비용을 포함할지 여부는 시나리오 카드에 명시합니다.
 - 인공지연 `0ms`는 타이머를 건너뛰는 조건으로 구현합니다. `setTimeout(0)`도 타이머 스케줄링을 거치므로 지연을 제거한 측정과 구분합니다. 구현을 바꾸면 새 빌드로 재측정하며 기존 수치를 일정 시간만큼 차감하지 않습니다.
 

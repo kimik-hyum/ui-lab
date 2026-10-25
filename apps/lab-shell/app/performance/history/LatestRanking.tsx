@@ -53,7 +53,7 @@ export default function LatestRanking({ frameworks }: { frameworks: FrameworkHis
           );
         })}
       </div>
-      <p className="mt-3 text-xs leading-5 text-muted-foreground">이 상품 상세 시나리오에서의 측정 결과입니다. Next.js는 스트리밍, 나머지는 블로킹 응답이며 외부 서버의 응답 변동도 포함됩니다.</p>
+      <p className="mt-3 text-xs leading-5 text-muted-foreground">저장된 상품 상세 측정 당시 Next.js는 스트리밍, 나머지는 블로킹 응답이었습니다. 현재 코드는 네 앱 모두 블로킹으로 통일했으며, 위 수치는 변경 전 기록입니다. 외부 서버의 응답 변동도 포함됩니다.</p>
     </section>
   );
 }
