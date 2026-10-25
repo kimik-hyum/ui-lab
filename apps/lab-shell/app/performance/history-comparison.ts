@@ -49,6 +49,9 @@ export function rankLatest(frameworks: FrameworkHistory[], kind: MeasurementReco
     return entry && value !== null && isValid(entry) ? [{ name, version: latest.version, entry, value }] : [];
   });
   const reference = [...candidates].sort((a, b) => b.entry.record.generatedAt.localeCompare(a.entry.record.generatedAt))[0];
-  const rows = reference ? candidates.filter((row) => sameConditions(reference.entry, row.entry)).sort((a, b) => a.value - b.value) : [];
-  return { rows, excluded: frameworks.length - rows.length, record: reference?.entry.record };
+  // A partial remeasurement must not hide the other frameworks' latest results.
+  // Keep their original conditions and only combine measurements of the same scenario.
+  const rows = reference ? candidates.filter((row) => row.entry.record.path === reference.entry.record.path).sort((a, b) => a.value - b.value) : [];
+  const mixedConditions = reference ? rows.some((row) => !sameConditions(reference.entry, row.entry)) : false;
+  return { rows, excluded: frameworks.length - rows.length, record: reference?.entry.record, mixedConditions };
 }

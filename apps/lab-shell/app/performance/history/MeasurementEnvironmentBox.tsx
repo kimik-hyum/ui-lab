@@ -4,15 +4,18 @@ import { rankLatest } from "../history-comparison";
 
 export default function MeasurementEnvironmentBox({ frameworks }: { frameworks: FrameworkHistory[] }) {
   const sources = [
-    { label: "SSR", record: rankLatest(frameworks, "ssr", "contentReadyMs").record },
-    { label: "Lighthouse", record: rankLatest(frameworks, "lighthouse", "lcpMs").record },
+    { label: "SSR", rows: rankLatest(frameworks, "ssr", "contentReadyMs").rows },
+    { label: "Lighthouse", rows: rankLatest(frameworks, "lighthouse", "lcpMs").rows },
   ];
   // Show differing or missing conditions explicitly instead of implying a shared environment.
   const describe = (read: (record: MeasurementRecord | undefined) => string | undefined) => {
-    const values = sources.map(({ label, record }) => ({ label, value: read(record) ?? "미기록" }));
-    return new Set(values.map(({ value }) => value)).size === 1
-      ? values[0].value
-      : values.map(({ label, value }) => `${label} ${value}`).join(" · ");
+    const values = sources.map(({ label, rows }) => ({
+      label,
+      values: [...new Set(rows.length ? rows.map(({ entry }) => read(entry.record) ?? "미기록") : ["미기록"])],
+    }));
+    return new Set(values.flatMap(({ values }) => values)).size === 1
+      ? values[0].values[0]
+      : values.map(({ label, values }) => `${label} ${values.join(" / ")}`).join(" · ");
   };
   const bandwidth = (value: number | undefined) => value === undefined ? undefined : `${value / 1000} Mbps`;
   const metrics = [
@@ -26,8 +29,8 @@ export default function MeasurementEnvironmentBox({ frameworks }: { frameworks: 
   });
   const runtime = describe((record) => {
     if (!record) return undefined;
-    const { platform, arch, node } = record.environment;
-    return [platform, arch, node && `Node.js ${node}`].filter(Boolean).join(" · ") || undefined;
+    const { platform, arch } = record.environment;
+    return [platform, arch].filter(Boolean).join(" · ") || undefined;
   });
 
   return (
@@ -36,7 +39,7 @@ export default function MeasurementEnvironmentBox({ frameworks }: { frameworks: 
         <Info aria-hidden="true" className="mt-0.5 size-5 shrink-0 text-primary" />
         <div>
           <h2 id="measurement-environment-heading" className="text-lg font-semibold">측정 환경과 네트워크 조건</h2>
-          <p className="mt-1 text-sm leading-6 text-muted-foreground">최신 비교에 사용한 기록 기준 · 로컬 프로덕션 서버</p>
+          <p className="mt-1 text-sm leading-6 text-muted-foreground">아래 그래프에 표시한 각 기록 기준 · 로컬 프로덕션 서버</p>
         </div>
       </div>
 
@@ -53,11 +56,11 @@ export default function MeasurementEnvironmentBox({ frameworks }: { frameworks: 
         <div className="min-w-0">
           <dt className="text-xs text-muted-foreground">측정 장비 · 실행 환경</dt>
           <dd className="mt-1.5 break-words leading-6">{describe((record) => record?.environment.cpu)}</dd>
-          <dd className="break-words text-xs leading-5 text-muted-foreground">{runtime}</dd>
+          <dd className="break-words text-xs leading-5 text-muted-foreground">{runtime} · Node.js {describe((record) => record?.environment.node)}</dd>
         </div>
         <div>
           <dt className="text-xs text-muted-foreground">반복 측정 · 사전 예열</dt>
-          <dd className="mt-1.5 leading-6">{sources.map(({ label, record }) => `${label} ${record ? `${record.runs}회` : "미기록"}`).join(" · ")}</dd>
+          <dd className="mt-1.5 leading-6">{describe((record) => record ? `${record.runs}회` : undefined)}</dd>
           <dd className="text-xs leading-5 text-muted-foreground">예열 {describe((record) => record?.warmup == null ? undefined : `${record.warmup}회`)} · 브라우저 CPU {cpu}</dd>
         </div>
         <div className="min-w-0">

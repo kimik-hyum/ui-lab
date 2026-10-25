@@ -16,9 +16,9 @@ export default function LatestRanking({ frameworks }: { frameworks: FrameworkHis
         <p className="text-xs text-muted-foreground">프레임워크 고정 순서 · 단위 ms</p>
       </div>
       <div className="grid gap-5 xl:grid-cols-2">
-        {charts.map(({ key, title, description, rows, excluded, record, step }) => {
+        {charts.map(({ key, title, description, rows, excluded, mixedConditions, step }) => {
           const limit = Math.max(step, Math.ceil(Math.max(...rows.map((row) => row.value), 0) / step) * step);
-          const best = rows[0]?.value;
+          const best = mixedConditions ? undefined : rows[0]?.value;
           return (
             <section key={key} aria-labelledby={`ranking-${key}`} data-ranking={key} className="min-w-0 rounded-xl border border-border bg-white p-5 sm:p-6">
               <div className="mb-6 flex flex-wrap items-start justify-between gap-3">
@@ -46,15 +46,32 @@ export default function LatestRanking({ frameworks }: { frameworks: FrameworkHis
                 <span>0</span><span>{formatMetric(limit / 2, 0)}</span><span>{formatMetric(limit, 0)} ms</span>
               </div>
               <div className="mt-5 border-t border-border pt-3 text-[11px] leading-5 text-muted-foreground">
-                <p>{record?.network?.label ?? "네트워크 설정 미기록"} · {record?.runs ?? 0}회 측정 · {key === "ssr" ? "콘텐츠 도착 중앙값" : "점수 중앙 실행의 LCP"}</p>
-                {record && <p>{formatSnapshotDate(record.generatedAt)} KST</p>}
-                {excluded > 0 && <p className="text-amber-700">같은 조건의 유효한 기록이 없는 {excluded}개 프레임워크는 비교에서 제외했습니다.</p>}
+                <p>{key === "ssr" ? "콘텐츠 도착 중앙값" : "점수 중앙 실행의 LCP"}</p>
+                <details className="mt-2">
+                  <summary className="flex cursor-pointer list-none items-center justify-between gap-3 py-1 font-medium text-primary [&::-webkit-details-marker]:hidden">
+                    <span>측정 조건 보기</span>
+                    <span className="font-normal text-muted-foreground">{mixedConditions ? "조건 차이 있음" : "동일 조건"}</span>
+                  </summary>
+                  <div className="mt-3 space-y-3 rounded-lg bg-surface p-3">
+                    {mixedConditions && <p>측정 시점과 조건이 다른 최신 기록입니다. 가장 빠른 결과의 강조는 적용하지 않습니다.</p>}
+                    <ul className="space-y-3">
+                      {sortFrameworks(rows).map(({ name, entry }) => (
+                        <li key={name}>
+                          <p className="font-medium text-foreground">{getTargetDisplayName(name)}</p>
+                          <p>{formatSnapshotDate(entry.record.generatedAt)} KST · {entry.record.runs}회</p>
+                          <p>{entry.record.network?.label ?? "네트워크 미기록"} · Node {entry.record.environment.node ?? "미기록"}</p>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </details>
+                {excluded > 0 && <p className="text-amber-700">이 시나리오의 유효한 최신 기록이 없는 {excluded}개 프레임워크는 표시하지 않았습니다.</p>}
               </div>
             </section>
           );
         })}
       </div>
-      <p className="mt-3 text-xs leading-5 text-muted-foreground">같은 측정 조건과 응답 방식의 상품 상세 결과를 비교합니다. 실제 Supabase와 외부 이미지 서버의 응답 변동도 포함됩니다.</p>
+      <p className="mt-3 text-xs leading-5 text-muted-foreground">각 프레임워크의 최신 버전에서 측정한 상품 상세 결과입니다. 일부만 다시 측정하면 나머지는 기존 최신 기록을 유지합니다. 실제 Supabase와 외부 이미지 서버의 응답 변동도 포함됩니다.</p>
     </section>
   );
 }

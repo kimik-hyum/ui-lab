@@ -154,8 +154,9 @@ Hydration 전후 DOM 비교는 현재 하네스 기본 성능 축에서 제외�
 
 ## 웹에서 버전별 기록 보기
 
-- `/performance`는 마지막 전체 비교 스냅샷을 상세 표시합니다. `/performance/history`는 측정 장비·네트워크·반복 횟수를 기록에서 읽습니다. 그래프와 버전별 목록은 **Next.js → React Router → SvelteKit → Nuxt** 순서를 유지하며, 같은 조건에서 가장 짧은 결과를 강조합니다. 증감은 같은 조건의 바로 이전 버전과 비교하며, 각 버전의 과거 측정과 상세 조건은 펼쳐서 확인합니다. 부분 대상 재측정은 이력에 추가하고 전체 비교 스냅샷을 대체하지 않습니다.
-- `perf-results/lighthouse/targets.json`의 `renderingModes`에 경로별 응답 방식을 선언하고, 세 runner가 summary와 이력에 복사합니다. 현재 상품 상세는 모두 `blocking`입니다. 응답 방식·SSR User-Agent가 다른 기록은 같은 조건의 자동 비교에 넣지 않습니다. 메타데이터가 없는 기존 상품 기록만 당시의 Next streaming/나머지 blocking 표시를 유지합니다.
+- `/performance`는 마지막 전체 비교 스냅샷을 상세 표시합니다. `/performance/history`의 그래프는 같은 시나리오에서 각 프레임워크 최신 버전의 유효한 최신 기록을 함께 보여줍니다. 일부 프레임워크만 다시 측정해도 나머지 기존 기록을 숨기지 않으며, 원본 실행 ID와 수치를 유지합니다. 두 그래프의 행 간격을 동일하게 유지하고, 프레임워크별 측정일·반복 횟수·네트워크·Node 버전은 각 그래프 아래의 접을 수 있는 측정 조건 영역에 표시합니다. 상단 환경 정보도 모든 표시 기록을 반영합니다.
+- 그래프와 버전별 목록은 **Next.js → React Router → SvelteKit → Nuxt** 순서를 유지합니다. 표시된 모든 기록의 조건이 같을 때만 가장 짧은 결과를 강조합니다. 버전 전후 증감은 계속 같은 조건의 기록으로만 계산하며, 각 버전의 과거 측정과 상세 조건은 펼쳐서 확인합니다. 부분 대상 재측정은 이력에 추가하고 전체 비교 스냅샷을 대체하지 않습니다.
+- `perf-results/lighthouse/targets.json`의 `renderingModes`에 경로별 응답 방식을 선언하고, 세 runner가 summary와 이력에 복사합니다. 현재 상품 상세는 모두 `blocking`입니다. 응답 방식·SSR User-Agent가 다른 기록도 그래프에는 표시하되, 같은 조건으로 취급해 증감률을 계산하지 않습니다. 메타데이터가 없는 기존 상품 기록만 당시의 Next streaming/나머지 blocking 표시를 유지합니다.
 - `perf:ssr`, `perf:lighthouse`, `perf:check`는 대상 workspace의 **실제 설치 버전**, 코드 커밋과 미커밋 변경 여부, 측정 조건과 요약을 `perf-results/history.json`에 자동 누적합니다. 버전 범위만 있는 `package.json` 값을 설치 버전으로 사용하지 않습니다.
 - `history.json`은 Git에 보관합니다. 큰 원본 보고서는 기존 timestamp 폴더에 남기고 웹용 기록에는 요약만 담습니다. 웹에 새 기록을 반영하려면 lab-shell을 재빌드합니다.
 - 같은 실행 ID는 덮어쓰지 않으며, 부분 대상 측정·빠른 점검·병렬 점검도 원래 조건으로 기록합니다. 날짜가 가깝다는 이유로 서로 다른 SSR·Lighthouse 실행을 하나로 합치지 않습니다.
