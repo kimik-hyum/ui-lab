@@ -5,7 +5,6 @@ import { TraditionalList } from '../react/optimistic/components/TraditionalList'
 import { OptimisticList } from '../react/optimistic/components/OptimisticList';
 import type { OptimisticAction, Todo } from '../react/optimistic/types';
 import { ComparisonTemplate, ComparisonTopic } from './ComparisonTemplate';
-import { ComparisonTopicNotes } from './ComparisonTopicNotes';
 import { collectAnchorLines, resolveTopicLines } from './codeAnchors';
 
 type TopicDefinition = {
@@ -149,7 +148,6 @@ export function ClientPage({ traditionalCode, optimisticCode }: { traditionalCod
         description="항목을 먼저 표시하고 실패하면 되돌립니다. 2초는 상태 관찰용 지연이며 실제 서버 저장이나 속도 측정이 아닙니다."
         leftTitle="수동 상태 관리 + 롤백"
         rightTitle="useOptimistic + 자동 복원"
-        
         leftCode={traditionalCode}
         rightCode={optimisticCode}
         topics={comparisonTopics}
@@ -205,7 +203,6 @@ export function ClientPage({ traditionalCode, optimisticCode }: { traditionalCod
           <div className="space-y-4 p-6 text-sm leading-relaxed text-slate-500">
             <p>‘다음 요청 실패’를 켜고 ‘3개 연속 추가’를 눌러 첫 항목의 롤백과 나머지 두 항목의 확정을 확인하세요.</p>
             <p>이미 시작한 요청의 성공 결과는 실행·코드 화면을 오가도 유지됩니다.</p>
-            <ComparisonTopicNotes topics={comparisonTopics} />
           </div>
         }
     />

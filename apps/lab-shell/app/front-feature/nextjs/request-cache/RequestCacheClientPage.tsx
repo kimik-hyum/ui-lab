@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { ComparisonTemplate } from "../../components/ComparisonTemplate";
-import { ComparisonTopicNotes } from "../../components/ComparisonTopicNotes";
 import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import { ResponseFrame } from "./components/ResponseFrame";
 import type { ReadPattern } from "./types";
@@ -81,7 +80,6 @@ export function RequestCacheClientPage({ directCode, cachedCode }: { directCode:
         <div className="space-y-3 p-6 text-sm leading-6 text-slate-500">
           <p>같은 팀의 ID를 비교한 뒤 한 카드의 팀을 바꾸거나 새 응답을 요청하세요. 코드 화면을 오가면 선택 조건은 유지되지만 서버 문서는 새로 요청합니다.</p>
           <p>로컬 fixture를 읽는 실제 서버 함수입니다. 표시 숫자는 이 응답의 서로 다른 ID 개수이며 전체 서버 실행 횟수·처리 속도·성능 점수가 아닙니다. DB·외부 API·인공지연은 없습니다.</p>
-          <ComparisonTopicNotes topics={topics} />
           <a href="https://react.dev/reference/react/cache" target="_blank" rel="noreferrer" className="inline-block text-violet-600 underline">React cache 공식 문서 ↗</a>
         </div>
       }

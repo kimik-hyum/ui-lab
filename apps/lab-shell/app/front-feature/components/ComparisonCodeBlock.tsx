@@ -85,7 +85,7 @@ export function ComparisonCodeBlock({
                             } ${selectable ? 'cursor-pointer' : isInteractive ? 'cursor-help' : 'cursor-text'}`,
                             role: selectable ? 'button' : undefined,
                             tabIndex: selectable ? (tabStop ? 0 : -1) : undefined,
-                            'aria-label': selectable ? `${lineNumber}번 줄 · ${label} · 설명 선택` : undefined,
+                            'aria-label': selectable ? `${lineNumber}번 줄 · ${label} · 강조 유지` : undefined,
                             onMouseEnter: (e) => isInteractive && onLineHover?.(lineNumber, e.clientY),
                             onMouseLeave: () => onLineHover?.(null),
                             onFocus: () => isInteractive && onLineHover?.(lineNumber),
@@ -108,7 +108,7 @@ export function ComparisonCodeBlock({
                     <p className={`mb-1 text-[11px] font-medium ${isRed ? 'text-red-700' : 'text-blue-700'}`}>{sourceLabel}</p>
                     <p className="font-semibold">{payload?.title}</p>
                     <div className="mt-2 space-y-2 leading-6 text-muted-foreground [&_.text-red-300]:text-red-700 [&_.text-blue-300]:text-blue-700 [&_code]:rounded [&_code]:bg-surface [&_code]:px-1 [&_code]:text-foreground">{payload?.description}</div>
-                    {onLineSelect && <p className="mt-2 border-t border-border pt-2 text-[11px] text-muted-foreground">클릭 또는 Enter로 설명 선택</p>}
+                    {onLineSelect && <p className="mt-2 border-t border-border pt-2 text-[11px] text-muted-foreground">클릭 또는 Enter로 강조 유지</p>}
                 </TooltipContent>}
             </Tooltip>
         </div>

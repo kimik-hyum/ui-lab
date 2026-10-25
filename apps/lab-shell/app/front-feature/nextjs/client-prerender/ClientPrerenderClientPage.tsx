@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { ComparisonTemplate } from "../../components/ComparisonTemplate";
-import { ComparisonTopicNotes } from "../../components/ComparisonTopicNotes";
 import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import { CounterFrame } from "./components/CounterFrame";
 import type { ExecutionMode } from "./types";
@@ -92,7 +91,6 @@ export function ClientPrerenderClientPage({ prerenderedCode, clientOnlyCode }: {
         <div className="space-y-3 p-6 text-sm leading-6 text-slate-500">
           <p>조건 변경·처음부터 보기·코드 화면에서 복귀하면 새 문서를 열어 카운트가 0으로 돌아갑니다. 표시 확인은 DOM 존재 확인이며 hydration 완료 신호가 아닙니다.</p>
           <p>요청마다 서버에서 만드는 문서입니다. 빌드 시 정적 생성이나 속도·번들 크기를 비교하지 않습니다. 서버 HTML만 모드에서는 iframe의 스크립트 실행을 차단합니다.</p>
-          <ComparisonTopicNotes topics={topics} />
           <div className="flex flex-wrap gap-x-4 gap-y-2">
             <a href="https://nextjs.org/docs/app/guides/lazy-loading#skipping-ssr" target="_blank" rel="noreferrer" className="text-violet-600 underline">Next.js ssr: false ↗</a>
             <a href="https://nextjs.org/docs/app/getting-started/server-and-client-components" target="_blank" rel="noreferrer" className="text-violet-600 underline">Client Component의 첫 로드 ↗</a>

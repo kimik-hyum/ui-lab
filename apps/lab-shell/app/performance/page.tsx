@@ -9,6 +9,7 @@ import {
   getTargetVersion,
   getTargetMode,
   performanceSources,
+  sortFrameworks,
 } from "./data";
 
 export const metadata: Metadata = {
@@ -142,7 +143,7 @@ export default function PerformancePage() {
               </tr>
             </thead>
             <tbody>
-              {ssr.targets.map((target) => (
+              {sortFrameworks(ssr.targets).map((target) => (
                 <tr key={target.name} className="border-t border-border transition-colors hover:bg-surface/60">
                   <th scope="row" className="sticky left-0 z-10 bg-white px-6 py-4 font-semibold text-foreground">{getTargetDisplayName(target.name)}<span className="mt-1 block font-mono text-[10px] font-normal text-muted-foreground">{getTargetVersion(target.name, target.versions)}</span></th>
                   <td className="px-4 py-4 font-mono text-[10px] text-muted-foreground">{getTargetMode(target.name, ssr.path)}</td>
@@ -169,7 +170,7 @@ export default function PerformancePage() {
           <div className="flex flex-wrap items-center gap-3"><h2 id="lighthouse-heading" className="text-base font-semibold text-foreground">Lighthouse</h2><span className="rounded-md bg-surface px-2 py-1 font-mono text-[10px] text-muted-foreground">BROWSER PERFORMANCE</span></div>
           <Link href={performanceSources.lighthouse} target="_blank" rel="noreferrer" className="text-xs font-medium text-primary hover:underline">원본 데이터 ↗</Link>
         </div>
-        {lighthouse.targets.map((target) => (
+        {sortFrameworks(lighthouse.targets).map((target) => (
           <div key={target.name} className="grid gap-6 p-5 sm:p-6 lg:grid-cols-[180px_minmax(0,1fr)]">
             <div>
               <p className="text-xs font-medium text-muted-foreground">{getTargetDisplayName(target.name)} {getTargetVersion(target.name, target.versions)} · {lighthouse.preset}</p>

@@ -2,7 +2,6 @@
 
 import { useMemo, useState } from "react";
 import { ComparisonTemplate } from "../../front-feature/components/ComparisonTemplate";
-import { ComparisonTopicNotes } from "../../front-feature/components/ComparisonTopicNotes";
 import { collectAnchorLines, resolveTopicLines } from "../../front-feature/components/codeAnchors";
 import { SequentialDemo } from "./components/SequentialDemo";
 import { ParallelDemo } from "./components/ParallelDemo";
@@ -75,7 +74,6 @@ export function DataLoadingClientPage({ leftCode, rightCode }: { leftCode: strin
             표시 시간은 인공지연을 포함한 서버 작업 구간입니다. 네트워크·첫 화면 표시 시간이나
             프레임워크 성능 순위가 아닙니다. 서로 의존하는 요청에는 순차 실행이 필요합니다.
           </p>
-          <ComparisonTopicNotes topics={topics} />
           <a
             href="https://nextjs.org/docs/app/getting-started/fetching-data#parallel-data-fetching"
             target="_blank"

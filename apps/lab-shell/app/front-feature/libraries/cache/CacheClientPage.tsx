@@ -3,7 +3,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ComparisonTemplate } from "../../components/ComparisonTemplate";
-import { ComparisonTopicNotes } from "../../components/ComparisonTopicNotes";
 import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import type { ComparisonTopic } from "../../components/ComparisonTypes";
 import { fetchCacheRecord } from "./client-data";
@@ -59,7 +58,7 @@ export function CacheClientPage({ manualCode, queryCode, libraryVersion }: { man
         headerActions={<div className={`${styles.controls} flex flex-wrap items-center gap-2 text-xs`}><label className="flex items-center gap-2 text-slate-600">항목<select aria-label="캐시 비교 항목" value={item} onChange={(event) => setItem(event.target.value as CacheItemId)} className="min-h-11 rounded-lg border border-slate-300 bg-white px-3 text-slate-700">{CACHE_ITEMS.map((entry) => <option key={entry.id} value={entry.id}>{entry.label}</option>)}</select></label><button onClick={() => setOpen((value) => !value)} className="min-h-11 rounded-lg bg-violet-600 px-4 text-white">{open ? "닫기" : "열기"}</button><button onClick={reset} disabled={open} className="min-h-11 rounded-lg border border-slate-300 px-3 text-slate-600 disabled:cursor-not-allowed disabled:opacity-40" title={open ? "닫은 뒤 초기화할 수 있습니다." : "캐시와 요청 시도 수 초기화"}>초기화</button></div>}
         leftComponent={<CachePanel open={open} attempts={attempts.manual}><ManualFetchDemo key={item} item={item} load={loadManual} /></CachePanel>}
         rightComponent={<CachePanel open={open} attempts={attempts.query}><QueryCacheDemo key={item} item={item} load={loadQuery} /></CachePanel>}
-        footer={<div className="space-y-3 p-6 text-sm leading-relaxed text-slate-500"><p>동일 API · HTTP 캐시 없음 · 시연 지연 {CACHE_DELAY_MS}ms · fresh {CACHE_STALE_MS / 1000}초 · 미사용 캐시 보관 {CACHE_GC_MS / 60000}분. 60초 이후 다시 열면 저장값을 먼저 보여주고 갱신합니다. 창 포커스·재연결 재요청과 자동 재시도는 껐습니다.</p><p>요청 시도는 fetch를 시작한 횟수로 취소도 포함합니다. 속도 측정값이 아닙니다. 로딩 중 닫거나 항목을 바꿔 취소를 확인하고, 오류는 닫고 다시 열어 재시도할 수 있습니다.</p><p>열린 상태의 코드 → UI 전환도 데모를 다시 마운트합니다. 수동 fetch는 다시 요청하며 Query 캐시는 유지됩니다. 개발 모드의 Effect 재실행도 요청 시도에 포함됩니다.</p><ComparisonTopicNotes topics={topics} /><a href="https://tanstack.com/query/v5/docs/framework/react/guides/important-defaults" target="_blank" rel="noreferrer" className="inline-block text-violet-600 underline">Query 캐시 정책 문서 ↗</a></div>}
+        footer={<div className="space-y-3 p-6 text-sm leading-relaxed text-slate-500"><p>동일 API · HTTP 캐시 없음 · 시연 지연 {CACHE_DELAY_MS}ms · fresh {CACHE_STALE_MS / 1000}초 · 미사용 캐시 보관 {CACHE_GC_MS / 60000}분. 60초 이후 다시 열면 저장값을 먼저 보여주고 갱신합니다. 창 포커스·재연결 재요청과 자동 재시도는 껐습니다.</p><p>요청 시도는 fetch를 시작한 횟수로 취소도 포함합니다. 속도 측정값이 아닙니다. 로딩 중 닫거나 항목을 바꿔 취소를 확인하고, 오류는 닫고 다시 열어 재시도할 수 있습니다.</p><p>열린 상태의 코드 → UI 전환도 데모를 다시 마운트합니다. 수동 fetch는 다시 요청하며 Query 캐시는 유지됩니다. 개발 모드의 Effect 재실행도 요청 시도에 포함됩니다.</p><a href="https://tanstack.com/query/v5/docs/framework/react/guides/important-defaults" target="_blank" rel="noreferrer" className="inline-block text-violet-600 underline">Query 캐시 정책 문서 ↗</a></div>}
       />
     </QueryClientProvider>
   );
