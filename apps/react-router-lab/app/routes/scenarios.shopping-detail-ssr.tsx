@@ -7,16 +7,16 @@ import {
 } from "../scenarios/shopping-detail-ssr/lib/shopping-detail-ssr-data.server";
 import type { ShoppingDetailSsrLoaderData } from "../scenarios/shopping-detail-ssr/lib/shopping-detail-ssr-types";
 
-export function meta({ data }: Route.MetaArgs) {
+export function meta({ loaderData }: Route.MetaArgs) {
   return [
     {
-      title: data?.product
-        ? `${data.product.name} | React Router Shopping Detail SSR`
+      title: loaderData?.product
+        ? `${loaderData.product.name} | React Router Shopping Detail SSR`
         : "Shopping Detail SSR | React Router Lab",
     },
     {
       name: "description",
-      content: "React Router v7 loader direct Supabase SSR shopping detail scenario",
+      content: "React Router v8 loader direct Supabase SSR shopping detail scenario",
     },
   ];
 }
