@@ -9,7 +9,7 @@
 - `apps/next-lab`: Next.js 실험 앱
 - `apps/sveltekit-lab`: SvelteKit 실험 앱
 - `apps/vue-lab`: Nuxt SSR 실험 앱
-- `apps/react-router-lab`: React Router v7 Framework Mode 실험 앱
+- `apps/react-router-lab`: React Router v8 Framework Mode 실험 앱
 
 ## Docs
 

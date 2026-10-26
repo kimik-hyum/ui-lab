@@ -1,0 +1,202 @@
+{
+  "schemaVersion": 2,
+  "id": "2026-10-27-react-router-8",
+  "title": "React Router 8.5.0",
+  "summary": "react-router-lab을 React Router 8.5.0으로 올리고 meta의 loaderData 이전을 적용했습니다.",
+  "startedAt": "2026-10-27T00:03:00.000+09:00",
+  "updatedAt": "2026-10-27T00:07:39.000+09:00",
+  "status": "in-progress",
+  "packages": [
+    {
+      "workspace": "react-router-lab",
+      "name": "react-router",
+      "declaredBefore": "7.18.4",
+      "declaredAfter": "8.5.0",
+      "installedBefore": "7.18.4",
+      "target": "8.5.0",
+      "installedAfter": "8.5.0"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "@react-router/node",
+      "declaredBefore": "7.18.4",
+      "declaredAfter": "8.5.0",
+      "installedBefore": "7.18.4",
+      "target": "8.5.0",
+      "installedAfter": "8.5.0"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "@react-router/serve",
+      "declaredBefore": "7.18.4",
+      "declaredAfter": "8.5.0",
+      "installedBefore": "7.18.4",
+      "target": "8.5.0",
+      "installedAfter": "8.5.0"
+    },
+    {
+      "workspace": "react-router-lab",
+      "name": "@react-router/dev",
+      "declaredBefore": "7.18.4",
+      "declaredAfter": "8.5.0",
+      "installedBefore": "7.18.4",
+      "target": "8.5.0",
+      "installedAfter": "8.5.0"
+    }
+  ],
+  "sources": [
+    {
+      "id": "router",
+      "title": "React Router v7 → v8 이전 가이드",
+      "url": "https://reactrouter.com/upgrading/v7",
+      "checkedOn": "2026-10-27"
+    },
+    {
+      "id": "vercel",
+      "title": "Vercel 어댑터 지원 버전",
+      "url": "https://registry.npmjs.org/@vercel/react-router/1.3.7",
+      "checkedOn": "2026-10-27"
+    }
+  ],
+  "changes": [
+    {
+      "paths": [
+        "apps/react-router-lab/package.json",
+        "yarn.lock"
+      ],
+      "reason": "react-router와 @react-router/node·serve·dev를 함께 8.5.0으로 맞췄습니다. Node 24·React 19.3·Vite 8은 v8 최소 버전을 이미 충족하고, react-router-serve와 Vercel preset만 사용해 커스텀 서버·getLoadContext·isSsrBuild 설정·.data URL 규칙이 없으므로 middleware·환경 API·요청 URL 관련 기본값 변경에는 코드 수정이 필요하지 않았습니다. @vercel/react-router 1.3.7은 peer 범위를 Router 7로 선언하지만 실행 코드가 쓰는 ServerRouter·createReadableStreamFromReadable이 v8에도 있어 그대로 유지했습니다.",
+      "before": "Router 7.18.4 (react-router·@react-router/node·serve·dev)",
+      "after": "Router 8.5.0 (같은 네 패키지)\n@vercel/react-router 1.3.7 유지",
+      "recommendation": "v8은 Node 22.22+, React 19.2.7+, 프레임워크 모드의 Vite 7+를 요구하며, react-router와 @react-router/* 패키지를 함께 최신 버전으로 올리도록 안내합니다.",
+      "sourceIds": [
+        "router",
+        "vercel"
+      ],
+      "files": [
+        {
+          "path": "apps/react-router-lab/package.json",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 17,
+                "code": "    \"@react-router/node\": \"7.18.4\",\n    \"@react-router/serve\": \"7.18.4\","
+              },
+              "after": {
+                "startLine": 17,
+                "code": "    \"@react-router/node\": \"8.5.0\",\n    \"@react-router/serve\": \"8.5.0\","
+              }
+            },
+            {
+              "before": {
+                "startLine": 26,
+                "code": "    \"react-router\": \"7.18.4\""
+              },
+              "after": {
+                "startLine": 26,
+                "code": "    \"react-router\": \"8.5.0\""
+              }
+            },
+            {
+              "before": {
+                "startLine": 29,
+                "code": "    \"@react-router/dev\": \"7.18.4\","
+              },
+              "after": {
+                "startLine": 29,
+                "code": "    \"@react-router/dev\": \"8.5.0\","
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paths": [
+        "apps/react-router-lab/app/routes/scenarios.shopping-detail-ssr.tsx"
+      ],
+      "reason": "Router 8에서 meta 함수의 data 인자가 제거되어 상품명 제목을 loaderData에서 읽도록 바꿨습니다.",
+      "before": "meta({ data }) → data?.product",
+      "after": "meta({ loaderData }) → loaderData?.product",
+      "recommendation": "meta 함수와 matches에서 data 대신 loaderData를 사용합니다.",
+      "sourceIds": [
+        "router"
+      ],
+      "files": [
+        {
+          "path": "apps/react-router-lab/app/routes/scenarios.shopping-detail-ssr.tsx",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 10,
+                "code": "export function meta({ data }: Route.MetaArgs) {\n  return [\n    {\n      title: data?.product\n        ? `${data.product.name} | React Router Shopping Detail SSR`\n        : \"Shopping Detail SSR | React Router Lab\",\n    },"
+              },
+              "after": {
+                "startLine": 10,
+                "code": "export function meta({ loaderData }: Route.MetaArgs) {\n  return [\n    {\n      title: loaderData?.product\n        ? `${loaderData.product.name} | React Router Shopping Detail SSR`\n        : \"Shopping Detail SSR | React Router Lab\",\n    },"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "paths": [
+        "apps/react-router-lab/app/routes/home.tsx",
+        "apps/react-router-lab/app/routes/scenarios.shopping-detail-ssr.tsx",
+        "README.md"
+      ],
+      "reason": "화면과 문서에 적힌 React Router 버전 안내를 실제 설치 버전에 맞췄습니다.",
+      "before": "React Router v7 안내 문구",
+      "after": "React Router v8 안내 문구",
+      "recommendation": null,
+      "sourceIds": [],
+      "files": [
+        {
+          "path": "apps/react-router-lab/app/routes/home.tsx",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 14,
+                "code": "      <p>모노레포 비교 실험용 React Router v7 Framework Mode 앱입니다.</p>"
+              },
+              "after": {
+                "startLine": 14,
+                "code": "      <p>모노레포 비교 실험용 React Router v8 Framework Mode 앱입니다.</p>"
+              }
+            }
+          ]
+        },
+        {
+          "path": "apps/react-router-lab/app/routes/scenarios.shopping-detail-ssr.tsx",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 19,
+                "code": "      content: \"React Router v7 loader direct Supabase SSR shopping detail scenario\","
+              },
+              "after": {
+                "startLine": 19,
+                "code": "      content: \"React Router v8 loader direct Supabase SSR shopping detail scenario\","
+              }
+            }
+          ]
+        },
+        {
+          "path": "README.md",
+          "excerpts": [
+            {
+              "before": {
+                "startLine": 12,
+                "code": "- `apps/react-router-lab`: React Router v7 Framework Mode 실험 앱"
+              },
+              "after": {
+                "startLine": 12,
+                "code": "- `apps/react-router-lab`: React Router v8 Framework Mode 실험 앱"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
