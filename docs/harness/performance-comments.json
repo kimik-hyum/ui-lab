@@ -2,6 +2,31 @@
   "schemaVersion": 1,
   "comments": [
     {
+      "id": "react-router-8-baseline-2026-10-27",
+      "framework": "react-router-lab",
+      "packageName": "react-router",
+      "fromVersion": "8.5.0",
+      "toVersion": "8.5.0",
+      "comparisonId": "react-router-8-2026-10-27",
+      "scenarioPath": "/scenarios/shopping-detail-ssr",
+      "recordedOn": "2026-10-27",
+      "status": "observed",
+      "versionChanges": "React Router 7.18.4 → 8.5.0 버전업 후의 새 기준 측정입니다. v8에서는 middleware·라우트 모듈 분할·Vite Environment API 등 v7 future 플래그가 기본 동작이 되고 meta의 data 인자가 제거됐습니다. React·Vite·supabase-js는 그대로입니다.",
+      "code": {
+        "kind": "migration",
+        "description": "meta 함수가 상품명을 loaderData에서 읽도록 이전했습니다. 상품 상세의 loader 조회·blocking SSR·화면 구현은 유지했고, 별도 성능 최적화는 적용하지 않았습니다."
+      },
+      "observation": "SSR 20회 콘텐츠 도착 중앙값은 309.13ms(p95 331.95ms)이며, 같은 실행의 앱→Supabase 응답 중앙값(제한 프록시 포함)은 약 182ms입니다. Lighthouse 5회 중 점수 중앙 실행은 87점·LCP 2.37초이고, 그중 약 2.14초가 외부 상품 이미지 다운로드입니다.",
+      "conclusion": "변경 후 기준값입니다. 7.18.4 기록과 측정 세션이 다르고 SSR 요청 User-Agent, Lighthouse의 Node·Chrome 버전도 달라 증감률을 계산하지 않습니다. 이번 측정에서 SSR은 Supabase 응답, LCP는 외부 이미지 로딩의 비중이 컸습니다. React Router 8 자체의 영향은 같은 세션의 전후 측정으로 확인해야 합니다.",
+      "sources": [
+        { "title": "React Router v7 → v8 공식 이전 가이드", "url": "https://reactrouter.com/upgrading/v7" }
+      ],
+      "measurements": [
+        { "kind": "ssr", "before": null, "after": "ssr-2026-10-27T05-34-58-094Z" },
+        { "kind": "lighthouse", "before": null, "after": "lighthouse-2026-10-27T05-35-18-046Z" }
+      ]
+    },
+    {
       "id": "next-blocking-baseline-2026-10-25",
       "framework": "next-lab",
       "packageName": "next",

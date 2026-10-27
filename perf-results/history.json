@@ -2,6 +2,178 @@
   "schemaVersion": 1,
   "records": [
     {
+      "id": "lighthouse-2026-10-27T05-35-18-046Z",
+      "kind": "lighthouse",
+      "generatedAt": "2026-10-27T05:35:18.046Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 5,
+      "warmup": 3,
+      "preset": "desktop",
+      "expectedText": null,
+      "environment": {
+        "node": "v24.22.1",
+        "platform": "Darwin 25.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": {
+        "commit": "9c425b8c8f7b8d5d8dc0b6827556c7e38d9ea324",
+        "dirty": true
+      },
+      "network": {
+        "id": "1mbps-100ms",
+        "label": "1 Mbps · 추가 지연 100 ms",
+        "downloadKbps": 1000,
+        "uploadKbps": 1000,
+        "latencyMs": 100,
+        "cpuSlowdownMultiplier": 1,
+        "browserMethod": "devtools",
+        "ssrMethod": "http-body-proxy",
+        "backendMethod": "http-body-proxy",
+        "backend": "live-supabase",
+        "scope": "브라우저→앱·이미지 / SSR 도구→앱 / 앱→Supabase",
+        "limitation": "HTTP 요청별 본문 속도 제한과 추가 지연. 실제 Supabase 처리·인터넷 지연은 포함되며 패킷 단위의 완전한 회선 재현은 아님."
+      },
+      "comparison": {
+        "id": "react-router-8-2026-10-27",
+        "cohort": "current",
+        "harnessSha256": null
+      },
+      "measurementTool": {
+        "lighthouseVersion": "13.1.0",
+        "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36"
+      },
+      "targets": [
+        {
+          "name": "react-router-lab",
+          "renderingMode": "blocking",
+          "versions": {
+            "react": "19.3.1",
+            "react-router": "8.5.0",
+            "vite": "8.3.4",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "fcpMs": 395.67,
+            "lcpMs": 2374.17,
+            "tbtMs": 0,
+            "cls": 0,
+            "speedIndexMs": 1150,
+            "inpMs": null
+          },
+          "distribution": null,
+          "checklist": null,
+          "medianPerformanceScore": 87,
+          "medianRun": 3
+        }
+      ]
+    },
+    {
+      "id": "ssr-2026-10-27T05-34-58-094Z",
+      "kind": "ssr",
+      "generatedAt": "2026-10-27T05:34:58.094Z",
+      "mode": "isolated",
+      "path": "/scenarios/shopping-detail-ssr",
+      "runs": 20,
+      "warmup": 3,
+      "preset": null,
+      "expectedText": "Wireless Headphones X1",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/155.0.0.0 Safari/537.36",
+      "environment": {
+        "node": "v24.22.1",
+        "platform": "Darwin 25.5.0",
+        "arch": "arm64",
+        "cpu": "Apple M1 Pro",
+        "timeZone": "Asia/Seoul"
+      },
+      "source": {
+        "commit": "9c425b8c8f7b8d5d8dc0b6827556c7e38d9ea324",
+        "dirty": false
+      },
+      "network": {
+        "id": "1mbps-100ms",
+        "label": "1 Mbps · 추가 지연 100 ms",
+        "downloadKbps": 1000,
+        "uploadKbps": 1000,
+        "latencyMs": 100,
+        "cpuSlowdownMultiplier": 1,
+        "browserMethod": "devtools",
+        "ssrMethod": "http-body-proxy",
+        "backendMethod": "http-body-proxy",
+        "backend": "live-supabase",
+        "scope": "브라우저→앱·이미지 / SSR 도구→앱 / 앱→Supabase",
+        "limitation": "HTTP 요청별 본문 속도 제한과 추가 지연. 실제 Supabase 처리·인터넷 지연은 포함되며 패킷 단위의 완전한 회선 재현은 아님."
+      },
+      "comparison": {
+        "id": "react-router-8-2026-10-27",
+        "cohort": "current",
+        "harnessSha256": null
+      },
+      "targets": [
+        {
+          "name": "react-router-lab",
+          "renderingMode": "blocking",
+          "versions": {
+            "react": "19.3.1",
+            "react-router": "8.5.0",
+            "vite": "8.3.4",
+            "@supabase/supabase-js": "2.103.0"
+          },
+          "versionEvidence": {
+            "kind": "installed",
+            "reference": "측정 시 설치 패키지"
+          },
+          "medianMetrics": {
+            "responseStartMs": 298.13,
+            "ttfbMs": 309.13,
+            "contentReadyMs": 309.13,
+            "totalMs": 335.38,
+            "htmlBytes": 7037
+          },
+          "distribution": {
+            "responseStartMs": {
+              "min": 285.49,
+              "median": 298.13,
+              "p95": 315.35
+            },
+            "ttfbMs": {
+              "min": 296.54,
+              "median": 309.13,
+              "p95": 331.95
+            },
+            "contentReadyMs": {
+              "min": 296.54,
+              "median": 309.13,
+              "p95": 331.95
+            },
+            "totalMs": {
+              "min": 319.72,
+              "median": 335.38,
+              "p95": 354.13
+            },
+            "htmlBytes": {
+              "min": 7037,
+              "median": 7037,
+              "p95": 7037
+            }
+          },
+          "checklist": {
+            "statusOk": true,
+            "expectedTextOk": true,
+            "contentReadyOk": true
+          },
+          "medianPerformanceScore": null,
+          "medianRun": null
+        }
+      ]
+    },
+    {
       "id": "lighthouse-2026-10-25T00-51-30-127Z",
       "kind": "lighthouse",
       "generatedAt": "2026-10-25T00:51:30.127Z",
