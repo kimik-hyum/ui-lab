@@ -30,7 +30,7 @@ export default function Sidebar({
               ? pathname === item.href
               : pathname === item.href || pathname.startsWith(`${item.href}/`) ||
                 item.matchPaths?.some((path) => pathname === path || pathname.startsWith(`${path}/`));
-            const className = `sidebar-link relative flex min-h-11 items-center gap-3 rounded-lg px-3 text-[13px] font-medium ${presentation ? "text-white" : active ? "bg-primary text-white" : "text-sidebar-foreground"}`;
+            const className = `sidebar-link relative flex min-h-11 items-center gap-3 rounded-lg px-3 text-[13px] font-medium ${presentation ? "text-white" : active ? "z-20 bg-primary text-white" : "text-sidebar-foreground"}`;
             const content = <>
               <LabIcon name={item.icon} className="h-[18px] w-[18px] shrink-0" />
               <span className="sidebar-label whitespace-nowrap">{item.label}</span>
