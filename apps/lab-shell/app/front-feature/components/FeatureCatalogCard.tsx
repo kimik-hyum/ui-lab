@@ -12,10 +12,7 @@ export function FeatureCatalogCard({
 }) {
   const isExperiment = purpose === "experiment";
   const available = feature.status === "available" && Boolean(feature.href);
-  const Heading = isExperiment ? "h2" : "h3";
-  const className = `group flex min-w-0 flex-col rounded-xl border p-5 transition-colors ${
-    isExperiment ? "grow basis-full md:basis-[calc((100%-1rem)/2)] 2xl:basis-[calc((100%-3rem)/4)]" : ""
-  } ${
+  const className = `group flex w-full min-w-0 flex-col rounded-xl border p-5 transition-colors ${isExperiment ? "" : "h-full"} ${
     available
       ? "border-border bg-white hover:border-primary/40"
       : "border-dashed border-border bg-surface"
@@ -43,9 +40,9 @@ export function FeatureCatalogCard({
           {available ? "실행 가능" : "준비 중"}
         </span>
       </div>
-      <Heading className="text-[16px] font-semibold leading-snug tracking-tight text-foreground">
+      <h2 className="text-[16px] font-semibold leading-snug tracking-tight text-foreground">
         {feature.title}
-      </Heading>
+      </h2>
       <p className="mt-2 mb-5 text-[13px] leading-relaxed text-muted-foreground">
         {feature.description}
       </p>

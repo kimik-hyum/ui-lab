@@ -1,7 +1,7 @@
 import Link from "next/link";
 import LabIcon from "./components/LabIcon";
 import FeaturedComparison from "./components/FeaturedComparison";
-import { labExperiments, featureComparisons } from "./lib/lab-navigation";
+import { labExperiments, featureComparisons, featureNavigationItems } from "./lib/lab-navigation";
 import {
   getPerformanceSnapshot,
   getSsrChart,
@@ -144,15 +144,23 @@ export default function Home() {
       </div>
 
       <section id="workspace-areas" aria-label="작업 공간" className="grid scroll-mt-24 gap-5 md:grid-cols-2">
-        {[
-          { title: "실험실", href: "/void-ui", icon: "flask" as const, count: labExperiments.length, description: "직접 구상한 아이디어를 UI로 구현합니다.", detail: "무한스크롤 · URL 페이지 복원", action: "아이디어 구현 보기" },
-          { title: "기능 비교", href: "/front-feature", icon: "code" as const, count: featureComparisons.length, description: "같은 문제를 푸는 구현의 실행 결과와 코드를 비교합니다.", detail: "React · Next.js · 라이브러리 · SSR", action: "코드 비교 보기" },
-        ].map((area) => <Link key={area.href} href={area.href} className="group rounded-xl border border-border bg-card p-6 hover:border-primary/40">
-          <div className="mb-5 flex items-center justify-between"><LabIcon name={area.icon} className="h-6 w-6 text-primary" /><span className="font-mono text-xs text-muted-foreground">{area.count}개</span></div>
-          <h2 className="text-xl font-semibold">{area.title}</h2><p className="mt-2 text-sm text-muted-foreground">{area.description}</p>
-          <p className="mt-3 text-xs text-muted-foreground">{area.detail}</p>
-          <span className="mt-6 flex items-center justify-between border-t border-border pt-4 text-xs font-semibold text-primary">{area.action}<LabIcon name="arrow-right" className="h-4 w-4" /></span>
-        </Link>)}
+        <Link href="/void-ui" className="group flex flex-col rounded-xl border border-border bg-card p-6 hover:border-primary/40">
+          <div className="mb-5 flex items-center justify-between"><LabIcon name="flask" className="h-6 w-6 text-primary" /><span className="font-mono text-xs text-muted-foreground">{labExperiments.length}개</span></div>
+          <h2 className="text-xl font-semibold">실험실</h2><p className="mt-2 text-sm text-muted-foreground">직접 구상한 아이디어를 UI로 구현합니다.</p>
+          <p className="mb-6 mt-3 text-xs text-muted-foreground">무한스크롤 · URL 페이지 복원</p>
+          <span className="mt-auto flex items-center justify-between border-t border-border pt-4 text-xs font-semibold text-primary">아이디어 구현 보기<LabIcon name="arrow-right" className="h-4 w-4" /></span>
+        </Link>
+        <div className="flex flex-col rounded-xl border border-border bg-card p-6">
+          <div className="mb-5 flex items-center justify-between"><LabIcon name="code" className="h-6 w-6 text-primary" /><span className="font-mono text-xs text-muted-foreground">{featureComparisons.length}개</span></div>
+          <h2 className="text-xl font-semibold">기능 비교</h2><p className="mb-6 mt-2 text-sm text-muted-foreground">같은 문제를 푸는 구현의 실행 결과와 코드를 비교합니다.</p>
+          <nav aria-label="기능 비교 카테고리" className="mt-auto grid grid-cols-2 gap-2 border-t border-border pt-4">
+            {featureNavigationItems.map((item) => (
+              <Link key={item.href} href={item.href} className="flex min-h-10 items-center justify-between gap-2 rounded-lg px-2 text-xs font-semibold text-primary hover:bg-primary-subtle">
+                {item.label}<LabIcon name="arrow-right" className="h-3.5 w-3.5 shrink-0" />
+              </Link>
+            ))}
+          </nav>
+        </div>
       </section>
 
       <footer className="flex flex-wrap items-center justify-between gap-2 border-t border-border pt-5 font-mono text-[9px] text-subtle-foreground">

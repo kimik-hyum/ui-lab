@@ -78,7 +78,14 @@ function WorkspaceShell({ children }: { children: ReactNode }) {
         <nav aria-label="현재 위치" className="flex min-w-0 items-center gap-2.5 text-xs">
           <Link href="/" className="hidden shrink-0 text-muted-foreground hover:text-foreground sm:block">Workspace</Link>
           <LabIcon name="chevron-right" className="hidden h-3 w-3 shrink-0 text-subtle-foreground sm:block" />
-          {section && <><Link href={section.href} className="hidden shrink-0 text-muted-foreground hover:text-foreground sm:block">{section.label}</Link><LabIcon name="chevron-right" className="hidden h-3 w-3 shrink-0 text-subtle-foreground sm:block" /></>}
+          {section && <>
+            {section.href ? (
+              <Link href={section.href} className="hidden shrink-0 text-muted-foreground hover:text-foreground sm:block">{section.label}</Link>
+            ) : (
+              <span className="hidden shrink-0 text-muted-foreground sm:block">{section.label}</span>
+            )}
+            <LabIcon name="chevron-right" className="hidden h-3 w-3 shrink-0 text-subtle-foreground sm:block" />
+          </>}
           <span className="truncate font-medium">{currentPage?.label ?? "UI Lab"}</span>
         </nav>
       </div>

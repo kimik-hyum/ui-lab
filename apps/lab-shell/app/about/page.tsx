@@ -1,5 +1,6 @@
 import Link from "next/link";
 import LabIcon from "../components/LabIcon";
+import { featureNavigationItems } from "../lib/lab-navigation";
 
 export default function AboutPage() {
   return (
@@ -24,12 +25,18 @@ export default function AboutPage() {
             <p className="mt-2 mb-5 text-[13px] leading-relaxed text-muted-foreground">동일한 상품 상세 시나리오를 여러 프레임워크로 구현하고, 콘텐츠 도착 시간과 응답 특성을 살펴봅니다.</p>
             <span className="mt-auto flex items-center justify-between border-t border-border pt-4 text-[11px] font-semibold text-primary">측정 결과 보기<LabIcon name="arrow-right" className="h-3.5 w-3.5" /></span>
           </Link>
-          <Link href="/front-feature" className="flex min-w-0 flex-col rounded-xl border border-border bg-white p-5 transition-colors hover:border-primary/40">
+          <div className="flex min-w-0 flex-col rounded-xl border border-border bg-white p-5">
             <LabIcon name="code" className="mb-5 h-6 w-6 text-primary" />
             <h3 className="text-base font-semibold">기능 비교</h3>
             <p className="mt-2 mb-5 text-[13px] leading-relaxed text-muted-foreground">React와 Next.js의 기능을 기존 구현과 나란히 놓고, 코드 복잡도와 실제 동작의 차이를 확인합니다.</p>
-            <span className="mt-auto flex items-center justify-between border-t border-border pt-4 text-[11px] font-semibold text-primary">기능 둘러보기<LabIcon name="arrow-right" className="h-3.5 w-3.5" /></span>
-          </Link>
+            <nav aria-label="기능 비교 카테고리" className="mt-auto grid grid-cols-2 gap-2 border-t border-border pt-4">
+              {featureNavigationItems.map((item) => (
+                <Link key={item.href} href={item.href} className="flex min-h-10 items-center justify-between gap-2 rounded-lg px-2 text-[11px] font-semibold text-primary hover:bg-primary-subtle">
+                  {item.label}<LabIcon name="arrow-right" className="h-3.5 w-3.5 shrink-0" />
+                </Link>
+              ))}
+            </nav>
+          </div>
           <Link href="/void-ui" className="flex min-w-0 flex-col rounded-xl border border-border bg-white p-5 transition-colors hover:border-primary/40">
             <LabIcon name="layers" className="mb-5 h-6 w-6 text-primary" />
             <h3 className="text-base font-semibold">실험실</h3>

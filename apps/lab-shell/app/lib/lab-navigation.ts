@@ -9,19 +9,20 @@ import { LAB_SECTIONS } from "../void-ui/catalog";
 export type NavigationItem = { label: string; href: string; icon: LabIconName; exact?: boolean; matchPaths?: string[] };
 type CatalogEntry = { title: string; description: string; href: string; category: "React" | "Next.js" | "실험실" | "라이브러리" | "SSR"; tag: string; icon: LabIconName };
 
+export const featureNavigationItems: NavigationItem[] = [
+  { label: "React", href: "/front-feature/react", icon: "react" },
+  { label: "Next.js", href: "/front-feature/nextjs", icon: "next" },
+  { label: "라이브러리 비교", href: "/front-feature/libraries", icon: "code" },
+  { label: "SSR 구현 비교", href: "/front-feature/ssr", icon: "layers", matchPaths: ["/ssr-lab"] },
+];
+
 export const navigationGroups: { title: string; items: NavigationItem[] }[] = [
   { title: "워크스페이스", items: [
     { label: "프로젝트 개요", href: "/", icon: "grid", exact: true },
     { label: "실험실", href: "/void-ui", icon: "flask" },
     { label: "성능 측정", href: "/performance", icon: "gauge" },
   ] },
-  { title: "기능 비교", items: [
-    { label: "전체 코드 비교", href: "/front-feature", icon: "code", exact: true },
-    { label: "React", href: "/front-feature/react", icon: "react" },
-    { label: "Next.js", href: "/front-feature/nextjs", icon: "next" },
-    { label: "라이브러리 비교", href: "/front-feature/libraries", icon: "code" },
-    { label: "SSR 구현 비교", href: "/front-feature/ssr", icon: "layers", matchPaths: ["/ssr-lab"] },
-  ] },
+  { title: "기능 비교", items: featureNavigationItems },
   { title: "리소스", items: [
     { label: "버전업 로그", href: "/upgrade-logs", icon: "clock" },
     { label: "프로젝트 소개", href: "/about", icon: "info" },
@@ -54,7 +55,7 @@ export function getPageSection(pathname: string) {
   if (pathname.startsWith("/performance/")) return { label: "성능 측정", href: "/performance" };
   if (pathname.startsWith("/void-ui/")) return { label: "실험실", href: "/void-ui" };
   if (pathname.startsWith("/front-feature/") || pathname.startsWith("/ssr-lab/")) {
-    return { label: "기능 비교", href: "/front-feature" };
+    return { label: "기능 비교", href: null };
   }
   return null;
 }
