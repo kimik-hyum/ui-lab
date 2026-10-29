@@ -8,6 +8,7 @@ import { createConnectionSource } from "./connection-source";
 import type { NotificationTheme, RoomId } from "./connection-source";
 import { ReactiveConnection } from "./components/ReactiveConnection";
 import { EffectEventConnection } from "./components/EffectEventConnection";
+import { REACT_IMPLEMENTATION_LABELS } from "../comparison-labels";
 
 const TOPICS = [
   { id: "connection", title: "연결 조건과 표시 설정을 구분", description: "theme를 의존성에 포함한 Effect는 테마 변경마다 정리·재연결됩니다. Effect Event 구현은 room만 연결 조건으로 남깁니다. 알림 표현을 바꿀 때 불필요한 연결 교체를 줄입니다.", left: [13, 16, 17], right: [16, 17, 19, 20] },
@@ -38,9 +39,10 @@ export function EffectEventClientPage({ reactiveCode, eventCode }: { reactiveCod
 
   return (
     <ComparisonTemplate
+      implementationLabels={REACT_IMPLEMENTATION_LABELS}
       title="useEffectEvent · 테마를 바꿨는데 왜 다시 연결될까요?"
-      description="테마 변경 후 알림을 보내세요. 오른쪽은 연결을 유지하면서도 최신 테마를 읽습니다. 방을 바꾸면 양쪽 모두 재연결됩니다."
-      leftTitle="Effect 의존성에 theme 포함" rightTitle="Effect Event로 표시 설정 분리"
+      description="useEffect의 의존성으로 최신 테마를 반영하는 기본 구현과 useEffectEvent로 알림 로직을 분리한 구현을 비교합니다. 테마와 방을 바꾸며 재연결 여부와 알림에 적용되는 테마를 확인하세요."
+      leftTitle="useEffect · 의존성으로 최신 값 반영" rightTitle="useEffectEvent · 알림 로직 분리"
       leftCode={reactiveCode} rightCode={eventCode} topics={topics}
       headerActions={
         <div className="flex flex-wrap items-center gap-2 text-xs">

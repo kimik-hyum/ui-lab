@@ -6,6 +6,7 @@ import { OptimisticList } from '../react/optimistic/components/OptimisticList';
 import type { OptimisticAction, Todo } from '../react/optimistic/types';
 import { ComparisonTemplate, ComparisonTopic } from './ComparisonTemplate';
 import { collectAnchorLines, resolveTopicLines } from './codeAnchors';
+import { REACT_IMPLEMENTATION_LABELS } from '../react/comparison-labels';
 
 type TopicDefinition = {
   id: string;
@@ -144,9 +145,10 @@ export function ClientPage({ traditionalCode, optimisticCode }: { traditionalCod
 
   return (
     <ComparisonTemplate
+        implementationLabels={REACT_IMPLEMENTATION_LABELS}
         title="낙관적 업데이트 · 실패하면 어떻게 되돌릴까요?"
-        description="항목을 먼저 표시하고 실패하면 되돌립니다. 2초는 상태 관찰용 지연이며 실제 서버 저장이나 속도 측정이 아닙니다."
-        leftTitle="수동 상태 관리 + 롤백"
+        description="useState로 항목 추가·상태 동기화·실패 복구를 직접 작성한 구현과 useOptimistic에 낙관 상태를 맡긴 구현을 비교합니다. 2초는 관찰용 지연이며 실제 서버 저장이나 속도 측정이 아닙니다."
+        leftTitle="useState · 상태 관리와 롤백"
         rightTitle="useOptimistic + 자동 복원"
         leftCode={traditionalCode}
         rightCode={optimisticCode}

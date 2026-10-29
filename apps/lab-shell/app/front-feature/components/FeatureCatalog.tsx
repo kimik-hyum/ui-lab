@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import LabIcon from "../../components/LabIcon";
 import { FeatureCatalogCard } from "./FeatureCatalogCard";
 import { FeatureCatalogFilter } from "./FeatureCatalogFilter";
@@ -47,51 +48,23 @@ export function FeatureCatalog({ title, description, sections, purpose = "compar
             </span>
           </div>
         </div>
-        {!isExperiment && (
-          <nav aria-label="카탈로그 섹션" className="flex flex-wrap gap-2 border-b border-border pb-5">
-            {visibleSections.map((section) => (
-              <a
-                key={section.id}
-                href={`#${section.id}`}
-                className="flex min-h-10 items-center gap-2 rounded-lg border border-border bg-white px-3.5 text-xs font-medium text-muted-foreground transition-colors hover:border-primary/30 hover:bg-primary-subtle hover:text-primary"
-              >
-                {section.title}
-                <span className="font-mono text-[10px] text-subtle-foreground">{section.features.length}</span>
-              </a>
-            ))}
-          </nav>
-        )}
       </header>
 
-      {isExperiment ? (
+      <Suspense fallback={<p role="status" className="text-sm text-muted-foreground">목록을 불러오는 중입니다.</p>}>
         <FeatureCatalogFilter
+          key={title}
+          purpose={purpose}
           categories={visibleSections.map((section) => ({
             id: section.id,
             title: section.title,
-            cards: section.features.map((feature) => (
-              <FeatureCatalogCard key={`${section.id}:${feature.id}`} feature={feature} purpose="experiment" />
-            )),
+            subtitle: section.subtitle,
+            cards: section.features.map((feature) => ({
+              id: `${section.id}:${feature.id}`,
+              content: <FeatureCatalogCard feature={feature} purpose={purpose} />,
+            })),
           }))}
         />
-      ) : (
-        <div className="space-y-9">
-          {visibleSections.map((section) => (
-            <section key={section.id} id={section.id} aria-labelledby={`${section.id}-title`} className="scroll-mt-24">
-              <div className="mb-4 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <h2 id={`${section.id}-title`} className="text-[17px] font-semibold tracking-tight text-foreground">
-                  {section.title}
-                </h2>
-                <p className="text-xs text-muted-foreground">{section.subtitle}</p>
-              </div>
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2 min-[1500px]:grid-cols-3">
-                {section.features.map((feature) => (
-                  <FeatureCatalogCard key={feature.id} feature={feature} />
-                ))}
-              </div>
-            </section>
-          ))}
-        </div>
-      )}
+      </Suspense>
     </main>
   );
 }

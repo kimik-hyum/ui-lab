@@ -30,7 +30,7 @@ export default function Sidebar({
               ? pathname === item.href
               : pathname === item.href || pathname.startsWith(`${item.href}/`) ||
                 item.matchPaths?.some((path) => pathname === path || pathname.startsWith(`${path}/`));
-            const className = `sidebar-link relative flex min-h-11 items-center gap-3 rounded-lg px-3 text-[13px] font-medium ${presentation ? "text-white" : active ? "bg-primary text-white" : "text-sidebar-foreground"}`;
+            const className = `sidebar-link relative flex min-h-11 items-center gap-3 rounded-lg px-3 text-[13px] font-medium ${presentation ? "text-white" : active ? "z-20 bg-primary text-white" : "text-sidebar-foreground"}`;
             const content = <>
               <LabIcon name={item.icon} className="h-[18px] w-[18px] shrink-0" />
               <span className="sidebar-label whitespace-nowrap">{item.label}</span>
@@ -120,12 +120,12 @@ export default function Sidebar({
           <div className="sidebar-label rounded-xl border border-sidebar-border bg-white/5 p-3.5">
             <span className="flex items-center gap-2 text-[11px] font-semibold text-white">
               <span className="h-1.5 w-1.5 rounded-full bg-primary" />
-              작게 만들고, 직접 검증하기
+              나만의 답을 만드는 실험실
             </span>
             <p className="mt-2 text-[11px] leading-relaxed text-sidebar-foreground">
-              같은 문제, 다른 구현.
+              궁금한 것은 만들어보고,
               <br />
-              코드와 결과로 차이를 발견합니다.
+              선택에는 이유를 남깁니다.
             </p>
           </div>
           <a
