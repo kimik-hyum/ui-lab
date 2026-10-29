@@ -15,6 +15,7 @@ interface ComparisonTemplateProps {
   description: React.ReactNode;
   leftTitle: string;
   rightTitle: string;
+  implementationLabels?: { left: string; right: string };
   leftCode: string;
   rightCode: string;
   topics: ComparisonTopic[];
@@ -26,9 +27,12 @@ interface ComparisonTemplateProps {
 }
 
 export function ComparisonTemplate({
-  title, description, leftTitle, rightTitle, leftCode, rightCode, topics,
+  title, description, leftTitle, rightTitle, implementationLabels, leftCode, rightCode, topics,
   leftComponent, rightComponent, headerActions, footer, codeActions,
 }: ComparisonTemplateProps) {
+  const leftLabel = implementationLabels?.left ?? '기존 구현';
+  const rightLabel = implementationLabels?.right ?? '비교 구현';
+  const rightMobileLabel = implementationLabels?.right ?? '기능 적용';
   const [showCode, setShowCode] = useState(false);
   const [mobileSide, setMobileSide] = useState<'left' | 'right'>('left');
   const [selectedTopicId, setSelectedTopicId] = useState<string | null>(topics[0]?.id ?? null);
@@ -124,9 +128,9 @@ export function ComparisonTemplate({
 
         <div role="group" aria-label="비교 대상" className="mx-5 mt-4 grid shrink-0 grid-cols-2 gap-1 rounded-lg border border-border bg-white p-1 sm:mx-7 lg:hidden">
           {(['left', 'right'] as const).map((side) => (
-            <Button variant="ghost" type="button" key={side} aria-label={side === 'left' ? 'A 기존 구현' : 'B 기능 적용'} aria-pressed={mobileSide === side} onClick={() => changeSide(side)}
+            <Button variant="ghost" type="button" key={side} aria-label={side === 'left' ? `A ${leftLabel}` : `B ${rightMobileLabel}`} aria-pressed={mobileSide === side} onClick={() => changeSide(side)}
               className={`min-h-11 min-w-0 rounded-md px-3 text-xs font-semibold ${mobileSide === side ? 'bg-primary-subtle text-primary' : 'text-muted-foreground'}`}>
-              <span className="mr-2 font-mono">{side === 'left' ? 'A' : 'B'}</span>{side === 'left' ? '기존 구현' : '기능 적용'}
+              <span className="mr-2 font-mono">{side === 'left' ? 'A' : 'B'}</span>{side === 'left' ? leftLabel : rightMobileLabel}
             </Button>
           ))}
         </div>
@@ -138,10 +142,10 @@ export function ComparisonTemplate({
               return <section key={side} aria-label={isLeft ? leftTitle : rightTitle} className={`${mobileSide === side ? 'flex' : 'hidden lg:flex'} min-w-0 flex-col overflow-hidden rounded-xl border border-border bg-card`}>
                 <div className="flex min-h-16 items-center gap-3 border-b border-border px-5 py-3">
                   <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-lg font-mono text-xs font-semibold ${isLeft ? 'bg-surface-elevated text-muted-foreground' : 'bg-primary-subtle text-primary'}`}>{isLeft ? 'A' : 'B'}</span>
-                  <div className="min-w-0"><p className="mb-0.5 text-xs text-muted-foreground">{isLeft ? '기존 구현' : '비교 구현'}</p><h2 className="text-sm font-semibold">{isLeft ? leftTitle : rightTitle}</h2></div>
+                  <div className="min-w-0"><p className="mb-0.5 text-xs text-muted-foreground">{isLeft ? leftLabel : rightLabel}</p><h2 className="text-sm font-semibold">{isLeft ? leftTitle : rightTitle}</h2></div>
                 </div>
                 {mode === 'preview' ? <div className="min-h-64 p-4 lg:p-5">{isLeft ? leftComponent : rightComponent}</div> : <div className="h-[clamp(360px,55dvh,640px)] min-w-0 p-2.5">
-                  <ComparisonCodeBlock code={stripAnchorLines(isLeft ? leftCode : rightCode)} title={isLeft ? 'A · 기존 구현' : 'B · 비교 구현'} badge="TSX" color={isLeft ? 'red' : 'blue'}
+                  <ComparisonCodeBlock code={stripAnchorLines(isLeft ? leftCode : rightCode)} title={isLeft ? `A · ${leftLabel}` : `B · ${rightLabel}`} badge="TSX" color={isLeft ? 'red' : 'blue'}
                     sourceLabel={isLeft ? leftTitle : rightTitle}
                     highlightedLines={(isLeft ? activeTopic?.leftLines : activeTopic?.rightLines) ?? []} interactiveLines={isLeft ? allLeftLines : allRightLines}
                     onLineHover={(line) => handleLineHover(side, line)}

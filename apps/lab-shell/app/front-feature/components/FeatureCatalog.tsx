@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import LabIcon from "../../components/LabIcon";
 import { FeatureCatalogCard } from "./FeatureCatalogCard";
 import { FeatureCatalogFilter } from "./FeatureCatalogFilter";
@@ -49,19 +50,21 @@ export function FeatureCatalog({ title, description, sections, purpose = "compar
         </div>
       </header>
 
-      <FeatureCatalogFilter
-        key={title}
-        purpose={purpose}
-        categories={visibleSections.map((section) => ({
-          id: section.id,
-          title: section.title,
-          subtitle: section.subtitle,
-          cards: section.features.map((feature) => ({
-            id: `${section.id}:${feature.id}`,
-            content: <FeatureCatalogCard feature={feature} purpose={purpose} />,
-          })),
-        }))}
-      />
+      <Suspense fallback={<p role="status" className="text-sm text-muted-foreground">목록을 불러오는 중입니다.</p>}>
+        <FeatureCatalogFilter
+          key={title}
+          purpose={purpose}
+          categories={visibleSections.map((section) => ({
+            id: section.id,
+            title: section.title,
+            subtitle: section.subtitle,
+            cards: section.features.map((feature) => ({
+              id: `${section.id}:${feature.id}`,
+              content: <FeatureCatalogCard feature={feature} purpose={purpose} />,
+            })),
+          }))}
+        />
+      </Suspense>
     </main>
   );
 }

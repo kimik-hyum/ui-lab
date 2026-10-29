@@ -1,6 +1,7 @@
 "use client";
 
-import { forwardRef, useId, useState, type ReactNode } from "react";
+import { forwardRef, useId, type ReactNode } from "react";
+import { useSearchParams } from "next/navigation";
 import { AnimatePresence, motion, useIsPresent, useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/button";
 
@@ -49,12 +50,13 @@ export function FeatureCatalogFilter({ categories, purpose = "experiment" }: {
   categories: CatalogCategory[];
   purpose?: "comparison" | "experiment";
 }) {
-  const [categoryId, setCategoryId] = useState<string | null>(null);
+  const searchParams = useSearchParams();
   const cardsId = useId();
   const reduceMotion = Boolean(useReducedMotion());
   const isExperiment = purpose === "experiment";
   const itemLabel = isExperiment ? "실험" : "비교";
-  const selectedCategory = categories.find((category) => category.id === categoryId);
+  const selectedCategory = categories.find((category) => category.id === searchParams.get("category"));
+  const categoryId = selectedCategory?.id ?? null;
   const cards = categories
     .filter((category) => categoryId === null || category.id === categoryId)
     .flatMap((category) => category.cards);
@@ -62,6 +64,15 @@ export function FeatureCatalogFilter({ categories, purpose = "experiment" }: {
     { id: null, title: "전체", count: categories.reduce((count, category) => count + category.cards.length, 0) },
     ...categories.map((category) => ({ id: category.id, title: category.title, count: category.cards.length })),
   ];
+
+  function selectCategory(id: string | null) {
+    const url = new URL(window.location.href);
+    if (id === null) url.searchParams.delete("category");
+    else url.searchParams.set("category", id);
+
+    // Next.js synchronizes native history changes without fetching the page again.
+    if (url.href !== window.location.href) window.history.pushState(null, "", url);
+  }
 
   return (
     <div className="space-y-6">
@@ -75,7 +86,7 @@ export function FeatureCatalogFilter({ categories, purpose = "experiment" }: {
               variant="outline"
               aria-pressed={selected}
               aria-controls={cardsId}
-              onClick={() => setCategoryId(filter.id)}
+              onClick={() => selectCategory(filter.id)}
               className={`h-10 gap-2 rounded-lg px-3.5 text-xs ${
                 selected
                   ? "border-primary bg-primary text-white hover:bg-primary-hover hover:text-white"

@@ -28,8 +28,9 @@ export default function PerformancePage() {
         <div>
           <p className="mb-2 font-mono text-[11px] font-medium tracking-[0.16em] text-primary">PERFORMANCE LAB</p>
           <h1 className="text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">성능 측정</h1>
+          <p className="mt-3 text-sm font-medium text-foreground">선택에 근거를 더합니다.</p>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-muted-foreground">
-            SSR 응답과 Lighthouse의 저장된 측정 결과를 실행 환경·조건과 함께 확인합니다.
+            같은 조건에서 측정한 SSR 응답과 Lighthouse 결과를 비교합니다. 속도뿐 아니라 측정 환경과 구현 방식까지 함께 확인합니다.
           </p>
         </div>
         <div className="flex flex-wrap gap-2">

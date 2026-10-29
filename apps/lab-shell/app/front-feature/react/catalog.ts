@@ -4,12 +4,12 @@ export const REACT_VERSION_SECTIONS: FeatureCatalogSection[] = [
   {
     id: "react-19",
     title: "React 19+",
-    subtitle: "새로운 훅/폼 액션 기반 패턴",
+    subtitle: "기본 훅으로 직접 관리하던 상태·Effect와 React 19 기능 적용을 비교합니다.",
     features: [
       {
         id: "optimistic",
         title: "Optimistic Updates",
-        description: "useOptimistic 기반으로 pending 상태와 롤백 처리 복잡도를 비교합니다.",
+        description: "useState로 낙관 상태와 실패 복구를 직접 관리하는 구현과 useOptimistic을 비교합니다.",
         badge: "useOptimistic",
         since: "since React 19",
         status: "available",
@@ -18,7 +18,7 @@ export const REACT_VERSION_SECTIONS: FeatureCatalogSection[] = [
       {
         id: "form-actions",
         title: "Form Actions",
-        description: "수동 제출과 useActionState + useFormStatus의 대기·오류·입력 초기화를 비교합니다.",
+        description: "useState와 onSubmit으로 제출 상태를 직접 관리하는 구현과 useActionState·useFormStatus를 비교합니다.",
         badge: "useActionState",
         since: "since React 19",
         status: "available",
@@ -27,7 +27,7 @@ export const REACT_VERSION_SECTIONS: FeatureCatalogSection[] = [
       {
         id: "activity",
         title: "Activity Hidden Mode",
-        description: "메모를 보존하면서 CSS 숨김과 Activity의 Effect 정리·interval 재시작을 비교합니다.",
+        description: "useState로 CSS 숨김을 전환하는 기본 구현과 숨길 때 Effect도 정리하는 Activity를 비교합니다.",
         badge: "<Activity>",
         since: "since React 19.2",
         status: "available",
@@ -36,7 +36,7 @@ export const REACT_VERSION_SECTIONS: FeatureCatalogSection[] = [
       {
         id: "effect-event",
         title: "Effect Events",
-        description: "테마 변경 시 재연결과 useEffectEvent의 최신 값 읽기를 실제 로컬 구독으로 비교합니다.",
+        description: "useEffect 의존성으로 최신 테마를 반영하는 기본 구현과 useEffectEvent로 읽기 로직을 분리한 구현을 비교합니다.",
         badge: "useEffectEvent",
         since: "since React 19.2",
         status: "available",
@@ -47,12 +47,12 @@ export const REACT_VERSION_SECTIONS: FeatureCatalogSection[] = [
   {
     id: "react-18",
     title: "React 18",
-    subtitle: "동시성/렌더링 전략 중심",
+    subtitle: "useState의 기본 갱신과 React 18의 업데이트 우선순위 기능을 비교합니다.",
     features: [
       {
         id: "transition",
         title: "Transition Patterns",
-        description: "urgent vs non-urgent 업데이트 분리를 비교하는 시나리오를 준비 중입니다.",
+        description: "useState로 함께 갱신하는 기본 구현과 useTransition으로 업데이트 우선순위를 나누는 비교를 준비 중입니다.",
         badge: "useTransition",
         since: "since React 18",
         status: "planned",
@@ -60,7 +60,7 @@ export const REACT_VERSION_SECTIONS: FeatureCatalogSection[] = [
       {
         id: "deferred-value",
         title: "Deferred Rendering",
-        description: "같은 느린 목록을 즉시 갱신하거나 useDeferredValue로 입력 뒤에 갱신하는 흐름을 비교합니다.",
+        description: "useState의 입력값을 목록에 바로 반영하는 기본 구현과 useDeferredValue로 목록 갱신을 늦추는 구현을 비교합니다.",
         badge: "useDeferredValue",
         since: "since React 18",
         status: "available",

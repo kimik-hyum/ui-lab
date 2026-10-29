@@ -6,6 +6,7 @@ import { ComparisonTemplate } from "../../components/ComparisonTemplate";
 import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnchors";
 import { ActivityHiddenDemo } from "./components/ActivityHiddenDemo";
 import { TraditionalHiddenDemo } from "./components/TraditionalHiddenDemo";
+import { REACT_IMPLEMENTATION_LABELS } from "../comparison-labels";
 
 const TOPICS = [
   {
@@ -46,9 +47,10 @@ export function ActivityClientPage({ traditionalCode, activityCode }: {
 
   return (
     <ComparisonTemplate
+      implementationLabels={REACT_IMPLEMENTATION_LABELS}
       title="Activity · 숨김과 Effect 정리"
-      description="양쪽에 메모를 적고 패널을 숨겼다가 다시 표시하세요. 입력 보존과 interval의 정리·재시작을 함께 확인합니다."
-      leftTitle="CSS · 화면만 숨기기"
+      description="useState로 CSS 숨김을 전환하고 useEffect로 타이머를 관리하는 기본 구현과 Activity를 적용한 구현을 비교합니다. 메모를 적고 숨겼다가 다시 표시해 상태 보존과 Effect 정리 차이를 확인하세요."
+      leftTitle="useState + CSS · 화면 숨기기"
       rightTitle="Activity · Effect도 정리하기"
       leftCode={traditionalCode}
       rightCode={activityCode}

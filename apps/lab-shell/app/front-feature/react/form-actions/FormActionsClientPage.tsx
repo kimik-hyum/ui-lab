@@ -6,6 +6,7 @@ import { collectAnchorLines, resolveTopicLines } from "../../components/codeAnch
 import type { ComparisonTopic } from "../../components/ComparisonTypes";
 import { ActionProfileForm } from "./components/ActionProfileForm";
 import { ManualProfileForm } from "./components/ManualProfileForm";
+import { REACT_IMPLEMENTATION_LABELS } from "../comparison-labels";
 
 const TOPICS = [
   { id: "form-state", title: "결과와 진행 상태를 한 흐름으로", description: "onSubmit + 직접 상태 관리 구현은 결과·pending을 각각 갱신합니다. useActionState는 Action의 반환값과 진행 여부를 연결해 상태 전환 누락을 줄입니다.", left: [11, 12, 13], right: [10] },
@@ -29,9 +30,10 @@ export function FormActionsClientPage({ manualCode, actionCode }: { manualCode: 
 
   return (
     <ComparisonTemplate
+      implementationLabels={REACT_IMPLEMENTATION_LABELS}
       title="Form Actions · 제출 상태를 누가 관리할까요?"
-      description="같은 이름 저장 폼으로 성공·오류·재시도를 비교합니다. 800ms는 상태 관찰용 지연이며 실제 서버 저장이나 속도 측정이 아닙니다."
-      leftTitle="onSubmit + 직접 상태 관리" rightTitle="useActionState + useFormStatus"
+      description="useState와 onSubmit으로 제출·대기·오류를 직접 관리한 폼과 useActionState·useFormStatus를 적용한 폼을 비교합니다. 800ms는 관찰용 지연이며 실제 서버 저장이나 속도 측정이 아닙니다."
+      leftTitle="useState + onSubmit" rightTitle="useActionState + useFormStatus"
       leftCode={manualCode} rightCode={actionCode} topics={topics}
       headerActions={<div className="flex flex-wrap items-center gap-3 text-xs text-slate-600"><label className="flex items-center gap-2"><input type="checkbox" checked={shouldFail} onChange={(event) => setShouldFail(event.target.checked)} className="accent-violet-600" />저장 실패 모드</label><button className="rounded-full border border-slate-300 px-3 py-2" onClick={() => { setShouldFail(false); setSession((value) => value + 1); }}>두 폼 초기화</button></div>}
       leftComponent={<ManualProfileForm key={`manual-${session}`} shouldFail={shouldFail} />}

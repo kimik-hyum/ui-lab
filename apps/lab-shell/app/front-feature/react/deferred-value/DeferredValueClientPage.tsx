@@ -9,6 +9,7 @@ import type { PreviewWorkload } from "./types";
 import { ImmediatePreview } from "./components/ImmediatePreview";
 import { DeferredPreview } from "./components/DeferredPreview";
 import styles from "./deferred-value.module.css";
+import { REACT_IMPLEMENTATION_LABELS } from "../comparison-labels";
 
 const TOPICS = [
   { id: "input", title: "입력값은 바로 갱신", description: "양쪽 모두 입력 상태를 즉시 바꿉니다. useDeferredValue 구현도 input에는 최신 text를 연결하므로 타이핑 자체를 지연하지 않습니다.", left: [15, 16], right: [16, 17] },
@@ -32,9 +33,10 @@ export function DeferredValueClientPage({ immediateCode, deferredCode }: { immed
 
   return (
     <ComparisonTemplate
+      implementationLabels={REACT_IMPLEMENTATION_LABELS}
       title="useDeferredValue · 입력과 느린 목록의 우선순위"
-      description="양쪽 입력란에 같은 문구를 연속해서 입력해보세요. 입력값과 목록 기준값이 언제 함께 바뀌는지 관찰합니다."
-      leftTitle="즉시 반영 · 같은 우선순위" rightTitle="useDeferredValue · 입력 우선"
+      description="useState의 입력값을 목록에 바로 전달하는 기본 구현과 useDeferredValue를 적용한 구현을 비교합니다. 같은 문구를 연속해서 입력하며 입력과 느린 목록의 갱신 순서를 확인하세요."
+      leftTitle="useState · 입력과 목록 함께 갱신" rightTitle="useDeferredValue · 입력 우선"
       leftCode={immediateCode} rightCode={deferredCode} topics={topics}
       headerActions={<div className={`${styles.controls} flex flex-wrap items-center gap-2 text-xs`}><label className="flex flex-wrap items-center gap-2 text-slate-600">작업 조건<select aria-label="미리보기 작업 조건" value={workload} onChange={(event) => setWorkload(event.target.value === "0" ? "0" : "1.5")} className="min-h-11 max-w-full rounded-lg border border-slate-300 bg-white px-3 text-sm text-slate-700">{WORKLOAD_OPTIONS.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}</select></label><button onClick={() => { setLeftText(""); setRightText(""); }} className="min-h-11 rounded-lg border border-slate-300 px-3 text-slate-600">양쪽 비우기</button></div>}
       leftComponent={<ImmediatePreview text={leftText} onTextChange={setLeftText} workload={workload} />}

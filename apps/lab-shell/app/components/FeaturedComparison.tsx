@@ -6,7 +6,7 @@ import path from "node:path";
 
 export default async function FeaturedComparison() {
   const definitions = [
-    { label: "A", title: "직접 상태 관리", file: "TraditionalList.tsx", marker: "state-mirroring", primary: "text-amber-300" },
+    { label: "A", title: "useState · 직접 구현", file: "TraditionalList.tsx", marker: "state-mirroring", primary: "text-amber-300" },
     { label: "B", title: "useOptimistic", file: "OptimisticList.tsx", marker: "optimistic-source", primary: "text-blue-300" },
   ];
   const snippets = await Promise.all(definitions.map(async (item) => {
@@ -34,7 +34,7 @@ export default async function FeaturedComparison() {
             같은 동작, 다른 구현.
           </h2>
           <p className="mt-1.5 text-[12px] leading-relaxed text-[#a9bac3]">
-            낙관적 업데이트의 상태 관리, 코드를 나란히 놓고 비교해 보세요.
+            useState로 직접 관리한 낙관적 업데이트와 useOptimistic을 비교해 보세요.
           </p>
         </div>
         <span className="mt-0.5 shrink-0 rounded-md border border-[#3a4c55] bg-[#25343d] px-2 py-1 font-mono text-[9px] text-[#bad4e1]">
