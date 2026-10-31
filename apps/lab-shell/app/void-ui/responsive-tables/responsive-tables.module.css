@@ -1,0 +1,110 @@
+.lab { min-width: 0; }
+.tableTypes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
+.tableTypes button { min-height: 40px; gap: 8px; }
+.tableTypes button > span { font-size: 10px; opacity: 0.7; font-variant-numeric: tabular-nums; }
+.innerIntro { margin-bottom: 20px; padding: 18px 20px; border-left: 3px solid var(--primary); border-radius: 0 10px 10px 0; background: var(--primary-subtle); }
+.innerIntro strong { font-size: 14px; font-weight: 600; }
+.innerIntro p { margin-top: 6px; font-size: 12px; line-height: 1.8; color: var(--muted-foreground); }
+.innerIntro > span { display: block; margin-top: 8px; font-size: 10px; color: var(--primary); }
+.controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; padding: 14px; border: 1px solid var(--border); border-radius: 14px; background: var(--card); }
+.modeButtons { display: flex; flex-wrap: wrap; gap: 4px; }
+.controlHint { font-size: 12px; line-height: 1.8; color: var(--muted-foreground); }
+.widthControl { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; font-size: 12px; }
+.widthControl input { width: 130px; min-height: 32px; accent-color: var(--primary); cursor: ew-resize; }
+.widthControl output { min-width: 46px; font-variant-numeric: tabular-nums; color: var(--primary); font-weight: 600; }
+.legend { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; padding: 18px 2px; font-size: 11px; line-height: 1.7; color: var(--muted-foreground); }
+.legend p { display: flex; align-items: center; gap: 7px; }
+.legend p > span { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
+.experiments { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px; }
+.experiment { width: 100%; min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 16px; background: var(--card); }
+.compact .experiment { flex: 0 1 var(--preview-width); max-width: 100%; }
+.patternHeader { padding: 20px; }
+.patternTitle { display: flex; align-items: center; gap: 10px; }
+.number { display: grid; place-items: center; width: 28px; height: 28px; flex-shrink: 0; border-radius: 8px; background: var(--primary-subtle); color: var(--primary); font-family: monospace; font-size: 12px; }
+.patternTitle h2 { font-size: 16px; font-weight: 700; letter-spacing: -0.025em; }
+.patternHeader p { margin-top: 10px; font-size: 12px; line-height: 1.8; color: var(--muted-foreground); }
+.preview { container: table-preview / inline-size; }
+.sampleToolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-block: 1px solid var(--border); background: var(--surface); font-size: 12px; font-weight: 600; }
+.count { margin-left: 5px; color: var(--subtle-foreground); font-size: 11px; font-variant-numeric: tabular-nums; }
+.wideLabel, .narrowLabel { color: var(--muted-foreground); font-size: 10px; font-weight: 400; }
+.narrowLabel, .mobileHint, .columnControl, .cards, .expandButton, .detailRow { display: none; }
+.scrollFrame { max-height: 352px; overflow: auto; overscroll-behavior: contain; }
+.scrollFrame:focus-visible { outline-offset: -3px; }
+.table { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 12px; }
+.table th, .table td { padding: 13px 16px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
+.table thead th { background: var(--surface); color: var(--muted-foreground); font-size: 11px; font-weight: 500; white-space: nowrap; }
+.table tbody th { font-weight: 400; }
+.table tbody tr:not(.detailRow) { background: var(--card); }
+.table tbody tr:not(.detailRow):hover { background: var(--primary-subtle); }
+.table .orderColumn { width: 32%; }
+.orderIdentity { display: flex; align-items: center; gap: 6px; min-width: 0; }
+.orderText { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.orderId { color: var(--primary); font-size: 10px; font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.product { font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.table .amountColumn { width: 16%; text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.table .statusColumn { width: 14%; text-align: center; }
+.table .secondaryColumn { white-space: nowrap; }
+.status { display: inline-flex; align-items: center; justify-content: center; min-width: 56px; padding: 4px 7px; border-radius: 6px; font-size: 10px; font-weight: 600; line-height: 1.4; white-space: nowrap; }
+.shipping { background: #eaf2ff; color: #235cc0; }
+.pending { background: #fff4dc; color: #916012; }
+.delivered { background: #e5f5ed; color: #26704e; }
+.cancelled { background: #f0f1f4; color: #626a78; }
+.patternNote { padding: 14px 20px; border-top: 1px solid var(--border); background: var(--surface); font-size: 11px; line-height: 1.8; color: var(--muted-foreground); }
+.details { display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 11px; }
+.details > div { display: flex; gap: 6px; }
+.details dt { color: var(--muted-foreground); }
+.details dd { margin: 0; }
+
+/* Each preview reacts to its own width, including the side-by-side mobile previews. */
+@container table-preview (width < 760px) {
+  .wideLabel { display: none; }
+  .narrowLabel { display: inline; }
+  .mobileHint { display: flex; align-items: center; gap: 6px; min-height: 40px; padding: 10px 14px; font-size: 10px; line-height: 1.7; color: var(--muted-foreground); }
+  .mobileHint svg { flex-shrink: 0; }
+  .columnControl { display: block; padding: 0 14px 10px; }
+  .scrollFrame { height: 320px; }
+
+  [data-pattern="scroll"] .table .orderColumn,
+  [data-pattern="sticky"] .table .orderColumn { width: 184px; }
+  [data-pattern="sticky"] .table thead th { position: sticky; top: 0; z-index: 2; }
+  [data-pattern="sticky"] .table .orderColumn { position: sticky; left: 0; z-index: 1; background: var(--card); border-right: 1px solid var(--border-strong); box-shadow: 4px 0 8px -4px #18202e30; }
+  [data-pattern="sticky"] .table thead .orderColumn { z-index: 3; background: var(--surface); }
+
+  [data-pattern="cards"] .table { display: none; }
+  .cards { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0 12px 12px; list-style: none; }
+  .orderCard { padding: 16px; border: 1px solid var(--border); border-radius: 10px; background: var(--card); }
+  .cardHeading { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+  .cardProduct { margin-top: 10px; font-size: 13px; line-height: 1.7; font-weight: 500; overflow-wrap: anywhere; }
+  .cardAmount { margin-top: 6px; font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .orderCard .details { display: grid; gap: 8px; margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); }
+  .orderCard .details > div { justify-content: space-between; }
+
+  [data-pattern="priority"] [data-show-all="false"] .table,
+  [data-pattern="popin"] .table,
+  [data-pattern="expand"] .table { min-width: 0; }
+  [data-pattern="priority"] [data-show-all="false"] .secondaryColumn,
+  [data-pattern="popin"] .secondaryColumn,
+  [data-pattern="expand"] .secondaryColumn { display: none; }
+  [data-pattern="priority"] [data-show-all="false"] .orderColumn,
+  [data-pattern="popin"] .orderColumn,
+  [data-pattern="expand"] .orderColumn { width: auto; }
+  [data-pattern="priority"] [data-show-all="false"] .amountColumn,
+  [data-pattern="popin"] .amountColumn,
+  [data-pattern="expand"] .amountColumn { width: 90px; }
+  [data-pattern="priority"] [data-show-all="false"] .statusColumn,
+  [data-pattern="popin"] .statusColumn,
+  [data-pattern="expand"] .statusColumn { width: 78px; }
+  [data-pattern="priority"] [data-show-all="false"] .table th,
+  [data-pattern="priority"] [data-show-all="false"] .table td,
+  [data-pattern="popin"] .table th, [data-pattern="popin"] .table td,
+  [data-pattern="expand"] .table th, [data-pattern="expand"] .table td { padding-inline: 10px; }
+  .detailRow:not([hidden]) { display: table-row; }
+  .table .detailRow > td { padding-block: 10px 14px; background: var(--surface); }
+  .expandButton { display: inline-flex; flex-shrink: 0; margin-left: -4px; }
+  .expandButton svg { transition: transform 160ms ease; }
+  .expandButton[aria-expanded="true"] svg { transform: rotate(180deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .expandButton svg { transition: none; }
+}

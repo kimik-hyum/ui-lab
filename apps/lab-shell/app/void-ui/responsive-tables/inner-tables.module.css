@@ -1,0 +1,92 @@
+.preview { container: inner-preview / inline-size; }
+.hint, .cardFrame, .rowDetails { display: none; }
+.expandAll { min-height: 36px; font-size: 11px; color: var(--primary); }
+.tableFrame { max-height: 620px; overflow: auto; overscroll-behavior: contain; }
+.tableFrame:focus-visible, .cardFrame:focus-visible { outline-offset: -3px; }
+.table { width: 100%; min-width: 720px; table-layout: fixed; border-collapse: separate; border-spacing: 0; font-size: 12px; font-variant-numeric: tabular-nums; }
+.toggleColumn { width: 40px; }
+.dayColumn { width: 140px; }
+.volumeColumn { width: 36%; }
+.rejectionColumn { width: 24%; }
+.achievementColumn { width: auto; }
+.table th, .table td { padding: 13px 14px; text-align: left; vertical-align: middle; line-height: 1.7; }
+.table thead th { padding-block: 9px; border-block: 1px solid var(--border); border-right: 1px solid var(--border); background: #eff2f6; color: #52606d; font-size: 11px; font-weight: 600; white-space: nowrap; }
+.table .toggleCell { padding: 2px; text-align: center; }
+.table .dayCell { padding-inline: 8px; }
+.parentRow { background: var(--card); }
+.parentRow > * { border-bottom: 1px solid var(--border); }
+.dayGroup + .dayGroup .parentRow > * { border-top: 1px solid var(--border-strong); }
+.dayGroup[data-upcoming="true"] .parentRow { color: var(--muted-foreground); }
+.dayGroup[data-current="true"] .parentRow { background: #e3f2ff; }
+.dayGroup[data-current="true"] > tr > :first-child { border-left: 2px solid var(--primary); }
+.childRow { background: #f8f9fb; }
+.childRow:hover { background: #f0f4fa; }
+.childRow th { font-weight: 400; }
+.dayName { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; font-weight: 600; }
+.currentBadge { display: inline-flex; align-items: center; padding: 2px 7px; border-radius: 999px; color: #fff; background: var(--primary); font-size: 10px; line-height: 1.6; font-weight: 600; white-space: nowrap; }
+.disclosure { width: 36px; height: 36px; background: transparent; }
+.disclosure svg, .cardToggle svg { transition: transform 160ms ease; }
+.disclosure[aria-expanded="true"] svg, .cardToggle[aria-expanded="true"] svg { transform: rotate(90deg); }
+.slotLabel { display: flex; align-items: baseline; gap: 8px; min-width: 0; line-height: 1.8; }
+.slotLabel > span { min-width: 0; overflow-wrap: anywhere; }
+.slotVolume { white-space: nowrap; }
+.alertIcon { align-self: center; flex-shrink: 0; color: #e45b5b; }
+.rejected { color: #d93838; white-space: nowrap; }
+.empty { color: var(--muted-foreground); font-size: 11px; }
+.metricsDetails { display: flex; flex-wrap: wrap; gap: 12px 20px; font-size: 11px; font-variant-numeric: tabular-nums; }
+.metricsDetails > div { display: flex; flex-wrap: wrap; gap: 4px 7px; }
+.metricsDetails dt { color: var(--muted-foreground); font-size: 10px; }
+.metricsDetails dd { margin: 0; }
+.dayCards { display: flex; flex-direction: column; gap: 12px; margin: 0; padding: 0 12px 12px; list-style: none; }
+.dayCard { overflow: hidden; border: 1px solid var(--border); border-radius: 10px; }
+.dayCard[data-current="true"] { border-color: #91bfff; }
+.cardSummary { padding: 10px 14px 14px; background: var(--card); }
+.dayCard[data-current="true"] .cardSummary { background: #e3f2ff; }
+.cardToggle { width: 100%; height: auto; min-height: 40px; margin-bottom: 8px; padding: 0; justify-content: space-between; background: transparent; }
+.cardSummary .metricsDetails { justify-content: space-between; gap: 12px; }
+.cardSummary .metricsDetails > div { flex-direction: column; gap: 4px; }
+.slotCards { margin: 0; padding: 0; list-style: none; background: #f8f9fb; }
+.slotCards > li { padding: 14px; border-top: 1px solid var(--border); font-size: 12px; }
+.slotCards .metricsDetails { margin-top: 10px; padding-left: 21px; }
+.emptyDay { padding-block: 10px; font-size: 13px; font-weight: 600; }
+.emptyCard { padding: 16px 14px; border-top: 1px solid var(--border); background: #f8f9fb; color: var(--muted-foreground); font-size: 12px; }
+
+@container inner-preview (width < 720px) {
+  .hint { display: flex; align-items: center; gap: 6px; min-height: 44px; padding: 10px 14px; font-size: 10px; line-height: 1.7; color: var(--muted-foreground); }
+  .hint svg { flex-shrink: 0; }
+  .tableFrame { height: 560px; }
+  .dayColumn { width: 120px; }
+
+  [data-inner-pattern="sticky"] .table thead th { position: sticky; top: 0; z-index: 2; }
+  [data-inner-pattern="sticky"] .toggleCell { position: sticky; left: 0; z-index: 1; background: inherit; }
+  [data-inner-pattern="sticky"] .dayCell { position: sticky; left: 40px; z-index: 1; background: inherit; border-right: 1px solid var(--border-strong); box-shadow: 4px 0 8px -4px #18202e30; }
+  [data-inner-pattern="sticky"] .table thead .toggleCell,
+  [data-inner-pattern="sticky"] .table thead .dayCell { z-index: 3; background: #eff2f6; }
+
+  [data-inner-pattern="cards"] .tableFrame { display: none; }
+  .cardFrame { display: block; height: 560px; overflow-y: auto; overscroll-behavior: contain; }
+
+  [data-inner-pattern="stacked"] .table { min-width: 0; }
+  [data-inner-pattern="stacked"] .dayColumn { width: 88px; }
+  [data-inner-pattern="stacked"] .volumeColumn { width: auto; }
+  [data-inner-pattern="stacked"] .rejectionColumn,
+  [data-inner-pattern="stacked"] .achievementColumn { width: 0; }
+  [data-inner-pattern="stacked"] .secondaryCell { display: none; }
+  [data-inner-pattern="stacked"] .table th,
+  [data-inner-pattern="stacked"] .table td { padding-inline: 8px; }
+  [data-inner-pattern="stacked"] .table .toggleCell { padding-inline: 1px; }
+  [data-inner-pattern="stacked"] .table thead th { font-size: 10px; white-space: normal; }
+  [data-inner-pattern="stacked"] .dayName { gap: 4px; }
+  [data-inner-pattern="stacked"] .currentBadge { font-size: 9px; padding-inline: 6px; }
+  [data-inner-pattern="stacked"] .parentRow > * { border-bottom: 0; }
+  [data-inner-pattern="stacked"] .rowDetails:not([hidden]) { display: table-row; }
+  [data-inner-pattern="stacked"] .rowDetails > td { padding: 0 12px 12px 14px; border-bottom: 1px solid var(--border); }
+  [data-inner-pattern="stacked"] .parentDetails { background: var(--card); }
+  [data-inner-pattern="stacked"] .dayGroup[data-current="true"] .parentDetails { background: #e3f2ff; }
+  [data-inner-pattern="stacked"] .childDetails { background: #f8f9fb; }
+  [data-inner-pattern="stacked"] .slotLabel { flex-wrap: wrap; gap: 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .disclosure svg, .cardToggle svg { transition: none; }
+}

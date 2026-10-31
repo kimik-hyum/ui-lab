@@ -25,6 +25,16 @@ export const LAB_SECTIONS: FeatureCatalogSection[] = [
     subtitle: "다양한 인터랙션과 화면 구성을 직접 구현하는 실험",
     features: [
       {
+        id: "responsive-tables",
+        title: "반응형 테이블",
+        description: "기본 표부터 요일 아래 상세 행이 펼쳐지는 표까지. 작은 화면에서 스크롤, 고정 열, 카드와 행 재배치로 달라지는 모습을 비교합니다.",
+        badge: "responsive table",
+        since: "React · CSS Container Queries",
+        status: "available",
+        href: "/void-ui/responsive-tables",
+        image: { src: "/images/responsive-tables.svg", alt: "넓은 표가 스크롤 표와 카드 목록으로 바뀌는 모습", width: 1200, height: 800 },
+      },
+      {
         id: "pagination-infinite-scroll",
         title: "무한스크롤과 페이지 복원",
         description:
