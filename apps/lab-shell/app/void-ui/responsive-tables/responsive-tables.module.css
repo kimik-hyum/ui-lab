@@ -1,6 +1,6 @@
 .lab { min-width: 0; }
-.tableTypes { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 20px; }
-.tableTypes button { min-height: 40px; gap: 8px; }
+.tableTypes { display: flex; flex-wrap: nowrap; min-width: 0; gap: 8px; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain; scroll-padding-inline: 4px; padding: 4px; margin: -4px -4px 16px; }
+.tableTypes button { flex: 0 0 auto; min-height: 40px; gap: 8px; white-space: nowrap; }
 .tableTypes button > span { font-size: 10px; opacity: 0.7; font-variant-numeric: tabular-nums; }
 .innerIntro { margin-bottom: 20px; padding: 18px 20px; border-left: 3px solid var(--primary); border-radius: 0 10px 10px 0; background: var(--primary-subtle); }
 .innerIntro strong { font-size: 14px; font-weight: 600; }
@@ -16,19 +16,20 @@
 .legend p { display: flex; align-items: center; gap: 7px; }
 .legend p > span { width: 6px; height: 6px; border-radius: 50%; background: var(--primary); }
 .experiments { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 24px; }
-.experiment { width: 100%; min-width: 0; overflow: hidden; border: 1px solid var(--border); border-radius: 16px; background: var(--card); }
-.compact .experiment { flex: 0 1 var(--preview-width); max-width: 100%; }
-.patternHeader { padding: 20px; }
-.patternTitle { display: flex; align-items: center; gap: 10px; }
-.number { display: grid; place-items: center; width: 28px; height: 28px; flex-shrink: 0; border-radius: 8px; background: var(--primary-subtle); color: var(--primary); font-family: monospace; font-size: 12px; }
-.patternTitle h2 { font-size: 16px; font-weight: 700; letter-spacing: -0.025em; }
-.patternHeader p { margin-top: 10px; font-size: 12px; line-height: 1.8; color: var(--muted-foreground); }
+.experiments[hidden] { display: none; }
+.experiment { width: 100%; }
 .preview { container: table-preview / inline-size; }
+.votePreview { min-width: 0; }
+.votePreview .preview { display: flex; flex-direction: column; height: var(--table-preview-height); }
+.votePreview .scrollFrame { flex: 1; min-height: 0; height: auto; max-height: none; }
+@media (width >= 768px) {
+  .votePreview, .votePreview .preview { height: 100%; }
+}
 .sampleToolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 16px; border-block: 1px solid var(--border); background: var(--surface); font-size: 12px; font-weight: 600; }
 .count { margin-left: 5px; color: var(--subtle-foreground); font-size: 11px; font-variant-numeric: tabular-nums; }
 .wideLabel, .narrowLabel { color: var(--muted-foreground); font-size: 10px; font-weight: 400; }
 .narrowLabel, .mobileHint, .columnControl, .cards, .expandButton, .detailRow { display: none; }
-.scrollFrame { max-height: 352px; overflow: auto; overscroll-behavior: contain; }
+.scrollFrame { max-height: 352px; overflow: auto; overscroll-behavior-x: contain; overscroll-behavior-y: auto; }
 .scrollFrame:focus-visible { outline-offset: -3px; }
 .table { width: 100%; min-width: 760px; border-collapse: separate; border-spacing: 0; table-layout: fixed; font-size: 12px; }
 .table th, .table td { padding: 13px 16px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: middle; }
@@ -103,6 +104,12 @@
   .expandButton { display: inline-flex; flex-shrink: 0; margin-left: -4px; }
   .expandButton svg { transition: transform 160ms ease; }
   .expandButton[aria-expanded="true"] svg { transform: rotate(180deg); }
+}
+
+/* Hide the desktop examples before hydration as well, so mobile opens on the survey. */
+@media (width < 768px) {
+  .page:global(.workspace-page) { padding-inline: 8px; }
+  .controls, .experiments, .metricNote { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

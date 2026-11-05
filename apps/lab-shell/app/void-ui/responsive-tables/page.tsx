@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 import ResponsiveTables from "./ResponsiveTables";
+import styles from "./responsive-tables.module.css";
 
 export const metadata: Metadata = {
   title: "반응형 테이블 | UI-LAB",
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
 
 export default function ResponsiveTablesPage() {
   return (
-    <main className="workspace-page">
+    <main className={`workspace-page ${styles.page}`}>
       <Link
         href="/void-ui?category=ui-implementations"
         className="mb-6 inline-flex min-h-10 items-center gap-2 text-xs font-medium text-muted-foreground hover:text-primary"

@@ -3,39 +3,16 @@
 import { Fragment, useState } from "react";
 import { ChevronRight, CircleAlert, Rows3 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import ExperimentBox from "@/app/components/ExperimentBox";
 import {
   performanceDays, summarizeDay, formatVolume, formatAchievement, formatRejection,
   type PerformanceDay, type PerformanceMetrics, type TimeSlot,
 } from "./weekly-performance";
 import shared from "./responsive-tables.module.css";
+import { innerPatterns as patterns } from "./table-patterns";
 import styles from "./inner-tables.module.css";
 
-const patterns = [
-  {
-    id: "scroll", title: "공통 열 + 가로 스크롤", label: "열 정렬 그대로",
-    description: "요일 합계 아래로 시간대 행을 펼칩니다. 모든 행이 같은 열을 공유합니다.",
-    hint: "요일을 펼친 뒤 좌우로 밀어 지표를 비교해 보세요.",
-    note: "작은 화면에서도 원래 표 구조를 유지합니다. 오른쪽 지표는 스크롤해서 확인합니다.",
-  },
-  {
-    id: "sticky", title: "요일 고정 + 상세 행", label: "요일을 고정하기",
-    description: "같은 표를 유지하면서 요일과 상단 헤더를 고정합니다.",
-    hint: "좌우 · 위아래로 움직여도 요일과 열 제목은 남습니다.",
-    note: "어느 요일의 수치인지 놓치지 않습니다. 고정 열이 작은 화면의 일부를 차지합니다.",
-  },
-  {
-    id: "cards", title: "요일별 아코디언", label: "요일마다 묶어 읽기",
-    description: "요일 합계를 카드 머리로 바꾸고, 펼치면 시간대별 지표를 세로로 보여줍니다.",
-    hint: "요일을 눌러 같은 그룹에 속한 시간대들을 펼쳐 보세요.",
-    note: "요일과 상세 정보의 관계가 선명합니다. 다른 시간대의 숫자를 가로로 비교하기는 어렵습니다.",
-  },
-  {
-    id: "stacked", title: "상세 행을 두 줄로", label: "지표를 아래로 재배치",
-    description: "요일과 완료/목표는 유지하고, 거절·달성률을 각 행 아래로 내립니다.",
-    hint: "가로 스크롤 없이 요일과 상세 행의 연결을 확인해 보세요.",
-    note: "모든 지표를 화면 안에 담습니다. 행이 높아져 한 번에 보이는 시간대는 줄어듭니다.",
-  },
-] as const;
+
 
 type Pattern = (typeof patterns)[number];
 
@@ -66,11 +43,11 @@ function MetricsDetails({ metrics, includeVolume = false }: { metrics: Performan
   );
 }
 
-function InnerTableExperiment({ pattern, index }: { pattern: Pattern; index: number }) {
+function InnerTableExperiment({ pattern, index, previewOnly = false }: { pattern: Pattern; index: number; previewOnly?: boolean }) {
   const [expanded, setExpanded] = useState<Set<string>>(() => new Set(["thu", "fri", "sat", "sun"]));
   const expandableDays = performanceDays.filter((day) => day.slots.length);
   const allExpanded = expandableDays.every((day) => expanded.has(day.id));
-  const prefix = `inner-${pattern.id}`;
+  const prefix = `${previewOnly ? "vote-" : ""}inner-${pattern.id}`;
 
   function toggleDay(id: string) {
     setExpanded((previous) => {
@@ -81,15 +58,8 @@ function InnerTableExperiment({ pattern, index }: { pattern: Pattern; index: num
     });
   }
 
-  return (
-    <section className={shared.experiment} data-inner-pattern={pattern.id} aria-labelledby={`${prefix}-title`}>
-      <header className={shared.patternHeader}>
-        <div className={shared.patternTitle}>
-          <span className={shared.number}>{String(index + 1).padStart(2, "0")}</span>
-          <h2 id={`${prefix}-title`}>{pattern.title}</h2>
-        </div>
-        <p>{pattern.description}</p>
-      </header>
+  const content = (
+    <>
       <div className={styles.preview}>
         <div className={shared.sampleToolbar}>
           <span>요일별 달성 현황 <span className={shared.count}>{performanceDays.length}일</span></span>
@@ -195,11 +165,24 @@ function InnerTableExperiment({ pattern, index }: { pattern: Pattern; index: num
           </div>
         )}
       </div>
-      <p className={shared.patternNote}>{pattern.note}</p>
+      {!previewOnly && <p className={shared.patternNote}>{pattern.note}</p>}
+    </>
+  );
+
+  return previewOnly ? (
+    <section className={shared.votePreview} data-inner-pattern={pattern.id} data-vote-preview="true" aria-label={`${pattern.title} 모바일 미리보기`}>
+      {content}
     </section>
+  ) : (
+    <ExperimentBox className={shared.experiment} title={pattern.title} description={pattern.description}
+      headingId={`${prefix}-title`} index={index} data-inner-pattern={pattern.id} data-vote-preview="false">
+      {content}
+    </ExperimentBox>
   );
 }
 
-export default function InnerTables() {
-  return patterns.map((pattern, index) => <InnerTableExperiment key={pattern.id} pattern={pattern} index={index} />);
+export default function InnerTables({ previewPatternId }: { previewPatternId?: string }) {
+  return patterns.map((pattern, index) => (!previewPatternId || pattern.id === previewPatternId)
+    ? <InnerTableExperiment key={pattern.id} pattern={pattern} index={index} previewOnly={Boolean(previewPatternId)} />
+    : null);
 }

@@ -37,6 +37,10 @@ const serverActionSources = [
 ];
 
 const nextConfig: NextConfig = {
+  allowedDevOrigins: (process.env.UI_LAB_DEV_ORIGINS ?? "")
+    .split(",")
+    .map((hostname) => hostname.trim())
+    .filter(Boolean),
   output: "standalone",
   outputFileTracingRoot: path.join(__dirname, "../../"),
   outputFileTracingIncludes: {

@@ -1,7 +1,12 @@
 .preview { container: inner-preview / inline-size; }
+[data-vote-preview="true"] .preview { display: flex; flex-direction: column; height: var(--table-preview-height); }
+[data-vote-preview="true"] .tableFrame, [data-vote-preview="true"] .cardFrame { flex: 1; min-height: 0; height: auto; max-height: none; }
+@media (width >= 768px) {
+  [data-vote-preview="true"] .preview { height: 100%; }
+}
 .hint, .cardFrame, .rowDetails { display: none; }
 .expandAll { min-height: 36px; font-size: 11px; color: var(--primary); }
-.tableFrame { max-height: 620px; overflow: auto; overscroll-behavior: contain; }
+.tableFrame { max-height: 620px; overflow: auto; overscroll-behavior-x: contain; overscroll-behavior-y: auto; }
 .tableFrame:focus-visible, .cardFrame:focus-visible { outline-offset: -3px; }
 .table { width: 100%; min-width: 720px; table-layout: fixed; border-collapse: separate; border-spacing: 0; font-size: 12px; font-variant-numeric: tabular-nums; }
 .toggleColumn { width: 40px; }
@@ -64,7 +69,7 @@
   [data-inner-pattern="sticky"] .table thead .dayCell { z-index: 3; background: #eff2f6; }
 
   [data-inner-pattern="cards"] .tableFrame { display: none; }
-  .cardFrame { display: block; height: 560px; overflow-y: auto; overscroll-behavior: contain; }
+  .cardFrame { display: block; height: 560px; overflow-y: auto; overscroll-behavior-x: contain; overscroll-behavior-y: auto; }
 
   [data-inner-pattern="stacked"] .table { min-width: 0; }
   [data-inner-pattern="stacked"] .dayColumn { width: 88px; }
