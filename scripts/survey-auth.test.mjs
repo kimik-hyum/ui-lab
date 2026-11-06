@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { parseSurveyAuthIntent, safeSurveyReturnPath, surveyErrorMessage } from "../apps/lab-shell/app/lib/survey-auth-state.ts";
+import { isSurveySessionExpired, parseSurveyAuthIntent, safeSurveyReturnPath, surveyErrorMessage } from "../apps/lab-shell/app/lib/survey-auth-state.ts";
 
 const now = 1_800_000_000_000;
 const intent = {
@@ -14,10 +14,10 @@ test("OAuth 왕복 시 설문 종류, 선택 순서, 사유, 복귀 위치를 �
   assert.deepEqual(restored.draft, intent.draft);
   assert.equal(restored.returnTo, intent.returnTo);
   assert.equal(restored.surveyId, intent.surveyId);
-  assert.equal(parse({ ...intent, status: "success" }).status, "success");
+  assert.equal(parse({ ...intent, status: "ready" }).status, "ready");
 });
 
-test("만료·미래 시각·손상된 로그인 초안은 자동 제출에 사용하지 않는다", () => {
+test("만료·미래 시각·손상된 로그인 초안은 복원하지 않는다", () => {
   assert.equal(parseSurveyAuthIntent("{broken", now), null);
   for (const change of [
     { createdAt: now - 30 * 60 * 1000 - 1 }, { createdAt: now + 1 }, { createdAt: null },
@@ -39,4 +39,14 @@ test("제출 실패와 세션 만료는 내부 오류 대신 재시도 안내로
   assert.match(surveyErrorMessage({ message: "survey_not_open" }), /응답을 받지 않는/);
   assert.match(surveyErrorMessage({ message: "survey_option_unavailable" }), /새로고침/);
   assert.doesNotMatch(surveyErrorMessage({ message: "internal secret" }), /internal secret/);
+});
+
+
+test("일시적인 인증 서버 장애와 실제 인증 만료를 구분한다", () => {
+  for (const error of [null, { status: 503 }, { status: 429 }, { name: "AuthRetryableFetchError", status: 0 }]) {
+    assert.equal(isSurveySessionExpired(error), false);
+  }
+  for (const error of [{ status: 401 }, { status: 403 }, { name: "AuthSessionMissingError" }, { code: "session_not_found" }]) {
+    assert.equal(isSurveySessionExpired(error), true);
+  }
 });

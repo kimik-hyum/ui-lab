@@ -87,8 +87,8 @@ export function completeSurveySignIn() {
       if (!supabase) throw new Error("로그인 연결을 준비 중입니다.");
       const { data, error } = await supabase.auth.exchangeCodeForSession(code);
       if (error || !data.session) throw new Error("로그인 요청이 만료됐거나 다른 창에서 시작됐어요. 같은 창에서 다시 로그인해주세요.");
-      await submitSurvey(intent.surveyId, intent.draft);
-      writeIntent({ ...intent, status: "success" });
+      // Authentication only resumes editing. Saving requires an explicit form submission.
+      writeIntent({ ...intent, status: "ready" });
     } catch (error) {
       writeIntent({ ...intent, status: "error", message: error instanceof Error ? error.message : surveyErrorMessage(null) });
     }
