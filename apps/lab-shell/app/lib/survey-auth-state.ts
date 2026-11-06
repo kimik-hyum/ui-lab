@@ -9,7 +9,7 @@ export type SurveyAuthIntent = {
   draft: SurveyDraft;
   returnTo: string;
   createdAt: number;
-  status: "pending" | "success" | "error";
+  status: "pending" | "ready" | "error";
   message?: string;
 };
 
@@ -26,7 +26,7 @@ export function parseSurveyAuthIntent(raw: string | null, now = Date.now()): Sur
     const value = JSON.parse(raw) as SurveyAuthIntent;
     if (!value || typeof value.surveyId !== "string" || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(value.surveyId)
       || !Number.isFinite(value.createdAt) || now - value.createdAt > MAX_AGE || value.createdAt > now
-      || !["pending", "success", "error"].includes(value.status)
+      || !["pending", "ready", "error"].includes(value.status)
       || !value.draft || typeof value.draft.reason !== "string" || value.draft.reason.length > 300
       || !Array.isArray(value.draft.optionIds) || value.draft.optionIds.length === 0
       || value.draft.optionIds.some((id) => typeof id !== "string" || !/^[a-z0-9]+(-[a-z0-9]+)*$/.test(id))
@@ -45,4 +45,10 @@ export function surveyErrorMessage(error: { message?: string; code?: string } | 
     survey_reason_too_long: "선택 사유는 300자까지 입력할 수 있어요.",
   };
   return messages[error?.message ?? ""] ?? "연결을 완료하지 못했어요. 작성한 내용은 유지되니 잠시 후 다시 시도해주세요.";
+}
+
+// Network/rate-limit/server errors must not turn a valid session into a logged-out UI.
+export function isSurveySessionExpired(error: { status?: number; code?: string; name?: string } | null): boolean {
+  return error?.status === 401 || error?.status === 403 || error?.name === "AuthSessionMissingError"
+    || ["session_not_found", "user_not_found", "bad_jwt", "refresh_token_not_found", "refresh_token_already_used"].includes(error?.code ?? "");
 }

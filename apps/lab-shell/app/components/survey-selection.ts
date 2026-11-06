@@ -2,7 +2,19 @@ export type SurveySelection =
   | { type: "radio" }
   | { type: "checkbox"; minSelections?: number; maxSelections: number };
 
-export type SurveyDraft = { optionIds: string[]; reason: string };
+// UI-only metadata travels with the draft across tabs; DB RLS determines authorization.
+export type SurveyDraft = { optionIds: string[]; reason: string; ownerId?: string; dirty?: boolean };
+
+export function restoreSurveyDraft(draft: SurveyDraft, saved: SurveyDraft | null, userId: string | null): SurveyDraft {
+  if (draft.dirty && (!draft.ownerId || draft.ownerId === userId)) return { ...draft, ownerId: userId ?? undefined };
+  return saved ?? { optionIds: [], reason: "" };
+}
+
+export function sameSurveyAnswer(left: SurveyDraft, right: SurveyDraft) {
+  return left.reason.trim() === right.reason.trim()
+    && left.optionIds.length === right.optionIds.length
+    && left.optionIds.every((id) => right.optionIds.includes(id));
+}
 
 export function getSurveySelectionState(selection: SurveySelection, optionIds: readonly string[], draftIds: readonly string[]) {
   const available = new Set(optionIds);

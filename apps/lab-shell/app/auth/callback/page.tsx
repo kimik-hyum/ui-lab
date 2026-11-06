@@ -18,9 +18,9 @@ export default function AuthCallbackPage() {
   }, []);
   return (
     <main className="workspace-page flex min-h-[50vh] flex-col items-center justify-center gap-5 text-center">
-      <h1 className="text-xl font-bold">{error ? "로그인을 다시 시작해주세요" : "의견을 제출하고 있어요"}</h1>
+      <h1 className="text-xl font-bold">{error ? "로그인을 다시 시작해주세요" : "로그인을 확인하고 있어요"}</h1>
       <p role={error ? "alert" : "status"} className="max-w-md text-sm leading-7 text-muted-foreground">
-        {error || "로그인을 확인한 뒤 선택한 UI와 사유를 안전하게 저장합니다."}
+        {error || "로그인이 완료되면 선택한 UI의 사유를 작성하는 화면으로 돌아갑니다."}
       </p>
       {error && <Link className="text-sm font-medium text-primary underline underline-offset-4" href={DEFAULT_SURVEY_PATH}>설문으로 돌아가기</Link>}
     </main>

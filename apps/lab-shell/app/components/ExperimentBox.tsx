@@ -22,7 +22,7 @@ type Props = Omit<ComponentPropsWithoutRef<"section">, "title" | "children"> & {
   sticky?: "always" | "mobile" | "none";
   resize?: BoxResizeOptions;
   /** Render inside Survey or a controlled Base UI selection group; value must be a stable option ID. */
-  selection?: { type?: "radio" | "checkbox"; value: string; selected: boolean; disabled?: boolean; onReselect?: () => void };
+  selection?: { type?: "radio" | "checkbox"; value: string; selected: boolean; submitted?: boolean; disabled?: boolean; onReselect?: () => void };
   children: ReactNode;
 };
 
@@ -53,7 +53,7 @@ export default function ExperimentBox({
               <Radio.Indicator className={styles.radioIndicator} />
             </Radio.Root>
           )}
-          <span>{selection.selected ? "선택됨" : selection.disabled ? "선택 한도" : "이 UI 선택"}</span>
+          <span>{selection.submitted ? "제출한 선택" : selection.selected ? "선택됨" : selection.disabled ? "선택 불가" : "이 UI 선택"}</span>
         </span>
       )}
     </>
