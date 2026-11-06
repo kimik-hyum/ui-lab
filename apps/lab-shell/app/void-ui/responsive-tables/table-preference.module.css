@@ -1,0 +1,7 @@
+.survey { margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border-strong); }
+.survey[data-standalone="true"] { margin-top: 0; padding-top: 0; border-top: 0; }
+.options { width: 100%; margin-inline: 0; }
+@media (width < 768px) {
+  .survey { margin-top: 0; padding-top: 0; border-top: 0; }
+  .option, .survey[data-standalone="true"] .option { flex: 0 1 100%; max-width: 100%; }
+}

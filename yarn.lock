@@ -3884,7 +3884,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@supabase/supabase-js@npm:^2.53.0":
+"@supabase/supabase-js@npm:2.103.0, @supabase/supabase-js@npm:^2.53.0":
   version: 2.103.0
   resolution: "@supabase/supabase-js@npm:2.103.0"
   dependencies:
@@ -10038,6 +10038,7 @@ __metadata:
   dependencies:
     "@base-ui/react": "npm:^1.9.0"
     "@next/swc-linux-x64-gnu": "npm:16.4.2"
+    "@supabase/supabase-js": "npm:2.103.0"
     "@tailwindcss/postcss": "npm:^4.3.3"
     "@tanstack/react-query": "npm:^5.100.14"
     "@types/node": "npm:^24.19.2"

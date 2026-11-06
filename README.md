@@ -13,6 +13,7 @@
 
 ## Docs
 
+- `docs/surveys.md`: UI 선호도 설문 DB 구조·제출 RPC·접근 권한·마이그레이션 검증
 - `docs/architecture/react-next-architecture.md`: Next.js App Router 기반 React 앱의 권장 파일 구조와 데이터 흐름
 - `docs/harness/workflow.md`: 프레임워크 비교 시나리오 구현 및 검증 절차
 - `docs/harness/performance-methodology.md`: Lighthouse/SSR 성능 측정 기준
@@ -113,6 +114,14 @@ yarn dev:vue-lab
 # react-router-lab (3005)
 yarn dev:react-router-lab
 ```
+
+외부 터널로 lab-shell 개발 서버를 공유할 때는 현재 터널의 호스트명을 허용하고 서버를 시작합니다. URL이 바뀌면 이 값도 갱신하여 재시작합니다. 여러 호스트는 쉼표로 구분하고, `https://`·포트·경로는 제외합니다.
+
+```bash
+UI_LAB_DEV_ORIGINS=my-tunnel.trycloudflare.com yarn dev:lab-shell
+```
+
+Next.js는 허용되지 않은 외부 호스트의 개발 리소스와 HMR 연결을 차단하므로, 페이지 응답뿐 아니라 외부 URL에서 탭 전환·모달 등 실제 상호작용도 확인합니다.
 
 ## Build
 

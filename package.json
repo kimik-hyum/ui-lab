@@ -36,6 +36,7 @@
     "lint": "yarn workspaces foreach -Apt run lint",
     "test": "node scripts/run-tests.mjs",
     "test:runtime": "node scripts/run-tests.mjs runtime",
+    "test:survey-db": "node scripts/test-survey-db.mjs",
     "check": "yarn lint && yarn test && yarn build",
     "test:upgrade-logs": "node --test scripts/upgrade-log.test.mjs",
     "lint:staged": "lint-staged",
