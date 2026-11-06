@@ -6,13 +6,13 @@ import { RadioGroup } from "@base-ui/react/radio-group";
 import { Field } from "@base-ui/react/field";
 import { Fieldset } from "@base-ui/react/fieldset";
 import { Form } from "@base-ui/react/form";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CircleCheck } from "lucide-react";
 import { cn } from "cn";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import ExperimentBox from "./ExperimentBox";
 import type { BoxResizeOptions } from "./useResizableBox";
-import { getSurveySelectionState, type SurveyDraft, type SurveySelection } from "./survey-selection";
+import { getSurveySelectionState, sameSurveyAnswer, type SurveyDraft, type SurveySelection } from "./survey-selection";
 import { useSurveySubmission } from "./useSurveySubmission";
 import styles from "./survey.module.css";
 
@@ -34,16 +34,37 @@ type Props = Omit<ComponentPropsWithoutRef<"section">, "title" | "children" | "o
 };
 
 export default function Survey({
-  surveyId, title, description, eyebrow, selection, options, draft, onChange,
+  surveyId, title, description, eyebrow, selection, options, draft: incomingDraft, onChange: changeDraft,
   className, optionsClassName, optionClassName, optionResize, ...props
 }: Props) {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<"reason" | "login" | "success">("reason");
-  const submission = useSurveySubmission(surveyId, (intent) => {
-    onChange(intent.draft);
-    setStep(intent.status === "success" ? "success" : "login");
-    setOpen(true);
+  const edited = useRef(false);
+  const submission = useSurveySubmission(surveyId, {
+    onRestore: (intent) => {
+      edited.current = intent.status !== "success";
+      changeDraft(intent.draft);
+      setStep(intent.status === "success" ? "success" : "login");
+      setOpen(true);
+    },
+    onResponse: (saved) => {
+      // An OAuth retry or an in-progress edit takes precedence over an older saved answer.
+      if (!edited.current) changeDraft(saved?.draft ?? (incomingDraft.ownerId ? { optionIds: [], reason: "" } : incomingDraft));
+    },
+    onReset: () => {
+      edited.current = false;
+      changeDraft({ optionIds: [], reason: "" });
+      setOpen(false);
+      setStep("reason");
+    },
   });
+  // A parent may cache several survey drafts across tabs. Never display another account's draft.
+  const draft = !incomingDraft.ownerId || incomingDraft.ownerId === submission.user?.id
+    ? incomingDraft : { optionIds: [], reason: "" };
+  function onChange(next: SurveyDraft) {
+    edited.current = true;
+    changeDraft({ ...next, ownerId: submission.user?.id });
+  }
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const dialogTitleRef = useRef<HTMLHeadingElement>(null);
   const completeRef = useRef<HTMLButtonElement>(null);
@@ -52,7 +73,9 @@ export default function Survey({
   const selectedOptions = options.filter((option) => state.selectedIds.includes(option.id));
   const multiple = selection.type === "checkbox";
   const remaining = Math.max(0, state.minimum - state.count);
-  const hasCompletionBar = state.count > 0;
+  const saved = submission.response;
+  const hasChanges = saved !== null && !sameSurveyAnswer(draft, saved.draft);
+  const hasCompletionBar = state.count > 0 && !submission.checking;
   const selectionHint = !multiple ? "마음에 드는 UI 하나를 선택해주세요."
     : state.minimum === state.maximum ? `${state.minimum}개를 선택해주세요.`
       : state.minimum === 1 ? `최대 ${state.maximum}개까지 선택할 수 있어요.`
@@ -66,6 +89,7 @@ export default function Survey({
   }, [open, step]);
 
   function openReason() {
+    if (submission.checking || submission.busy) return;
     dialogReturnFocusRef.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
     setStep("reason");
     submission.clearError();
@@ -77,12 +101,22 @@ export default function Survey({
     if (next.count <= next.maximum) onChange({ ...draft, optionIds: next.selectedIds });
   }
 
+  function requireLogin() {
+    // Preserve the attempted edit when authentication expires, without retaining its old owner.
+    edited.current = true;
+    changeDraft({ ...draft, ownerId: undefined });
+    setStep("login");
+    setOpen(true);
+  }
+
   const cards = options.map((option, index) => {
     const selected = state.selectedIds.includes(option.id);
     return (
       <ExperimentBox key={option.id} as="article" className={cn(styles.option, optionClassName)}
         data-survey-option={option.id} title={option.title} headingId={`${surveyId}-${option.id}-title`} headingLevel={3} index={index}
-        sticky="mobile" resize={optionResize} selection={{ type: selection.type, value: option.id, selected, disabled: multiple && state.atLimit && !selected, onReselect: openReason }}>
+        sticky="mobile" resize={optionResize} selection={{ type: selection.type, value: option.id, selected,
+          submitted: saved?.draft.optionIds.includes(option.id),
+          disabled: submission.checking || submission.busy || (multiple && state.atLimit && !selected), onReselect: openReason }}>
         {option.content}
       </ExperimentBox>
     );
@@ -111,7 +145,27 @@ export default function Survey({
           <span>Google 로그인됨 · {submission.user.email}</span>
           <Button type="button" variant="ghost" size="sm" disabled={submission.busy} onClick={() => void submission.logout()}>로그아웃</Button>
         </div>}
+        {submission.checking && <p className={styles.selectionStatus} role="status">내 응답을 확인하고 있어요.</p>}
       </div>
+      {submission.loadError && <div className={styles.readError}>
+        <p role="alert">{submission.loadError}</p>
+        <Button type="button" variant="outline" size="sm" disabled={submission.checking || submission.busy} onClick={submission.reload}>다시 불러오기</Button>
+      </div>}
+      {saved && <aside className={styles.savedResponse} aria-labelledby={`${surveyId}-saved-title`} data-survey-response={surveyId}>
+        <div className={styles.savedHeading}>
+          <h3 id={`${surveyId}-saved-title`}><CircleCheck size={18} aria-hidden="true" />내가 제출한 응답</h3>
+          <Button type="button" variant="outline" size="sm" disabled={submission.checking || submission.busy || !state.canComplete} onClick={openReason}>
+            {hasChanges ? "수정 이어가기" : "응답 수정"}
+          </Button>
+        </div>
+        <ul className={styles.savedOptions}>{options.filter((option) => saved.draft.optionIds.includes(option.id)).map((option) => <li key={option.id}>{option.title}</li>)}</ul>
+        <p className={styles.savedReason}>{saved.draft.reason || "선택 사유를 남기지 않았어요."}</p>
+        <div className={styles.savedMeta}>
+          <span>나에게만 보이는 응답입니다.</span>
+          {saved.updatedAt && <time dateTime={saved.updatedAt}>마지막 제출 · {new Date(saved.updatedAt).toLocaleString("ko-KR", { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Seoul" })}</time>}
+        </div>
+        {hasChanges && <p className={styles.unsavedNotice} role="status">아직 제출하지 않은 변경사항이 있어요. 다시 제출하면 위 응답이 변경됩니다.</p>}
+      </aside>}
       <Fieldset.Root className={styles.fieldset}>
         <Fieldset.Legend className="sr-only">{title}</Fieldset.Legend>
         {multiple ? (
@@ -130,11 +184,11 @@ export default function Survey({
         <div className={styles.completionBar} data-survey-completion={surveyId}>
           <div className={styles.completionContent}>
             <div className={styles.completionSummary}>
-              <strong>{state.count}개 선택</strong>
+              <strong>{saved && !hasChanges ? "제출한 응답" : `${state.count}개 선택`}</strong>
               <span>{!multiple ? selectedOptions[0]?.title : remaining > 0 ? `${remaining}개 더 선택하면 완료할 수 있어요.` : selectionHint}</span>
             </div>
-            <Button ref={completeRef} type="button" disabled={!state.canComplete} onClick={openReason} className={styles.completeButton}>
-              선택 완료<ArrowRight aria-hidden="true" />
+            <Button ref={completeRef} type="button" disabled={!state.canComplete || submission.checking || submission.busy} onClick={openReason} className={styles.completeButton}>
+              {saved ? hasChanges ? "변경사항 제출" : "응답 수정" : "선택 완료"}<ArrowRight aria-hidden="true" />
             </Button>
           </div>
         </div>
@@ -163,7 +217,7 @@ export default function Survey({
             <Form className={styles.form} onFormSubmit={() => {
               if (!state.canComplete || submission.checking || submission.busy) return;
               submission.clearError();
-              if (submission.user) void submission.save(draft, () => setStep("success"), () => setStep("login"));
+              if (submission.user) void submission.save(draft, () => setStep("success"), requireLogin);
               else setStep("login");
             }} aria-label="설문 선택 사유">
               <Field.Root name="reason">
@@ -177,7 +231,7 @@ export default function Survey({
                 </div>
               </Field.Root>
               <Button type="submit" disabled={submission.checking || submission.busy} className={styles.nextButton}>
-                {submission.checking ? "로그인 확인 중" : submission.busy ? "저장 중…" : submission.user ? "의견 제출" : "다음"}<ArrowRight aria-hidden="true" />
+                {submission.checking ? "내 응답 확인 중" : submission.busy ? "저장 중…" : submission.user ? saved ? "응답 수정하기" : "의견 제출" : "다음"}<ArrowRight aria-hidden="true" />
               </Button>
               <DialogClose render={<Button type="button" variant="ghost" disabled={submission.busy} className={styles.backButton} />}>계속 비교하기</DialogClose>
               <p className={styles.notice}>선택 사유는 공개되지 않으며 UI 개선을 위해 참고합니다.</p>
@@ -189,7 +243,7 @@ export default function Survey({
               <Button type="button" variant="outline" className={styles.googleButton}
                 disabled={submission.busy || submission.checking} aria-describedby={`${surveyId}-login-notice`}
                 onClick={() => {
-                  if (submission.user) void submission.save(draft, () => setStep("success"), () => setStep("login"));
+                  if (submission.user) void submission.save(draft, () => setStep("success"), requireLogin);
                   else void submission.login(draft);
                 }}>
                 <svg viewBox="0 0 24 24" className="size-5" aria-hidden="true">

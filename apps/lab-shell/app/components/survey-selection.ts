@@ -2,7 +2,14 @@ export type SurveySelection =
   | { type: "radio" }
   | { type: "checkbox"; minSelections?: number; maxSelections: number };
 
-export type SurveyDraft = { optionIds: string[]; reason: string };
+// ownerId only scopes in-memory drafts; authorization always comes from DB RLS.
+export type SurveyDraft = { optionIds: string[]; reason: string; ownerId?: string };
+
+export function sameSurveyAnswer(left: SurveyDraft, right: SurveyDraft) {
+  return left.reason.trim() === right.reason.trim()
+    && left.optionIds.length === right.optionIds.length
+    && left.optionIds.every((id) => right.optionIds.includes(id));
+}
 
 export function getSurveySelectionState(selection: SurveySelection, optionIds: readonly string[], draftIds: readonly string[]) {
   const available = new Set(optionIds);

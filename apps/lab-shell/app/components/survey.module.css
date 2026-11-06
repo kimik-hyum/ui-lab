@@ -36,12 +36,22 @@
 .form .backButton { margin-top: 8px; }
 .googleButton { width: 100%; min-height: 48px; gap: 12px; font-size: 13px; }
 .account { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin-top: 14px; color: var(--muted-foreground); font-size: 11px; overflow-wrap: anywhere; }
+.savedResponse { max-width: 760px; margin-bottom: 24px; padding: 20px; border: 1px solid var(--primary); border-radius: 16px; background: var(--primary-muted); }
+.savedHeading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+.savedHeading h3 { display: flex; align-items: center; gap: 8px; color: var(--primary); font-size: 14px; font-weight: 700; }
+.savedOptions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; padding: 0; list-style: none; }
+.savedOptions li { padding: 5px 10px; border: 1px solid var(--border); border-radius: 8px; background: var(--card); color: var(--foreground); font-size: 12px; font-weight: 600; }
+.savedReason { margin-top: 12px; color: var(--foreground); font-size: 13px; line-height: 1.8; white-space: pre-wrap; overflow-wrap: anywhere; }
+.savedMeta { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 14px; color: var(--muted-foreground); font-size: 11px; line-height: 1.7; }
+.unsavedNotice { margin-top: 14px; padding-top: 12px; border-top: 1px solid var(--border); color: var(--primary); font-size: 12px; line-height: 1.7; }
+.readError { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-bottom: 20px; padding: 14px; border: 1px solid var(--destructive); border-radius: 12px; color: var(--destructive); font-size: 12px; line-height: 1.8; }
 .error { padding: 12px 14px; border: 1px solid var(--destructive); border-radius: 10px; color: var(--destructive); font-size: 12px; line-height: 1.8; }
 .notice { color: var(--muted-foreground); text-align: center; font-size: 10px; line-height: 1.8; }
 .form .notice { margin-top: 12px; }
 @media (width < 768px) {
   .option { flex: 0 1 100%; max-width: 100%; }
   .question { font-size: 20px; }
+  .savedResponse { padding: 16px; }
   .completionBar { padding-inline: 12px; }
   .completeButton { padding-inline: 14px; }
   .dialog { padding: 22px; }
