@@ -1,27 +1,36 @@
 "use client";
 
 import Link from "next/link";
+import { useId } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import LabIcon from "./LabIcon";
+import SidebarBrand from "./SidebarBrand";
 import { useSidebarHover } from "./useSidebarHover";
 import { navigationGroups } from "../lib/lab-navigation";
 
 export default function Sidebar({
+  collapsed = false,
+  onToggle,
+  toggleLabel,
   onNavigate,
   onSearch,
 }: {
+  collapsed?: boolean;
+  onToggle: () => void;
+  toggleLabel?: string;
   onNavigate?: () => void;
   onSearch: () => void;
 }) {
   const pathname = usePathname();
+  const contentId = useId();
   const { style: hoverStyle, contentStyle, ...hoverEvents } = useSidebarHover();
 
   function renderGroups(presentation = false) {
     return navigationGroups.map((group) => (
       <div key={group.title}>
-        <p className={`sidebar-label mb-2 px-3 text-[10px] font-semibold tracking-[0.06em] ${presentation ? "text-white" : "text-sidebar-muted"}`}>
+        <p className={`sidebar-label sidebar-group-label mb-2 overflow-hidden whitespace-nowrap px-3 text-[10px] font-semibold tracking-[0.06em] ${presentation ? "text-white" : "text-sidebar-muted"}`}>
           {group.title}
         </p>
         <div className="space-y-1">
@@ -60,30 +69,8 @@ export default function Sidebar({
   }
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <Link
-        href="/"
-        onClick={onNavigate}
-        className="sidebar-brand group flex h-16 shrink-0 items-center gap-2 border-b border-sidebar-border px-6"
-        aria-label="UI Lab 프로젝트 개요"
-        title="UI Lab"
-      >
-        <svg
-          viewBox="0 0 40 40"
-          width="40"
-          height="40"
-          className="h-10 w-10 shrink-0 text-primary transition-colors group-hover:text-blue-500"
-          fill="none"
-          aria-hidden="true"
-        >
-          <rect width="40" height="40" rx="11" fill="currentColor" />
-          <path d="M8 10h4v13a4 4 0 0 0 8 0V10h4v13a8 8 0 0 1-16 0V10Z" fill="white" />
-          <path d="M28 10h4v20h-4z" fill="white" />
-        </svg>
-        <span className="sidebar-label whitespace-nowrap text-[28px] leading-none font-semibold tracking-[-0.04em] text-blue-200">
-          Lab
-        </span>
-      </Link>
-      <div className="sidebar-inner flex min-h-0 flex-1 flex-col overflow-y-auto px-3 pb-4 pt-5">
+      <SidebarBrand collapsed={collapsed} onToggle={onToggle} onNavigate={onNavigate} controls={contentId} label={toggleLabel} />
+      <div id={contentId} className="sidebar-inner flex min-h-0 flex-1 flex-col overflow-y-auto px-3 pb-4 pt-5">
         <Button
           variant="ghost"
           onClick={onSearch}

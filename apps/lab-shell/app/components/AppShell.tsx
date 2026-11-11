@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTitle, DialogDescription, DialogTrigger } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import Sidebar from "./Sidebar";
+import { useSidebarExpansion } from "./useSidebarExpansion";
 import LabIcon from "./LabIcon";
 import { getCurrentPage, getPageSection, searchablePages } from "../lib/lab-navigation";
 
@@ -37,7 +38,7 @@ function WorkspaceShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const currentPage = getCurrentPage(pathname);
   const section = getPageSection(pathname);
-  const [collapsed, setCollapsed] = useState(false);
+  const { collapsed, preview, onToggle, toggleLabel, interactionProps } = useSidebarExpansion();
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState("");
@@ -61,20 +62,21 @@ function WorkspaceShell({ children }: { children: ReactNode }) {
     return () => window.removeEventListener("keydown", onKey);
   }, []);
 
-  return <div className="app-shell" data-collapsed={collapsed}>
+  return <div className="app-shell" data-collapsed={collapsed} data-sidebar-preview={preview}>
     <a href="#main-content" className="skip-link">본문으로 바로 가기</a>
-    <aside className="shell-sidebar"><Sidebar onSearch={openSearch} /></aside>
+    <aside className="shell-sidebar" {...interactionProps}>
+      <Sidebar collapsed={collapsed} onToggle={onToggle} toggleLabel={toggleLabel} onSearch={openSearch} />
+    </aside>
     <header className="shell-topbar flex items-center justify-between gap-3 border-b border-border bg-card px-4 sm:px-6 lg:px-8">
       <div className="flex min-w-0 items-center gap-3">
         <Dialog open={menuOpen} onOpenChange={setMenuOpen}>
-          <DialogTrigger render={<Button variant="ghost" size="icon-lg" className="xl:hidden" aria-label="메뉴 열기" />}><LabIcon name="menu" /></DialogTrigger>
+          <DialogTrigger render={<Button variant="ghost" size="icon-lg" className="md:hidden" aria-label="메뉴 열기" />}><LabIcon name="menu" /></DialogTrigger>
           <DialogContent className="inset-y-0 left-0 h-dvh w-[min(304px,calc(100vw-40px))] max-w-none translate-x-0 translate-y-0 gap-0 rounded-none bg-sidebar p-0 text-sidebar-foreground sm:max-w-none [&>[data-slot=dialog-close]]:text-sidebar-foreground">
             <DialogTitle className="sr-only">탐색 메뉴</DialogTitle>
             <DialogDescription className="sr-only">실험실, 기능 비교, 성능 측정 페이지로 이동합니다.</DialogDescription>
-            <Sidebar onSearch={openSearch} onNavigate={() => setMenuOpen(false)} />
+            <Sidebar onToggle={() => setMenuOpen(false)} toggleLabel="메뉴 닫기" onSearch={openSearch} onNavigate={() => setMenuOpen(false)} />
           </DialogContent>
         </Dialog>
-        <Button variant="ghost" size="icon" className="hidden xl:inline-flex" onClick={() => setCollapsed((value) => !value)} aria-label={collapsed ? "사이드 메뉴 펼치기" : "사이드 메뉴 접기"} aria-expanded={!collapsed}><LabIcon name="panel" /></Button>
         <nav aria-label="현재 위치" className="flex min-w-0 items-center gap-2.5 text-xs">
           <Link href="/" className="hidden shrink-0 text-muted-foreground hover:text-foreground sm:block">Workspace</Link>
           <LabIcon name="chevron-right" className="hidden h-3 w-3 shrink-0 text-subtle-foreground sm:block" />
